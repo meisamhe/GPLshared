@@ -1,0 +1,393 @@
+
+% TITLE
+% Put a title for the run in the quotes below, to be printed at the top of the output file.
+disp 'Standard logit.'
+Standard logit.
+
+% DATA
+
+% Number of people (decision-makers) in dataset 
+NP=100;        
+
+% Number of choice situations in dataset. This is the number faced by all the people combined.
+NCS=1484;     
+
+% Total number of alternatives faced by all people in all choice situations combined.
+% This is the number of rows of data in XMAT below.
+NROWS=1484.*3;
+
+% Load and/or create XMAT, a matrix that contains the data.
+%
+% XMAT must contain one row of data for each alternative in each choice situation for each person.
+% The rows are grouped by person, and by choice situations faced by each person.
+% The number of rows in XMAT must be NROWS, specified above.
+% The columns in XMAT are variable that describe the alternative.
+% 
+% The *first* column of XMAT identifies the person who faced this alternative. 
+% The people must be numbered sequentially from 1 to NP, in ascending order.
+% All alternatives for a given person must be grouped together.
+% The *second* column of XMAT identifies the choice situation. The choice
+% situations must be numbered sequentially from 1 to NCS.
+% All alternatives for a given choice situation must be grouped together.
+% The *third* column of XMAT identifies the chosen alternatives (1 for
+% chosen, 0 for not). One and only one alternative must be chosen for each
+% choice situation.
+% The remaining columns of XMAT can be any variables.
+
+XMAT=load('data.txt');  %The variables are described below
+XMAT(:,4)=XMAT(:,4)./10000;   %To scale price to be in tens of thousands of dollars.
+XMAT(:,5)=XMAT(:,5);   %To scale price to be in tens of dollars.
+%./10
+
+% To help you keep up with the variables, list the variables in XMAT here.
+% Start each line with % so that matlab sees that it is a comment rather than a command.
+% NOTES for XMAT for sample run:
+% This dataset is for people's choice among vehicles in stated-preference
+% experiments. Each person faced up to 15 experiments (some faced fewer
+% than 15 because they did not complete all the experiments.) Each
+% experiment contained 3 alternatives representing three different vehicles
+% whose price and other attributes were described. The person stated which
+% of the three vehicle he/she would buy if facing this choice in the real world.
+% The variables in XMAT are:
+% 1. Person number (1-NP)            MUST BE THIS. DO NOT CHANGE.
+% 2. Choice situation number (1-NCS) MUST BE THIS. DO NOT CHANGE.
+% 3. Chosen alternative (1/0)        MUST BE THIS. DO NOT CHANGE.
+% 4. Price in tens of thousands of dollars 
+% 5. Operating cost in tens of dollars per month
+% 6. Range in hundreds of miles (0 if not electric)
+% 7. Electric (1/0)
+% 8. Gas (1/0)
+% 9. Hybrid (1/0)
+% 10. High performance (1/0)
+% 11. Medium or high performance (1/0)
+
+% MODEL SPECIFICATION
+
+% RANDOM COEFFICIENTS
+% List the variables in XMAT that enter the model with random coefficients and
+% give the distribution for the coefficient of each variable.
+% IDV contains one row for each random coefficient and two columns.
+% The *first* column gives the number of a variable in XMAT that has a random coefficient, 
+% and the *second* column specifies the distribution of the coefficient for that variable.
+% The distributions can be 
+% 1. normal: N(b,w^2) where mean b and standard deviation w are estimated.
+% 2. lognormal: coefficient is exp(beta) where beta~N(b,w^2) with b and w estimated
+% 3. truncated normal, with the share below zero massed at zero: max(0,beta) where 
+%                      beta~N(b,w^2) with b and w estimated.
+% 4. S_B: exp(beta)/(1+exp(beta))  where beta~N(b,w^2) with b and w estimated.
+% 5. normal with zero mean (for error components): N(0,w^2) where w is estimated.
+% 6. triangular: b+w*t where t is triangular between -1 and 1 and mean b and spread w are estimated.
+% If no random coefficients, put IDV=[];
+% Notes:
+% The lognormal, truncated normal, and S_B distributions give positive
+% coefficients only. If you want a variable to have only negative coefficients, 
+% create the negative of the variable (in the specification of XMAT above).
+% The S_B distribution gives coefficients between 0 and 1. If you want
+% coefficients to be between 0 and k, then multiply the variable by k (in the specification 
+% of XMAT above), since b*k*x for b~(0-1) is the same as b*x for b~(0-k).
+% If no random coefficients, put IDV=[];
+ 
+IDV=[];
+NV=size(IDV,1); %Number of random coefficients. Do not change this line.
+
+% Give a name to each of the explanatory variables in IDV. They can 
+% have up to ten characters including spaces. Put the names in single quotes and separate 
+% the quotes with semicolons. If IDV=[], then set NAMES=[];
+NAMES={}; 
+
+% Starting values
+% Specify the starting values for b and w for each random coeffient.
+% B contains the first parameter, b, for each random coefficient.  
+% It is a column vector with the same length as IDV. For distribution 5 (normal with zero mean),
+% put 0 for the starting value for the mean. The code will keep it at 0.
+% W contains the second parameter, w, for each random coefficient.
+% It is a column vector with the same length as IDV.
+% Put semicolons between the elements of B and W (so they will be column vectors).
+
+B=[];
+W=[];
+
+% FIXED COEFFICIENTS
+% List the variables in XMAT that enter with fixed coefficients.
+% Put semicolons between the numbers.
+% If no fixed coefficients, put IDF=[];
+
+IDF=[4;5;6;7;9;10;11];
+
+
+
+NF=size(IDF,1); %Number of fixed coefficients. Do not change this line.
+
+% Give a name to each of the variables in IDF.
+NAMESF={'price';'opcost';'range';'ev';'hybrid';'hiperf'; 'medhiperf'};
+
+
+% Starting values.
+% Specify the starting values for the fixed coefficients F.
+% F must have the same length as IDF and have one column.
+% Put semicolons between the elements (so F will be a column vector.)
+
+F=zeros(NF,1);
+
+% Type of draws to use in simulation
+% 1=pseudo-random draws
+% 2=standard Halton draws
+% 3=shifted and shuffled Halton draws
+% 4=modified Latin hypercube sampling, shifted and shuffled 
+% 5=create your own draws or load draws from file
+DRAWTYPE=1;
+
+% Number of draws from to use per person in simulation.
+% Must be at least 1, even when all coefficients are fixed.
+NDRAWS=1;
+
+% Set seed for the random number generator.
+SEED1 = 14239; 
+
+% If DRAWTYPE=5, then create or load the draws here.
+% Create or load a data array, called DR, with dimensions NV x NP x NDRAWS.
+% where element DR(i,j,k) is the k-th draw of random coefficient i for person j 
+% Put your statements between "if DRAWTYPE==5" and "end".
+% 
+% If you created DR in a previous matlab session and saved it
+% with "save mydraws DR" then put "load('mydraws.mat')" here. The structure
+% mydraws will contain the array DR.
+% Note: If you want to use the draws that were saved to PUTDR below in a 
+% previous run, see the ReadMe.txt file for instructions.
+
+if DRAWTYPE==5
+   load('mydraws.mat');
+end
+
+
+% Memory use
+% Give the number of draws that you want held in memory at one time.
+% This number must be evenly divisible into the number of draws.
+% That is NDRAWS./NMEM must be a positive integer.
+% To hold all draws in memory at once, set NMEM=NDRAWS.
+% A larger value of NMEM requires fewer reads from disc but 
+% uses more memory which can slow-down the calculations and increases 
+% the chance of running out of memory.
+% If DRAWTYPE=5, then you must set NMEM=NDRAWS
+NMEM=NDRAWS;
+
+% If all the draws are NOT held in memory at one time (that is, if NMEM<NDRAWS), 
+% then give the filename (including full path if not in the working directory)
+% that you want the draws to be temporarily saved to while the code is running.
+% If all draws are held in memory at one time (that is, if NMEM=NDRAWS),
+% then this file will not be created. So, if NMEM=NDRAWS, you can set PUTDR=''; 
+% or give a file name, whichever you find more convenient, since the name won't be used.
+PUTDR='draws';
+
+% WEIGHTS. 
+% Do you want to apply weights to the people? 
+% Set WANTWGT=1 if you want to apply weights; otherwise set WANTWGT=0;
+WANTWGT=0;
+
+% If WANTWGT=1, identify the variable in XMAT that contains the weights.
+% This variable can vary over people but must be the same for all rows of
+% data for each person. Weights cannot vary over choice situations for
+% each person or over alternatives for each choice situation -- only over people.
+% The code normalizes the weights such that the sum 
+% of weights over people is to equal NP (to assure that standard errors 
+% are correctly calculated.) If WANTWGT=0, set IDWGT=[];
+IDWGT=[];
+
+% OPTIMIZATION 
+% Maximum number of iterations for the optimization routine.
+% The code will abort after ITERMAX iterations, even if convergence has
+% not been achieved. The default is 400, which is used when MAXITERS=[];
+MAXITERS=[];
+
+% Convergence criterion based on the maximum change in parameters that is considered
+% to represent convergence. If all the parameters change by less than PARAMTOL 
+% from one iteration to the next, then the code considers convergence to have been
+% achieved. The default is 0.000001, which is used when PARAMTOL=[];
+PARAMTOL=0.000001;
+
+% Convergence criterion based on change in the log-likelihood that is
+% considered to represent convergence. If the log-likelihood value changes
+% less than LLTOL from one iteration to the next, then the optimization routine
+% considers convergence to have been achieved. The default is 0.000001,
+% which is used when LLTOL=[];
+LLTOL=[];
+
+%Do not change the next line. It runs the model.
+doit
+Checking inputs.
+Inputs have been checked and look fine.
+Creating data arrays for run.
+Creating draws.
+Start estimation
+The negative of the log-likelihood is minimized,
+which is the same as maximizing the log-likelihood.
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+     0           1          1630.34                     2.91e+003
+     1           4          1609.34   4.41716e-006            654  
+     2           6          1588.93             10      1.07e+003  
+     3           7           1512.6              1      2.43e+003  
+     4           8          1467.65              1      1.62e+003  
+     5           9          1457.91              1            460  
+     6          10          1457.21              1            112  
+     7          11          1456.91              1            111  
+     8          12          1456.21              1            364  
+     9          13          1454.76              1            688  
+    10          14          1451.09              1      1.17e+003  
+    11          15          1443.37              1      1.69e+003  
+    12          16          1430.71              1      1.89e+003  
+    13          17          1418.55              1      1.32e+003  
+    14          18          1413.31              1            449  
+    15          19          1412.65              1           54.8  
+    16          20          1412.62              1           26.8  
+    17          21          1412.61              1           26.3  
+    18          22          1412.58              1           31.3  
+    19          23          1412.51              1             56  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+    20          24          1412.34              1           95.8  
+    21          25          1411.93              1            148  
+    22          26          1411.12              1            197  
+    23          27          1409.98              1            192  
+    24          28          1409.14              1            108  
+    25          29          1408.89              1           25.6  
+    26          30          1408.87              1           15.8  
+    27          31          1408.86              1           15.5  
+    28          32          1408.85              1           15.1  
+    29          33          1408.83              1           14.3  
+    30          34          1408.78              1           24.5  
+    31          35          1408.64              1           40.6  
+    32          36           1408.3              1           63.3  
+    33          37          1407.57              1           88.6  
+    34          38          1406.36              1           98.5  
+    35          39          1405.19              1           70.1  
+    36          40          1404.71              1           23.3  
+    37          41          1404.64              1           8.95  
+    38          42          1404.64              1           8.96  
+    39          43          1404.64              1           9.01  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+    40          44          1404.63              1           9.14  
+    41          45          1404.62              1            9.3  
+    42          46          1404.59              1           9.57  
+    43          47           1404.5              1           9.94  
+    44          48          1404.29              1           10.4  
+    45          49          1403.82              1           10.7  
+    46          50          1402.95              1           10.5  
+    47          51          1401.92              1           13.1  
+    48          52          1401.34              1           10.1  
+    49          53          1401.21              1           8.14  
+    50          54          1401.21              1           8.49  
+    51          55           1401.2              1           8.47  
+    52          56           1401.2              1           8.43  
+    53          57           1401.2              1           8.35  
+    54          58          1401.18              1           8.19  
+    55          59          1401.14              1           7.88  
+    56          60          1401.04              1             12  
+    57          61           1400.8              1           18.3  
+    58          62          1400.33              1           23.3  
+    59          63          1399.72              1           21.5  
+                                                        First-order 
+ Iteration  Func-count       f(x)        Step-size       optimality
+    60          64          1399.31              1             12  
+    61          65           1399.2              1           3.16  
+    62          66          1399.19              1          0.137  
+    63          67          1399.19              1         0.0448  
+    64          68          1399.19              1        0.00269  
+
+<a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'local_min_unconstrained','CSHelpWindow');">Local minimum found</a>.
+
+Optimization completed because the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'grad_size','CSHelpWindow');">size of the gradient</a> is less than
+the default value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'function_tolerance','CSHelpWindow');">function tolerance</a>.
+
+<<a href = "matlab: createExitMsg('fminusub',1.000000e+000,true,true,'fminunc',9.223805e-007,'default',1.000000e-006,0.000000e+000,'',0.000000e+000,0.000000e+000,'',0.000000e+000);">stopping criteria details</a>>
+
+ 
+Estimation took 0.017152 minutes.
+ 
+Convergence achieved.
+Value of the log-likelihood function at convergence: -1399.1932
+ 
+Taking inverse of hessian for standard errors.
+ 
+The value of grad*inv(hessian)*grad is: 1.1713e-008
+RESULTS
+ 
+ 
+FIXED COEFFICIENTS
+ 
+                      F      
+              ------------------ 
+                Est         SE 
+price         -0.4167     0.0332
+opcost        -0.0129     0.0035
+range          0.4771     0.1765
+ev            -1.3924     0.2766
+hybrid         0.3555     0.1218
+hiperf         0.1099     0.0838
+medhiperf      0.3841     0.0855
+ 
+ 
+ESTIMATED PARAMETERS AND FULL COVARIANCE MATRIX.
+The estimated values of the parameters are:
+
+paramhat =
+
+   -0.4167
+   -0.0129
+    0.4771
+   -1.3924
+    0.3555
+    0.1099
+    0.3841
+
+The covariance matrix for these parameters is:
+
+ihess =
+
+    0.0011   -0.0000   -0.0002   -0.0017   -0.0022    0.0000   -0.0002
+   -0.0000    0.0000   -0.0000    0.0004    0.0003   -0.0000    0.0000
+   -0.0002   -0.0000    0.0311   -0.0413    0.0003   -0.0002   -0.0000
+   -0.0017    0.0004   -0.0413    0.0765    0.0131    0.0000   -0.0000
+   -0.0022    0.0003    0.0003    0.0131    0.0148   -0.0001    0.0001
+    0.0000   -0.0000   -0.0002    0.0000   -0.0001    0.0070   -0.0035
+   -0.0002    0.0000   -0.0000   -0.0000    0.0001   -0.0035    0.0073
+
+ 
+You can access the estimated parameters as variable paramhat,
+the gradient of the negative of the log-likelihood function as variable grad,
+the hessian of the negative of the log-likelihood function as variable hessian,
+and the inverse of the hessian as variable ihess.
+The hessian is calculated by the BFGS updating procedure.
+% These last lines delete the file of draws that is created when NMEM<NDRAWS
+% since it is no longer needed. If you want to save it, then put % in front
+% of these lines.
+if NMEM<NDRAWS
+    clear global MDR
+    delete(PUTDR)
+end
+clear all
+
+% Declare GLOBAL variables
+% GLOBAL variables are all in caps
+% DO NOT CHANGE ANY OF THESE 'global' STATEMENTS
+global NP NCS NROWS
+global IDV NV NAMES B W
+global IDF NF NAMESF F
+global DRAWTYPE NDRAWS SEED1 SAVEDR PUTDR
+global WANTWGT IDWGT WGT
+global NALTMAX NCSMAX
+global X XF S DR
+global XMAT
+global NMEM NTAKES NPARAM
+global MDR
+
+% OUTPUT FILE
+% Put the name you want for your output file (including full path if not the current 
+% working directory) after words "delete" and "diary".
+% The 'diary off' and 'delete filename' commands close and delete the previous version 
+% of the file created during your current matlab session or in any previous sessions. 
+% If you want to append the new output to the old output, then 
+% put % in front of the 'diary off' and 'delete filename' commands (or erase them).
+
+diary off
