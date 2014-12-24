@@ -1,0 +1,147 @@
+body {
+	font-family:arial, verdana, helvetica, sans-serif;
+	font-size:10pt; /* 12px */
+	cursor:default;
+	/* background-color:#FFFFFF */
+	background-image: url('paper.gif');
+	background-repeat: repeat;
+	background-position: top left
+}
+* {
+	margin: 0px;
+	padding: 0px;
+	text-decoration: none;
+}
+html {
+	height:100%;
+	margin-bottom:1px;
+}
+#container {
+	width: 90%;
+	max-width: 900px;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: left;
+	margin-top: 2em;
+	/* background-color: #FFFFFF; */
+}
+#header {
+	width:100%;
+	padding-top:15px;
+}
+.spacer {
+	width:100%;
+	height:15px;
+}
+hr {
+	border:0px;
+	color:#CCCCCC;
+	background-color:#CDCDCD;
+	height: 1px;
+	width: 100%;
+	text-align: left;
+}
+h1 {
+	font-size:22pt;
+	color:#820000;
+	/* background-color:#FFFFFF; */
+	font-family:Arial, Verdana, Helvetica, sans-serif;
+	padding:5px;
+	font-weight:300;
+}
+h2 {
+	font-size:12pt;
+	color:gray;
+	font-family:Arial, Verdana, Helvetica, sans-serif;
+	font-weight:300;
+	padding:5px;
+	/* background-color:#FFFFFF; */
+}
+h3 {
+	/* color:#820000; */
+        color:#007D7A;
+	font-size:13pt;
+	text-align:left;
+	font-weight:300;
+	padding:5px;
+	margin-top:5px;
+}
+
+h4 {
+	font-size:12pt;
+	color:gray;
+	font-family:Arial, Verdana, Helvetica, sans-serif;
+	font-weight:300;
+	padding:5px;
+}
+
+
+#left {
+	float:left;
+	width:180px;
+	/* background-color:#FFFFFF; */
+	color:black;
+	margin : 5px 5px 5px 5px;
+}
+
+#main {
+        font-size: 10pt;
+	margin	: 5px 5px 5px 180px;
+	padding	: 15px;
+	line-height:20px;
+	/* border-left: 1px solid silver; */
+}
+
+
+ul {
+    padding : 15px;
+}
+
+p {
+	color:black;
+	/* background-color:#FFFFFF; */
+	padding:5px;
+}
+ol {
+        line-height:20px;
+	padding: 5px;
+}
+
+a {
+	color:#820000;
+	/* background-color:#FFFFFF; */
+	text-decoration:none;
+}
+a:hover {
+	color:#820000;
+	/* background-color:#FFFFFF; */
+	text-decoration:underline;
+}
+#footer {
+	clear:both;
+	font-size:12px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+.right {
+	color:gray;
+	/* background-color:#FFFFFF; */
+	float:right;
+	font-size:100%;
+	margin-top:5px;
+}
+.left {
+	color:gray;
+	/* background-color:#FFFFFF; */
+	float:left;
+	font-size:100%;
+	margin-top:5px;
+}
+
+.cite {
+        color:black;
+	background-color:#DDDDDD;
+}
+
+.cite a {
+	background-color:#DDDDDD;
+}

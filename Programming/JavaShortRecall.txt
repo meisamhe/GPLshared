@@ -1,0 +1,260 @@
+public class HelloWorld {
+    public static void main(String[] args) { 
+        System.out.println("Hello, World");
+    }
+}
+# install java in Ubunto
+sudo apt-get install openjdk-7-jdk
+
+# check java compiler version
+javac -version
+C:\Users\username>cd C:\Users\username\introcs\hello
+C:\Users\username\introcs\hello>javac HelloWorld.java
+C:\Users\username\introcs>javac-introcs TestIntroCS.java
+java HelloWorld 
+
+#setting the PATH
+===================================
+C:\Users\username> echo %PATH%
+The PATH environment variable should include an entry for C:\Users\username\introcs\java\jdk\bin
+
+# include the path of ke development kit (while for python it is named PYTHONPATH)
+set Java_Home=C:\Program Files\Java\jdk1.6.0_06
+
+# for pythonPath I should include the following: C:\Python27\Lib\site-packages\;C:\Python27\Lib;C:\Python27\DLLs;C:\Python27\Lib\lib-tk;C:\other-foolder-on-the-path
+# also for python in path I should have C:\WINDOWS\system32;C:\WINDOWS;C:\Python25
+
+#where to look for executable files
+set PATH=%PATH%;%JAVA_HOME%\bin
+
+java -- Xm2G # to allocate 2GB as memory to avoid memory error
+
+#Some Sample
+==================================
+Create the bean class
+------------------------------------------------
+package org.acme;
+
+import java.rmi.RemoteException;
+import javax.ejb.*;
+
+public class HelloBean implements SessionBean {
+  private SessionContext sessionContext;
+  public void ejbCreate() {
+  }
+  public void ejbRemove() {
+  }
+  public void ejbActivate() {
+  }
+  public void ejbPassivate() {
+  }
+  public void setSessionContext(SessionContext sessionContext) {
+    this.sessionContext = sessionContext;
+  }
+  public String sayHello() throws java.rmi.RemoteException {
+    return "Hello World!!!!!";
+  }
+}
+Create the EJB Home interface
+
+c:\my\app\org\acme\HelloHome.java
+package org.acme;
+
+import java.rmi.*;
+import javax.ejb.*;
+import java.util.*;
+
+public interface HelloHome extends EJBHome {
+  public HelloObject create() throws RemoteException, CreateException;
+}
+
+Create the EJB Object interface
+
+c:\my\app\org\acme\HelloObject.java
+package org.acme;
+
+import java.rmi.*;
+import javax.ejb.*;
+import java.util.*;
+
+public interface HelloObject extends EJBObject {
+  public String sayHello() throws RemoteException;
+}
+
+Create the ejb-jar.xml
+
+Create a META-INF directory to put your ejb-jar.xml into.
+
+Windows:
+c:\my\app> mkdir META-INF
+
+Linux/Unix:
+[user@host app]# mkdir META-INF
+Create am ejb-jar.xml file in your META-INF directory.
+
+c:\my\app\META-INF\ejb-jar.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar>
+  <enterprise-beans>
+    <session>
+      <ejb-name>Hello</ejb-name>
+      <home>org.acme.HelloHome</home>
+      <remote>org.acme.HelloObject</remote>
+      <ejb-class>org.acme.HelloBean</ejb-class>
+      <session-type>Stateless</session-type>
+      <transaction-type>Container</transaction-type>
+    </session>
+  </enterprise-beans>
+  <assembly-descriptor>
+    <container-transaction>
+      <method>
+        <ejb-name>Hello</ejb-name>
+        <method-name>*</method-name>
+      </method>
+      <trans-attribute>Required</trans-attribute>
+    </container-transaction>
+  </assembly-descriptor>
+</ejb-jar>
+
+Compile the EJB
+
+Compile your bean.
+
+Windows:
+c:\my\app> javac org\acme\*.java
+
+Linux/Unix:
+[user@host app]# javac org/acme/*.java
+Package the EJB
+
+Now, package your EJB classes and your META-INF directory into a jar.
+
+Windows:
+C:\my\app> jar cvf myHelloEjb.jar org META-INF
+
+Linux/Unix:
+[user@host app]# jar cvf myHelloEjb.jar org META-INF
+Deploy the EJB jar
+
+Use the OpenEJB Deploy Tool to deploy your jar.
+
+Windows:
+C:\my\app> cd C:\openejb
+C:\openejb> openejb.bat deploy -a -m c:\my\app\myHelloEjb.jar
+
+inux/Unix:
+[user@host app]# cd /openejb
+[user@host openejb]# ./openejb.sh deploy -a -m /my/app/myHelloEjb.jar
+
+A basic client application
+
+Create a basic client application to access your HelloWorld bean.
+
+c:\my\app\org\acme\HelloWorld.java
+package org.acme;
+
+import javax.rmi.*;
+import javax.naming.*;
+import java.util.*;
+
+public class HelloWorld {
+
+ public static void main( String args[]) {
+  try{
+    
+    Properties p = new Properties();
+    
+    //The JNDI properties you set depend
+    //on which server you are using.
+    //These properties are for the Remote Server.
+    p.put("java.naming.factory.initial", "org.openejb.client.RemoteInitialContextFactory");
+    p.put("java.naming.provider.url", "127.0.0.1:4201");
+    p.put("java.naming.security.principal", "myuser");
+    p.put("java.naming.security.credentials", "mypass");    
+    
+    //Now use those properties to create
+    //a JNDI InitialContext with the server.
+    InitialContext ctx = new InitialContext( p );
+    
+    //Lookup the bean using it's deployment id
+    Object obj = ctx.lookup("/Hello");
+    
+    //Be good and use RMI remote object narrowing
+    //as required by the EJB specification.
+    HelloHome ejbHome = (HelloHome)
+        PortableRemoteObject.narrow(obj,HelloHome.class);
+
+    //Use the HelloHome to create a HelloObject
+    HelloObject ejbObject = ejbHome.create();
+    
+    //The part we've all been wainting for...
+    String message = ejbObject.sayHello();
+
+    //A drum roll please.
+    System.out.println( message );
+    
+  } catch (Exception e){
+    e.printStackTrace();
+  }
+ }
+}
+JNDI properties for the Local Server would look like the following. Be sure to read the Local Server documentation if you run into any problems.
+
+ Properties p = new Properties();
+
+p.put("java.naming.factory.initial", 
+    "org.openejb.client.LocalInitialContextFactory");
+p.put("openejb.home", "c:\\openejb");
+    
+InitialContext ctx = new InitialContext(p);
+
+JNDI properties for the Remote Server would look like the following. Be sure to start the Remote Server before running your application. See the Remote Server documentation for more information on using the Remote Server.
+
+ Properties p = new Properties();
+p.put("java.naming.factory.initial", "org.openejb.client.RemoteInitialContextFactory");
+p.put("java.naming.provider.url", "127.0.0.1:4201");
+p.put("java.naming.security.principal", "myuser");
+p.put("java.naming.security.credentials", "mypass");
+    
+InitialContext ctx = new InitialContext(p);
+
+Example Windows Batch script.
+c:\my\app\RunIt.bat
+@echo off
+
+set OPENEJB_HOME=C:\openejb
+set PATH=%PATH%;%OPENEJB_HOME%\bin
+set JAVA=%JAVA_HOME%\bin\java
+
+set CP=
+for %%i in (%OPENEJB_HOME%\lib\*.jar) do call cp.bat %%i 
+for %%i in (%OPENEJB_HOME%\dist\*.jar) do call cp.bat %%i 
+for %%i in (%OPENEJB_HOME%\beans\*.jar) do call cp.bat %%i 
+set CLASSPATH=%JAVA_HOME%\lib\tools.jar;%CP%
+
+%JAVA% %OPTIONS% -Dopenejb.home=%OPENEJB_HOME% org.acme.HelloWorld
+
+Example Linux/Unix Batch script.
+/my/app/RunIt.sh
+#!/bin/sh
+
+# Set OPENEJB_HOME to the full path where you 
+# installed your OpenEJB distribution
+export OPENEJB_HOME=/openejb
+
+# Set JAVA_HOME to the full path where you 
+# installed your JDK distribution
+export JAVA_HOME=/usr/java/jdk1.3.1
+
+
+
+export PATH=${PATH}:${OPENEJB_HOME}/bin
+export JAVA=${JAVA_HOME}/bin/java
+
+export CP=
+CP=`echo $OPENEJB_HOME/lib/*.jar | tr ' ' ':'`:${CP}
+CP=`echo $OPENEJB_HOME/dist/*.jar | tr ' ' ':'`:${CP}
+CP=`echo $OPENEJB_HOME/beans/*.jar | tr ' ' ':'`:${CP}
+export CLASSPATH=$JAVA_HOME/lib/tools.jar:${CP}
+
+$JAVA -Dopenejb.home=$OPENEJB_HOME org.acme.HelloWorld

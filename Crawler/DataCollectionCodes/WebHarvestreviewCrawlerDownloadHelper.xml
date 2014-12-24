@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config charset="utf-8">
+    
+    <include path="C:/crawler/functions.xml"/>
+                
+    <!-- collects all tables for individual products -->
+    <var-def name="reviews">    
+        <call name="download-multipage-list">
+            <call-param name="pageUrl">https://addons.mozilla.org/en-US/firefox/addon/新同文堂-new-tong-wen-tang/reviews/</call-param>
+            <call-param name="nextXPath">//a[starts-with(., 'Next')]/@href</call-param>
+            <call-param name="itemXPath">//div[@class="review c item"]</call-param>
+            <call-param name="maxloops">4</call-param>
+        </call>
+    </var-def>
+    
+    <!-- iterates over all collected products and extract desired data -->
+    <file action="write" path="output/review.xml" charset="UTF-8">
+        <![CDATA[ <catalog> ]]>
+        <loop item="item" index="i">
+            <list><var name="reviews"/></list>
+            <body>
+                <xquery>
+                    <xq-param name="item" type="node()"><var name="item"/></xq-param>
+                    <xq-expression><![CDATA[
+                            declare variable $item as node() external;
+
+                            let $title := data($item//b[1])
+                            let $stars := data($item//*[@class='stars stars-5' or @class='stars stars-4' or @class='stars stars-3' or @class='stars stars-2' or @class='stars stars-1'])
+                            let $person := data($item//a[1])
+                            let $date := data($item//p[1])
+                            let $description := data($item//*[@class='description'])
+                                return
+                                    <review>
+                                        <title>{normalize-space($title)}</title>
+                                        <stars>{normalize-space($stars)}</stars>
+                            <!--       <person>{normalize-space($person)}</person> -->
+                                      <date>{normalize-space($date)}</date>
+                                        <description>{normalize-space($description)}</description> 
+                                    </review>
+                    ]]></xq-expression>
+                </xquery>
+            </body>
+        </loop>
+        <![CDATA[ </catalog> ]]>
+    </file>
+
+</config>

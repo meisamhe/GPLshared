@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://kernelpractical.is.tue.mpg.de/ -->
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="http://kernelpractical.is.tue.mpg.de/css/bootstrap.min.css">
+        <style>
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
+        <link rel="stylesheet" href="http://kernelpractical.is.tue.mpg.de/css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="http://kernelpractical.is.tue.mpg.de/css/main.css">
+
+	<link rel="stylesheet" href="./kernelpractical.is.tue.mpg.de_files/csvtable.css" type="text/css">
+	<!-- <link rel="stylesheet" href="css/blue.css" type="text/css" media="print, projection, screen" /> -->
+
+        <script src="./kernelpractical.is.tue.mpg.de_files/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+	<!-- <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script> -->
+	<script type="text/javascript" src="./kernelpractical.is.tue.mpg.de_files/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="./kernelpractical.is.tue.mpg.de_files/jquery.csvToTable.js"></script>
+	<script type="text/javascript" src="./kernelpractical.is.tue.mpg.de_files/jquery.tablesorter.js"></script> 
+
+<script>
+	$(function() {
+	<!-- $.getJSON('http://people.tuebingen.mpg.de/fdinuzzo/files/results.csv', function(data) { -->
+	$.getJSON('http://kernelpractical.is.tue.mpg.de/results.csv', function(data) {
+	$('#CSVSource').html('<pre>' + data + '</pre>');
+	});
+	$('#CSVTable').CSVToTable('http://people.tuebingen.mpg.de/fdinuzzo/files/results.csv', { loadingImage: 'images/loading.gif', startLine: 0 });
+	<!-- $('#CSVTable2').CSVToTable('http://people.tuebingen.mpg.de/fdinuzzo/files/results.csv', -->
+	$('#CSVTable2').CSVToTable('http://kernelpractical.is.tue.mpg.de/results.csv', 
+	{
+	loadingImage: 'img/loading.gif', 
+	startLine: 1,
+	headers: ['Team Name', 'Method Name', 'FIT score']
+	}
+	).bind("loadComplete",function() { 
+	$('#CSVTable2').find('TABLE').tablesorter(
+	{sortList: [[2,1],[0,0]],
+	cssHeader: 'css/blue.css'
+	} 
+	);
+	});;
+	});
+</script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://kernelpractical.is.tue.mpg.de/#">MLSS 2013 Kernel Practical</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li class="active"><a href="http://kernelpractical.is.tue.mpg.de/#setup">Setup</a></li>
+                            <li><a href="http://kernelpractical.is.tue.mpg.de/#part1">Part 1</a></li>
+                            <li><a href="http://kernelpractical.is.tue.mpg.de/#part2">Part 2</a></li>
+                            <!-- <li class="dropdown"> -->
+                            <!--     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a> -->
+                            <!--     <ul class="dropdown-menu"> -->
+                            <!--         <li><a href="#">Action</a></li> -->
+                            <!--         <li><a href="#">Another action</a></li> -->
+                            <!--         <li><a href="#">Something else here</a></li> -->
+                            <!--         <li class="divider"></li> -->
+                            <!--         <li class="nav-header">Nav header</li> -->
+                            <!--         <li><a href="#">Separated link</a></li> -->
+                            <!--         <li><a href="#">One more separated link</a></li> -->
+                            <!--     </ul> -->
+                            <!-- </li> -->
+                        </ul>
+                        <!-- <form class="navbar-form pull-right"> -->
+                        <!--     <input class="span2" type="text" placeholder="Email"> -->
+                        <!--     <input class="span2" type="password" placeholder="Password"> -->
+                        <!--     <\!-- <button type="submit" class="btn">Sign in</button> -\-> -->
+                        <!-- </form> -->
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <!-- Main hero unit for a primary marketing message or call to action -->
+            <div class="hero-unit">
+                <h1>Practical on Kernel Methods!</h1>
+                <p>This webpage contains the online material for the
+                kernel method practical.</p>
+                <!-- <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p> -->
+            </div>
+
+            <div class="row">
+                <div class="span12">
+<a name="setup"></a>
+		  <h2>Setup</h2>
+
+		  <p>To get started use your account to log into the
+		  practical server (password : <b>mlss379</b>)
+		    </p><pre>ssh -X mlssXXX@172.16.172.16</pre>
+		    where XXX is from your assigned username (eg
+		    mlss013). <!-- Test whether you have a X connection by -->
+		    <!-- running  -->
+		    <!-- <pre>xterm</pre>  -->
+		    <!-- If this does open a new window, -->
+		    <!-- you are fine, talk to us if not.  -->
+		    Now run
+		    <pre>~lwk/setup.sh</pre>
+		    <!-- Now start up matlab using the following -->
+		    <!-- script. We need to start this way to set some -->
+		    <!--   dependencies right -->
+		    <!-- <pre>./runmatlab.sh</pre> -->
+		    <!-- We will use -->
+		    <!-- the <a href="http://www.shogun-toolbox.org/">shogun -->
+		    <!-- toolbox</a> This is a great toolbox for kernel -->
+		    <!-- methods and machine learning in general, you -->
+		    <!-- should definitely check it out. We already -->
+		    <!-- installed it on this machine, please make sure it -->
+		    <!-- runs for you by typing -->
+		    <!-- <pre>sg('help');</pre> -->
+		    <!-- If this gives you an error please contact Peter or -->
+		    <!-- Francesco asap.  -->
+		    <br>
+		    Reading this line? Great, you are ready and good to go!
+		    <!-- This is how you can time something in matlab -->
+		    <!-- <pre> -->
+		    <!--   n = 200; -->
+		    <!--   tic; inv(randn(n,n)+1e-2*eye(n));toc; -->
+		    <!-- </pre> -->
+		  <p></p>
+		</div>
+	    </div>
+
+<a name="part1"></a>
+            <div class="row">
+                <div class="span12">
+		  <h2>Part 1: Kernel Approximations</h2>
+
+		  The first part of this exercise concerns the quality
+		  of the random fourier approximations. Start matlab
+		  by typing
+		  <pre>./kernelApprox1.sh</pre>
+		  Now type 
+		  <pre>exercise1</pre>
+		  and have a look at the output.
+		  <p><b>Question 1</b>: How does the error depend on the
+		      number of dimensions D? Does it go up or down? Is
+		      that expected?
+		  </p>
+		    <!-- <li>Question: How well is the kernel matrix -->
+		    <!--   approximated ? Try a higher value for the kernel width <i>gam</i> -->
+		    <!--   and the dimension <i>d</i>and interpret the result.</li> -->
+		    <!-- <li>Task: Make a plot of approximation dimensions <i>D</i> versus the quality of approximation.</li> -->
+		    <!-- <li>Question: Check the file <i>rff2.m</i> and -->
+		    <!--   understand that version. Is there a difference? </li> -->
+		    <!-- <li>Question: would you expect a difference if we -->
+		    <!-- just approximate in the following way? -->
+		    <!--   <pre> -->
+		    <!-- 	Z = exp(w*X)</pre> If so, why? If not so, why?</li> -->
+		    <!-- <li>Question: What is the bottleneck of this approach? What operation will take up the most time at test-time? -->
+		  
+		  <hr>
+		  <p>OK, apparently the approximation is working
+		  then. Let us see it in action now. We classify a
+		  simple circle, points with radius smaller than one
+		  are negative, radius bigger is positive. Start the
+		  first run of this classification problem. Start 
+		  </p><pre>./kernelApprox2.sh</pre>
+		  then run
+		  <pre>exercise2</pre>
+		  <p></p>
+
+		  <p><b>Question2</b> : Make sure you understand the plots
+		    and the text output. Do the performance numbers make
+		    sense to you? Which classifier is best? How does
+		    the linear SVM perform? Why?</p>
+
+		  <p><b>Question3</b> : The linear SVM does not perform
+		    well. Maybe an embedding into a higher dimensional space
+		    in the following way works? (do not type this in,
+		    read on for the rest of the question first.)
+		    </p><pre>%no need to type this in the sheel, read on
+w = randn(D,size(X,1));
+X = w*X;</pre>
+		    What do you expect? Think first!
+		      Then set the variable <i>do_embed</i> to one and
+		      re-run exercise2, this will apply the above
+		    mentioned transformation
+		    <pre>do_embed = 1;
+exercise2</pre>
+		    Does this match your expectations?
+		  <p></p>
+		  
+		  <p><b>Question4</b> : Change the number of training
+		    points to 200 and re-run exercise2
+		    </p><pre>num_train=200;
+exercise2</pre>
+		    What happens with the runtimes of the SVM
+		    trainings? Why do you think that is? Is there
+		    something special about the dataset? 
+		  <p></p>
+
+		  <p><b>Question5</b>: Shogun supports specialized
+		    linear SVM solvers and those are much faster. Let
+		    us change to use a different solver by 
+		    </p><pre>linear_solver=1;
+exercise2</pre>
+		    Is the runtime better now? 
+		  <p></p>
+		  
+		  <p><b>Question6</b> Appreciate the speed gain by
+		    changing the number of training examples to
+		    something very high, say 100k and re-run
+		    </p><pre>num_train=100000;
+exercise2</pre>
+		    Which method is the best in terms of
+		    speed/accuracy?
+		  <p></p>
+		  
+		  <p><b>Question 7</b> Exit matlab:
+		    </p><pre>exit;</pre>
+		  
+		  <p><b>Bonus Question</b> (if you have time before
+			the next part) :
+		    In case you know what a Neural Network is, do you
+			see a connection? How could these random fourier
+			features also be interpreted? Do you see where
+			backpropagation can be used? Is the overall
+			system still convex?
+		  </p>
+
+		  <!-- </pre> -->
+		  <!-- Now implement the random fourier functions to linearize the RBF kernel -->
+
+		  <!-- <ul> -->
+		  <!--   <li>Question: How well is the kernel matrix approximated ? </li> -->
+		  <!--   <li>Question: What is the test error using the Random Fourier Approximation on the datsets? </li> -->
+		  <!--   <li>Question: Compare in terms of training time the rbf kernel and the kernel approximation.</li> -->
+		  <!--   <li>Question: Compare in terms of test time the rbf kernel and the kernel approximation.</li> -->
+		  <!-- </ul> -->
+
+		  <hr>
+		  <h4>Slides</h4>
+		  <div align="center">
+		    <iframe src="./kernelpractical.is.tue.mpg.de_files/viewer(1).html" width="600" height="500" style="border: none;"></iframe>
+		  </div>
+		  <hr>
+		  <h4>Literature</h4>
+
+		  This is not the only kernel approximation there
+		  is. This literature list gives you some links to
+		  other works on the same topic. Some other
+		  approximations (Nystroem) are usually more accurate
+		  but slower, some are coarser but faster (Fastfood)
+		  <ul>
+		    <li>Williams &amp; Seeger, <i>Using the Nyström
+		    Method to Speed Up Kernel Machines</i>, NIPS 2001</li>
+		    <li>Rahimi &amp; Recht, <i>Random features for
+		    large-scale kernel machines</i>, NIPS 2008 <a href="http://pages.cs.wisc.edu/~brecht/papers/07.rah.rec.nips.pdf">pdf</a></li>
+		    <li>Le, Sarlos, and Smola, <i>Fastfood -
+		    Approximating Kernel Expansions in Loglinear
+			Time</i>, ICML 2013, <a href="http://cs.stanford.edu/~quocle/LeSarlosSmola_ICML13.pdf">pdf</a></li>
+		    <li>references therein...</li>
+		  </ul>
+		  In case you are interested in different svm solvers
+		  I would recommend to check out the following
+		  webpages that contain state-of-the-art solvers for SVMs
+		  <ul>
+		    <li><a href="http://www.shogun-toolbox.org/">Shogun
+		    Toolbox</a> binds to almost all svm solvers</li>
+		    <li><a href="http://www.csie.ntu.edu.tw/~cjlin/liblinear/index.html">liblinear</a></li>
+		    <li><a href="http://kernelpractical.is.tue.mpg.de/www.csie.ntu.edu.tw/~cjlin/libsvm/%E2%80%8E">libsvm</a></li>
+		    <li><a href="http://kernelpractical.is.tue.mpg.de/svmlight.joachims.org/">svmlight</a>
+		    and <a href="http://www.cs.cornell.edu/people/tj/svm_light/svm_struct.html">svmstruct</a>
+		    for structured output learning</li>
+		  </ul>
+		</div>
+	    </div>
+
+            <hr>
+            <div class="row">
+                <div class="span12">
+<a name="part2"></a>
+		  <h2>Part 2: Model Selection for kernel-based regularization </h2>
+		  
+		  The second part of this exercise concerns model selection for a kernel-based regularization method. Use the following slides as a reference.
+
+		  <h4>Slides</h4>
+		  <div align="center">
+		    <iframe src="./kernelpractical.is.tue.mpg.de_files/viewer.html" width="600" height="500" style="border: none;"></iframe>
+		  </div>
+		  <h4>Model Selection Challenge</h4>
+		  
+		Train a Kernel Ridge Regression model and select the kernel and regularization parameter so as to achieve the best test performances!
+		<br><br>
+		
+		<p><b>Setup</b>: If you are within a Matlab session, exit Matlab first. To get started for this part, run the script
+		    </p><pre>./MSchallenge.sh</pre>
+			This will open a Matlab session and ask you to provide a name for your team. Next, it will load the dataset, train a baseline linear least squares model, and save your first submission. 
+		<p></p>
+		<br>
+		<p><b>Challenge</b>: Now, you should write your own script to improve over the baseline and, possibly, win the competition!
+		You can use the function <i>krr.m</i> to train a Kernel Ridge Regression model for several values of the regularization parameter. Type </p><pre> help krr </pre> for a description of the interface. You will need to design a proper model selection mechanism for KRR.
+		<p></p>
+		<br>
+		
+		<p> <b>Editing</b>: If for some reason you cannot use the Matlab GUI, you can resort to editors such as <i>vim</i>, <i>joe</i>, <i>pico</i>, or <i>emacs</i>. Alternatively, you can transfer the files to your local computer and work with a local text editor. You will need to transfer the files back to the MLSS machine in order to be evaluated. If you have a linux/macos system, you can use the command 
+		</p><pre>scp</pre>
+		to transfer the files. If you use Windows, please download and install <a href="http://winscp.net/"> WinSCP</a>.
+		<p></p>
+		<br>
+		<p><b>Hints:</b>  If you do not know where to start, edit one of the two incomplete example scripts <i>rrval.m</i> or <i>krrrbfGCV.m</i> and try to address the TODOs in the code. Make sure to save the results using the function <i>writeoutput.m</i> </p>
+		<br>
+		<p><b>LeaderBoard</b>: We will update the LeaderBoard below once in a while (obviously, not too often!) by reading your output files and computing your performance score. Keep an eye on it to see how well you are doing. Again, note that this is not a real-time leaderboard to prevent you from optimizing the performance score! Remember that FIT = 1-NormalizedRMSE (the higher, the better)</p>
+		
+		<hr>
+
+		<h4>Leaderboard</h4>
+
+		
+		<!-- <div id="CSVTable"> -->
+
+		  <!-- </div> -->
+
+		  <!-- <div id="CSVTable"> -->
+
+		  <!-- </div> -->
+
+		  <div id="CSVTable2" align="center" style="display: block;"><table class="CSVTable"><thead class=""><tr class=""><th class="css/blue.css headerSortDown">Team Name</th><th class="css/blue.css">Method Name</th><th class="css/blue.css headerSortUp">FIT score</th></tr></thead><tbody class=""><tr class=" odd"><td class="">Oracle</td><td class="">Predict f_0(x)</td><td class=""> 0.9564 </td></tr><tr class=" even"><td class="">surb</td><td class=""> "KRR with Gaussian RBF + GCV (new)" </td><td class=""> 0.9417 </td></tr><tr class=" even"><td class="">LastPlace</td><td class=""> "KRR with Gaussian RBF + GCV" </td><td class=""> 0.9394 </td></tr><tr class=" odd"><td class="">aliasx</td><td class=""> "KRR with Gaussian RBF + GCV + Fea" </td><td class=""> 0.9100 </td></tr><tr class=" even"><td class="">Markus</td><td class=""> "KRR with Gaussian RBF + GCV" </td><td class=""> 0.8935 </td></tr><tr class=" odd"><td class="">Byz_Ftm</td><td class=""> "KRR with Gaussian RBF + GCV" </td><td class=""> 0.8723 </td></tr><tr class=" odd"><td class="">NOT UNIQUE</td><td class=""> "Magic Regression" </td><td class=""> 0.8315 </td></tr><tr class=" even"><td class="">AName</td><td class=""> "Linear Ridge Regression + holdout validation" </td><td class=""> 0.7930 </td></tr><tr class=" odd"><td class="">mlss029_065</td><td class=""> "KRR with Gaussian RBF + GCV" </td><td class=""> 0.7786 </td></tr><tr class=" even"><td class="">asd</td><td class=""> "Linear Ridge Regression + holdout validation" </td><td class=""> 0.6296 </td></tr><tr class=" odd"><td class="">regressionDO</td><td class=""> "KRR with Gaussian RBF + GCV" </td><td class=""> 0.6168 </td></tr><tr class=" even"><td class="">X</td><td class=""> "KRR with Gaussian RBF + GCV" </td><td class=""> 0.6101 </td></tr><tr class=" even"><td class="">help sqrt</td><td class=""> "KRR" </td><td class=""> 0.1697 </td></tr><tr class=" even"><td class="">Marzyeh_Gina</td><td class=""> "KRR with Gaussian RBF + GCV" </td><td class=""> 0.1695 </td></tr><tr class=" odd"><td class="">vengrecia</td><td class=""> "KRR with Gaussian RBF + GCV" </td><td class=""> 0.1492 </td></tr><tr class=" odd"><td class="">cassis</td><td class=""> "KRR with Gaussian RBF + GCV" </td><td class=""> 0.0959 </td></tr><tr class=" even"><td class="">NOT UNIQUE - joh</td><td class="">Wrong Format</td><td class=""> 0 </td></tr><tr class=" odd"><td class="">phi</td><td class=""> "KRR with Gaussian RBF + GCV" </td><td class=""> -0.1379 </td></tr><tr class=" odd"><td class="">unique_team_name</td><td class=""> "KRR with Gaussian RBF + GCV" </td><td class=""> -1.2331 </td></tr><tr class=" even"><td class="">goat</td><td class=""> "yep" </td><td class=""> -121.7147 </td></tr></tbody></table></div>
+
+		</div>
+	    </div>
+            <hr>
+	    
+            <footer>
+                <p>© Peter Gehler 2013</p>
+            </footer>
+
+        </div> <!-- /container -->
+
+        <!-- <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script> -->
+
+        <script src="./kernelpractical.is.tue.mpg.de_files/bootstrap.min.js"></script>
+
+        <script src="./kernelpractical.is.tue.mpg.de_files/main.js"></script>
+
+        <!-- <script> -->
+        <!--     var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; -->
+        <!--     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0]; -->
+        <!--     g.src='//www.google-analytics.com/ga.js'; -->
+        <!--     s.parentNode.insertBefore(g,s)}(document,'script')); -->
+        <!-- </script> -->
+    
+
+</body></html>

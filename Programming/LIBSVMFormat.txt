@@ -1,0 +1,283 @@
+SVM
+===============================
+http://www.csie.ntu.edu.tw/~cjlin/libsvm/faq.html#f305
+http://www.csie.ntu.edu.tw/~cjlin/libsvm/
+
+git clone https://github.com/cjlin1/libsvm
+
+read Readme of Python file ine Notepad++
+
+Simplest way to run it: put the python folder of LIBSVM into the PythonPath
+
+Main Readme file gives good overview of options and it gives good examples
+
+R:  Please install by typing install.packages('e1071') at R command line prompt. (document and examples).	David Meyer at the Wirtschaftsuniversität Wien (Vienna University of Economics and Business Administration)	2.88	WWW
+Python :	A python interface has been included in LIBSVM since version 2.33.	Initiated by Carl Staelin at HP Labs. Updated/maintained by LIBSVM authors.	The latest	Included in LIBSVM pacakge
+
+Q: Is there a program to check if my data are in the correct format? 
+The svm-train program in libsvm conducts only a simple check of the input data. To do a detailed check, after libsvm 2.85, you can use the python script tools/checkdata.py. See tools/README for details.
+
+Q: How to convert other data formats to LIBSVM format? 
+It depends on your data format. A simple way is to use libsvmwrite in the libsvm matlab/octave interface. Take a CSV (comma-separated values) file in UCI machine learning repository as an example. We download SPECTF.train. Labels are in the first column. The following steps produce a file in the libsvm format.
+
+matlab> SPECTF = csvread('SPECTF.train'); % read a csv file
+matlab> labels = SPECTF(:, 1); % labels from the 1st column
+matlab> features = SPECTF(:, 2:end); 
+matlab> features_sparse = sparse(features); % features must be in a sparse matrix
+matlab> libsvmwrite('SPECTFlibsvm.train', labels, features_sparse);
+The tranformed data are stored in SPECTFlibsvm.train.
+Alternatively, you can use convert.c to convert CSV format to libsvm format.
+
+
+in summary the data format given feature i with content f(i) is: "y 0:f(0) 1:f(1) 2:f(2) j:f(j) \n" or "<label> <index1>:<value1> <index2>:<value2> ..."
+
+/*
+	convert cvs data to libsvm/svm-light format 
+	Updated on Jan 11, 2014 to use strsep() instead of strtok().
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#ifndef __USE_BSD 
+char *strsep(char **stringp, const char *delim);
+#endif
+
+char buf[10000000];
+float feature[100000];
+
+int main(int argc, char **argv)
+{
+	FILE *fp;
+	
+	if(argc!=2) { fprintf(stderr,"Usage %s filename\n",argv[0]); }
+	if((fp=fopen(argv[1],"r"))==NULL)
+	{
+		fprintf(stderr,"Can't open input file %s\n",argv[1]);
+	}
+	
+	while(fscanf(fp,"%[^\n]\n",buf)==1)
+	{
+		int i=0,j;
+		/*
+		char *p=strtok(buf,",");
+		
+		feature[i++]=atof(p);
+
+		while((p=strtok(NULL,",")))
+			feature[i++]=atof(p);
+		*/
+
+		char *ptr=buf;
+		while (ptr != NULL)
+		{
+			char *token = strsep(&ptr, ",");
+			if (strlen(token) == 0)	
+				feature[i++] = 0.0;
+			else	
+				feature[i++] = atof(token);  /*Parses the C string str, interpreting its content as a floating point number and returns its value as a double.*/
+		}
+		
+		//		--i;
+		/*
+		if ((int) feature[i]==1)
+			printf("-1 ");
+		else
+			printf("+1 ");
+		*/
+		//		printf("%f ", feature[1]);
+		printf("%d ", (int) feature[0]);
+		for(j=1;j<i;j++)
+			if(feature[j]!=0)
+				printf(" %d:%f",j,feature[j]);
+
+
+		printf("\n");
+	}
+	return 0;
+}
+
+#ifndef __USE_BSD 
+/*-
+ * Copyright (c) 1990, 1993
+ *	The Regents of the University of California.  All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 4. Neither the name of the University nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ */
+char *strsep(char **stringp, const char *delim){
+	char *s;
+	const char *spanp;
+	int c, sc;
+	char *tok;
+
+	if ((s = *stringp) == NULL)
+		return (NULL);
+	for (tok = s;;) {
+		c = *s++;
+		spanp = delim;
+		do {
+			if ((sc = *spanp++) == c) {
+				if (c == 0)
+					s = NULL;
+				else
+					s[-1] = 0;
+				*stringp = s;
+				return (tok);
+			}
+		} while (sc != 0);
+	}
+}
+#endif
+
+
+Quick Start
+===========
+
+There are two levels of usage. The high-level one uses utility functions
+in svmutil.py and the usage is the same as the LIBSVM MATLAB interface.
+
+>>> from svmutil import *
+# Read data in LIBSVM format
+>>> y, x = svm_read_problem('../heart_scale')
+>>> m = svm_train(y[:200], x[:200], '-c 4')
+>>> p_label, p_acc, p_val = svm_predict(y[200:], x[200:], m)
+
+# Construct problem in python format
+# Dense data
+>>> y, x = [1,-1], [[1,0,1], [-1,0,-1]]
+# Sparse data
+>>> y, x = [1,-1], [{1:1, 3:1}, {1:-1,3:-1}]
+>>> prob  = svm_problem(y, x)
+>>> param = svm_parameter('-t 0 -c 4 -b 1')
+>>> m = svm_train(prob, param)
+
+# Precomputed kernel data (-t 4)
+# Dense data
+>>> y, x = [1,-1], [[1, 2, -2], [2, -2, 2]]
+# Sparse data
+>>> y, x = [1,-1], [{0:1, 1:2, 2:-2}, {0:2, 1:-2, 2:2}]
+# isKernel=True must be set for precomputer kernel
+>>> prob  = svm_problem(y, x, isKernel=True)
+>>> param = svm_parameter('-t 4 -c 4 -b 1')
+>>> m = svm_train(prob, param)
+# For the format of precomputed kernel, please read LIBSVM README.
+
+
+# Other utility functions
+>>> svm_save_model('heart_scale.model', m)
+>>> m = svm_load_model('heart_scale.model')
+>>> p_label, p_acc, p_val = svm_predict(y, x, m, '-b 1')
+>>> ACC, MSE, SCC = evaluations(y, p_label)
+
+# Getting online help
+>>> help(svm_train)
+
+The low-level use directly calls C interfaces imported by svm.py. Note that
+all arguments and return values are in ctypes format. You need to handle them
+carefully.
+
+>>> from svm import *
+>>> prob = svm_problem([1,-1], [{1:1, 3:1}, {1:-1,3:-1}])
+>>> param = svm_parameter('-c 4')
+>>> m = libsvm.svm_train(prob, param) # m is a ctype pointer to an svm_model
+# Convert a Python-format instance to svm_nodearray, a ctypes structure
+>>> x0, max_idx = gen_svm_nodearray({1:1, 3:1})
+>>> label = libsvm.svm_predict(m, x0)
+
+`svm-train' Usage
+=================
+
+Usage: svm-train [options] training_set_file [model_file]
+options:
+-s svm_type : set type of SVM (default 0)
+	0 -- C-SVC		(multi-class classification)
+	1 -- nu-SVC		(multi-class classification)
+	2 -- one-class SVM	
+	3 -- epsilon-SVR	(regression)
+	4 -- nu-SVR		(regression)
+-t kernel_type : set type of kernel function (default 2)
+	0 -- linear: u'*v
+	1 -- polynomial: (gamma*u'*v + coef0)^degree
+	2 -- radial basis function: exp(-gamma*|u-v|^2)
+	3 -- sigmoid: tanh(gamma*u'*v + coef0)
+	4 -- precomputed kernel (kernel values in training_set_file)
+-d degree : set degree in kernel function (default 3)
+-g gamma : set gamma in kernel function (default 1/num_features)
+-r coef0 : set coef0 in kernel function (default 0)
+-c cost : set the parameter C of C-SVC, epsilon-SVR, and nu-SVR (default 1)
+-n nu : set the parameter nu of nu-SVC, one-class SVM, and nu-SVR (default 0.5)
+-p epsilon : set the epsilon in loss function of epsilon-SVR (default 0.1)
+-m cachesize : set cache memory size in MB (default 100)
+-e epsilon : set tolerance of termination criterion (default 0.001)
+-h shrinking : whether to use the shrinking heuristics, 0 or 1 (default 1)
+-b probability_estimates : whether to train a SVC or SVR model for probability estimates, 0 or 1 (default 0)
+-wi weight : set the parameter C of class i to weight*C, for C-SVC (default 1)
+-v n: n-fold cross validation mode
+-q : quiet mode (no outputs)
+
+
+The k in the -g option means the number of attributes in the input data.
+
+option -v randomly splits the data into n parts and calculates cross
+validation accuracy/mean squared error on them.
+
+See libsvm FAQ for the meaning of outputs.
+
+`svm-predict' Usage
+===================
+
+Usage: svm-predict [options] test_file model_file output_file
+options:
+-b probability_estimates: whether to predict probability estimates, 0 or 1 (default 0); for one-class SVM only 0 is supported
+
+model_file is the model file generated by svm-train.
+test_file is the test data you want to predict.
+svm-predict will produce output in the output_file.
+
+`svm-scale' Usage
+=================
+
+Usage: svm-scale [options] data_filename
+options:
+-l lower : x scaling lower limit (default -1)
+-u upper : x scaling upper limit (default +1)
+-y y_lower y_upper : y scaling limits (default: no y scaling)
+-s save_filename : save scaling parameters to save_filename
+-r restore_filename : restore scaling parameters from restore_filename
+
+See 'Examples' in this file for examples.
+
+Tips on Practical Use
+=====================
+
+* Scale your data. For example, scale each attribute to [0,1] or [-1,+1].
+* For C-SVC, consider using the model selection tool in the tools directory.
+* nu in nu-SVC/one-class-SVM/nu-SVR approximates the fraction of training
+  errors and support vectors.
+* If data for classification are unbalanced (e.g. many positive and
+  few negative), try different penalty parameters C by -wi (see
+  examples below).
+* Specify larger cache size (i.e., larger -m) for huge problems.
