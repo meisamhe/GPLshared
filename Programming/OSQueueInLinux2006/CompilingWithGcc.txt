@@ -1,0 +1,161 @@
+
+1.2 Compiling with GCC
+
+A compiler turns human-readable source code into machine-readable object code that can actually run. The compilers of choice on Linux systems are all part of the GNU Compiler Collection, usually known as GCC. [3] GCC also include compilers for C, C++, Java, Objective-C, Fortran, and Chill. This book focuses mostly on C and C++ programming.
+
+[3] For more information about GCC, visit http://gcc.gnu.org.
+
+Suppose that you have a project like the one in Listing 1.2 with one C++ source file (reciprocal.cpp) and one C source file (main.c) like in Listing 1.1. These two files are supposed to be compiled and then linked together to produce a program called reciprocal. [4] This program will compute the reciprocal of an integer.
+
+[4] In Windows, executables usually have names that end in .exe. Linux programs, on the other hand, usually have no extension. So, the Windows equivalent of this program would probably be called reciprocal.exe; the Linux version is just plain reciprocal.
+Listing 1.1 (main.c) C source file—main.c
+
+#include <stdio.h> 
+
+#include "reciprocal.hpp" 
+
+ 
+
+int main (int argc, char **argv) 
+
+{
+
+  int i; 
+
+ 
+
+  i = atoi (argv[1]); 
+
+  printf ("The reciprocal of %d is %g\n", i, reciprocal (i)); 
+
+  return 0; 
+
+} 
+
+Listing 1.2 (reciprocal.cpp) C++ source file—reciprocal.cpp
+
+#include <cassert> 
+
+#include "reciprocal.hpp" 
+
+ 
+
+double reciprocal (int i) {
+
+  // I should be non-zero. 
+
+  assert (i != 0); 
+
+  return 1.0/i; 
+
+} 
+
+There's also one header file called reciprocal.hpp (see Listing 1.3).
+Listing 1.3 (reciprocal.hpp) Header file—reciprocal.hpp
+
+#ifdef __cplusplus 
+
+extern "C" {
+
+#endif 
+
+ 
+
+extern double reciprocal (int i); 
+
+ 
+
+#ifdef __cplusplus 
+
+} 
+
+#endif 
+
+The first step is to turn the C and C++ source code into object code.
+1.2.4 Compiling a Single Source File
+
+The name of the C compiler is gcc. To compile a C source file, you use the -c option. So, for example, entering this at the command prompt compiles the main.c source file:
+
+ 
+
+% gcc -c main.c 
+
+The resulting object file is named main.o.
+
+The C++ compiler is called g++. Its operation is very similar to gcc; compiling reciprocal.cpp is accomplished by entering the following:
+
+ 
+
+% g++ -c reciprocal.cpp 
+
+The -c option tells g++ to compile the program to an object file only; without it, g++ will attempt to link the program to produce an executable. After you've typed this command, you'll have an object file called reciprocal.o.
+
+You'll probably need a couple other options to build any reasonably large program. The -I option is used to tell GCC where to search for header files. By default, GCC looks in the current directory and in the directories where headers for the standard libraries are installed. If you need to include header files from somewhere else, you'll need the -I option. For example, suppose that your project has one directory called src, for source files, and another called include. You would compile reciprocal.cpp like this to indicate that g++ should use the ../include directory in addition to find reciprocal.hpp:
+
+ 
+
+% g++ -c -I ../include reciprocal.cpp 
+
+Sometimes you'll want to define macros on the command line. For example, in production code, you don't want the overhead of the assertion check present in reciprocal.cpp; that's only there to help you debug the program. You turn off the check by defining the macro NDEBUG. You could add an explicit #define to reciprocal.cpp, but that would require changing the source itself. It's easier to simply define NDEBUG on the command line, like this:
+
+ 
+
+% g++ -c -D NDEBUG reciprocal.cpp 
+
+If you had wanted to define NDEBUG to some particular value, you could have done something like this:
+
+ 
+
+% g++ -c -D NDEBUG=3 reciprocal.cpp 
+
+If you're really building production code, you probably want to have GCC optimize the code so that it runs as quickly as possible. You can do this by using the -O2 command-line option. (GCC has several different levels of optimization; the second level is appropriate for most programs.) For example, the following compiles reciprocal.cpp with optimization turned on:
+
+ 
+
+% g++ -c -O2 reciprocal.cpp 
+
+Note that compiling with optimization can make your program more difficult to debug with a debugger (see Section 1.4, "Debugging with GDB"). Also, in certain instances, compiling with optimization can uncover bugs in your program that did not manifest themselves previously.
+
+You can pass lots of other options to gcc and g++. The best way to get a complete list is to view the online documentation. You can do this by typing the following at your command prompt:
+
+ 
+
+% info gcc 
+
+1.2.5 Linking Object Files
+
+Now that you've compiled main.c and utilities.cpp, you'll want to link them. You should always use g++ to link a program that contains C++ code, even if it also contains C code. If your program contains only C code, you should use gcc instead. Because this program contains both C and C++, you should use g++, like this:
+
+ 
+
+% g++ -o reciprocal main.o reciprocal.o 
+
+The -o option gives the name of the file to generate as output from the link step. Now you can run reciprocal like this:
+
+ 
+
+% ./reciprocal 7 
+
+The reciprocal of 7 is 0.142857 
+
+As you can see, g++ has automatically linked in the standard C runtime library containing the implementation of printf. If you had needed to link in another library (such as a graphical user interface toolkit), you would have specified the library with the -l option. In Linux, library names almost always start with lib. For example, the Pluggable Authentication Module (PAM) library is called libpam.a. To link in libpam.a, you use a command like this:
+
+ 
+
+% g++ -o reciprocal main.o reciprocal.o -lpam 
+
+The compiler automatically adds the lib prefix and the .a suffix.
+
+As with header files, the linker looks for libraries in some standard places, including the /lib and /usr/lib directories that contain the standard system libraries. If you want the linker to search other directories as well, you should use the -L option, which is the parallel of the -I option discussed earlier. You can use this line to instruct the linker to look for libraries in the /usr/local/lib/pam directory before looking in the usual places:
+
+ 
+
+% g++ -o reciprocal main.o reciprocal.o -L/usr/local/lib/pam -lpam 
+
+Although you don't have to use the -I option to get the preprocessor to search the current directory, you do have to use the -L option to get the linker to search the current directory. In particular, you could use the following to instruct the linker to find the test library in the current directory:
+
+ 
+
+% gcc -o app app.o -L. -ltest 
+
+ 

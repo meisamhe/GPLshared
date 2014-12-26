@@ -1,0 +1,2076 @@
+Git Example
+=================================
+$ git clone \
+https://bitbucket.org/rjleveque/uwhpsc.git
+$ cd uwhpsc
+$ git checkout coursera
+$ export UWHPSC=$PWD
+$ cd $UWHPSC/lectures/lecture1
+$ make plots
+$ firefox *.png
+git clone \
+https://bitbucket.org/rjleveque/uwhpsc \
+mydirname
+
+Little bit linux:
+==============================
+$ sudo apt-get install gitk
+$ sudo apt-get install xxdiff
+$ sudo apt-get install python-sympy
+$ sudo apt-get install python-setuptools
+$ sudo easy_install nose
+$ cd
+$ git clone https://github.com/ipython/ipython.git
+$ cd ipython
+$ sudo python setup.py install
+
+
+FORTRAN = FORmula TRANslator
+======================================
+
+! $UWHPSC/codes/fortran/example1.f90
+program example1
+implicit none
+real (kind=8) :: x,y,z
+x = 3.d0
+y = 1.d-1
+z = x + y
+print *, "z = ", z
+end program example1
+
+! $UWHPSC/codes/fortran/example1.f90
+program example1
+implicit none
+real (kind=8) :: x,y,z
+x = 3.d0
+y = 1.d-1
+z = x + y
+print *, "z = ", z
+end program example1
+
+! $UWHPSC/codes/fortran/example1.f90
+program example1
+implicit none
+real (kind=8) :: x,y,z
+x = 3.d0
+y = 1.d-1
+z = x + y
+print *, "z = ", z
+end program example1
+
+$ gfortran example1.f90
+$ ./a.out
+z = 3.20000000000000
+$ gfortran example1.f90 -o example1.exe
+$ ./example1.exe
+z = 3.20000000000000
+$ gfortran -c example1.f90 # creates example1.o
+$ gfortran example1.o -o example1.exe
+$ ./example1.exe
+z = 3.20000000000000
+
+program example1
+implicit none
+real (kind=8) :: x,y,z
+x = 3.d0
+y = 2.d-1
+zz = x + y
+print *, "z = ", z
+end program example1
+
+$ gfortran example1.f90
+example1.f90:11.6:
+zz = x + y
+1
+Error: Symbol ’zz’ at (1) has no IMPLICIT type
+program example1
+real (kind=8) :: x,y,z
+x = 3.d0
+y = 2.d-1
+zz = x + y
+print *, "z = ", z
+end program example1
+This compiles fine and gives the result:
+$ gfortran example1.f90
+$ ./a.out
+z = -3.626667641771191E-038
+
+implicit none
+means all variables must be explicitly declared.
+
+Loops and Array
+-------------------
+! $UWHPSC/codes/fortran/loop1.f90
+program loop1
+implicit none
+integer, parameter :: n = 10000
+real (kind=8), dimension(n) :: x, y
+integer :: i
+do i=1,n
+x(i) = 3.d0 * i
+enddo
+do i=1,n
+y(i) = 2.d0 * x(i)
+enddo
+print *, "Last y computed: ", y(n)
+end program loop1
+
+program loop1
+implicit none
+integer, parameter :: n = 10000
+real (kind=8), dimension(n) :: x, y
+integer :: i
+
+do i=1,n
+x(i) = 3.d0 * i
+enddo
+
+do 100 i=1,n
+x(i) = 3.d0 * i
+100 continue
+
+! $UWHPSC/codes/fortran/ifelse1.f90
+program ifelse1
+implicit none
+real(kind=8) :: x
+integer :: i
+i = 3
+if (i<=2) then
+print *, "i is less or equal to 2"
+else if (i/=5) then
+print *, "i is greater than 2, not equal to 5"
+else
+print *, "i is equal to 5"
+endif
+end program ifelse1
+
+If-then-else
+-----------------------
+Booleans: .true. .false.
+Comparisons:
+< or .lt. <= or .le.
+> or .gt. >= or .ge.
+== or .eq. /= or .ne.
+Examples:
+if ((i >= 5) .and. (i < 12)) then
+if (((i .lt. 5) .or. (i .ge. 12)) .and. &
+(i .ne. 20)) then
+Note: & is the Fortran continuation character.
+Statement continues on next line.
+
+! $UWHPSC/codes/fortran/boolean1.f90
+program boolean1
+implicit none
+integer :: i,k
+logical :: ever_zero
+ever_zero = .false.
+do i=1,10
+k = 3*i - 1
+ever_zero = (ever_zero .or. (k == 0))
+enddo
+if (ever_zero) then
+print *, "3*i - 1 takes the value 0 for some i"
+else
+print *, "3*i - 1 is never 0 for i tested"
+endif
+end program boolean1
+
+Function and Subroutine
+-----------------------------------
+Functions take some input arguments and return a single value.
+Usage: y = f(x) or z = g(x,y)
+Should be declared as external with the type of value returned:
+real(kind=8), external :: f
+! $UWHPSC/codes/fortran/fcn1.f90
+
+program fcn1
+	implicit none
+	real(kind = 8) ::y,z
+	real(kind=8), external :: f
+	
+	y = 2.
+	z = f(y)
+	print *, "z: ", z
+end program fcn1
+
+real(kind=8) function f(x)
+	implicit none
+	real(kind=8), intent(in) :: x
+	f = x**2
+end function f
+
+Subroutines have arguments, each of which might be for input
+or output or both.
+Usage: call sub1(x,y,z,a,b)
+Can specify the intent of each argument, e.g.
+real(kind=8), intent(in) :: x,y
+real(kind=8), intent(out) :: z
+real(kind=8), intent(inout) :: a,b
+
+! $UWHPSC/codes/fortran/sub1.f90
+
+program sub1
+	implicit none
+	real(kind=8) :: y, z
+
+	y = 2.
+	call fsub(y,z)
+	print *, "z = ", z
+end program sub1
+
+subroutine fsub(x,f)
+	implicit none
+	real(kind = 8), intent(in):: x
+	real(kind = 8), intent(out):: f
+	f = x**2
+end subroutine fsub
+
+! $HPSC/codes/fortran/sub2.f90
+
+program sub2
+	implicit none
+	real(kind=8), dimension(3) :: y, z
+	integer n
+
+	y = (/2., 3., 4./)
+	n = size(y)
+	call fsub(y,n,z)
+	print *, " z = ", z
+end program sub2
+
+subroutine fsub(x,n,f)
+	! compute f(x) = x**2 for all elements of the array x
+	! of length n
+	implicit none
+	integer, intent(in):: n
+	real(kind = 8), dimension(n), intent(in):: x
+	real(kind=8), dimension(n), intent(out):: f
+	f = x**2
+end subroutine fsub
+
+array operation and matrices
+------------------------
+! $UWHPSC/codes/fortran/vectorops.f90
+program vectorops
+implicit none
+real(kind=8), dimension(3) :: x, y
+x = (/10.,20.,30./) ! initialize
+y = (/100.,400.,900./)
+print *, "x = "
+print *, x
+print *, "x**2 + y = "
+print *, x**2 + y ! componentwise
+
+! $UWHPSC/codes/fortran/vectorops.f90
+! continued...
+print *, "x*y = "
+print *, x*y ! = (x(1)y(1), x(2)y(2), ...)
+print *, "sqrt(y) = "
+print *, sqrt(y) ! componentwise
+print *, "dot_product(x,y) = "
+print *, dot_product(x,y) ! scalar product
+end program vectorops
+
+! $UWHPSC/codes/fortran/arrayops.f90
+program arrayops
+implicit none
+real(kind=8), dimension(3,2) :: a
+...
+! create a as 3x2 array:
+A = reshape((/1,2,3,4,5,6/), (/3,2/))
+
+! $UWHPSC/codes/fortran/arrayops.f90 (continued)
+real(kind=8), dimension(3,2) :: a
+real(kind=8), dimension(2,3) :: b
+real(kind=8), dimension(3,3) :: c
+integer :: i
+print *, "a = "
+do i=1,3
+print *, a(i,:) ! i’th row
+enddo
+b = transpose(a) ! 2x3 array
+c = matmul(a,b) ! 3x3 matrix product
+
+! $UWHPSC/codes/fortran/arrayops.f90 (continued)
+real(kind=8), dimension(3,2) :: a
+real(kind=8), dimension(2) :: x
+real(kind=8), dimension(3) :: y
+x = (/5,6/)
+y = matmul(a,x) ! matrix-vector product
+print *, "x = ",x
+print *, "y = ",y
+
+real(kind=8) :: x(3)
+real(kind=8), dimension(3) :: x
+
+real(kind=8) :: x(0:2), y(4:6), z(-2:0)
+
+y(5) = z(-2)
+
+A = [[10,20,30], [40,50,60]]
+
+multi dimensional array
+-----------------------------------------
+Apy = reshape(array([10,20,30,40,50,60]), (3,2))
+Afort = reshape((/10,20,30,40,50,60/), (/3,2/))
+
+loc 3401 Apy[0,0] = 10 Afort(1,1) = 10
+loc 3402 Apy[0,1] = 20 Afort(2,1) = 40
+loc 3403 Apy[0,2] = 30 Afort(1,2) = 20
+loc 3404 Apy[1,0] = 40 Afort(2,2) = 50
+loc 3405 Apy[1,1] = 50 Afort(1,3) = 30
+loc 3406 Apy[1,2] = 60 Afort(2,3) = 60
+
+shape of array in python unlike fortran
+----------------------------------------
+>>> v = linspace(10,60,6)
+>>> v
+array([ 10., 20., 30., 40., 50., 60.])
+>>> reshape(v, (2,3)) # order=’C’ by default
+array([[ 10., 20., 30.],
+[ 40., 50., 60.]])
+>>> reshape(v, (2,3), order=’F’)
+array([[ 10., 30., 50.],
+[ 20., 40., 60.]])
+
+>>> A
+array([[ 10., 20., 30.],
+[ 40., 50., 60.]])
+>>> A.reshape(3,2) # order=’C’ by default
+array([[ 10., 20.],
+[ 30., 40.],
+[ 50., 60.]])
+>>> A.reshape((3,2),order=’F’)
+array([[ 10., 50.],
+[ 40., 30.],
+[ 20., 60.]])
+
+>>> reshape(A, (3,2), order=’F’)
+
+>>> A = np.array([[10.,20,30],[40,50,60]])
+>>> A
+array([[ 10., 20., 30.],
+[ 40., 50., 60.]])
+>>> A.flatten() # Default is ’C’
+array([ 10., 20., 30., 40., 50., 60.])
+>>> A.flatten(’F’) # Fortran ordering
+array([ 10., 40., 20., 50., 30., 60.])
+
+memory allocation fortran
+------------------------------------------
+real(kind=8) dimension(:), allocatable :: x
+real(kind=8) dimension(:,:), allocatable :: a
+allocate(x(10))
+allocate(a(30,10))
+! use arrays...
+! then clean up:
+deallocate(x)
+deallocate(a)
+
+real(kind=8), dimension(:,:), allocatable :: a
+allocate(a(30000,10000), stat=alloc_error)
+if (alloc_error /= 0) then
+print *, "Insufficient memory"
+stop
+endif
+
+
+Passing arrays to subroutine (with bug)
+--------------------------------------------
+! $CLASSHG/codes/fortran/arraypassing1.f90
+
+program arraypassing1
+
+	implicit none
+	real(kind=8) :: x, y
+	integer :: i, j
+
+	x =1.
+	y = 2.
+	i = 3
+	j = 4
+	call stvals(x)
+	print *, "x = ", x
+	print *, "y = ", y
+	print *, "i = ", i
+	print *, "j = ", j
+
+end program arraypassing1
+
+subroutine	stvals(a)
+	!subroutine that sets values in an array a of length 3.
+	implicit none
+	real(kind = 8), intent(inout) :: a(3)
+	integer i
+	do i = 1,3
+		a(i) = 5.
+		endo
+end subroutine setvals
+
+Passing arrays to subroutine (with another bug)
+--------------------------------------------
+! $CLASSHG/codes/fortran/arraypassing1.f90
+
+program arraypassing1
+
+	implicit none
+	real(kind=8) :: x, y
+	integer :: i, j
+
+	x =1.
+	y = 2.
+	i = 3
+	j = 4
+	call stvals(x)
+	print *, "x = ", x
+	print *, "y = ", y
+	print *, "i = ", i
+	print *, "j = ", j
+
+end program arraypassing1
+
+subroutine	stvals(a)
+	!subroutine that sets values in an array a of length 3.
+	implicit none
+	real(kind = 8), intent(inout) :: a(1000)
+	integer i
+	do i = 1,3
+		a(i) = 5.
+		endo
+end subroutine setvals
+
+
+segmentation fault
+------------------------------------
+Tip: Compile using -fbounds-check option of gfortran
+
+Make file
+==============================================
+! $UWHPSC/codes/fortran/multifile1/fullcode.f90
+
+program demo
+	print *, "In main program"
+	call sub1()
+	call sub2()
+end program demo
+
+subroutine sub1()
+	print *, "In sub1"
+end subroutine sub1
+
+subroutine sub2()
+	print *, "In sub2"
+end subroutine sub2
+
+Split into separate files
+-----------------------------------
+! $UWHPSC/codes/fortran/multifile1/main.f90
+
+program demo
+	print *, "In main program"
+	call sub1()
+	call sub2()
+end program demo
+
+! $UWHPSC/codes/fortran/multifile1/sub1.f90
+
+subroutine sub1()
+	print *, "In sub1"
+end subroutine sub1
+
+! $UWHPSC/codes/fortran/multifile1/sub2.f90
+
+subroutine sub2()
+	print *, "In sub2"
+
+$ gfortran main.f90 sub1.f90 sub2.f90 \
+-o main.exe
+
+$ ./main.exe
+In main program
+In sub1
+In sub2
+
+$ gfortran -c main.f90 sub1.f90 sub2.f90
+$ ls *.o
+main.o sub1.o sub2.o
+
+$ gfortran main.o sub1.o sub2.o -o main.exe
+$ ./main.exe > output.txt
+
+$ gfortran -c sub2.f90
+$ gfortran main.o sub1.o sub2.o -o main.exe
+$ ./main.exe
+In main program
+In sub1
+Now in sub2
+
+end subroutine sub2
+
+Makefiles
+-----------------------------
+
+# $UWHPSC/codes/fortran/multifile1/Makefile
+
+output.txt : main.exe
+	./main.exe > output.txt
+
+main.exe: main o sub1.o sub2.o
+	gfortran main.o sub1.o sub2.o -o main.exe
+
+main.o: main.f90
+	gfortran -c main.f90
+sub1.o: sub1.f90
+	gfortran -c sub1.f90
+sub2.o: sub2.f90
+	gfortran -c sub2.f90
+
+$ cd $UWHPSC/codes/fortran/multifile1
+$ rm -f *.o *.exe # remove old versions
+$ make main.exe
+gfortran -c main.f90
+gfortran -c sub1.f90
+gfortran -c sub2.f90
+gfortran main.o sub1.o sub2.o -o main.exe
+
+Typical element in the simple Makefile:
+target: dependencies
+<TAB> command(s) to make target
+
+$ rm -f *.o *.exe
+$ make sub1.o
+gfortran -c sub1.f90
+$ make main.o
+gfortran -c main.f90
+$ make main.exe
+gfortran -c sub2.f90
+gfortran main.o sub1.o sub2.o -o main.exe
+Note: Last make required compiling sub2.f90
+but not sub1.f90 or main.f90.
+
+Age of dependencies
+The last modification time of the file is used.
+$ ls -l sub1.*
+-rw-r--r-- 1 rjl staff 111 Apr 18 16:05 sub1.f90
+-rw-r--r-- 1 rjl staff 936 Apr 18 16:56 sub1.o
+$ make sub1.o
+make: ‘sub1.o’ is up to date.
+$ touch sub1.f90; ls -l sub1.f90
+-rw-r--r-- 1 rjl staff 111 Apr 18 17:10 sub1.f90
+$ make main.exe
+gfortran -c sub1.f90
+gfortran main.o sub1.o sub2.o -o main.exe
+
+# $UWHPSC/codes/fortran/multifile1/Makefile
+
+output.txt: main.exe
+	./main.exe > output.txt
+
+main.exe: main.o sub1.o sub2.o
+	gfortran main.o sub1.o sub2.o -o main.exe
+
+main.o: main.f90
+	gfortran -c main.f90
+sub1.o: sub1.f90
+	gfortran -c sub1.f90
+sub2.o: sub2.f90
+	gfortran -c sub2.f90
+
+# $UWHPSC/codes/fortran/multifile1/Makefile2
+
+output.txt: main.exe
+	./main.exe > output.txt
+main.exe: main.o sub1.o sub2.o
+	gfortran main.o sub1.o sub2.o -o main.exe
+
+%.o: %.f90
+	gfortran -c $<
+
+$ make sub1.o -f Makefile2
+gfortran -c sub1.f90
+
+implicite rules
+----------------------
+
+# $UWHPSC/codes/fortran/multifile1/Makefile2
+
+output.txt: main.exe
+	./main.exe >output.txt
+
+main.exe: main.o sub1.o sub2.o
+	gfortran main.o sub1.o sub2.o -o main.exe
+
+%.o: %.f90
+	gfortran -c $<
+
+Makefile variables or macros
+------------------------------
+
+# $UWHPSC/codes/fortran/multifile1/Makefile3
+
+OBJECTS = main.o sub1.o sub2.o
+
+output.txt: main.exe
+	./main.exe > output.txt
+
+main.exe: $(OBJECTS)
+	gfortran $(OBJECTS) -o main.exe
+
+%.o: %.f90
+	gfortran -c $<
+
+# $UWHPSC/codes/fortran/multifile1/Makefile4
+
+FC = gfortran
+FFLAG = -03
+LFLAGS = 
+OBJECTS = main.o sub1.o sub2.o
+
+output.txt: main.exe
+	./main.exe > output.txt
+
+main.exe: $(OBJECTS)
+	$(FC) $(LFLAGS) $(OBJECTS) -o main.exe
+
+%.o: %.f90
+	$(FC) $(FFLAGS) -c $<
+
+$ rm -f *.o *.exe
+$ make -f Makefile4
+gfortran -O3 -c main.f90
+gfortran -O3 -c sub1.f90
+gfortran -O3 -c sub2.f90
+gfortran -O3 main.o sub1.o sub2.o -o main.exe
+./main.exe > output.txt
+Can specify variables on command line:
+$ rm -f *.o *.exe
+$ make main.exe FFLAGS=-g -f Makefile4
+gfortran -g -c main.f90
+gfortran -g -c sub1.f90
+gfortran -g -c sub2.f90
+gfortran -g main.o sub1.o sub2.o -o main.exe
+
+
+# $UWHPSC/codes/fortran/multifile1/Makefile5
+
+OBJECTS = main.o sub1.o sub2.o
+.PHONY: clean help
+
+output.txt: main.exe
+	./main.exe > output.txt
+
+main.exe: $(OBJECTS)
+	gfortran $(OBJECTS) -o main.exe
+
+%.o: %.f90
+	gfortran -c $<
+
+clean:
+	rm -f $(OBJECTS) main.exe
+
+help:
+	@echo "Valid targets:"
+	@echo "main.exe"
+	@echo "main.o"
+	@echo "sub1.o"
+	@echo "sub2.o"
+	@echo "clean: removes .o and .exe files"
+
+$ make clean -f Makefile5
+rm -f main.o sub1.o sub2.o main.exe
+
+$ make clean -f Makefile5
+
+echo means print out the string.
+@echo means print out the string but don’t print the command.
+
+Fancier things:
+--------------------------------------
+
+# $UWHPSC/codes/fortran/multifile1/Makefile7
+
+SOURCES = $(wildcard *.f90)
+OBJECTS = $(subset .f90, .o, $(SOURCES))
+
+.PHONY: test
+
+test:
+	@echo "sources are: " $(SOURCES)
+	@echo "Objects are: " $(OBJECTS)
+
+$ make test -f Makefile6
+Sources are: fullcode.f90 main.f90 sub1.f90 sub2.f90
+Objects are: fullcode.o main.o sub1.o sub2.o
+
+make html # OR: make latex
+
+Each .rst (ReStructured Text) file is turned into an html file
+corresponding to one webpage.
+Changing one .rst file and redoing make html only
+“recompiles” this one file.
+But try modifying the configuration file conf.py and all files will
+be regenerated.
+Note: This is not a great example because the dependency
+checking is actually done by the program sphinx-build.
+
+
+fortran modules
+---------------------------------------------
+General structure of a module:
+module <MODULE-NAME>
+! Declare variables
+contains
+! Define subroutines or functions
+end module <MODULE-NAME>
+A program/subroutine/function can use this module:
+program <NAME>
+use <MODULE-NAME>
+! Declare variables
+! Executable statements
+end program <NAME>
+
+Similar to from numpy import linspace
+rather than from numpy import *
+program <NAME>
+use <MODULE-NAME>, only: <LIST OF SYMBOLS>
+! Declare variables
+! Executable statements
+end program <NAME>
+Makes it easier to see which variables come from each module.
+
+! $UWHPSC/codes/fortran/multifile2/sub1m.f90
+
+module sub1m
+
+contains
+
+subroutine sub1()
+	print *, "In sub1"
+end subroutine sub1
+
+end module sub1m
+
+! $UWHPSC/codes/fortran/multifile2/main.f90
+
+program demo
+	use sub1m, only: sub1
+	print *, "In main program"
+	call sub1()
+end program demo
+
+$ gfortran -c sub1m.f90
+$ ls
+main.f90 sub1m.f90 sub1m.mod sub1m.o
+
+$ rm -f sub1m.mod
+$ gfortran main.f90 sub1m.f90
+main.f90:5.13:
+use sub1m
+1
+Fatal Error: Can’t open module file ’sub1m.mod’
+for reading at (1): No such file or directory
+
+Another module example
+---------------------------------------
+
+! $UWHPSC/codes/fortran/circles/circle_mod.f90
+
+module circle_mod
+	implicit none
+	real(kind=8), parameter :: pi = 3.141592653589793d0
+
+contains
+
+	real(kind=8) function area(r)
+		real(kind=8), intent(in) :: r
+		area = pi * r**2
+	end function area
+
+	real(kind=8) function circumference(r)
+		real(kind=8), intent(in) :: r
+		circumference = 2.d0 * pi * r
+	end function circumference
+
+end module circle_mod
+
+! $UWHPSC/codes/fortran/circles/main.f90
+
+program main
+
+	use circle_mod, only: pi, area
+	implicit none
+	real(kind=8):: a
+
+	!print parameter pi defined in module:
+	print *, 'pi = ', pi
+
+	!test the area function from module:
+	a = area (2.d0)
+	print *, 'area for a circle of radius 2: ', a
+
+end program main
+
+! $UWHPSC/codes/fortran/circles/circle_mod.f90
+
+module circle_mod
+	implicit none
+	real(kind=8), parameter :: pi 
+	save
+
+contains
+
+	real(kind=8) function area(r)
+		real(kind=8), intent(in) :: r
+		area = pi * r**2
+	end function area
+
+	real(kind=8) function circumference(r)
+		real(kind=8), intent(in) :: r
+		circumference = 2.d0 * pi * r
+	end function circumference
+
+end module circle_mod
+
+! $UWHPSC/codes/fortran/circles/main.f90
+
+program main
+
+	use circle_mod, only: pi, area
+	implicit none
+	real(kind=8):: a
+
+	call initialize()	!sets pi
+
+	!print parameter pi defined in module:
+	print *, 'pi = ', pi
+
+	!test the area function from module:
+	a = area (2.d0)
+	print *, 'area for a circle of radius 2: ', a
+
+end program main
+
+! $UWHPSC/codes/fortran/circles/main.f90
+
+subroutine initialize()
+
+	! Set the value of pi used elsewhere.
+	use circle_mode only: pi
+	pi = acos(-1.d0)
+
+end subroutine initialize
+
+Makefile
+------------------------------------
+
+! $UWHPSC/codes/fortran/circles/Makefile
+
+OBJECTS = circle_mod.o \
+	main.o \
+	initialize.o 
+
+MODULES = circle_mod.mod
+
+.PHONY: clean
+
+output.txt: main.exe
+	./main.exe > output.txt
+
+main.exe: $(MODULES) $(OBJECTS)
+	gfortran $(OBJECTS) -o main.exe
+
+%.o: %.f90
+	gfortran -c $<
+
+%.mod: %.f90
+	gfortran -c $<
+
+clean:
+	rm -f $(OBJECTS) $(MODULES) main.exe
+
+! $UWHPSC/codes/fortran/sub2.f90
+
+program sub2
+	implicit none
+	real(kind=8), dimension (3) :: y, z
+	integer n
+
+	y = (/2., 3., 4./)
+	n = size(y)
+	call fsub(y,n,z)
+	print *, "z = ", z
+end program sub2
+
+subroutine fsub(x,n,f)
+	! compute f(x) = x**2 for all elements of the array x
+	! of length n
+	implicit none
+	integer, integer(in) ::n
+	real(kind = 8), dimension (n), intent(in)::x
+	real(kind=8), dimension(n), intent(out):: f
+	f = x**2
+end subroutine fsub
+
+Module version-- creates an interface
+-------------------------------------------------
+! $UWHPSC/codes/fortran/sub3.f90
+
+module sub3module
+
+contains
+
+subroutine fsub(x,f)
+	!compute f(x) = x**2 for all elements of the array x.
+	implicit none
+	real(kind = 8), dimension(:), intent(in):: x
+	real(kind = 8), dimension (size(x)), intent(out):: f
+	f = x**2
+end subroutine fsub
+
+end module sub3module
+
+program sub3
+	use sub3module
+	implicit none
+	real(kind=8), dimension (3) :: y, z
+	integer n
+
+	y = (/2., 3., 4./)
+	n = size(y)
+	call fsub(y,z)
+	print *, "z = ", z
+end program sub3
+
+Reducing memory latency:
+--------------------------------
+Very simple Python example: if len(x) much larger than
+cache size,
+z = 0.; w = 0.
+for i in range(len(x)):
+z = z + x[i]
+for i in range(len(x)):
+w = w + 3. * x[i]
+should be rewritten as
+for i in range(len(x)):
+z = z + x[i]
+w = w + 3. * x[i]
+Note: Both are bad in Python, use e.g. z = np.sum(x); w = 3*z
+
+Which is better in Python?? Same number of flops!
+for i in range(n):
+for j in range(n):
+b[i,j] = d[i] * a[i,j]
+or
+for j in range(n):
+for i in range(n):
+b[i,j] = d[i] * a[i,j]
+Answer: First one faster in Python (but loops still slow!)
+
+do i=1,n
+do j=1,n
+b(i,j) = d(i) * a(i,j)
+enddo; enddo
+or
+do j=1,n
+do i=1,n
+b(i,j) = d(i) * a(i,j)
+enddo; enddo
+Answer: Second one faster in Fortran!
+
+array ordering
+------------------------
+integer, parameter :: m = 4097, n = 10000
+real(kind=8), dimension(m,n) :: a
+do i = 1,m
+do j=1,n
+a(i,j) = 0.d0
+enddo
+enddo
+do j = 1,n
+do i=1,m
+a(i,j) = 0.d0
+enddo
+enddo
+First: 0.72 seconds, Second: 0.19 seconds
+
+
+integer, parameter :: m = 4096, n = 10000
+real(kind=8), dimension(m,n) :: a
+do i = 1,m
+do j=1,n
+a(i,j) = 0.d0
+enddo
+enddo
+do j = 1,n
+do i=1,m
+a(i,j) = 0.d0
+enddo
+enddo
+First: 2.4 seconds, Second: 0.19 seconds
+R.J. LeVeque, University of Washington AMath 483/583, Lecture
+
+Block matrix multiply
+-----------------------------------
+
+Block matrix transpose:
+Strip mining:
+do jj=1,n,s
+do j=jj,jj+s-1
+do ii=1,n,s
+do i=ii,ii+s-1
+b(j,i) = a(i,j)
+Loop reordering:
+do jj=1,n,s
+do ii=1,n,s
+do j=jj,jj+s-1
+do i=ii,ii+s-1
+b(j,i) = a(i,j)
+Loops over blocks in outer loops, within block in inner loops.
+
+Parallelization
+--------------------------------------
+TP = (1/S)TS + (1 - 1/S)TS/P
+
+
+OpenMP
+=========================================
+Can be used with Fortran (77/90/95/2003), C and C++.
+Complete specifications at http://www.openmp.org
+• http://www.openmp.org
+• http://www.openmp.org/wp/resources/
+• B. Chapman, G. Jost, R. van der Pas, Using OpenMP:
+Portable Shared Memory Parallel Programming, MIT
+Press, 2007.
+• R. Chandra, L. Dagum, et. al., Parallel Programming in
+OpenMP, Academic Press, 2001.
+
+!$ print *, "Compiled with -fopenmp"
+!$omp parallel do
+use omp_lib ! need this module
+!$ call omp_set_num_threads(2)
+
+!$omp directive [clause ...]
+if (scalar_expression)
+private (list)
+shared (list)
+default (shared | none)
+firstprivate (list)
+reduction (operator: list)
+copyin (list)
+num_threads (integer-expression)
+
+!$omp parallel [clause]
+! block of code
+!$omp end parallel
+!$omp parallel do [clause]
+! do loop
+!$omp end parallel do
+!$omp barrier
+! wait until all threads arrive
+
+!$omp flush
+
+test code
+-------------------------
+program test
+use omp_lib
+integer :: thread_num
+! Specify number of threads to use:
+!$ call omp_set_num_threads(2)
+print *, "Testing openmp ..."
+!$omp parallel
+!$omp critical
+!$ thread_num = omp_get_thread_num()
+!$ print *, "This thread = ",thread_num
+!$omp end critical
+!$omp end parallel
+end program test
+
+Compiled with OpenMP:
+$ gfortran -fopenmp test.f90
+$ ./a.out
+Testing openmp ...
+This thread = 0
+This thread = 1
+(or threads might print in the other order!)
+Compiled without OpenMP:
+$ gfortran test.f90
+$ ./a.out
+Testing openmp ...
+
+! Specify number of threads to use:
+!$ call omp_set_num_threads(2)
+
+!$omp parallel
+!$omp critical
+!$ thread_num = omp_get_thread_num()
+!$ print *, "This thread = ",thread_num
+!$omp end critical
+!$omp end parallel
+
+Incorrect code without critical section:
+!$omp parallel
+!$ thread_num = omp_get_thread_num()
+!$ print *, "This thread = ",thread_num
+!$omp end parallel
+
+Could change to add a private clause:
+!$omp parallel private(thread_num)
+!$ thread_num = omp_get_thread_num()
+!$omp critical
+!$ print *, "This thread = ",thread_num
+!$omp end critical
+!$omp end parallel
+Then each thread has it’s own version of the thread_num
+variable.
+
+OpenMP parallel do loops
+!$omp parallel do
+do i=1,n
+! do stuff for each i
+enddo
+!$omp end parallel do ! OPTIONAL
+indicates that the do loop can be done in parallel.
+Requires:
+what’s done for each value of i is independent of others
+Different values of i can be done in any order.
+The iteration variable i is private to the thread: each thread has
+its own version.
+By default, all other variables are shared between threads
+unless specified otherwise.
+
+program test
+use omp_lib
+integer :: thread_num
+! Specify number of threads to use:
+!$ call omp_set_num_threads(2)
+print *, "Testing openmp ..."
+!$omp parallel
+!$omp critical
+!$ thread_num = omp_get_thread_num()
+!$ print *, "This thread = ",thread_num
+!$omp end critical
+!$omp end parallel
+end program test
+
+Compiled with OpenMP:
+$ gfortran -fopenmp test.f90
+$ ./a.out
+Testing openmp ...
+This thread = 0
+This thread = 1
+(or threads might print in the other order!)
+Compiled without OpenMP:
+$ gfortran test.f90
+$ ./a.out
+Testing openmp ...
+
+!$omp parallel
+!$omp critical
+!$ thread_num = omp_get_thread_num()
+!$ print *, "This thread = ",thread_num
+!$omp end critical
+!$omp end parallel
+
+!$omp parallel
+!$ thread_num = omp_get_thread_num()
+!$ print *, "This thread = ",thread_num
+!$omp end parallel
+
+!$omp parallel private(thread_num)
+!$ thread_num = omp_get_thread_num()
+!$omp critical
+!$ print *, "This thread = ",thread_num
+!$omp end critical
+!$omp end parallel
+
+!$omp parallel do
+do i=1,n
+! do stuff for each i
+enddo
+!$omp end parallel do ! OPTIONAL
+
+! fragment of $UWHPSC/codes/openmp/yeval.f90
+dx = 1.d0 / (n+1.d0)
+!$omp parallel do private(x)
+do i=1,n
+x = i*dx
+y(i) = exp(x)*cos(x)*sin(x)*sqrt(5*x+6.d0)
+enddo
+
+$ gfortran -fopenmp yeval.f90
+$ ./a.out
+Segmentation fault
+$ ulimit -s
+8192
+$ ulimit -s unlimited
+$ ./a.out
+Using OpenMP with 2 threads
+Filled vector y of length 100000000
+
+!$omp parallel do
+do i=1,n
+x = i*dx
+y(i) = exp(x)*cos(x)*sin(x)*sqrt(5*x+6.d0)
+enddo
+
+!$omp parallel do private(x)
+do i=1,n
+x = i*dx
+y(i) = exp(x)*cos(x)*sin(x)*sqrt(5*x+6.d0)
+enddo
+
+dx = 1.d0 / (n+1.d0)
+!$omp parallel do private(x,dx)
+do i=1,n
+x = i*dx
+y(i) = exp(x)*cos(x)*sin(x)*sqrt(5*x+6.d0)
+enddo
+
+dx = 1.d0 / (n+1.d0)
+!$omp parallel do firstprivate(dx)
+do i=1,n
+x = i*dx
+y(i) = exp(x)*cos(x)*sin(x)*sqrt(5*x+6.d0)
+enddo
+
+! from $UWHPSC/codes/openmp/private1.f90
+n = 7
+y = 2.d0
+!$omp parallel do firstprivate(y) lastprivate(y)
+do i=1,n
+y = y + 10.d0
+x(i) = y
+!omp critical
+print *, "i = ",i," x(i) = ",x(i)
+!omp end critical
+enddo
+print *, "At end, y = ",y
+
+! from $UWHPSC/codes/openmp/private1.f90
+n = 7
+y = 2.d0
+!$omp parallel do firstprivate(y) lastprivate(y)
+do i=1,n
+y = y + 10.d0
+x(i) = y
+!omp critical
+print *, "i = ",i," x(i) = ",x(i)
+!omp end critical
+enddo
+print *, "At end, y = ",y
+
+!$omp parallel do default(private) shared(x,z) &
+!$omp firstprivate(y) lastprivate(y)
+do i=1,n
+etc.
+
+!$omp parallel do
+do i=1,n
+! do stuff for each i
+enddo
+!$omp end parallel do ! OPTIONAL
+! master thread continues execution
+
+Except if ended by:
+!$omp end parallel do nowait
+
+Conditional clause
+------------------
+$omp parallel do if (n > 1000)
+do i=1,n
+! do stuff
+enddo
+
+Nested loops
+-----------------------
+!$omp parallel do private(i)
+do j=1,m
+do i=1,n
+a(i,j) = 0.d0
+enddo
+
+Which is better? (assume m  n)
+!$omp parallel do private(i)
+do j=1,m
+do i=1,n
+a(i,j) = 0.d0
+enddo
+enddo
+or
+do j=1,m
+!$omp parallel do
+do i=1,n
+a(i,j) = 0.d0
+enddo
+enddo
+
+Incorrect code for replicating first column:
+!$omp parallel do private(j)
+do i=2,n
+do j=1,m
+a(i,j) = a(i-1,j)
+enddo
+enddo
+Corrected: (j’s can be done in any order, i’s cannot)
+!$omp parallel do private(i)
+do j=1,m
+do i=2,n
+a(i,j) = a(i-1,j)
+enddo
+enddo
+
+incorrect race condition
+---------------------------
+norm = 0.d0
+!$omp parallel do
+do i=1,n
+norm = norm + abs(x(i))
+enddo
+
+!$omp parallel do reduction(+ : norm)
+do i=1,n
+norm = norm + abs(x(i))
+enddo
+
+norm = 0.d0
+!$omp parallel private(mysum) shared(norm)
+mysum = 0
+!$omp do
+do i=1,n
+mysum = mysum + abs(x(i))
+enddo
+!$omp critical
+norm = norm + mysum
+!$omp end critical
+!$omp end parallel
+
+General form:
+!$omp parallel do reduction(operator : list)
+Example with max:
+y = -1.d300 ! very negative value
+!$omp parallel do reduction(max: y)
+do i=1,n
+y = max(y,x(i))
+enddo
+print *, ’max of x = ’,y
+
+General form:
+!$omp parallel do reduction(operator : list)
+Example with .or.:
+logical anyzero
+! set x...
+anyzero = .false.
+!$omp parallel do reduction(.or.: anyzero)
+do i=1,n
+anyzero = anyzero .or. (x(i) == 0.d0)
+enddo
+print *, ’anyzero = ’,anyzero
+
+$ time ./a.out
+<output from code>
+real 0m5.279s
+user 0m1.915s
+sys 0m0.006s
+
+do i=1,n
+z(i) = x(i) + y(i)
+w(i) = cos(z(i))
+enddo
+
+!$omp parallel do private(i,k)
+do j=1,n
+do i=1,n
+c(i,j) = 0.d0
+do k=1,n
+c(i,j) = c(i,j) + a(i,k)*b(k,j)
+enddo
+enddo
+enddo
+
+x = 1.d0 ! initialize all elements to 1
+x(1) = 5.d0
+do i=2,n
+x(i) = x(i-1)
+enddo
+
+y(1) = 1.d0
+dt = 0.001d0 ! time step
+n = 5000 ! number of steps to reach t=5
+do i=2,n
+y(i) = y(i-1) + dt*2.d0*y(i-1)
+enddo
+
+y = 0.d0
+do i=1,10
+if (i==3) y = 1.d0
+x(i) = y
+enddo
+
+!$omp parallel do
+do i=1,n
+y(i) = myfcn(x(i))
+enddo
+
+function myfcn(x)
+real(kind=8), intent(in) :: x
+real(kind=8), intent(out) :: myfcn
+real(kind=8) :: z ! local variable
+z = exp(x)
+myfcn = z*cos(x)
+end function myfcn
+
+function myfcn(x)
+real(kind=8), intent(in) :: x
+real(kind=8), intent(out) :: myfcn
+use globals
+count = count+1 ! counts times called
+z = exp(x)
+myfcn = z*cos(x) + count
+end function myfcn
+
+module globals
+implicit none
+save
+integer :: count
+real(kind=8) :: z
+end module globals
+
+Fortran 77 and before: Instead used common blocks:
+common /globals/ z,count
+
+function myfcn(x)
+real(kind=8), intent(in) :: x
+real(kind=8), intent(out) :: myfcn
+real(kind=8) :: z
+read(20,*) z
+myfcn = z*cos(x)
+end function myfcn
+
+pure subroutine f(x,y)
+implicit none
+real(kind=8), intent(in) :: x
+real(kind=8), intent(inout) :: y
+y = x**2 + y
+end subroutine f
+
+In place of
+do i=1,n
+x(i) = 2.d0*i
+end do
+can write
+forall (i=1:n)
+x(i) = 2.d0*i
+end forall
+
+forall (i=1:n, j=1:n)
+a(i,j) = 2.d0*i*j
+end forall
+
+forall (i=1:n, j=1:n, b(i,j).ne.0.d0)
+a(i,j) = 1.d0 / b(i,j)
+end forall
+
+!$omp parallel
+! some code
+!$omp end parallel
+
+!$omp parallel
+do i=1,10
+print *, "i = ",i
+enddo
+!$omp end parallel
+
+!$omp parallel do
+do i=1,10
+print *, "i = ",i
+enddo
+!$omp end parallel do
+
+!$omp parallel do
+do i=1,10
+print *, "i = ",i
+enddo
+!$omp end parallel do
+could also be written as:
+!$omp parallel
+!$omp do
+do i=1,10
+print *, "i = ",i
+enddo
+!$omp end do
+!$omp end parallel
+
+!$omp parallel
+! some code executed by every thread
+!$omp do
+do i=1,n
+! loop to be split between threads
+enddo
+!$omp end do
+! more code executed by every thread
+!$omp end parallel
+
+!$omp parallel
+! some code executed by every thread
+!$omp single
+! code executed by only one thread
+!$omp end single
+!$omp end parallel
+
+!$omp parallel
+! some code executed by every thread
+!$omp barrier
+! some code executed by every thread
+!$omp end parallel
+
+!$omp parallel num_threads 2
+!$omp sections
+!$omp section
+! code executed by only one thread
+!$omp section
+! code executed by a different thread
+!$omp end sections !! with implied barrier !!
+!$omp end parallel
+
+Solving ODE with OpenMP
+-----------------------------------------
+!$omp parallel do
+do i=1,n
+u(i) = eta(i)
+enddo
+do m=1,nsteps
+!$omp parallel do
+do i=1,n
+u(i) = (1.d0 + dt*c(i))*u(i)
+enddo
+enddo
+
+!$omp parallel private(m)
+!$omp do
+do i=1,n
+u(i) = eta(i)
+enddo
+do m=1,nsteps
+!$omp do
+do i=1,n
+u(i) = (1.d0 + dt*c(i))*u(i)
+enddo
+enddo
+!$omp end parallel
+
+!$omp parallel private(m)
+!$omp do
+do i=1,n
+u(i) = eta(i)
+enddo
+!$omp do
+do i=1,n
+do m=1,nsteps
+u(i) = (1.d0 + dt*c(i))*u(i)
+enddo
+enddo
+!$omp end parallel
+
+!$omp parallel private(istart,iend,i,m)
+istart = ??
+iend = ??
+do i=istart,iend
+u(i) = eta(i)
+enddo
+do m=1,nsteps
+do i=istart,iend
+u(i) = (1.d0 + dt*c(i))*u(i)
+enddo
+enddo
+!$omp end parallel
+
+points_per_thread = n / nthreads
+!$omp parallel private(thread_num, istart, iend, i)
+thread_num = 0 ! needed in serial mode
+!$ thread_num = omp_get_thread_num()
+istart = thread_num * points_per_thread + 1
+iend = (thread_num+1) * points_per_thread
+do i=istart,iend
+! work on thread’s part of array
+enddo
+...
+!$omp end parallel
+
+points_per_thread = (n + nthreads - 1) / nthreads
+!$omp parallel private(thread_num, istart, iend, i)
+thread_num = 0 ! needed in serial mode
+!$ thread_num = omp_get_thread_num()
+istart = thread_num * points_per_thread + 1
+iend = min((thread_num+1) * points_per_thread, n)
+do i=istart,iend
+! work on thread’s part of array
+enddo
+...
+!$omp end parallel
+
+norm = 0.d0
+!$omp parallel do reduction(+ : norm)
+do i=1,n
+norm = norm + abs(x(i))
+enddo
+!$omp parallel do
+do i=1,n
+x(i) = x(i) / norm
+enddo
+
+! from $UWHPSC/codes/openmp/normalize1.f90
+norm = 0.d0
+!$omp parallel private(i)
+!$omp do reduction(+ : norm)
+do i=1,n
+norm = norm + abs(x(i))
+enddo
+!$omp barrier ! not needed (implicit)
+!$omp do
+do i=1,n
+x(i) = x(i) / norm
+enddo
+!$omp end parallel
+
+! from $UWHPSC/codes/openmp/normalize2.f90
+norm = 0.d0
+!$omp parallel private(i,norm_thread, &
+!$omp istart,iend,thread_num)
+!$ thread_num = omp_get_thread_num()
+istart = thread_num * points_per_thread + 1
+iend = min((thread_num+1) * points_per_thread, n)
+norm_thread = 0.d0
+do i=istart,iend
+norm_thread = norm_thread + abs(x(i))
+enddo
+! update global norm with value from each thread:
+!$omp critical
+norm = norm + norm_thread
+!$omp end critical
+!$omp barrier !! needed here
+do i=istart,iend
+y(i) = x(i) / norm
+enddo
+!$omp end parallel
+
+norm_thread = 0.d0
+do i=istart,iend
+norm_thread = norm_thread + abs(x(i))
+enddo
+! update global norm with value from each thread:
+!$omp critical
+norm = norm + norm_thread
+!$omp end critical
+!$omp barrier !! needed here
+do i=istart,iend
+y(i) = x(i) / norm
+enddo
+
+!$omp parallel private(i,m,umax_thread, &
+!$omp istart,iend,thread_num)
+!$ thread_num = omp_get_thread_num()
+istart = thread_num * points_per_thread + 1
+iend = min((thread_num+1) * points_per_thread, n)
+do m=1,nsteps
+umax_thread = 0.d0
+!$omp single
+umax = 0.d0
+!$omp end single
+do i=istart,iend
+u(i) = (1.d0 + c(i)*dt) * u(i)
+umax_thread = max(umax_thread, u(i))
+enddo
+!$omp critical
+umax = max(umax, umax_thread)
+!$omp end critical
+!$omp barrier
+if (umax > 100) exit
+!$omp barrier
+enddo
+!$omp end parallel
+
+
+do loop in parallel block
+--------------------------------
+do m=1,nsteps
+umax_thread = 0.d0
+!$omp single
+umax = 0.d0
+!$omp end single
+do i=istart,iend
+u(i) = (1.d0 + c(i)*dt) * u(i)
+umax_thread = max(umax_thread, u(i))
+enddo
+!$omp critical
+umax = max(umax, umax_thread)
+!$omp end critical
+!$omp barrier
+if (umax > 100) exit
+!$omp barrier
+enddo
+
+MPI (Message Passing Interface)
+=====================================================
+There are several implementations of MPI available.
+The VM has Open MPI installed, see www.open-mpi.org.
+Only part of what’s needed — see the class notes!
+The Argonne National Lab version MPICH is also widely used.
+See also the MPI Standard
+Standard reference book:
+W. Gropp, E. Lusk, A. Skjellum, Using MPI, Second Edition,
+MIT Press, 1999. link
+Some of my slides are from Bill Gropp’s tutorials
+
+program test1
+use mpi
+implicit none
+integer :: ierr, numprocs, proc_num,
+call mpi_init(ierr)
+call mpi_comm_size(MPI_COMM_WORLD, numprocs, ierr)
+call mpi_comm_rank(MPI_COMM_WORLD, proc_num, ierr)
+print *, ’Hello from Process ’, proc_num, &
+’ of ’, numprocs, ’ processes’
+call mpi_finalize(ierr)
+end program test1
+Always need to: use mpi,
+Start with mpi_init,
+End with mpi_finalize.
+
+Try this test:
+$ cd $UWHPSC/codes/mpi
+$ mpif90 test1.f90
+$ mpiexec -n 4 a.out
+
+All communication takes place in groups of processes.
+Communication takes place in some context.
+A group and a context are combined in a communicator.
+MPI_COMM_WORLD is a communicator provided by default that
+includes all processors.
+MPI_COMM_SIZE(comm, numprocs, ierr) returns the
+number of processors in communicator comm.
+MPI_COMM_RANK(comm, proc_num, ierr) returns the
+rank of this processor in communicator comm.
+
+The mpi module includes:
+Subroutines such as mpi_init, mpi_comm_size,
+mpi_comm_rank, ...
+Global variables such as
+MPI_COMM_WORLD: a communicator,
+MPI_INTEGER: used to specify the type of data being sent
+MPI_SUM: used to specify a type of reduction
+Remember: Fortran is case insensitive:
+mpi_init is the same as MPI_INIT.
+
+There are 125 MPI functions.
+Can write many program with these 8:
+• MPI_INIT(ierr) Initialize
+• MPI_FINALIZE(ierr) Finalize
+• MPI_COMM_SIZE(...) Number of processors
+• MPI_COMM_RANK(...) Rank of this processor
+• MPI_SEND(...) Send a message
+• MPI_RCV(...) Receive a message
+• MPI_BCAST(...) Broadcast to other processors
+• MPI_REDUCE(...) Reduction operation
+
+dx = 1.d0 / n
+pisum = 0.d0
+do i=1,n
+x = (i-0.5d0) * dx
+pisum = pisum + 1.d0 / (1.d0 + x**2)
+enddo
+pi = 4.d0 * dx * pisum
+
+n = 1000
+dx = 1.d0 / n
+pisum = 0.d0
+!$omp parallel do reduction(+: pisum) &
+!$omp private(x)
+do i=1,n
+x = (i-0.5d0) * dx
+pisum = pisum + 1.d0 / (1.d0 + x**2)
+enddo
+pi = 4.d0 * dx * pisum
+
+n = 1000
+points_per_thread = (n + nthreads - 1) / nthreads
+pisum = 0.d0
+!$omp parallel private(i,pisum_thread,x, &
+!$omp istart,iend,thread_num)
+!$ thread_num = omp_get_thread_num()
+istart = thread_num * points_per_thread + 1
+iend = min((thread_num+1) * points_per_thread, n)
+pisum_thread = 0.d0
+do i=istart,iend
+x = (i-0.5d0)*dx
+pisum_thread = pisum_thread + &
+1.d0 / (1.d0 + x**2)
+enddo
+!$omp critical
+pisum = pisum + pisum_thread
+!$omp end critical
+!$omp end parallel
+pi = 4.d0 * dx * pisum
+
+call MPI_INIT(ierr)
+call MPI_COMM_RANK(MPI_COMM_WORLD, proc_num, ierr)
+if (proc_num == 0) n = 1000
+! Broadcast to all processes:
+call MPI_BCAST(n, 1, MPI_INTEGER, 0, &
+MPI_COMM_WORLD, ierr)
+dx = 1.d0/n
+points_per_proc = (n + numprocs - 1)/numprocs
+istart = proc_num * points_per_proc + 1
+iend = min((proc_num + 1)*points_per_proc, n)
+pisum_proc = 0.d0
+do i=istart,iend
+x = (i-0.5d0)*dx
+pisum_proc = pisum_proc + 1.d0 / (1.d0 + x**2)
+enddo
+call MPI_REDUCE(pisum_proc,pisum,1, &
+MPI_DOUBLE_PRECISION,MPI_SUM,0, &
+MPI_COMM_WORLD,ierr)
+if (proc_num == 0) then
+pi = 4.d0 * dx * pisum
+endif
+
+Broadcast a value from Process root to all other processes.
+General form:
+call MPI_BCAST(start, count, &
+datatype, root, &
+comm, ierr)
+where:
+• start: starting address (variable, array element)
+• count: number of elements to broadcast
+• datatype: type of each element
+• root: process doing the broadcast
+• comm: communicator
+
+call MPI_BCAST(start, count, &
+datatype, root, &
+comm, ierr)
+Broadcast 1 double precision value:
+call MPI_BCAST(x, 1, &
+MPI_DOUBLE_PRECISION, 0, &
+MPI_COMM_WORLD, ierr)}
+Broadcast jth column of a matrix (contiguous in memory):
+real(kind=8), dimension(nrows, ncols) :: a
+...
+call MPI_BCAST(a(1,j), nrows, &
+MPI_DOUBLE_PRECISION, 0, &
+MPI_COMM_WORLD, ierr)
+
+Broadcast ith row of a matrix (not contiguous!):
+real(kind=8), dimension(nrows, ncols) :: a
+real(kind=8), dimension(ncols) :: buffer
+...
+do j=1,ncols
+buffer(j) = a(i,j)
+enddo
+call MPI_BCAST(buffer, ncols, &
+MPI_DOUBLE_PRECISION, 0, &
+MPI_COMM_WORLD, ierr)
+Can instead create a strided datatype with
+MPI_TYPE_VECTOR.
+
+Collect values from all processes and reduce to a scalar.
+General form:
+call MPI_REDUCE(sendbuf, recvbuf, count, &
+datatype, op, root, &
+comm, ierr)
+where:
+• sendbuf: source address
+• recvbuf: result address
+• count: number of elements to send / receive
+• datatype: type of each element
+• op: reduction operation
+• root: process receiving and reducing
+• comm: communicator
+
+A few possible reduction operations op:
+• MPI_SUM: add together
+• MPI_PROD: muliply together
+• MPI_MAX: take maximum
+• MPI_MIN: take minimum
+• MPI_LAND: logical and
+• MPI_LOR: logical or
+
+Examples: Compute kxk1 = maxi |xi| for a distributed vector:
+xnorm_proc = 0.d0
+do i=istart,iend
+xnorm_proc = max(xnorm_proc, abs(x(i)))
+enddo
+call MPI_REDUCE(xnorm_proc, xnorm, 1, &
+MPI_DOUBLE_PRECISION, MPI_MAX, 0, &
+MPI_COMM_WORLD,ierr)
+if (proc_num == 0) print "norm of x = ", xnorm
+Note: Do not need an MPI_BARRIER before or after the
+Reduce.
+Processors do not exit from MPI_REDUCE until all have called
+the subroutine.
+
+This code is wrong:
+if (proc_num /= 0) then
+call MPI_REDUCE(xnorm_proc, xnorm, 1, &
+MPI_DOUBLE_PRECISION,MPI_SUM,0, &
+MPI_COMM_WORLD,ierr)
+print "Done with Reduce: ", proc_num
+endif
+if (proc_num == 0) print "norm of x = ", xnorm
+With more than one process, the Reduce statement is called
+by all but one.
+None of them will ever print the “Done with Reduce”
+statement or continue to run. (Code hangs.)
+
+Use MPI_REDUCE to sum ....
+the first element of each row vector into colsum(1),
+second element of each row vector into colsum(2), etc.
+real(kind=8) :: arow(n), arow_abs(n), colsum(n)
+...
+arow_abs = abs(arow)
+call MPI_REDUCE(arow_abs(1), colsum, n, &
+MPI_DOUBLE_PRECISION,MPI_SUM,0, &
+MPI_COMM_WORLD,ierr)
+if (proc_num == 0) then
+anorm = maxval(colsum)
+print "1-norm of A = ", anorm
+endif
+
+
+Adaptive Quadrature
+==================================================
+recursive subroutine myfactorial (m, mfact)
+implicit none
+intenger, intent(in):: m
+integer, intent(out):: mfact
+integer:: m1fact
+
+if (m <= 1) then
+	mfact = 1
+else
+	call myfactorial(m-1,m1fact)
+	mfact = m* m1fact
+endif
+end subroutine myfactorial
+
+Recursive subroutine adapquad(f,a,b,tol,intest,errest,level,fa,fb)
+	implicite none
+	real(kind=8), intent(in) :: a,b,tol
+	real(kind=8), intent(out) :: intest
+	real(kind=8), optional, intent(out)::errest
+	integer, optional, intent(in) :: level
+	real(kind=8), optional, intent(in):: fa,fb
+	real(kind=8), external:: f
+
+	! Local variables:
+	real(kind=8):: xmid, fmid, trapezoid, simpson, errest1, errest2, &
+			intest1,intest2, tol1, f_a, f_b
+	integer :: thislevel, next level
+	
+	if (.not. present(level)) then
+		! called from main program, which is level = 1:
+		thislevel = 1
+	else
+		thislevel = level
+	endif
+
+	write(8,801) a,b,thislevel
+
+	if (present(fa)) then
+		f_a=fa
+	else
+		f_a = f(a)
+	endif
+	
+	if ((errest>tol) .and. (thislevel<maxlevel)) then
+		!recursively apply this subroutine to each half, with
+		! tolerance tol/2 for each, and next level= thislevel +1
+		tol2 = told /2.d0
+		nextlevel = thislevel +1
+		call adapquad(f,a,xmid,tol2,intest1,errest1,nextlevel,f_a,fmid)
+		call adapquad(f,xmid,b,tol2,intest2,errest2,nextlevel,fmid,f_b)
+		intest = intest1+ intest2
+		errest = errest1 + errest2
+	else
+		!Use the trapezoid approximation.
+		! Note that simpson would be better,
+		! but we have error estimate for trapezoid
+		intest = trapezoid
+	endif
+
+approx = 0.1982448782099E+00
+true = 0.4147421694070E+00
+error = -0.216E+00
+errest = -0.415E-01
+
+approx = 0.4074167985367E+00
+true = 0.4147421694070E+00
+error = -0.733E-02
+errest = -0.730E-02
+g was evaluated 53 times
+
+approx = 0.4144742980922E+00
+true = 0.4147421694070E+00
+error = -0.268E-03
+errest = 0.119E-01
+g was evaluated 115 times
+
+Adaptive Quadrature with OpenMP
+-------------------------------------------
+! poor load balancing:
+! $UWHPSC/codes/adaptive_quadrature/openmp1/testquad.f90
+xmid = 0.5d0*(a+b)
+tol2 = tol / 2.d0
+!$omp parallel sections
+!$omp section
+call adapquad(g,a,xmid,tol2,intest1,errest1)
+!$omp section
+call adapquad(g,xmid,b,tol2,intest2,errest2)
+!$omp end parallel sections
+int_approx = intest1 + intest2
+errest = errest1 + errest2
+
+Better approach: Allow nested calls to OpenMP.
+! $UWHPSC/codes/adaptive_quadrature/openmp2/testquad.f90
+! Allow nested OpenMP threading:
+!$ call omp_set_nested(.true.)
+call adapquad(g, a, b, tol, int_approx, errest)
+!============
+! $UWHPSC/codes/adaptive_quadrature/openmp2/adapquad_mod.f90
+if ((errest > tol) .and. (thislevel < maxlevel)) then
+! recursively apply this subroutine to each half, with
+! tolerance tol/2 for each, and nextlevel = thislevel+1:
+tol2 = tol / 2.d0
+nextlevel = thislevel + 1
+!$omp parallel sections
+!$omp section
+call adapquad(f,a,xmid,tol2,intest1,errest1,nextlevel,f_a,fmid)
+!$omp section
+call adapquad(f,xmid,b,tol2,intest2,errest2,nextlevel,fmid,f_b)
+!$omp end parallel sections
+
+QUADPACK: Fortran 77
+http://en.wikipedia.org/wiki/QUADPACK
+SciPy: scipy.integrate.quad uses QUADPACK:
+In [1]: from scipy import integrate as I
+In [2]: beta = 10.
+In [3]: f = lambda x: exp(-beta**2 * x**2) + sin(x)
+In [4]: I.quad(f, -2., 4.)
+Out[4]: (0.4147421694070216, 8.440197311887498e-09)
+Returns estimate of integral and of error.
+Use I.quad? or I? to learn more.
+
+MPI cont.
+====================================================
+
+
+
+
+
+
+
+
+
+
+
+
