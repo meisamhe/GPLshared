@@ -1,0 +1,24 @@
+1 <My BST> successful#
+2 <BST XYZ> successful#
+2 <> UNsuccessful because undecleared name!!#
+2 <BST X> successful#
+8 <BST X> <BST XYZ>are equal#
+3 <BST XYZ> S S S #
+4 <BST XYZ> S S S #
+5 <BST XYZ> 20 11 6 5 2 15 13 26 23 #
+5 <My BST> #
+5 <BST X> 20 10 6 5 15 26 22 24 23 #
+6 <BST XYZ> 11 13 15 #
+6 <BST XYZ> 5 6 11 13 15 20 23 26 #
+6 <BST XYZ> 2 5 6 11 13 15 20 23 #
+7 <BST XYZ> 6#
+2 <BST X> UNsuccessful because we have reserved this name for another tree#
+7 <BIG> UNsuccessful#
+2 <BST XYZ> UNsuccessful because we have reserved this name for another tree#
+8 <BST XYZ> <My BST>are not equal#
+8 <BST X> <BST XYZ>are not equal#
+2 <BST Y> successful#
+8 <BST XYZ> <BST Y>are equal#
+9 <BST XYZ> deleted successfully#
+2 <BST XYZ> successful#
+#

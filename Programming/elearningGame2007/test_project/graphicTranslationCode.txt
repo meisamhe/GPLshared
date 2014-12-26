@@ -1,0 +1,209 @@
+1 // Java3DWorld.java
+2 // Java3DWorld is a Java 3D Graphics display environment
+3 // that creates a SimpleUniverse and provides capabilities for
+4 // allowing a user to control lighting, motion, and texture
+5 // of the 3D scene.
+6 package com.deitel.advjhtp1.java3d;
+78
+// Java core packages
+9 import java.awt.event.*;
+10 import java.awt.*;
+11 import java.net.*;
+12
+13 // Java extension packages
+14 import javax.swing.event.*;
+15 import javax.media.j3d.*;
+16 import javax.vecmath.*;
+17
+18 // Java 3D utility packages
+19 import com.sun.j3d.utils.universe.*;
+20 import com.sun.j3d.utils.image.*;
+21 import com.sun.j3d.utils.geometry.*;
+22 import com.sun.j3d.utils.behaviors.mouse.*;
+23
+24 public class Java3DWorld extends Canvas3D {
+25
+26 private Appearance appearance; // 3D object's appearance
+27 private Box shape; // 3D object to manipulate
+28 private Color3f lightColor; // Light color
+29 private Light ambientLight; // ambient scene lighting
+30 private Light directionalLight; //directional light
+31 private Material material; // 3D objects color object
+32 private SimpleUniverse simpleUniverse; // 3D scene environment
+33 private TextureLoader textureLoader; // 3D object's texture
+35 // holds 3D transformation information
+36 private TransformGroup transformGroup;
+37
+38 private String imageName; // texture image file name
+39
+40 // Java3DWorld constructor
+41 public Java3DWorld( String imageFileName )
+42 {
+43 super( SimpleUniverse.getPreferredConfiguration() );
+44
+45 imageName = imageFileName;
+46
+47 // create SimpleUniverse (3D Graphics environment)
+48 simpleUniverse = new SimpleUniverse( this );
+49
+50 // set default view point and direction
+51 ViewingPlatform viewPlatform =
+52 simpleUniverse.getViewingPlatform();
+53
+54 viewPlatform.setNominalViewingTransform();
+55
+56 // create 3D scene
+57 BranchGroup branchGroup = createScene();
+58
+59 // attach BranchGroup to SimpleUniverse
+60 simpleUniverse.addBranchGraph( branchGroup );
+61
+62 } // end Java3DWorld constructor
+63
+64 // create 3D scene
+65 public BranchGroup createScene()
+66 {
+67 BranchGroup scene = new BranchGroup();
+68
+69 // initialize TransformGroup
+70 transformGroup = new TransformGroup();
+71
+72 // set TransformGroup's READ and WRITE permission
+73 transformGroup.setCapability(
+74 TransformGroup.ALLOW_TRANSFORM_READ );
+75
+76 transformGroup.setCapability(
+77 TransformGroup.ALLOW_TRANSFORM_WRITE );
+78
+79 // add TransformGroup to BranchGroup
+80 scene.addChild( transformGroup );
+81
+82 // create BoundingSphere
+83 BoundingSphere bounds = new BoundingSphere(
+84 new Point3d( 0.0f, 0.0f, 0.0f ), 100.0 );
+85
+86 appearance = new Appearance(); // create object appearance
+87 material = new Material(); // create texture matieral
+88 appearance.setMaterial( material );
+89
+90 String rgb = new String( "RGB" );
+91
+92 // load texture for scene object
+93 textureLoader = new TextureLoader(
+94 Java3DWorld.class.getResource( imageName ), rgb, this );
+95
+96 // set capability bits for enabling texture
+97 textureLoader.getTexture().setCapability(
+98 Texture.ALLOW_ENABLE_WRITE );
+99
+100 // initial texture will not show
+101 textureLoader.getTexture().setEnable( false );
+102
+103 // set object's texture
+104 appearance.setTexture( textureLoader.getTexture() );
+105
+106 // create object geometry
+107 Box shape = new Box( 0.3f, 0.3f, 0.3f,
+108 Box.GENERATE_NORMALS | Box.GENERATE_TEXTURE_COORDS,
+109 appearance );
+110
+111 // add geometry to TransformGroup
+112 transformGroup.addChild( shape );
+113
+114 // initialize Ambient lighting
+115 ambientLight = new AmbientLight();
+116 ambientLight.setInfluencingBounds( bounds );
+117
+118 // initialize directionalLight
+119 directionalLight = new DirectionalLight();
+120
+121 lightColor = new Color3f(); // initialize light color
+122
+123 // set initial DirectionalLight color
+124 directionalLight.setColor( lightColor );
+125
+126 // set capability bits to allow DirectionalLight's
+127 // Color and Direction to be changed
+128 directionalLight.setCapability(
+129 DirectionalLight.ALLOW_DIRECTION_WRITE );
+130
+131 directionalLight.setCapability(
+132 DirectionalLight.ALLOW_DIRECTION_READ );
+133
+134 directionalLight.setCapability(
+135 DirectionalLight.ALLOW_COLOR_WRITE );
+136
+137 directionalLight.setCapability(
+138 DirectionalLight.ALLOW_COLOR_READ );
+139
+140 directionalLight.setInfluencingBounds( bounds );
+141
+142 // add light nodes to BranchGroup
+143 scene.addChild( ambientLight );
+144 scene.addChild( directionalLight );
+145
+146 // initialize rotation behavior
+147 MouseRotate rotateBehavior = new MouseRotate();
+148 rotateBehavior.setTransformGroup( transformGroup );
+149 rotateBehavior.setSchedulingBounds( bounds );
+150
+151 // initialize translation behavior
+152 MouseTranslate translateBehavior = new MouseTranslate();
+153 translateBehavior.setTransformGroup( transformGroup );
+154 translateBehavior.setSchedulingBounds(
+155 new BoundingBox( new Point3d( -1.0f, -1.0f, -1.0f ),
+156 new Point3d( 1.0f, 1.0f, 1.0f ) ) );
+157
+158 // initialize scaling behavior
+159 MouseZoom scaleBehavior = new MouseZoom();
+160 scaleBehavior.setTransformGroup( transformGroup );
+161 scaleBehavior.setSchedulingBounds( bounds );
+162
+163 // add behaviors to BranchGroup
+164 scene.addChild( scaleBehavior );
+165 scene.addChild( rotateBehavior );
+166 scene.addChild( translateBehavior );
+167
+168 scene.compile();
+169
+170 return scene;
+171
+172 } // end method createScene
+173
+174 // change DirectionLight color
+175 public void changeColor( Color color )
+176 {
+177 lightColor.set( color );
+178 directionalLight.setColor( lightColor );
+179 }
+180
+181 // change geometry surface to textured image or material color
+182 public void updateTexture( boolean textureValue )
+183 {
+184 textureLoader.getTexture().setEnable( textureValue );
+185 }
+186
+187 // change image used for texture
+188 public void setImageName( String imageFileName )
+189 {
+190 imageName = imageFileName;
+191 }
+192
+193 // get image file name
+194 public String getImageName()
+195 {
+196 return imageName;
+197 }
+198
+199 // return preferred dimensions of Container
+200 public Dimension getPreferredSize()
+201 {
+202 return new Dimension( 500, 500 );
+203 }
+204
+205 // return minimum size of Container
+206 public Dimension getMinimumSize()
+207 {
+208 return getPreferredSize();
+209 }
+210 }

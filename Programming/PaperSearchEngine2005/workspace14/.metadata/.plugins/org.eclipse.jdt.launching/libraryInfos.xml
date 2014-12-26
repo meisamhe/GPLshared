@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libraryInfos>
+<libraryInfo version="1.4.2_04-b05" home="C:\Program Files\Java\j2re1.4.2_04">
+<bootpath>
+<entry path="C:\Program Files\Java\j2re1.4.2_04\lib\rt.jar"/>
+<entry path="C:\Program Files\Java\j2re1.4.2_04\lib\i18n.jar"/>
+<entry path="C:\Program Files\Java\j2re1.4.2_04\lib\sunrsasign.jar"/>
+<entry path="C:\Program Files\Java\j2re1.4.2_04\lib\jsse.jar"/>
+<entry path="C:\Program Files\Java\j2re1.4.2_04\lib\jce.jar"/>
+<entry path="C:\Program Files\Java\j2re1.4.2_04\lib\charsets.jar"/>
+<entry path="C:\Program Files\Java\j2re1.4.2_04\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="C:\Program Files\Java\j2re1.4.2_04\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="C:\Program Files\Java\j2re1.4.2_04\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo version="1.4.2_04-b05" home="E:\Borland\JBuilder2005\jdk1.4\jre">
+<bootpath>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\rt.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\i18n.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\sunrsasign.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\jsse.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\jce.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\charsets.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo version="1.4.2_04-b05" home="E:\Borland\JBuilder2005\jdk1.4">
+<bootpath>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\rt.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\i18n.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\sunrsasign.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\jsse.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\jce.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\charsets.jar"/>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="E:\Borland\JBuilder2005\jdk1.4\jre\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo version="1.4.1" home="C:\Program Files\IBM\Java141\jre">
+<bootpath>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\core.jar"/>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\graphics.jar"/>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\security.jar"/>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\server.jar"/>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\xml.jar"/>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\charsets.jar"/>
+</bootpath>
+<extensionDirs>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo version="1.4.1" home="C:\Program Files\IBM\Java141">
+<bootpath>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\core.jar"/>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\graphics.jar"/>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\security.jar"/>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\server.jar"/>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\xml.jar"/>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\charsets.jar"/>
+</bootpath>
+<extensionDirs>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="C:\Program Files\IBM\Java141\jre\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+</libraryInfos>

@@ -1,0 +1,3200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://actionTracking.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://actionTracking.com" xmlns:intf="http://actionTracking.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://actionTracking.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="getLocation">
+    <complexType/>
+   </element>
+   <element name="getLocationResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getLocationReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="changeState">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+      <element name="personType" type="xsd:string"/>
+      <element name="state" type="xsd:long"/>
+      <element name="personUser" type="xsd:string"/>
+      <element name="date" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="changeStateResponse">
+    <complexType>
+     <sequence>
+      <element name="changeStateReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getActivity">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getActivityResponse">
+    <complexType>
+     <sequence>
+      <element name="getActivityReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="intArray">
+    <complexType/>
+   </element>
+   <element name="intArrayResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="intArrayReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="reassign">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+      <element name="changerUser" type="xsd:string"/>
+      <element name="firstPersonUser" type="xsd:string"/>
+      <element name="firstPersonType" type="xsd:string"/>
+      <element name="secondPersonUser" type="xsd:string"/>
+      <element name="secondPersonType" type="xsd:string"/>
+      <element name="date" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="reassignResponse">
+    <complexType>
+     <sequence>
+      <element name="reassignReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineEmployee">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="family" type="xsd:string"/>
+      <element name="user" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+      <element name="department" type="xsd:string"/>
+      <element name="location" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineEmployeeResponse">
+    <complexType>
+     <sequence>
+      <element name="defineEmployeeReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineDepartment">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="location" type="xsd:string"/>
+      <element name="upperDepartmentName" type="xsd:string"/>
+      <element name="upperDepartmentLocation" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineDepartmentResponse">
+    <complexType>
+     <sequence>
+      <element name="defineDepartmentReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineManager">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="family" type="xsd:string"/>
+      <element name="user" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+      <element name="department" type="xsd:string"/>
+      <element name="location" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineManagerResponse">
+    <complexType>
+     <sequence>
+      <element name="defineManagerReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="replaceEmployee">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="secondName" type="xsd:string"/>
+      <element name="secondFamily" type="xsd:string"/>
+      <element name="secondUser" type="xsd:string"/>
+      <element name="secondPassword" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="replaceEmployeeResponse">
+    <complexType>
+     <sequence>
+      <element name="replaceEmployeeReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteEmployee">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deleteEmployeeResponse">
+    <complexType>
+     <sequence>
+      <element name="deleteEmployeeReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="replaceManager">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="secondName" type="xsd:string"/>
+      <element name="secondFamily" type="xsd:string"/>
+      <element name="secondUser" type="xsd:string"/>
+      <element name="secondPassword" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="replaceManagerResponse">
+    <complexType>
+     <sequence>
+      <element name="replaceManagerReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineActivity">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="description" type="xsd:string"/>
+      <element name="deadline" type="xsd:long"/>
+      <element name="initializedDate" type="xsd:long"/>
+      <element name="personUser" type="xsd:string"/>
+      <element name="personType" type="xsd:string"/>
+      <element name="assignedByUser" type="xsd:string"/>
+      <element name="upperActivityID" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineActivityResponse">
+    <complexType>
+     <sequence>
+      <element name="defineActivityReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="preciseDescription">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+      <element name="personType" type="xsd:string"/>
+      <element name="description" type="xsd:string"/>
+      <element name="personUser" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="preciseDescriptionResponse">
+    <complexType>
+     <sequence>
+      <element name="preciseDescriptionReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="extendDeadline">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+      <element name="type" type="xsd:string"/>
+      <element name="deadline" type="xsd:long"/>
+      <element name="assignedUser" type="xsd:string"/>
+      <element name="date" type="xsd:long"/>
+      <element name="changerUser" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="extendDeadlineResponse">
+    <complexType>
+     <sequence>
+      <element name="extendDeadlineReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="unActivateActivity">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+      <element name="personType" type="xsd:string"/>
+      <element name="personUser" type="xsd:string"/>
+      <element name="changerUser" type="xsd:string"/>
+      <element name="date" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="unActivateActivityResponse">
+    <complexType>
+     <sequence>
+      <element name="unActivateActivityReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addResourceToActivity">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+      <element name="type" type="xsd:string"/>
+      <element name="resourceName" type="xsd:string"/>
+      <element name="resourcePlace" type="xsd:string"/>
+      <element name="resourceQuantity" type="xsd:long"/>
+      <element name="assignedUser" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addResourceToActivityResponse">
+    <complexType>
+     <sequence>
+      <element name="addResourceToActivityReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineResourceForOrganization">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="place" type="xsd:string"/>
+      <element name="inHand" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineResourceForOrganizationResponse">
+    <complexType>
+     <sequence>
+      <element name="defineResourceForOrganizationReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addReportToActivity">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+      <element name="type" type="xsd:string"/>
+      <element name="title" type="xsd:string"/>
+      <element name="reportpath" type="xsd:string"/>
+      <element name="assignedUser" type="xsd:string"/>
+      <element name="date" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="addReportToActivityResponse">
+    <complexType>
+     <sequence>
+      <element name="addReportToActivityReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="changeResourceQuantityOfActivity">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+      <element name="type" type="xsd:string"/>
+      <element name="resourceName" type="xsd:string"/>
+      <element name="resourcePlace" type="xsd:string"/>
+      <element name="resourceQuantity" type="xsd:long"/>
+      <element name="assignedUser" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="changeResourceQuantityOfActivityResponse">
+    <complexType>
+     <sequence>
+      <element name="changeResourceQuantityOfActivityReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="changeResourceQuantityOfOrganization">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+      <element name="place" type="xsd:string"/>
+      <element name="inHand" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="changeResourceQuantityOfOrganizationResponse">
+    <complexType>
+     <sequence>
+      <element name="changeResourceQuantityOfOrganizationReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="uncompletedActivityUntilDateOfSpecialPerson">
+    <complexType>
+     <sequence>
+      <element name="type" type="xsd:string"/>
+      <element name="date" type="xsd:long"/>
+      <element name="user" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="uncompletedActivityUntilDateOfSpecialPersonResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="uncompletedActivityUntilDateOfSpecialPersonReturn" type="impl:Activity"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="Person">
+    <sequence>
+     <element name="department" nillable="true" type="xsd:string"/>
+     <element name="family" nillable="true" type="xsd:string"/>
+     <element name="location" nillable="true" type="xsd:string"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="type" nillable="true" type="xsd:string"/>
+     <element name="user" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="Activity">
+    <sequence>
+     <element name="activityId" type="xsd:long"/>
+     <element name="assignedBy" nillable="true" type="impl:Person"/>
+     <element name="deadline" type="xsd:long"/>
+     <element name="description" nillable="true" type="xsd:string"/>
+     <element name="employee" nillable="true" type="impl:Person"/>
+     <element name="employeeID" type="xsd:long"/>
+     <element name="initializedDate" type="xsd:long"/>
+     <element name="lastUpdate" type="xsd:long"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="state" type="xsd:long"/>
+     <element name="type" nillable="true" type="xsd:string"/>
+     <element name="upperActivity" type="xsd:long"/>
+    </sequence>
+   </complexType>
+   <element name="uncompleted">
+    <complexType>
+     <sequence>
+      <element name="type" type="xsd:string"/>
+      <element name="date" type="xsd:long"/>
+      <element name="user" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="uncompletedResponse">
+    <complexType>
+     <sequence>
+      <element name="uncompletedReturn" type="impl:Activity"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="uncompletedActivityUntilDateOfsubsidary">
+    <complexType>
+     <sequence>
+      <element name="date" type="xsd:long"/>
+      <element name="user" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="uncompletedActivityUntilDateOfsubsidaryResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="uncompletedActivityUntilDateOfsubsidaryReturn" type="impl:Activity"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="completedActivityBetweenDatesEmployee">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="type" type="xsd:string"/>
+      <element name="firstDate" type="xsd:long"/>
+      <element name="lastDate" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="completedActivityBetweenDatesEmployeeResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="completedActivityBetweenDatesEmployeeReturn" type="impl:Activity"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="completedActivityBetweenDatesSubsidary">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="firstDate" type="xsd:long"/>
+      <element name="lastDate" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="completedActivityBetweenDatesSubsidaryResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="completedActivityBetweenDatesSubsidaryReturn" type="impl:Activity"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="unCompletedActivityBetweenDatesEmployee">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="type" type="xsd:string"/>
+      <element name="firstDate" type="xsd:long"/>
+      <element name="lastDate" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="unCompletedActivityBetweenDatesEmployeeResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="unCompletedActivityBetweenDatesEmployeeReturn" type="impl:Activity"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="unCompletedActivityBetweenDatesSubsidary">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="firstDate" type="xsd:long"/>
+      <element name="lastDate" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="unCompletedActivityBetweenDatesSubsidaryResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="unCompletedActivityBetweenDatesSubsidaryReturn" type="impl:Activity"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="allActivityBetweenDatesEmployee">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="type" type="xsd:string"/>
+      <element name="firstDate" type="xsd:long"/>
+      <element name="lastDate" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="allActivityBetweenDatesEmployeeResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="allActivityBetweenDatesEmployeeReturn" type="impl:Activity"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="allActivityBetweenDatesSubsidary">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="firstDate" type="xsd:long"/>
+      <element name="lastDate" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="allActivityBetweenDatesSubsidaryResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="allActivityBetweenDatesSubsidaryReturn" type="impl:Activity"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPersonel">
+    <complexType>
+     <sequence>
+      <element name="type" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPersonelResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getPersonelReturn" type="impl:Person"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getDepartments">
+    <complexType/>
+   </element>
+   <element name="getDepartmentsResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getDepartmentsReturn" type="impl:Department"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="Department">
+    <sequence>
+     <element name="location" nillable="true" type="xsd:string"/>
+     <element name="name" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="getPersonelWithName">
+    <complexType>
+     <sequence>
+      <element name="type" type="xsd:string"/>
+      <element name="name" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPersonelWithNameResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getPersonelWithNameReturn" type="impl:Person"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getDepartmentsWithName">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getDepartmentsWithNameResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getDepartmentsWithNameReturn" type="impl:Department"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getLocationWithName">
+    <complexType>
+     <sequence>
+      <element name="name" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getLocationWithNameResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getLocationWithNameReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="viewReportOfActivity">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="type" type="xsd:string"/>
+      <element name="ActivityID" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="viewReportOfActivityResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="viewReportOfActivityReturn" type="impl:Report"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="Report">
+    <sequence>
+     <element name="date" type="xsd:long"/>
+     <element name="path" nillable="true" type="xsd:string"/>
+     <element name="title" nillable="true" type="xsd:string"/>
+     <element name="version" type="xsd:long"/>
+    </sequence>
+   </complexType>
+   <element name="getReportCountOfActivity">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="type" type="xsd:string"/>
+      <element name="ActivityID" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getReportCountOfActivityResponse">
+    <complexType>
+     <sequence>
+      <element name="getReportCountOfActivityReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="viewResourceOfOrganization">
+    <complexType/>
+   </element>
+   <element name="viewResourceOfOrganizationResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="viewResourceOfOrganizationReturn" type="impl:Resource"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="Resource">
+    <sequence>
+     <element name="name" nillable="true" type="xsd:string"/>
+     <element name="place" nillable="true" type="xsd:string"/>
+     <element name="quantity" type="xsd:long"/>
+    </sequence>
+   </complexType>
+   <element name="viewResourceOfActivity">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="type" type="xsd:string"/>
+      <element name="ActivityID" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="viewResourceOfActivityResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="viewResourceOfActivityReturn" type="impl:Resource"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="personAuthentication">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+      <element name="type" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="personAuthenticationResponse">
+    <complexType>
+     <sequence>
+      <element name="personAuthenticationReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="hello">
+    <complexType/>
+   </element>
+   <element name="helloResponse">
+    <complexType>
+     <sequence>
+      <element name="helloReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="returnInteger">
+    <complexType/>
+   </element>
+   <element name="returnIntegerResponse">
+    <complexType>
+     <sequence>
+      <element name="returnIntegerReturn" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="intDynamicArray">
+    <complexType>
+     <sequence>
+      <element name="i" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="intDynamicArrayResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="intDynamicArrayReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="miladiToShamsi">
+    <complexType>
+     <sequence>
+      <element name="iMiladiYear" type="xsd:int"/>
+      <element name="iMiladiMonth" type="xsd:int"/>
+      <element name="iMiladiDay" type="xsd:int"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="miladiToShamsiResponse">
+    <complexType>
+     <sequence>
+      <element name="miladiToShamsiReturn" type="impl:ShamsiDate"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ShamsiDate">
+    <sequence>
+     <element name="IDay" type="xsd:int"/>
+     <element name="IMonth" type="xsd:int"/>
+     <element name="IYear" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <element name="getPersonelOfDepartment">
+    <complexType>
+     <sequence>
+      <element name="type" type="xsd:string"/>
+      <element name="user" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPersonelOfDepartmentResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getPersonelOfDepartmentReturn" type="impl:Person"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSubsidaryPersonel">
+    <complexType>
+     <sequence>
+      <element name="type" type="xsd:string"/>
+      <element name="user" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSubsidaryPersonelResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getSubsidaryPersonelReturn" type="impl:Person"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPerson">
+    <complexType>
+     <sequence>
+      <element name="employeeID" type="xsd:long"/>
+      <element name="type" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getPersonResponse">
+    <complexType>
+     <sequence>
+      <element name="getPersonReturn" type="impl:Person"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="viewUsedResource">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="viewUsedResourceResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="viewUsedResourceReturn" type="impl:Resource"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="viewAvailableResource">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="viewAvailableResourceResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="viewAvailableResourceReturn" type="impl:Resource"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSubsidaryActivity">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+      <element name="user" type="xsd:string"/>
+      <element name="type" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getSubsidaryActivityResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="getSubsidaryActivityReturn" type="impl:Activity"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="stateAvoidedChangeOneEmployee">
+    <complexType>
+     <sequence>
+      <element name="personUser" type="xsd:string"/>
+      <element name="personType" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="stateAvoidedChangeOneEmployeeResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="stateAvoidedChangeOneEmployeeReturn" type="impl:ActivityLogItem"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ActivityLogItem">
+    <sequence>
+     <element name="activityID" type="xsd:long"/>
+     <element name="changeType" nillable="true" type="xsd:string"/>
+     <element name="changerType" nillable="true" type="xsd:string"/>
+     <element name="date" type="xsd:long"/>
+     <element name="oldType" nillable="true" type="xsd:string"/>
+     <element name="oldValue" nillable="true" type="xsd:string"/>
+     <element name="personID" type="xsd:long"/>
+    </sequence>
+   </complexType>
+   <element name="stateAvoidedChangeAllEmployee">
+    <complexType>
+     <sequence>
+      <element name="managerUser" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="stateAvoidedChangeAllEmployeeResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="stateAvoidedChangeAllEmployeeReturn" type="impl:ActivityLogItem"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="removedActivityReport">
+    <complexType>
+     <sequence>
+      <element name="managerUser" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="removedActivityReportResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="removedActivityReportReturn" type="impl:ActivityLogItem"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="refrenceChangeReport">
+    <complexType>
+     <sequence>
+      <element name="managerUser" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="refrenceChangeReportResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="refrenceChangeReportReturn" type="impl:ActivityLogItem"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deadLineChangeOfActivity">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="deadLineChangeOfActivityResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="deadLineChangeOfActivityReturn" type="impl:ActivityLogItem"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="allChangesOfActivity">
+    <complexType>
+     <sequence>
+      <element name="activityID" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="allChangesOfActivityResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="allChangesOfActivityReturn" type="impl:ActivityLogItem"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineUser">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="password" type="xsd:string"/>
+      <element name="type" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="defineUserResponse">
+    <complexType>
+     <sequence>
+      <element name="defineUserReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="changePassowrd">
+    <complexType>
+     <sequence>
+      <element name="user" type="xsd:string"/>
+      <element name="oldPassword" type="xsd:string"/>
+      <element name="type" type="xsd:string"/>
+      <element name="newPassword" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="changePassowrdResponse">
+    <complexType>
+     <sequence>
+      <element name="changePassowrdReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="completedActivityTodaySubsidary">
+    <complexType>
+     <sequence>
+      <element name="type" type="xsd:string"/>
+      <element name="user" type="xsd:string"/>
+      <element name="date" type="xsd:long"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="completedActivityTodaySubsidaryResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="completedActivityTodaySubsidaryReturn" type="impl:Activity"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="replaceEmployeeRequest">
+
+      <wsdl:part element="impl:replaceEmployee" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="preciseDescriptionRequest">
+
+      <wsdl:part element="impl:preciseDescription" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPersonelOfDepartmentResponse">
+
+      <wsdl:part element="impl:getPersonelOfDepartmentResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineDepartmentRequest">
+
+      <wsdl:part element="impl:defineDepartment" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getDepartmentsWithNameResponse">
+
+      <wsdl:part element="impl:getDepartmentsWithNameResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="personAuthenticationResponse">
+
+      <wsdl:part element="impl:personAuthenticationResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="replaceManagerResponse">
+
+      <wsdl:part element="impl:replaceManagerResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="extendDeadlineResponse">
+
+      <wsdl:part element="impl:extendDeadlineResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="viewReportOfActivityResponse">
+
+      <wsdl:part element="impl:viewReportOfActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="uncompletedActivityUntilDateOfSpecialPersonResponse">
+
+      <wsdl:part element="impl:uncompletedActivityUntilDateOfSpecialPersonResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="preciseDescriptionResponse">
+
+      <wsdl:part element="impl:preciseDescriptionResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="viewUsedResourceRequest">
+
+      <wsdl:part element="impl:viewUsedResource" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="changeResourceQuantityOfActivityResponse">
+
+      <wsdl:part element="impl:changeResourceQuantityOfActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getLocationRequest">
+
+      <wsdl:part element="impl:getLocation" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="allChangesOfActivityRequest">
+
+      <wsdl:part element="impl:allChangesOfActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="completedActivityBetweenDatesSubsidaryResponse">
+
+      <wsdl:part element="impl:completedActivityBetweenDatesSubsidaryResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="viewResourceOfActivityRequest">
+
+      <wsdl:part element="impl:viewResourceOfActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="viewResourceOfActivityResponse">
+
+      <wsdl:part element="impl:viewResourceOfActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="changeStateRequest">
+
+      <wsdl:part element="impl:changeState" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="viewAvailableResourceRequest">
+
+      <wsdl:part element="impl:viewAvailableResource" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="completedActivityTodaySubsidaryRequest">
+
+      <wsdl:part element="impl:completedActivityTodaySubsidary" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSubsidaryPersonelResponse">
+
+      <wsdl:part element="impl:getSubsidaryPersonelResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="replaceEmployeeResponse">
+
+      <wsdl:part element="impl:replaceEmployeeResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineDepartmentResponse">
+
+      <wsdl:part element="impl:defineDepartmentResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineUserRequest">
+
+      <wsdl:part element="impl:defineUser" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="viewUsedResourceResponse">
+
+      <wsdl:part element="impl:viewUsedResourceResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="helloRequest">
+
+      <wsdl:part element="impl:hello" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPersonelOfDepartmentRequest">
+
+      <wsdl:part element="impl:getPersonelOfDepartment" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addResourceToActivityRequest">
+
+      <wsdl:part element="impl:addResourceToActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteEmployeeResponse">
+
+      <wsdl:part element="impl:deleteEmployeeResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="changeResourceQuantityOfOrganizationResponse">
+
+      <wsdl:part element="impl:changeResourceQuantityOfOrganizationResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="returnIntegerRequest">
+
+      <wsdl:part element="impl:returnInteger" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="allActivityBetweenDatesSubsidaryResponse">
+
+      <wsdl:part element="impl:allActivityBetweenDatesSubsidaryResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="completedActivityBetweenDatesEmployeeResponse">
+
+      <wsdl:part element="impl:completedActivityBetweenDatesEmployeeResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="uncompletedRequest">
+
+      <wsdl:part element="impl:uncompleted" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="unCompletedActivityBetweenDatesEmployeeRequest">
+
+      <wsdl:part element="impl:unCompletedActivityBetweenDatesEmployee" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSubsidaryActivityRequest">
+
+      <wsdl:part element="impl:getSubsidaryActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="unCompletedActivityBetweenDatesSubsidaryRequest">
+
+      <wsdl:part element="impl:unCompletedActivityBetweenDatesSubsidary" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removedActivityReportRequest">
+
+      <wsdl:part element="impl:removedActivityReport" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPersonelResponse">
+
+      <wsdl:part element="impl:getPersonelResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineResourceForOrganizationResponse">
+
+      <wsdl:part element="impl:defineResourceForOrganizationResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="changeStateResponse">
+
+      <wsdl:part element="impl:changeStateResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getLocationResponse">
+
+      <wsdl:part element="impl:getLocationResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="allChangesOfActivityResponse">
+
+      <wsdl:part element="impl:allChangesOfActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="uncompletedActivityUntilDateOfsubsidaryRequest">
+
+      <wsdl:part element="impl:uncompletedActivityUntilDateOfsubsidary" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineManagerRequest">
+
+      <wsdl:part element="impl:defineManager" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getReportCountOfActivityResponse">
+
+      <wsdl:part element="impl:getReportCountOfActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deadLineChangeOfActivityResponse">
+
+      <wsdl:part element="impl:deadLineChangeOfActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="extendDeadlineRequest">
+
+      <wsdl:part element="impl:extendDeadline" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addResourceToActivityResponse">
+
+      <wsdl:part element="impl:addResourceToActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineUserResponse">
+
+      <wsdl:part element="impl:defineUserResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineManagerResponse">
+
+      <wsdl:part element="impl:defineManagerResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="completedActivityTodaySubsidaryResponse">
+
+      <wsdl:part element="impl:completedActivityTodaySubsidaryResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addReportToActivityRequest">
+
+      <wsdl:part element="impl:addReportToActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPersonelWithNameResponse">
+
+      <wsdl:part element="impl:getPersonelWithNameResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="allActivityBetweenDatesEmployeeResponse">
+
+      <wsdl:part element="impl:allActivityBetweenDatesEmployeeResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deleteEmployeeRequest">
+
+      <wsdl:part element="impl:deleteEmployee" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getDepartmentsWithNameRequest">
+
+      <wsdl:part element="impl:getDepartmentsWithName" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="stateAvoidedChangeAllEmployeeRequest">
+
+      <wsdl:part element="impl:stateAvoidedChangeAllEmployee" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="removedActivityReportResponse">
+
+      <wsdl:part element="impl:removedActivityReportResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="miladiToShamsiRequest">
+
+      <wsdl:part element="impl:miladiToShamsi" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="intArrayRequest">
+
+      <wsdl:part element="impl:intArray" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="addReportToActivityResponse">
+
+      <wsdl:part element="impl:addReportToActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="changePassowrdResponse">
+
+      <wsdl:part element="impl:changePassowrdResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="changePassowrdRequest">
+
+      <wsdl:part element="impl:changePassowrd" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="miladiToShamsiResponse">
+
+      <wsdl:part element="impl:miladiToShamsiResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPersonelWithNameRequest">
+
+      <wsdl:part element="impl:getPersonelWithName" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getLocationWithNameRequest">
+
+      <wsdl:part element="impl:getLocationWithName" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="unCompletedActivityBetweenDatesSubsidaryResponse">
+
+      <wsdl:part element="impl:unCompletedActivityBetweenDatesSubsidaryResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="intArrayResponse">
+
+      <wsdl:part element="impl:intArrayResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="returnIntegerResponse">
+
+      <wsdl:part element="impl:returnIntegerResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="stateAvoidedChangeAllEmployeeResponse">
+
+      <wsdl:part element="impl:stateAvoidedChangeAllEmployeeResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="refrenceChangeReportRequest">
+
+      <wsdl:part element="impl:refrenceChangeReport" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="refrenceChangeReportResponse">
+
+      <wsdl:part element="impl:refrenceChangeReportResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="allActivityBetweenDatesSubsidaryRequest">
+
+      <wsdl:part element="impl:allActivityBetweenDatesSubsidary" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="viewResourceOfOrganizationResponse">
+
+      <wsdl:part element="impl:viewResourceOfOrganizationResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getActivityRequest">
+
+      <wsdl:part element="impl:getActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getActivityResponse">
+
+      <wsdl:part element="impl:getActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getDepartmentsResponse">
+
+      <wsdl:part element="impl:getDepartmentsResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPersonRequest">
+
+      <wsdl:part element="impl:getPerson" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="uncompletedResponse">
+
+      <wsdl:part element="impl:uncompletedResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="uncompletedActivityUntilDateOfSpecialPersonRequest">
+
+      <wsdl:part element="impl:uncompletedActivityUntilDateOfSpecialPerson" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSubsidaryActivityResponse">
+
+      <wsdl:part element="impl:getSubsidaryActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineResourceForOrganizationRequest">
+
+      <wsdl:part element="impl:defineResourceForOrganization" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getReportCountOfActivityRequest">
+
+      <wsdl:part element="impl:getReportCountOfActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="completedActivityBetweenDatesEmployeeRequest">
+
+      <wsdl:part element="impl:completedActivityBetweenDatesEmployee" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPersonelRequest">
+
+      <wsdl:part element="impl:getPersonel" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="stateAvoidedChangeOneEmployeeResponse">
+
+      <wsdl:part element="impl:stateAvoidedChangeOneEmployeeResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="reassignResponse">
+
+      <wsdl:part element="impl:reassignResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="stateAvoidedChangeOneEmployeeRequest">
+
+      <wsdl:part element="impl:stateAvoidedChangeOneEmployee" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="allActivityBetweenDatesEmployeeRequest">
+
+      <wsdl:part element="impl:allActivityBetweenDatesEmployee" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineActivityRequest">
+
+      <wsdl:part element="impl:defineActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="unActivateActivityRequest">
+
+      <wsdl:part element="impl:unActivateActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="changeResourceQuantityOfActivityRequest">
+
+      <wsdl:part element="impl:changeResourceQuantityOfActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="unActivateActivityResponse">
+
+      <wsdl:part element="impl:unActivateActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="replaceManagerRequest">
+
+      <wsdl:part element="impl:replaceManager" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="completedActivityBetweenDatesSubsidaryRequest">
+
+      <wsdl:part element="impl:completedActivityBetweenDatesSubsidary" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getDepartmentsRequest">
+
+      <wsdl:part element="impl:getDepartments" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="reassignRequest">
+
+      <wsdl:part element="impl:reassign" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getLocationWithNameResponse">
+
+      <wsdl:part element="impl:getLocationWithNameResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="deadLineChangeOfActivityRequest">
+
+      <wsdl:part element="impl:deadLineChangeOfActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="viewReportOfActivityRequest">
+
+      <wsdl:part element="impl:viewReportOfActivity" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="viewResourceOfOrganizationRequest">
+
+      <wsdl:part element="impl:viewResourceOfOrganization" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="helloResponse">
+
+      <wsdl:part element="impl:helloResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineActivityResponse">
+
+      <wsdl:part element="impl:defineActivityResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="personAuthenticationRequest">
+
+      <wsdl:part element="impl:personAuthentication" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="unCompletedActivityBetweenDatesEmployeeResponse">
+
+      <wsdl:part element="impl:unCompletedActivityBetweenDatesEmployeeResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getPersonResponse">
+
+      <wsdl:part element="impl:getPersonResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="uncompletedActivityUntilDateOfsubsidaryResponse">
+
+      <wsdl:part element="impl:uncompletedActivityUntilDateOfsubsidaryResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineEmployeeResponse">
+
+      <wsdl:part element="impl:defineEmployeeResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="viewAvailableResourceResponse">
+
+      <wsdl:part element="impl:viewAvailableResourceResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="intDynamicArrayResponse">
+
+      <wsdl:part element="impl:intDynamicArrayResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getSubsidaryPersonelRequest">
+
+      <wsdl:part element="impl:getSubsidaryPersonel" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="defineEmployeeRequest">
+
+      <wsdl:part element="impl:defineEmployee" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="intDynamicArrayRequest">
+
+      <wsdl:part element="impl:intDynamicArray" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="changeResourceQuantityOfOrganizationRequest">
+
+      <wsdl:part element="impl:changeResourceQuantityOfOrganization" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="MainService">
+
+      <wsdl:operation name="getLocation">
+
+         <wsdl:input message="impl:getLocationRequest" name="getLocationRequest"/>
+
+         <wsdl:output message="impl:getLocationResponse" name="getLocationResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changeState">
+
+         <wsdl:input message="impl:changeStateRequest" name="changeStateRequest"/>
+
+         <wsdl:output message="impl:changeStateResponse" name="changeStateResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getActivity">
+
+         <wsdl:input message="impl:getActivityRequest" name="getActivityRequest"/>
+
+         <wsdl:output message="impl:getActivityResponse" name="getActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="intArray">
+
+         <wsdl:input message="impl:intArrayRequest" name="intArrayRequest"/>
+
+         <wsdl:output message="impl:intArrayResponse" name="intArrayResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="reassign">
+
+         <wsdl:input message="impl:reassignRequest" name="reassignRequest"/>
+
+         <wsdl:output message="impl:reassignResponse" name="reassignResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineEmployee">
+
+         <wsdl:input message="impl:defineEmployeeRequest" name="defineEmployeeRequest"/>
+
+         <wsdl:output message="impl:defineEmployeeResponse" name="defineEmployeeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineDepartment">
+
+         <wsdl:input message="impl:defineDepartmentRequest" name="defineDepartmentRequest"/>
+
+         <wsdl:output message="impl:defineDepartmentResponse" name="defineDepartmentResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineManager">
+
+         <wsdl:input message="impl:defineManagerRequest" name="defineManagerRequest"/>
+
+         <wsdl:output message="impl:defineManagerResponse" name="defineManagerResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="replaceEmployee">
+
+         <wsdl:input message="impl:replaceEmployeeRequest" name="replaceEmployeeRequest"/>
+
+         <wsdl:output message="impl:replaceEmployeeResponse" name="replaceEmployeeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteEmployee">
+
+         <wsdl:input message="impl:deleteEmployeeRequest" name="deleteEmployeeRequest"/>
+
+         <wsdl:output message="impl:deleteEmployeeResponse" name="deleteEmployeeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="replaceManager">
+
+         <wsdl:input message="impl:replaceManagerRequest" name="replaceManagerRequest"/>
+
+         <wsdl:output message="impl:replaceManagerResponse" name="replaceManagerResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineActivity">
+
+         <wsdl:input message="impl:defineActivityRequest" name="defineActivityRequest"/>
+
+         <wsdl:output message="impl:defineActivityResponse" name="defineActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="preciseDescription">
+
+         <wsdl:input message="impl:preciseDescriptionRequest" name="preciseDescriptionRequest"/>
+
+         <wsdl:output message="impl:preciseDescriptionResponse" name="preciseDescriptionResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="extendDeadline">
+
+         <wsdl:input message="impl:extendDeadlineRequest" name="extendDeadlineRequest"/>
+
+         <wsdl:output message="impl:extendDeadlineResponse" name="extendDeadlineResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="unActivateActivity">
+
+         <wsdl:input message="impl:unActivateActivityRequest" name="unActivateActivityRequest"/>
+
+         <wsdl:output message="impl:unActivateActivityResponse" name="unActivateActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addResourceToActivity">
+
+         <wsdl:input message="impl:addResourceToActivityRequest" name="addResourceToActivityRequest"/>
+
+         <wsdl:output message="impl:addResourceToActivityResponse" name="addResourceToActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineResourceForOrganization">
+
+         <wsdl:input message="impl:defineResourceForOrganizationRequest" name="defineResourceForOrganizationRequest"/>
+
+         <wsdl:output message="impl:defineResourceForOrganizationResponse" name="defineResourceForOrganizationResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addReportToActivity">
+
+         <wsdl:input message="impl:addReportToActivityRequest" name="addReportToActivityRequest"/>
+
+         <wsdl:output message="impl:addReportToActivityResponse" name="addReportToActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changeResourceQuantityOfActivity">
+
+         <wsdl:input message="impl:changeResourceQuantityOfActivityRequest" name="changeResourceQuantityOfActivityRequest"/>
+
+         <wsdl:output message="impl:changeResourceQuantityOfActivityResponse" name="changeResourceQuantityOfActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changeResourceQuantityOfOrganization">
+
+         <wsdl:input message="impl:changeResourceQuantityOfOrganizationRequest" name="changeResourceQuantityOfOrganizationRequest"/>
+
+         <wsdl:output message="impl:changeResourceQuantityOfOrganizationResponse" name="changeResourceQuantityOfOrganizationResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="uncompletedActivityUntilDateOfSpecialPerson">
+
+         <wsdl:input message="impl:uncompletedActivityUntilDateOfSpecialPersonRequest" name="uncompletedActivityUntilDateOfSpecialPersonRequest"/>
+
+         <wsdl:output message="impl:uncompletedActivityUntilDateOfSpecialPersonResponse" name="uncompletedActivityUntilDateOfSpecialPersonResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="uncompleted">
+
+         <wsdl:input message="impl:uncompletedRequest" name="uncompletedRequest"/>
+
+         <wsdl:output message="impl:uncompletedResponse" name="uncompletedResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="uncompletedActivityUntilDateOfsubsidary">
+
+         <wsdl:input message="impl:uncompletedActivityUntilDateOfsubsidaryRequest" name="uncompletedActivityUntilDateOfsubsidaryRequest"/>
+
+         <wsdl:output message="impl:uncompletedActivityUntilDateOfsubsidaryResponse" name="uncompletedActivityUntilDateOfsubsidaryResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="completedActivityBetweenDatesEmployee">
+
+         <wsdl:input message="impl:completedActivityBetweenDatesEmployeeRequest" name="completedActivityBetweenDatesEmployeeRequest"/>
+
+         <wsdl:output message="impl:completedActivityBetweenDatesEmployeeResponse" name="completedActivityBetweenDatesEmployeeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="completedActivityBetweenDatesSubsidary">
+
+         <wsdl:input message="impl:completedActivityBetweenDatesSubsidaryRequest" name="completedActivityBetweenDatesSubsidaryRequest"/>
+
+         <wsdl:output message="impl:completedActivityBetweenDatesSubsidaryResponse" name="completedActivityBetweenDatesSubsidaryResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="unCompletedActivityBetweenDatesEmployee">
+
+         <wsdl:input message="impl:unCompletedActivityBetweenDatesEmployeeRequest" name="unCompletedActivityBetweenDatesEmployeeRequest"/>
+
+         <wsdl:output message="impl:unCompletedActivityBetweenDatesEmployeeResponse" name="unCompletedActivityBetweenDatesEmployeeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="unCompletedActivityBetweenDatesSubsidary">
+
+         <wsdl:input message="impl:unCompletedActivityBetweenDatesSubsidaryRequest" name="unCompletedActivityBetweenDatesSubsidaryRequest"/>
+
+         <wsdl:output message="impl:unCompletedActivityBetweenDatesSubsidaryResponse" name="unCompletedActivityBetweenDatesSubsidaryResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="allActivityBetweenDatesEmployee">
+
+         <wsdl:input message="impl:allActivityBetweenDatesEmployeeRequest" name="allActivityBetweenDatesEmployeeRequest"/>
+
+         <wsdl:output message="impl:allActivityBetweenDatesEmployeeResponse" name="allActivityBetweenDatesEmployeeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="allActivityBetweenDatesSubsidary">
+
+         <wsdl:input message="impl:allActivityBetweenDatesSubsidaryRequest" name="allActivityBetweenDatesSubsidaryRequest"/>
+
+         <wsdl:output message="impl:allActivityBetweenDatesSubsidaryResponse" name="allActivityBetweenDatesSubsidaryResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPersonel">
+
+         <wsdl:input message="impl:getPersonelRequest" name="getPersonelRequest"/>
+
+         <wsdl:output message="impl:getPersonelResponse" name="getPersonelResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getDepartments">
+
+         <wsdl:input message="impl:getDepartmentsRequest" name="getDepartmentsRequest"/>
+
+         <wsdl:output message="impl:getDepartmentsResponse" name="getDepartmentsResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPersonelWithName">
+
+         <wsdl:input message="impl:getPersonelWithNameRequest" name="getPersonelWithNameRequest"/>
+
+         <wsdl:output message="impl:getPersonelWithNameResponse" name="getPersonelWithNameResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getDepartmentsWithName">
+
+         <wsdl:input message="impl:getDepartmentsWithNameRequest" name="getDepartmentsWithNameRequest"/>
+
+         <wsdl:output message="impl:getDepartmentsWithNameResponse" name="getDepartmentsWithNameResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getLocationWithName">
+
+         <wsdl:input message="impl:getLocationWithNameRequest" name="getLocationWithNameRequest"/>
+
+         <wsdl:output message="impl:getLocationWithNameResponse" name="getLocationWithNameResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="viewReportOfActivity">
+
+         <wsdl:input message="impl:viewReportOfActivityRequest" name="viewReportOfActivityRequest"/>
+
+         <wsdl:output message="impl:viewReportOfActivityResponse" name="viewReportOfActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getReportCountOfActivity">
+
+         <wsdl:input message="impl:getReportCountOfActivityRequest" name="getReportCountOfActivityRequest"/>
+
+         <wsdl:output message="impl:getReportCountOfActivityResponse" name="getReportCountOfActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="viewResourceOfOrganization">
+
+         <wsdl:input message="impl:viewResourceOfOrganizationRequest" name="viewResourceOfOrganizationRequest"/>
+
+         <wsdl:output message="impl:viewResourceOfOrganizationResponse" name="viewResourceOfOrganizationResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="viewResourceOfActivity">
+
+         <wsdl:input message="impl:viewResourceOfActivityRequest" name="viewResourceOfActivityRequest"/>
+
+         <wsdl:output message="impl:viewResourceOfActivityResponse" name="viewResourceOfActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="personAuthentication">
+
+         <wsdl:input message="impl:personAuthenticationRequest" name="personAuthenticationRequest"/>
+
+         <wsdl:output message="impl:personAuthenticationResponse" name="personAuthenticationResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="hello">
+
+         <wsdl:input message="impl:helloRequest" name="helloRequest"/>
+
+         <wsdl:output message="impl:helloResponse" name="helloResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="returnInteger">
+
+         <wsdl:input message="impl:returnIntegerRequest" name="returnIntegerRequest"/>
+
+         <wsdl:output message="impl:returnIntegerResponse" name="returnIntegerResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="intDynamicArray">
+
+         <wsdl:input message="impl:intDynamicArrayRequest" name="intDynamicArrayRequest"/>
+
+         <wsdl:output message="impl:intDynamicArrayResponse" name="intDynamicArrayResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="miladiToShamsi">
+
+         <wsdl:input message="impl:miladiToShamsiRequest" name="miladiToShamsiRequest"/>
+
+         <wsdl:output message="impl:miladiToShamsiResponse" name="miladiToShamsiResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPersonelOfDepartment">
+
+         <wsdl:input message="impl:getPersonelOfDepartmentRequest" name="getPersonelOfDepartmentRequest"/>
+
+         <wsdl:output message="impl:getPersonelOfDepartmentResponse" name="getPersonelOfDepartmentResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSubsidaryPersonel">
+
+         <wsdl:input message="impl:getSubsidaryPersonelRequest" name="getSubsidaryPersonelRequest"/>
+
+         <wsdl:output message="impl:getSubsidaryPersonelResponse" name="getSubsidaryPersonelResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPerson">
+
+         <wsdl:input message="impl:getPersonRequest" name="getPersonRequest"/>
+
+         <wsdl:output message="impl:getPersonResponse" name="getPersonResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="viewUsedResource">
+
+         <wsdl:input message="impl:viewUsedResourceRequest" name="viewUsedResourceRequest"/>
+
+         <wsdl:output message="impl:viewUsedResourceResponse" name="viewUsedResourceResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="viewAvailableResource">
+
+         <wsdl:input message="impl:viewAvailableResourceRequest" name="viewAvailableResourceRequest"/>
+
+         <wsdl:output message="impl:viewAvailableResourceResponse" name="viewAvailableResourceResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSubsidaryActivity">
+
+         <wsdl:input message="impl:getSubsidaryActivityRequest" name="getSubsidaryActivityRequest"/>
+
+         <wsdl:output message="impl:getSubsidaryActivityResponse" name="getSubsidaryActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="stateAvoidedChangeOneEmployee">
+
+         <wsdl:input message="impl:stateAvoidedChangeOneEmployeeRequest" name="stateAvoidedChangeOneEmployeeRequest"/>
+
+         <wsdl:output message="impl:stateAvoidedChangeOneEmployeeResponse" name="stateAvoidedChangeOneEmployeeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="stateAvoidedChangeAllEmployee">
+
+         <wsdl:input message="impl:stateAvoidedChangeAllEmployeeRequest" name="stateAvoidedChangeAllEmployeeRequest"/>
+
+         <wsdl:output message="impl:stateAvoidedChangeAllEmployeeResponse" name="stateAvoidedChangeAllEmployeeResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removedActivityReport">
+
+         <wsdl:input message="impl:removedActivityReportRequest" name="removedActivityReportRequest"/>
+
+         <wsdl:output message="impl:removedActivityReportResponse" name="removedActivityReportResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="refrenceChangeReport">
+
+         <wsdl:input message="impl:refrenceChangeReportRequest" name="refrenceChangeReportRequest"/>
+
+         <wsdl:output message="impl:refrenceChangeReportResponse" name="refrenceChangeReportResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deadLineChangeOfActivity">
+
+         <wsdl:input message="impl:deadLineChangeOfActivityRequest" name="deadLineChangeOfActivityRequest"/>
+
+         <wsdl:output message="impl:deadLineChangeOfActivityResponse" name="deadLineChangeOfActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="allChangesOfActivity">
+
+         <wsdl:input message="impl:allChangesOfActivityRequest" name="allChangesOfActivityRequest"/>
+
+         <wsdl:output message="impl:allChangesOfActivityResponse" name="allChangesOfActivityResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineUser">
+
+         <wsdl:input message="impl:defineUserRequest" name="defineUserRequest"/>
+
+         <wsdl:output message="impl:defineUserResponse" name="defineUserResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changePassowrd">
+
+         <wsdl:input message="impl:changePassowrdRequest" name="changePassowrdRequest"/>
+
+         <wsdl:output message="impl:changePassowrdResponse" name="changePassowrdResponse"/>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="completedActivityTodaySubsidary">
+
+         <wsdl:input message="impl:completedActivityTodaySubsidaryRequest" name="completedActivityTodaySubsidaryRequest"/>
+
+         <wsdl:output message="impl:completedActivityTodaySubsidaryResponse" name="completedActivityTodaySubsidaryResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="MainServiceSoapBinding" type="impl:MainService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getLocation">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getLocationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getLocationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changeState">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="changeStateRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="changeStateResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="intArray">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="intArrayRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="intArrayResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="reassign">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="reassignRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="reassignResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineEmployee">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="defineEmployeeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="defineEmployeeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineDepartment">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="defineDepartmentRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="defineDepartmentResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineManager">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="defineManagerRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="defineManagerResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="replaceEmployee">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="replaceEmployeeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="replaceEmployeeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deleteEmployee">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deleteEmployeeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deleteEmployeeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="replaceManager">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="replaceManagerRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="replaceManagerResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="defineActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="defineActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="preciseDescription">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="preciseDescriptionRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="preciseDescriptionResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="extendDeadline">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="extendDeadlineRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="extendDeadlineResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="unActivateActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="unActivateActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="unActivateActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addResourceToActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addResourceToActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addResourceToActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineResourceForOrganization">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="defineResourceForOrganizationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="defineResourceForOrganizationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="addReportToActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="addReportToActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="addReportToActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changeResourceQuantityOfActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="changeResourceQuantityOfActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="changeResourceQuantityOfActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changeResourceQuantityOfOrganization">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="changeResourceQuantityOfOrganizationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="changeResourceQuantityOfOrganizationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="uncompletedActivityUntilDateOfSpecialPerson">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="uncompletedActivityUntilDateOfSpecialPersonRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="uncompletedActivityUntilDateOfSpecialPersonResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="uncompleted">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="uncompletedRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="uncompletedResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="uncompletedActivityUntilDateOfsubsidary">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="uncompletedActivityUntilDateOfsubsidaryRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="uncompletedActivityUntilDateOfsubsidaryResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="completedActivityBetweenDatesEmployee">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="completedActivityBetweenDatesEmployeeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="completedActivityBetweenDatesEmployeeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="completedActivityBetweenDatesSubsidary">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="completedActivityBetweenDatesSubsidaryRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="completedActivityBetweenDatesSubsidaryResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="unCompletedActivityBetweenDatesEmployee">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="unCompletedActivityBetweenDatesEmployeeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="unCompletedActivityBetweenDatesEmployeeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="unCompletedActivityBetweenDatesSubsidary">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="unCompletedActivityBetweenDatesSubsidaryRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="unCompletedActivityBetweenDatesSubsidaryResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="allActivityBetweenDatesEmployee">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="allActivityBetweenDatesEmployeeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="allActivityBetweenDatesEmployeeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="allActivityBetweenDatesSubsidary">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="allActivityBetweenDatesSubsidaryRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="allActivityBetweenDatesSubsidaryResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPersonel">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPersonelRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPersonelResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getDepartments">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getDepartmentsRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getDepartmentsResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPersonelWithName">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPersonelWithNameRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPersonelWithNameResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getDepartmentsWithName">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getDepartmentsWithNameRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getDepartmentsWithNameResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getLocationWithName">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getLocationWithNameRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getLocationWithNameResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="viewReportOfActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="viewReportOfActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="viewReportOfActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getReportCountOfActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getReportCountOfActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getReportCountOfActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="viewResourceOfOrganization">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="viewResourceOfOrganizationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="viewResourceOfOrganizationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="viewResourceOfActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="viewResourceOfActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="viewResourceOfActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="personAuthentication">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="personAuthenticationRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="personAuthenticationResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="hello">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="helloRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="helloResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="returnInteger">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="returnIntegerRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="returnIntegerResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="intDynamicArray">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="intDynamicArrayRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="intDynamicArrayResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="miladiToShamsi">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="miladiToShamsiRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="miladiToShamsiResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPersonelOfDepartment">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPersonelOfDepartmentRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPersonelOfDepartmentResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSubsidaryPersonel">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSubsidaryPersonelRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSubsidaryPersonelResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getPerson">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getPersonRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getPersonResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="viewUsedResource">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="viewUsedResourceRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="viewUsedResourceResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="viewAvailableResource">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="viewAvailableResourceRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="viewAvailableResourceResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getSubsidaryActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getSubsidaryActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getSubsidaryActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="stateAvoidedChangeOneEmployee">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="stateAvoidedChangeOneEmployeeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="stateAvoidedChangeOneEmployeeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="stateAvoidedChangeAllEmployee">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="stateAvoidedChangeAllEmployeeRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="stateAvoidedChangeAllEmployeeResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="removedActivityReport">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="removedActivityReportRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="removedActivityReportResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="refrenceChangeReport">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="refrenceChangeReportRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="refrenceChangeReportResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="deadLineChangeOfActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="deadLineChangeOfActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="deadLineChangeOfActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="allChangesOfActivity">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="allChangesOfActivityRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="allChangesOfActivityResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="defineUser">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="defineUserRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="defineUserResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="changePassowrd">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="changePassowrdRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="changePassowrdResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="completedActivityTodaySubsidary">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="completedActivityTodaySubsidaryRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="completedActivityTodaySubsidaryResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="MainServiceService">
+
+      <wsdl:port binding="impl:MainServiceSoapBinding" name="MainService">
+
+         <wsdlsoap:address location="http://localhost:8080/ActionTrackingSystem/services/MainService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

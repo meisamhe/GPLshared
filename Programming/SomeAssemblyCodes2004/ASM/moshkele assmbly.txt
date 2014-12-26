@@ -1,0 +1,42 @@
+salam
+ 
+bebin yadam omad moshkele on ato ashghala chejoori hal mishe:
+ehtemalan yadet rafte vaghti yek string tarif mikoni akharesh ,"$" ro ezafe koni...
+(code ziro bebin) age too in code ,"$" ro vardari kolli ato ashghal chap mikone...chon 
+nemidoone constant stringe to key tamoom mishe:
+ 
+.model small
+.stack 100h
+.data
+ str1  db  'Hello world!',"$"            <<<<< injaro migam!
+.code
+ 
+main proc far
+ mov ax, @data
+ mov ds, ax 
+ 
+ mov ah, 6h ; clear screen
+ mov al, 25 ; number of rows
+ mov ch, 0
+ mov cl, 0
+ mov dh, 24 ; row
+ mov dl, 79 ; col
+ mov bh, 7h ; attribute 
+ int 10h
+ mov ah, 2h ; move cursor
+ mov dh, 5 ; row
+ mov dl, 5 ; col
+ mov bh, 0 ; page
+ int 10h
+ 
+ mov ah, 9h ; print string
+ mov dx, offset str1 ; string
+ int 21h
+ mov ax, 4c00h
+ int 21h
+main endp
+end
+
+thanx
+ashkan
+

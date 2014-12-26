@@ -1,0 +1,173 @@
+CREATE TABLE `actiontracking`.`Department` (
+  `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NOT NULL,
+  `location` VARCHAR(45) NOT NULL,
+  `DepartmentID` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = InnoDB;
+CREATE TABLE `actiontracking`.`manager` (
+  `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `DEPARTMENTID` INTEGER UNSIGNED NOT NULL,
+  `NAME` VARCHAR(45) NOT NULL,
+  `FAMILY` VARCHAR(45) NOT NULL,
+  `MANAGERID` INTEGER UNSIGNED NOT NULL,
+  `USER` VARCHAR(45) NOT NULL,
+  `PASSWORD` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `actiontracking`.`Employee` (
+  `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NOT NULL,
+  `Family` VARCHAR(45) NOT NULL,
+  `User` VARCHAR(45) NOT NULL,
+  `Password` VARCHAR(45) NOT NULL,
+  `ManagerID` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `actiontracking`.`Administrator` (
+  `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NOT NULL,
+  `Family` VARCHAR(45) NOT NULL,
+  `User` VARCHAR(45) NOT NULL,
+  `Password` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `actiontracking`.`Activity` (
+  `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Name` VARCHAR(45) NOT NULL,
+  `Type` VARCHAR(45) NOT NULL,
+  `Description` VARCHAR(500) NOT NULL,
+  `State` INTEGER UNSIGNED NOT NULL,
+  `deadline` INTEGER UNSIGNED NOT NULL,
+  `LastUpdate` INTEGER UNSIGNED NOT NULL,
+  `InitializedDate` INTEGER UNSIGNED NOT NULL,
+  `EmployeeID` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = InnoDB;
+
+
+CREATE TABLE `actiontracking`.`RESOURCE_NEED` (
+  `ACTIVITYID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `RESOURCEID` INTEGER UNSIGNED NOT NULL,
+  `QUANTITY` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`ACTIVITYID`, `RESOURCEID`)
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `actiontracking`.`RESOURCE` (
+  `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `NAME` VARCHAR(45) NOT NULL,
+  `PLACE` VARCHAR(45) NOT NULL,
+  `INHAND` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `actiontracking`.`REPORT` (
+  `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `TITLE` VARCHAR(45) NOT NULL,
+  `VERSION` INTEGER UNSIGNED NOT NULL,
+  `ACTIVITYID` INTEGER UNSIGNED NOT NULL,
+  `FILEPATH` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `actiontracking`.`activityLog` (
+  `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `changerType` VARCHAR(45) NOT NULL,
+  `changeType` VARCHAR(45) NOT NULL,
+  `Date` INTEGER UNSIGNED NOT NULL,
+  `oldValue` VARCHAR(45) NOT NULL,
+  `employeeID` INTEGER UNSIGNED NOT NULL,
+  `managerID` INTEGER UNSIGNED NOT NULL,
+  `activityID` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `actiontracking`.`personLog` (
+  `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `personName` VARCHAR(45) NOT NULL,
+  `personFamily` VARCHAR(45) NOT NULL,
+  `changeType` VARCHAR(45) NOT NULL,
+  `managerID` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = InnoDB;
+
+insert and delete syntax:
+
+DELETE FROM somelog WHERE user = 'jcole'
+INSERT INTO table (a,b,c) VALUES (1,2,3)
+insert into employee(ID,Name,Family,User,Password,ManagerID) values (null,'meisam','hejazinia','snake','1234',12);
+
+insert into manager(ID,Name,Family,user,password,managerID,departmentID) 
+values(null,'meisam','hejazinia','Meisam',
+'snake',0,1);
+insert into activity(ID,Type,Name,Description,State,deadline,LastUpdate,InitializedDate,EmployeeID)
+values (null,'erp','manager','select new vendor',0,13860625,13860612,13860611,23);
+
+insert into resource_need(activityid,resource,quantity) values(1,3,5);
+update resource_need set activityID=2 where resourceid=3;
+
+insert into report(ID,Title,Version,ActivityID,Filepath) values (null,'erp',2,23,'c:\\');
+SELECT max(version) from report where title='erp' and activityID='23';
+
+update resource_need set quantity=1 where activityID=2 and resourceid=3;
+
+select id from resource where name='laptop' and place='ardabil';
+insert into resource(ID,name,place,inhand) values (null,'pc','tehran',20);
+update resource set inhand=12 where name='pc' and place='tehran';
+
+insert into activitylog(ID, changerType, changeType, Date, oldValue, employeeID, managerID, activityID)
+values (null,'manager','extendDeadline',13860623,'13860623',2,1,23);
+
+ALTER TABLE `actiontracking`.`activity` CHARACTER SET utf8 COLLATE utf8_general_ci;
+ALTER TABLE `actiontracking`.`activity` MODIFY COLUMN `Name` VARCHAR(45) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+ MODIFY COLUMN `Description` VARCHAR(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+
+ALTER TABLE `actiontracking`.`activity` ADD COLUMN `assignedBy` INTEGER UNSIGNED NOT NULL AFTER `EmployeeID`;
+
+ALTER TABLE `actiontracking`.`activity` ADD COLUMN `uppderActivity` INTEGER UNSIGNED NOT NULL AFTER `assignedBy`;
+
+CREATE TABLE `actiontracking`.`ActivityLog` (
+  `ID` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `ChangeType` VARCHAR(20) NOT NULL,
+  `ChangerType` VARCHAR(10) NOT NULL,
+  `Date` INTEGER UNSIGNED NOT NULL,
+  `oldValue` VARCHAR(45) NOT NULL,
+  `personID` INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY (`ID`)
+)
+ENGINE = InnoDB;
+
+ALTER TABLE `actiontracking`.`activitylog` CHANGE COLUMN `Date` `ChangeDate` INTEGER UNSIGNED NOT NULL;
+
+ALTER TABLE `actiontracking`.`activitylog` MODIFY COLUMN `ChangeType` VARCHAR(40) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+
+ALTER TABLE `actiontracking`.`activitylog` ADD COLUMN `activityID` INTEGER UNSIGNED NOT NULL AFTER `personID`;
+
+ALTER TABLE `actiontracking`.`activitylog` ADD COLUMN `oldType` VARCHAR(10) NOT NULL AFTER `activityID`;
+ ALTER TABLE `actiontracking`.`report` ADD COLUMN `DAte` INTEGER UNSIGNED NOT NULL AFTER `FILEPATH`;
+
+CREATE TABLE `actiontracking`.`Users` (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user` VARCHAR(45) NOT NULL,
+  `type` VARCHAR(20) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`)
+)
+ENGINE = InnoDB;
+
+ALTER TABLE `actiontracking`.`activity` CHANGE COLUMN `uppderActivity` `upperActivity` INTEGER UNSIGNED NOT NULL;
+
+ALTER TABLE `actiontracking`.`report` MODIFY COLUMN `FILEPATH` VARCHAR(450) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;

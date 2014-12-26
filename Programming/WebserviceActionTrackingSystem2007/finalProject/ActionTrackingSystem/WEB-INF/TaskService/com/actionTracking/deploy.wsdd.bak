@@ -1,0 +1,36 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from TaskService WSDL service -->
+
+  <service name="Task" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://actionTracking.com"/>
+      <parameter name="wsdlServiceElement" value="TaskService"/>
+      <parameter name="schemaQualified" value="http://actionTracking.com"/>
+      <parameter name="wsdlServicePort" value="Task"/>
+      <parameter name="className" value="com.actionTracking.TaskSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="Task"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="getOwnerName" qname="operNS:getOwnerName" xmlns:operNS="http://actionTracking.com" returnQName="retNS:getOwnerNameReturn" xmlns:retNS="http://actionTracking.com" returnType="rtns:string" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="setOwnerName" qname="operNS:setOwnerName" xmlns:operNS="http://actionTracking.com" soapAction="" >
+        <parameter qname="pns:ownerName" xmlns:pns="http://actionTracking.com" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="getTaskID" qname="operNS:getTaskID" xmlns:operNS="http://actionTracking.com" returnQName="retNS:getTaskIDReturn" xmlns:retNS="http://actionTracking.com" returnType="rtns:int" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+      </operation>
+      <operation name="setTaskID" qname="operNS:setTaskID" xmlns:operNS="http://actionTracking.com" soapAction="" >
+        <parameter qname="pns:taskID" xmlns:pns="http://actionTracking.com" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <parameter name="allowedMethods" value="getTaskID setOwnerName setTaskID getOwnerName"/>
+
+  </service>
+</deployment>

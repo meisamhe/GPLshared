@@ -1,0 +1,8 @@
+MIDlet-1: MyGame,, AstroGame
+MIDlet-Jar-Size: 17740
+MIDlet-Jar-URL: http://midlet.org/repository/davideficano/astrogame/astrogame.jar
+MIDlet-Name: Astrogame
+MIDlet-Vendor: DafiTech
+MIDlet-Version: 1.0
+MicroEdition-Configuration: CLDC-1.0
+MicroEdition-Profile: MIDP-1.0

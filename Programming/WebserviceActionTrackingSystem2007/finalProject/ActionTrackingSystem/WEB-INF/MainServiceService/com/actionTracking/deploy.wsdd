@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from MainServiceService WSDL service -->
+
+  <service name="MainService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://actionTracking.com"/>
+      <parameter name="wsdlServiceElement" value="MainServiceService"/>
+      <parameter name="schemaQualified" value="http://actionTracking.com"/>
+      <parameter name="wsdlServicePort" value="MainService"/>
+      <parameter name="className" value="com.actionTracking.MainService"/>
+      <parameter name="wsdlPortType" value="MainService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getLocation" qname="operNS:getLocation" returnQName="retNS:getLocationReturn" returnType="rtns:string" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="changeState" qname="operNS:changeState" returnQName="retNS:changeStateReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:personType" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:state" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:personUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getActivity" qname="operNS:getActivity" returnQName="retNS:getActivityReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="intArray" qname="operNS:intArray" returnQName="retNS:intArrayReturn" returnType="rtns:int" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="reassign" qname="operNS:reassign" returnQName="retNS:reassignReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:changerUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:firstPersonUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:firstPersonType" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:secondPersonUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:secondPersonType" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="defineEmployee" qname="operNS:defineEmployee" returnQName="retNS:defineEmployeeReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:family" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:department" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:location" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="defineDepartment" qname="operNS:defineDepartment" returnQName="retNS:defineDepartmentReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:location" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:upperDepartmentName" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:upperDepartmentLocation" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="defineManager" qname="operNS:defineManager" returnQName="retNS:defineManagerReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:family" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:department" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:location" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="replaceEmployee" qname="operNS:replaceEmployee" returnQName="retNS:replaceEmployeeReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:secondName" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:secondFamily" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:secondUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:secondPassword" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="deleteEmployee" qname="operNS:deleteEmployee" returnQName="retNS:deleteEmployeeReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="replaceManager" qname="operNS:replaceManager" returnQName="retNS:replaceManagerReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:secondName" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:secondFamily" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:secondUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:secondPassword" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="defineActivity" qname="operNS:defineActivity" returnQName="retNS:defineActivityReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:description" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:deadline" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:initializedDate" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:personUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:personType" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:assignedByUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:upperActivityID" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="preciseDescription" qname="operNS:preciseDescription" returnQName="retNS:preciseDescriptionReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:personType" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:description" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:personUser" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="extendDeadline" qname="operNS:extendDeadline" returnQName="retNS:extendDeadlineReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:deadline" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:assignedUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:changerUser" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="unActivateActivity" qname="operNS:unActivateActivity" returnQName="retNS:unActivateActivityReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:personType" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:personUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:changerUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="addResourceToActivity" qname="operNS:addResourceToActivity" returnQName="retNS:addResourceToActivityReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:resourceName" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:resourcePlace" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:resourceQuantity" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:assignedUser" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="defineResourceForOrganization" qname="operNS:defineResourceForOrganization" returnQName="retNS:defineResourceForOrganizationReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:place" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:inHand" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="addReportToActivity" qname="operNS:addReportToActivity" returnQName="retNS:addReportToActivityReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:title" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:reportpath" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:assignedUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="changeResourceQuantityOfActivity" qname="operNS:changeResourceQuantityOfActivity" returnQName="retNS:changeResourceQuantityOfActivityReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:resourceName" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:resourcePlace" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:resourceQuantity" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:assignedUser" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="changeResourceQuantityOfOrganization" qname="operNS:changeResourceQuantityOfOrganization" returnQName="retNS:changeResourceQuantityOfOrganizationReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:place" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:inHand" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="uncompletedActivityUntilDateOfSpecialPerson" qname="operNS:uncompletedActivityUntilDateOfSpecialPerson" returnQName="retNS:uncompletedActivityUntilDateOfSpecialPersonReturn" returnType="rtns:Activity" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="uncompleted" qname="operNS:uncompleted" returnQName="retNS:uncompletedReturn" returnType="rtns:Activity" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="uncompletedActivityUntilDateOfsubsidary" qname="operNS:uncompletedActivityUntilDateOfsubsidary" returnQName="retNS:uncompletedActivityUntilDateOfsubsidaryReturn" returnType="rtns:Activity" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="completedActivityBetweenDatesEmployee" qname="operNS:completedActivityBetweenDatesEmployee" returnQName="retNS:completedActivityBetweenDatesEmployeeReturn" returnType="rtns:Activity" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:firstDate" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:lastDate" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="completedActivityBetweenDatesSubsidary" qname="operNS:completedActivityBetweenDatesSubsidary" returnQName="retNS:completedActivityBetweenDatesSubsidaryReturn" returnType="rtns:Activity" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:firstDate" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:lastDate" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="unCompletedActivityBetweenDatesEmployee" qname="operNS:unCompletedActivityBetweenDatesEmployee" returnQName="retNS:unCompletedActivityBetweenDatesEmployeeReturn" returnType="rtns:Activity" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:firstDate" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:lastDate" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="unCompletedActivityBetweenDatesSubsidary" qname="operNS:unCompletedActivityBetweenDatesSubsidary" returnQName="retNS:unCompletedActivityBetweenDatesSubsidaryReturn" returnType="rtns:Activity" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:firstDate" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:lastDate" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="allActivityBetweenDatesEmployee" qname="operNS:allActivityBetweenDatesEmployee" returnQName="retNS:allActivityBetweenDatesEmployeeReturn" returnType="rtns:Activity" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:firstDate" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:lastDate" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="allActivityBetweenDatesSubsidary" qname="operNS:allActivityBetweenDatesSubsidary" returnQName="retNS:allActivityBetweenDatesSubsidaryReturn" returnType="rtns:Activity" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:firstDate" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:lastDate" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="getPersonel" qname="operNS:getPersonel" returnQName="retNS:getPersonelReturn" returnType="rtns:Person" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="getDepartments" qname="operNS:getDepartments" returnQName="retNS:getDepartmentsReturn" returnType="rtns:Department" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="getPersonelWithName" qname="operNS:getPersonelWithName" returnQName="retNS:getPersonelWithNameReturn" returnType="rtns:Person" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="getDepartmentsWithName" qname="operNS:getDepartmentsWithName" returnQName="retNS:getDepartmentsWithNameReturn" returnType="rtns:Department" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getLocationWithName" qname="operNS:getLocationWithName" returnQName="retNS:getLocationWithNameReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:name" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="viewReportOfActivity" qname="operNS:viewReportOfActivity" returnQName="retNS:viewReportOfActivityReturn" returnType="rtns:Report" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:ActivityID" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getReportCountOfActivity" qname="operNS:getReportCountOfActivity" returnQName="retNS:getReportCountOfActivityReturn" returnType="rtns:int" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:ActivityID" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="viewResourceOfOrganization" qname="operNS:viewResourceOfOrganization" returnQName="retNS:viewResourceOfOrganizationReturn" returnType="rtns:Resource" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="viewResourceOfActivity" qname="operNS:viewResourceOfActivity" returnQName="retNS:viewResourceOfActivityReturn" returnType="rtns:Resource" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:ActivityID" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="personAuthentication" qname="operNS:personAuthentication" returnQName="retNS:personAuthenticationReturn" returnType="rtns:int" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="hello" qname="operNS:hello" returnQName="retNS:helloReturn" returnType="rtns:string" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="returnInteger" qname="operNS:returnInteger" returnQName="retNS:returnIntegerReturn" returnType="rtns:int" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="intDynamicArray" qname="operNS:intDynamicArray" returnQName="retNS:intDynamicArrayReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:i" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="miladiToShamsi" qname="operNS:miladiToShamsi" returnQName="retNS:miladiToShamsiReturn" returnType="rtns:ShamsiDate" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:iMiladiYear" type="tns:int"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:iMiladiMonth" type="tns:int"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:iMiladiDay" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="getPersonelOfDepartment" qname="operNS:getPersonelOfDepartment" returnQName="retNS:getPersonelOfDepartmentReturn" returnType="rtns:Person" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="getSubsidaryPersonel" qname="operNS:getSubsidaryPersonel" returnQName="retNS:getSubsidaryPersonelReturn" returnType="rtns:Person" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="getPerson" qname="operNS:getPerson" returnQName="retNS:getPersonReturn" returnType="rtns:Person" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:employeeID" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="viewUsedResource" qname="operNS:viewUsedResource" returnQName="retNS:viewUsedResourceReturn" returnType="rtns:Resource" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="viewAvailableResource" qname="operNS:viewAvailableResource" returnQName="retNS:viewAvailableResourceReturn" returnType="rtns:Resource" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="getSubsidaryActivity" qname="operNS:getSubsidaryActivity" returnQName="retNS:getSubsidaryActivityReturn" returnType="rtns:Activity" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="stateAvoidedChangeOneEmployee" qname="operNS:stateAvoidedChangeOneEmployee" returnQName="retNS:stateAvoidedChangeOneEmployeeReturn" returnType="rtns:ActivityLogItem" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:personUser" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:personType" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="stateAvoidedChangeAllEmployee" qname="operNS:stateAvoidedChangeAllEmployee" returnQName="retNS:stateAvoidedChangeAllEmployeeReturn" returnType="rtns:ActivityLogItem" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:managerUser" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="removedActivityReport" qname="operNS:removedActivityReport" returnQName="retNS:removedActivityReportReturn" returnType="rtns:ActivityLogItem" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:managerUser" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="refrenceChangeReport" qname="operNS:refrenceChangeReport" returnQName="retNS:refrenceChangeReportReturn" returnType="rtns:ActivityLogItem" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:managerUser" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="deadLineChangeOfActivity" qname="operNS:deadLineChangeOfActivity" returnQName="retNS:deadLineChangeOfActivityReturn" returnType="rtns:ActivityLogItem" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="allChangesOfActivity" qname="operNS:allChangesOfActivity" returnQName="retNS:allChangesOfActivityReturn" returnType="rtns:ActivityLogItem" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:activityID" type="tns:long"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="defineUser" qname="operNS:defineUser" returnQName="retNS:defineUserReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:password" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="changePassowrd" qname="operNS:changePassowrd" returnQName="retNS:changePassowrdReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:oldPassword" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:newPassword" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://actionTracking.com" xmlns:retNS="http://actionTracking.com" xmlns:rtns="http://actionTracking.com" name="completedActivityTodaySubsidary" qname="operNS:completedActivityTodaySubsidary" returnQName="retNS:completedActivityTodaySubsidaryReturn" returnType="rtns:Activity" soapAction="">
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:type" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:user" type="tns:string"/>
+        <parameter xmlns:pns="http://actionTracking.com" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:date" type="tns:long"/>
+      </operation>
+      <parameter name="allowedMethods" value="unCompletedActivityBetweenDatesSubsidary preciseDescription getActivity stateAvoidedChangeOneEmployee viewReportOfActivity returnInteger getPerson getLocationWithName refrenceChangeReport getPersonel viewUsedResource viewResourceOfOrganization reassign changeResourceQuantityOfOrganization getSubsidaryPersonel allActivityBetweenDatesEmployee getDepartmentsWithName defineDepartment viewAvailableResource completedActivityTodaySubsidary getPersonelWithName intArray getReportCountOfActivity extendDeadline changeState addReportToActivity allChangesOfActivity personAuthentication defineUser intDynamicArray miladiToShamsi deleteEmployee addResourceToActivity getDepartments removedActivityReport completedActivityBetweenDatesEmployee defineResourceForOrganization unActivateActivity defineManager changePassowrd defineActivity changeResourceQuantityOfActivity uncompleted uncompletedActivityUntilDateOfsubsidary unCompletedActivityBetweenDatesEmployee replaceManager stateAvoidedChangeAllEmployee replaceEmployee getLocation viewResourceOfActivity hello getPersonelOfDepartment defineEmployee allActivityBetweenDatesSubsidary completedActivityBetweenDatesSubsidary getSubsidaryActivity uncompletedActivityUntilDateOfSpecialPerson deadLineChangeOfActivity"/>
+
+      <typeMapping xmlns:ns="http://actionTracking.com" qname="ns:Department" type="java:com.actionTracking.Department" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://actionTracking.com" qname="ns:Report" type="java:com.actionTracking.Report" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://actionTracking.com" qname="ns:Resource" type="java:com.actionTracking.Resource" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://actionTracking.com" qname="ns:ShamsiDate" type="java:com.actionTracking.ShamsiDate" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://actionTracking.com" qname="ns:ActivityLogItem" type="java:com.actionTracking.ActivityLogItem" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://actionTracking.com" qname="ns:Person" type="java:com.actionTracking.Person" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://actionTracking.com" qname="ns:Activity" type="java:com.actionTracking.Activity" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

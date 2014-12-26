@@ -1,0 +1,21 @@
+ The result 0plus0 power 2 is:0 
+The result 1plus1 power 2 is:2 
+The result 2plus2 power 2 is:6 
+The result 3plus3 power 2 is:12 
+The result 4plus4 power 2 is:20 
+The result 5plus5 power 2 is:30 
+The result 6plus6 power 2 is:42 
+The result 7plus7 power 2 is:56 
+The result 8plus8 power 2 is:72 
+The result 9plus9 power 2 is:90 
+"The result 10plus10 power 2 is:110 
+"The result 11plus11 power 2 is:132 
+"The result 12plus12 power 2 is:156 
+"The result 13plus13 power 2 is:182 
+"The result 14plus14 power 2 is:210 
+"The result 15plus15 power 2 is:240 
+"The result 16plus16 power 2 is:272 
+"The result 17plus17 power 2 is:306 
+"The result 18plus18 power 2 is:342 
+"The result 19plus19 power 2 is:380 
+&20 RMIs in 149672ms, or 7483.6 ms/RMI.

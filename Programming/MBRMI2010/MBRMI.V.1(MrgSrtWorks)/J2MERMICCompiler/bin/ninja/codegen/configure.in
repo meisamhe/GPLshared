@@ -1,0 +1,4 @@
+AC_INIT(ClassDecomposer.jc)
+AC_PATH_PROG(PERL, perl, /usr/bin/perl, $PATH:/usr/bin:/bin:/usr/sww/bin)
+AC_PATH_PROG(CPP, cpp, /lib/cpp, /usr/sww/lib/gcc-lib/sparc-sun-solaris2.6/2.7.2.2/:$PATH:/bin:/usr/bin:/lib:/usr/lib)
+AC_OUTPUT(Make.rules)

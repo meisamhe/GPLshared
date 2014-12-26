@@ -1,0 +1,227 @@
+package board;
+
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import java.io.InputStream;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
+import java.io.IOException;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import java.util.Iterator;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
+
+/**
+ * <p>Title: </p>
+ *
+ * <p>Description: </p>
+ *
+ * <p>Copyright: Copyright (c) 2007</p>
+ *
+ * <p>Company: </p>
+ *
+ * @author not attributable
+ * @version 1.0
+ */
+
+public class excelParser implements Parser {
+    private String fileName;
+    private String parsedText;
+
+    /**
+     * Using HSSF in POI library, this method will parse
+     * the Excel file, and extract all the values for
+     * every sheet, and combine them into a single
+     * String.
+     */
+    public void parse() {
+        // initializing the InputStream from a file using
+        // POIFSFileSystem, before converting the result
+        // into an HSSFWorkbook instance
+        HSSFWorkbook wb = null;
+        try {
+            InputStream is = this.getClass()
+                             .getResourceAsStream(fileName);
+            if (is == null) {
+                System.out.println("NULL");
+            }
+            POIFSFileSystem fs = new POIFSFileSystem(is);
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // start appending the values
+        StringBuffer sb = new StringBuffer();
+
+        // loop for every worksheet in the workbook
+        int numOfSheets = wb.getNumberOfSheets();
+        for (int i = 0; i < numOfSheets; i++) {
+            HSSFSheet sheet = wb.getSheetAt(i);
+
+            // loop for every row in each worksheet
+            for (Iterator rows = sheet.rowIterator();
+                                 rows.hasNext(); ) {
+                HSSFRow row = (HSSFRow) rows.next();
+                short c1 = row.getFirstCellNum();
+                short c2 = row.getLastCellNum();
+
+                // loop for every cell in each row
+                for (short c = c1; c < c2; c++) {
+                    HSSFCell cell = row.getCell(c);
+                    if (cell != null) {
+                        String cellValue = getCellValue(cell);
+                        if (cellValue != null &&
+                            cellValue.trim().length() > 0) {
+
+                            // append the value of the cell separated
+                            // by a SPACE
+                            sb.append(TextFilter.SPACE)
+                                    .append(cellValue);
+                        }
+                    }
+                }
+            }
+        }
+
+        // store the parsed Text
+        parsedText = sb.toString().trim();
+
+        // filter the parsed Text, replacing the forbidden
+        // characters with SPACE
+        parsedText = TextFilter.filterForbiddenCharacters(
+                parsedText,
+                TextFilter.DEFAULT_FORBIDDEN_CHARACTERS);
+    }
+
+
+    /**
+     * This is a helper method to retrieve the value of a
+     * cell regardles of its type, which will be converted
+     * into a String.
+     *
+     * @param cell
+     * @return
+     */
+    private String getCellValue(HSSFCell cell) {
+        if (cell == null) {
+            return null;
+        }
+
+        String result = null;
+
+        int cellType = cell.getCellType();
+        switch (cellType) {
+        case HSSFCell.CELL_TYPE_BLANK:
+            result = "";
+            break;
+        case HSSFCell.CELL_TYPE_BOOLEAN:
+            result = cell.getBooleanCellValue() ?
+                     "true" : "false";
+            break;
+        case HSSFCell.CELL_TYPE_ERROR:
+            result = "ERROR: " + cell.getErrorCellValue();
+            break;
+        case HSSFCell.CELL_TYPE_FORMULA:
+            result = cell.getCellFormula();
+            break;
+        case HSSFCell.CELL_TYPE_NUMERIC:
+            HSSFCellStyle cellStyle = cell.getCellStyle();
+            short dataFormat = cellStyle.getDataFormat();
+
+            // assumption is made that dataFormat = 15,
+            // when cellType is HSSFCell.CELL_TYPE_NUMERIC
+            // is equal to a DATE format.
+            if (dataFormat == 15) {
+                result = cell.getDateCellValue().toString();
+            } else {
+                result = String.valueOf(
+                        cell.getNumericCellValue());
+            }
+
+            break;
+        case HSSFCell.CELL_TYPE_STRING:
+            result = cell.getStringCellValue();
+            break;
+        default:
+            break;
+        }
+
+        return result;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getParsedText() {
+        return parsedText;
+    }
+
+    public static void main(String[] args) {
+        excelParser excelparser = new excelParser();
+        //    excelparser.setFileName("Book1.xls");
+        //    excelparser.parse();
+        //    System.out.println(excelparser.getParsedText());
+        /*     HSSFWorkbook wb = new HSSFWorkbook();
+             HSSFSheet sheet = wb.createSheet("Word sheet");
+
+             // Create a row and put some cells in it. Rows are 0 based.
+             HSSFRow row = sheet.createRow((short) 0);
+             // Create a cell and put a value in it.
+             HSSFCell cell = row.createCell((short) 0);
+             cell.setCellValue(1);
+
+             // Or do it on one line.
+             row.createCell((short) 1).setCellValue(1.2);
+             row.createCell((short) 2).setCellValue("This is a string");
+             row.createCell((short) 3).setCellValue(true);
+
+             // Write the output to a file
+
+             try {
+         FileOutputStream fileOut = new FileOutputStream("workbook.xls");
+                 wb.write(fileOut);
+                 fileOut.close();
+             } catch (IOException ex) {
+             }*/
+        POIFSFileSystem fs = null;
+        HSSFWorkbook wb=null;
+        try {
+            fs = new POIFSFileSystem(new FileInputStream("workbook.xls"));
+            wb = new HSSFWorkbook(fs);
+        } catch (IOException ex) {
+        }
+        HSSFSheet sheet = wb.getSheetAt(0);
+        HSSFRow row;
+        HSSFCell cell;
+        msAccessDB msaccessdb = new msAccessDB();
+        for ( int i =0;;i++){
+            row = sheet.getRow(i);
+            cell = row.getCell((short) 0);
+            if (cell == null){
+                System.out.println("cellIsNull");
+                break;
+            }
+            cell = row.getCell((short) 0);
+            String Word = excelparser.getCellValue(cell);
+            cell = row.getCell((short) 1);
+            String Meaning=excelparser.getCellValue(cell);
+            System.out.println(Word+" "+Meaning);
+            //   cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+          //  cell.setCellValue("Hi Meisam");
+        }
+  /*
+      // Write the output to a file
+    try {
+        FileOutputStream fileOut = new FileOutputStream("workbook.xls");
+      wb.write(fileOut);
+      fileOut.close();
+    } catch (IOException ex1) {
+    }
+
+*/
+    }
+
+}

@@ -1,0 +1,72 @@
+Microsoft (R) Macro Assembler  Version 4.00                 11/4/4                                                            Page     1-1
+                                                            
+
+                                		END		BEGIN 
+G:\ASM\PROG1.ASM(25) : error 85: End of file, no END directive 
+Microsoft (R) Macro Assembler  Version 4.00                 11/4/4                                                            Page     1-1
+                                                            
+
+       1                                ;--------------------------------------
+					--------- 
+       2 0000                           STACKSG SEGMENT PARA STACK	'Stack' 
+       3 0000  0020[                    		DW	32 DUP(0) 
+       4            0000                
+       5                         ]      
+       6                                
+       7 0040                           STACKSG	ENDS 
+       8                                ;--------------------------------------
+					---------- 
+       9 0000                           DATASG	SEGMENT	PARA	'Data' 
+      10 0000  00FA                     FLDA	DW	250 
+      11 0002  007D                     FLDB	DW	125 
+      12 0004  ????                     FLDC	DW	? 
+      13 0006                           DATASG	ENDS 
+      14                                ;--------------------------------------
+					--------- 
+      15 0000                           CODESG	SEGMENT PARA	'Code' 
+      16 0000                           BEGIN	PROC	FAR 
+      17                                		ASSUME	SS:STACKSG,DS : DATASG, CS : C
+					ODESG 
+      18 0000  B8 ---- R                		MOV		AX,DATASG	;Set address of DATASG
+					 
+      19 0003  8E D8                    		MOV		DS,AX		;in DS register 
+      20                                		 
+      21 0005  A1 0000 R                		MOV		AX, FLDA	;MOVE 0250		to AX 
+      22 0008  03 06 0002 R             		ADD		AX, FLDB	;Add 0125		to AX 
+      23 000C  A3 0004 R                		MOV		FLDC, AX	;Store sum		in	FLDC 
+      24 000F  B8 4C00                  		MOV		AX, 4C00H	;Exit to Dos 
+      25 0012  CD 21                    		INT		21H 
+      26                                BEGIN	ENDP 
+      27 0014                           CODESG	ENDS	;End of segment 
+      28                                		END		BEGIN 
+G:\ASM\PROG1.ASM(25) : error 85: End of file, no END directive 
+Microsoft (R) Macro Assembler  Version 4.00                 11/4/4                                                            Symbols-1
+                                                             
+
+Segments and Groups:
+
+                N a m e         	Size	Align	Combine Class
+
+CODESG . . . . . . . . . . . . .  	0014	PARA	NONE	'CODE'
+DATASG . . . . . . . . . . . . .  	0006	PARA	NONE	'DATA'
+STACKSG  . . . . . . . . . . . .  	0040	PARA	STACK	'STACK'
+
+Symbols:            
+
+                N a m e         	Type	Value	Attr         
+
+BEGIN  . . . . . . . . . . . . .  	F PROC	0000	CODESG	Length = 0014
+
+FLDA . . . . . . . . . . . . . .  	L WORD 	0000	DATASG
+FLDB . . . . . . . . . . . . . .  	L WORD 	0002	DATASG
+FLDC . . . . . . . . . . . . . .  	L WORD 	0004	DATASG
+
+
+     24 Source  Lines
+     25 Total   Lines
+     31 Symbols
+
+  49864 Bytes symbol space free
+
+      1 Warning Errors
+      1 Severe  Errors

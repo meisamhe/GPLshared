@@ -1,0 +1,10 @@
+< SYMBOL TABLE >
+=======================================
+Name	Offset	Size	Type	Segment
+=======================================
+NAME1	00002	1	VAR	(NOSEG)
+NAME2	0000B	1	VAR	(NOSEG)
+D2CODE_LOC_1234_XXX	00014	-1	LABEL	(NOSEG)
+BEGIN	00014	-1	FAR	(NOSEG)
+B20	00023	-1	LABEL	(NOSEG)
+< END of SYMBOL TABLE >

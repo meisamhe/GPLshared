@@ -1,0 +1,39 @@
+package Storage;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+public class ShowDoc extends JFrame {
+    BorderLayout borderLayout1 = new BorderLayout();
+    JPanel jPanelMain = new JPanel();
+    BorderLayout borderLayout2 = new BorderLayout();
+    JScrollPane jScrollPane1 = new JScrollPane();
+    JTextArea jTextAreaDoc = new JTextArea();
+    FileIO io=new FileIO();
+    int docNo=0;
+    public ShowDoc(int docNumber) {
+        docNo=docNumber;
+    	try {
+            jbInit();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+    private void init(){
+    	
+    }
+    private void jbInit() throws Exception {
+        getContentPane().setLayout(borderLayout1);
+        jPanelMain.setLayout(borderLayout2);
+        jTextAreaDoc.setEnabled(false);
+        jTextAreaDoc.setEditable(false);
+        jTextAreaDoc.setLineWrap(true);
+        this.getContentPane().add(jPanelMain, java.awt.BorderLayout.CENTER);
+        jPanelMain.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jScrollPane1.getViewport().add(jTextAreaDoc);
+    }
+}

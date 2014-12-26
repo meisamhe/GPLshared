@@ -1,0 +1,24 @@
+#include <iostream.h>
+//--------------------------------------------------------
+#ifndef GOODBST_H
+#define GOODBST_H
+//---------------------------------------------------------
+class goodBst
+{
+        struct treenode
+        {
+                long int code;
+                int seek;
+                treenode *right, *left;
+        };
+        private:
+                treenode *root;
+//                void GlC(treenode, treenode&, treenode&); //Grand Left Data
+        public:
+                goodBst(){root=NULL;};
+                bool insert (long int, int);
+//              bool del ();
+                int search (long int);
+                ~goodBst();
+};
+#endif

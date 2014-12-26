@@ -1,0 +1,541 @@
+/*
+ * Created on Jul 12, 2005
+ *
+ * ManiBH To change the template for this generated file go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+package Storage;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.channels.FileChannel;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Vector;
+
+/**
+ * @author ManiBH this class is for any storage and retrival from the file.
+ */
+public class FileIO {
+
+	/**
+	 *  
+	 */
+	public FileIO() {
+		super();
+	}
+
+	/**
+	 * this method will get one string parameter using for the name and the
+	 * address of file
+	 * 
+	 * @param address :
+	 *            address + name of the file
+	 * @return File: the file handle will be returned
+	 */
+	public File createFile(String address) {
+		File df = null;
+		try {
+			df = new File(address);
+			df.createNewFile();
+		} catch (IOException ex) {
+			System.out.println(ex.getMessage());
+			return null;
+		}
+		return df;
+	}
+
+	/**
+	 * @author ManiBH this method will check whether if your file exists or not.
+	 * @param filename :
+	 *            address and the name of your file.
+	 * @return : return true if exists and false if not.
+	 */
+	public boolean isExists(String filename) {
+		//Determining If a File or Directory Exists
+		boolean exists = (new File(filename)).exists();
+		if (exists) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * @author ManiBH this method will get file handel and line number as input
+	 *         parameter and will return one string from that line of file.
+	 * @param file :
+	 *            file handel (object from File class).
+	 * @param lineNumber :
+	 *            integer number of line.
+	 * @return str : this string is returned from the specified line number in
+	 *         file.
+	 */
+	protected String readFileAsString(File file, int lineNumber) {
+		BufferedReader in = null;
+		String str = "";
+		try {
+			in = new BufferedReader(new FileReader(file));
+			for (int i = 0; i < lineNumber; i++)
+				str = in.readLine();
+			in.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return str;
+	}
+
+	/**
+	 * @author ManiBH
+	 * @param file
+	 * @param str
+	 * @return
+	 */
+	protected boolean appendStringToFile(File file, String str) {
+		str = str.trim();
+		if (str.equals("") || str == null)
+			return false;
+		BufferedWriter out = null;
+		boolean done = true;
+		try {
+			out = new BufferedWriter(new FileWriter(file, true));
+			out.write(str);
+			out.newLine();
+			out.close();
+		} catch (IOException e) {
+			done = false;
+			System.out.println(e.getMessage());
+		}
+		return done;
+	}
+
+	/**
+	 * @author ManiBH
+	 * @param file
+	 * @return
+	 */
+	protected Vector readFileAsVector(File file) {
+		Vector vctr = new Vector();
+		int i = 1;
+		String temp = readFileAsString(file, i);
+		while (temp != null) {
+			vctr.add(temp);
+			temp = readFileAsString(file, ++i);
+		}
+		return vctr;
+	}
+
+	/**
+	 * @author ManiBH deprecated
+	 */
+	protected boolean writeObjectToFile(Object obj, File file) {
+		ObjectOutputStream outStr;
+		try {
+			outStr = new ObjectOutputStream(
+					new FileOutputStream("c:\\mana.txt"));
+			outStr.writeObject(obj);
+			outStr.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+			return false;
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * @author ManiBH deprecated
+	 * @param file
+	 * @return
+	 */
+	protected Object readObjectFromFile(File file) {
+		Object obj = null;
+		try {
+			ObjectInputStream inStr = new ObjectInputStream(
+					new FileInputStream(file));
+			obj = inStr.readObject();
+			inStr.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+		return obj;
+	}
+
+	/**
+	 * @author ManiBH this method will read one file in map mode and starts from
+	 *         position begin in file and with size lenght read the next part of
+	 *         the file.
+	 * @param file :
+	 *            the file that you want to read.
+	 * @param begin :
+	 *            starts to read from here.
+	 * @param size :
+	 *            lenght of reading from file.
+	 * @return String from that part that this method read.
+	 */
+	protected String readExactLocationOfFile(File file, long begin, long size) {
+		String str = "";
+		try {
+			FileChannel dbChannel = new RandomAccessFile(file, "r")
+					.getChannel();
+			ByteBuffer roBuf = dbChannel.map(FileChannel.MapMode.READ_ONLY,
+					begin, size);
+			str = roBuf.toString();
+			dbChannel.close();
+		} catch (IOException io) {
+			System.out.println(io.getMessage());
+		}
+		return str;
+	}
+
+	/**
+	 * this method will search for the given string in the given file and it
+	 * will return the integer after $ that shows the number of term in hashmap.
+	 * 
+	 * @author ManiBH
+	 * @param file
+	 * @param str
+	 * @return
+	 */
+	protected int readHashFromFile(File file, String str) {
+		int cntr = 1, i = 0;
+		String temp = "", dummy = "";
+		while (temp != null) {
+			dummy = temp.substring(0, temp.indexOf("$"));
+			dummy = dummy.trim();
+			if (dummy.equals(str)) {
+				temp = temp.substring(temp.indexOf("$") + 1);
+				temp = temp.trim();
+				try {
+					i = Integer.parseInt(temp);
+				} catch (NumberFormatException e) {
+					System.out.println(e.getMessage());
+				}
+				break;
+			}
+			temp = readFileAsString(file, cntr++);
+		}
+		return i;
+	}
+
+	/**
+	 * @author ManiBH this method will read one file in map mode and will
+	 *         separate it into n Object with initial record lenght that will be
+	 *         given as an input parameter.
+	 * @param file :
+	 *            the file that you want to read.
+	 * @param recordLenght :
+	 *            lenght of reading from file.
+	 * @return Vector whit n Object from string class.
+	 */
+	protected Vector readContinouceFileAsVector(File file, long recordLenght) {
+		Vector vctr = new Vector();
+		long begin = 0;
+		try {
+			FileChannel dbChannel = new RandomAccessFile(file, "r")
+					.getChannel();
+			ByteBuffer roBuf = null;
+			while (true) {
+				roBuf = dbChannel.map(FileChannel.MapMode.READ_ONLY, begin,
+						recordLenght);
+				if (roBuf.capacity() == 0)
+					break;
+				if (recordLenght == 1)
+					vctr.add(new Character(roBuf.getChar()));
+				else if (recordLenght == 2)
+					vctr.add(new Integer(roBuf.getInt()));
+				else
+					return null;
+				begin += recordLenght;
+				roBuf.clear();
+			}
+			dbChannel.close();
+		} catch (IOException io) {
+			System.out.println(io.getMessage());
+		}
+		return vctr;
+	}
+
+	/**
+	 * @author ManiBH
+	 * @param file
+	 * @param str
+	 * @return
+	 */
+	protected boolean appendContinouslyVectorToFile(File file, Vector vctr) {
+		if (vctr.size() == 0 || vctr == null)
+			return false;
+		if (!file.exists())
+			return false;
+		BufferedWriter out = null;
+		boolean done = true;
+		Iterator it = vctr.iterator();
+		try {
+			out = new BufferedWriter(new FileWriter(file, true));
+			while (it.hasNext()) {
+				out.write((String) it.next());
+			}
+			out.close();
+		} catch (IOException e) {
+			done = false;
+			System.out.println(e.getMessage());
+		}
+		return done;
+	}
+
+	protected void writeVectorToFile(File file, Vector vctr) {
+		Iterator it = vctr.iterator();
+		BufferedWriter out = null;
+		try {
+			out = new BufferedWriter(new FileWriter(file));
+			while (it.hasNext()) {
+				out.write(((Integer) it.next()).toString());
+				out.newLine();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				out.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		//readVectorToFile(file);
+	}
+	protected void writeDocDocVectorToFile(File file, Vector vctr) {
+		Iterator it = vctr.iterator();
+		BufferedWriter out = null;
+		try {
+			out = new BufferedWriter(new FileWriter(file,true));
+			while (it.hasNext()) {
+				out.write(((Integer) it.next()).toString());
+			}
+			out.newLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				vctr.clear();
+				out.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		//readVectorToFile(file);
+	}
+
+	protected Vector readVectorToFile(File file) {
+		Vector vctr = new Vector();
+		BufferedReader in = null;
+		String str = "";
+		try {
+			in = new BufferedReader(new FileReader(file));
+			while (true) {
+				str = in.readLine();
+				if (str == null || str.equals(""))
+					break;
+				vctr.add(new Integer(Integer.parseInt(str)));
+			}
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				in.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		return vctr;
+	}
+
+	protected void binaryWriter(File sFile, int i) {
+		try {
+			FileOutputStream out = new FileOutputStream(sFile);
+			FileChannel outChannel = out.getChannel();
+			ByteBuffer byteBuf = ByteBuffer.allocate(4);
+			IntBuffer intBuf = byteBuf.asIntBuffer();
+			intBuf.put(i);
+			//	      CharBuffer charBuf=byteBuf.asCharBuffer();
+			//	      charBuf.put(Integer.toBinaryString(i));
+			//	      byteBuf.put(bt);
+			//	      byteBuf.flip();
+			//	      charBuf.flip();
+
+			intBuf.flip();
+			int numWritten = outChannel.write(byteBuf, 0);
+			byteBuf.clear();
+			// Close the file
+			outChannel.close();
+			out.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	} // end of copy
+
+	/**
+	 * 
+	 * @param file
+	 * @param termNumber
+	 * @return
+	 */
+	protected Vector readSparceAsVector(File file, int termNumber) {
+		BufferedReader in = null;
+		Vector vctr = new Vector();
+		String str = "";
+		int termNum = 0;
+		termDocEntry temp = null;
+		try {
+			in = new BufferedReader(new FileReader(file));
+			while (true) {
+				str = in.readLine();
+				if (str == null || str.length() == 0)
+					break;
+				str = str.substring(str.indexOf("$") + 1);
+				termNum = Integer.parseInt(str.substring(0, str.indexOf(" ")));
+				if (termNumber == termNum) {
+					str = str.substring(str.indexOf(" ") + 1);
+					while (true) {
+						if (str.indexOf(" ") != -1) {
+							temp = new termDocEntry();
+							temp.docNumber = Integer.parseInt(str.substring(0,
+									str.indexOf(":")));
+							temp.freq = Float.parseFloat(str.substring(str
+									.indexOf(":") + 1, str.indexOf(" ")));
+							vctr.add(temp);
+							str = str.substring(str.indexOf(" ") + 1);
+						} else {
+							temp = new termDocEntry();
+							temp.docNumber = Integer.parseInt(str.substring(0,
+									str.indexOf(":")));
+							temp.freq = Float.parseFloat(str.substring(str
+									.indexOf(":") + 1));
+							vctr.add(temp);
+							break;
+						}
+					}
+					break;
+				}
+			}
+			in.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return vctr;
+	}
+
+	protected float searchSparceForFreq(File file, int termNumber, int docNumber) {
+		BufferedReader in = null;
+		String str = "";
+		int termNum = 0, docNum = 0;
+		termDocEntry temp = null;
+		try {
+			in = new BufferedReader(new FileReader(file));
+			while (true) {
+				str = in.readLine();
+				if (str == null || str.length() == 0)
+					break;
+				str = str.substring(str.indexOf("$") + 1);
+				termNum = Integer.parseInt(str.substring(0, str.indexOf(" ")));
+				if (termNumber == termNum) {
+					str = str.substring(str.indexOf(" ") + 1);
+					while (true) {
+						if (str.indexOf(" ") != -1) {
+							docNum = Integer.parseInt(str.substring(0, str
+									.indexOf(":")));
+							if (docNum == docNumber)
+								return Float.parseFloat(str.substring(str
+										.indexOf(":") + 1, str.indexOf(" ")));
+							str = str.substring(str.indexOf(" ") + 1);
+						} else {
+							docNum = Integer.parseInt(str.substring(0, str
+									.indexOf(":")));
+							if (docNum == docNumber)
+								return Float.parseFloat(str.substring(str
+										.indexOf(":") + 1));
+							break;
+						}
+					}
+					break;
+				}
+			}
+			in.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return 0;
+	}
+
+	protected String getTermName(File file, int termNumber) {
+		String term = "";
+		try {
+			term = readFileAsString(file, termNumber + 1);
+			term = term.substring(0, term.indexOf("$"));
+		} catch (Throwable e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+		return term;
+	}
+
+	/**
+	 * 
+	 * @param file
+	 * @param docNumber
+	 * @return
+	 */
+	protected HashMap readDocTermAsHashMap(File file, int docNumber) {
+		HashMap hash = new HashMap();
+		String doc = readFileAsString(file, docNumber);
+		String temp = "";
+		try {
+//			baraye inke motmaen beshim ke in doc daraye hade aghal 1 term ast(doc*term)
+			if(doc!=null && doc.indexOf(":")!=-1){
+				doc=doc.substring(doc.indexOf("$")+1); 
+			}
+			else 
+				return null;
+			while (doc.indexOf(" ") != -1) {
+				temp = doc.substring(0, doc.indexOf(" "));
+				hash.put(new Integer(temp.substring(0, temp.indexOf(":"))),
+						new Float(temp.substring(temp.indexOf(":") + 1)));
+				doc = doc.substring(doc.indexOf(" ") + 1);
+			}
+			hash.put(new Integer(doc.substring(0, doc.indexOf(":"))),
+					new Float(doc.substring(doc.indexOf(":") + 1)));
+		} catch (Throwable e) {
+			System.out.println(e.getMessage());
+		}
+		return hash;
+	}
+}//end of FileIO
+
+class termDocEntry {
+	float freq = 0;
+
+	int docNumber = 0;
+}

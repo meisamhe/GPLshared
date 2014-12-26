@@ -1,0 +1,6 @@
+MIDlet-1: ImageViewer, , ImageViewer
+MIDlet-Jar-Size: 6638
+MIDlet-Jar-URL: http://midlet.org/repository/joachim/imageviewer/ImageViewer.jar?md=270
+MIDlet-Name: Image Viewer
+MIDlet-Vendor: Joachim Schaefer (midlets@shepherd.de)
+MIDlet-Version: 0.9.0

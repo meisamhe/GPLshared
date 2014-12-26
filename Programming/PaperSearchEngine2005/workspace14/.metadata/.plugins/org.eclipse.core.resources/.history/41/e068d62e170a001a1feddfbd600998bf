@@ -1,0 +1,287 @@
+/*
+ * Created on Jul 28, 2005
+ *
+ * TODO To change the template for this generated file go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+package Storage;
+
+import java.io.File;
+import java.util.BitSet;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Stack;
+import java.util.Vector;
+
+import com.borland.jbcl.util.Pair;
+
+/**
+ * @author ManiBH & MeysamH
+ * 
+ * TODO To change the template for this generated type comment go to Window -
+ * Preferences - Java - Code Style - Code Templates
+ */
+public class PostInitialize {
+	private float treshold = 0;
+
+	private FileIO io = new FileIO();
+
+	private File docTerm = null;
+
+	public PostInitialize(float treshold, File docTerm) {
+		this.treshold = treshold;
+		this.docTerm = docTerm;
+		init();
+	}
+	String path="c:\\testhome\\";
+	String docdoc="docdoc";
+	private void init() {
+//		buildDocDocMatrix(1,10,io.createFile(path+docdoc+".txt"));
+		System.out.println("buildDocDocMatrix Function finished Successfully!");
+		getStarEntries(new File(path+docdoc+".txt"),io.createFile("c:\\testhome\\star.txt"));
+		System.out.println("getStarEntries Function finished Successfully!");
+		//Integer cntr=new Integer(0);
+		Vector cntrVctr=new Vector();
+		cntrVctr.add(0);
+		int docDocTreeNum=0;
+		boolean flag=biConnected(docTerm,new File(path+docdoc+".txt"),io.createFile(path+docDocTreeNum+".txt"),io.createFile(path+"centralId.txt"),cntr);
+		int first=1;//avalin doc i ke bayad bekhanim
+		cntr=new Integer((cntr.intValue())+1);//chon hamishe rooye akharin centralID ke ghablan neveshte minevise
+		int end =cntr.intValue();//akharin doc i ke bayad bekhanim
+		while(flag== true){
+			docDocTreeNum++;
+			buildDocDocMatrix(first,end,io.createFile(path+docdoc+docDocTreeNum+".txt"));
+			end= first+1;//dafe bad bayad az onsor badi bekhoone
+			flag=biConnected(new File(path+"centralId.txt"),new File(path+docdoc+docDocTreeNum+".txt"),io.createFile(path+docDocTreeNum+".txt"),new File(path+"centralId.txt"),cntr);
+			cntr=new Integer((cntr.intValue())+1);//chon hamishe rooye akharin centralID ke ghablan neveshte minevise
+			end=cntr.intValue();
+		}
+	}
+	/**
+	 * dar in tabe ma ebteda file handel va avalin va akharin doc ra dar vorody
+	 * be tabe midahim, se[as ba 2 for loope to dar to har bar moghayese mikonim
+	 * agar az treshold kamtar 0 va agar bishtar bod dar vector 1 vared mikonim
+	 * va sepas ba estefadeh az tabe writeDocDocVectorToFile an ra dar file 
+	 * neveshteh va har bar vector ra minevisim va dakhele tabe an ra pak karde
+	 * va yek khate jadid new mikonim.  
+	 * @param firstDoc
+	 * @param lastDoc
+	 * @param file
+	 */
+	private void buildDocDocMatrix(int firstDoc, int lastDoc, File file) {
+		Vector vctr=new Vector();
+		float sim = 0;
+		StringBuffer strBuf = new StringBuffer();
+		io.appendStringToFile(file,Integer.toString(lastDoc-firstDoc+1));
+		for (int i = firstDoc; i <= lastDoc; i++) {
+			for (int j = firstDoc; j <= lastDoc; j++) {
+				sim=calculateSimilarity(i, j, docTerm);
+				if (sim >= treshold) {
+					vctr.add(new Integer(1));
+				}
+				else{
+					vctr.add(new Integer(0));
+				}
+			}
+			io.writeDocDocVectorToFile(file,vctr);
+		}
+	}
+private float calculateSimilarity(int docNo1, int docNo2, File docTerm) {
+		HashMap doc1 = io.readDocTermAsHashMap(docTerm, docNo1);
+		HashMap doc2 = io.readDocTermAsHashMap(docTerm, docNo2);
+		if(doc1==null || doc2==null){
+			return 0;
+		}
+		Iterator it1 = doc1.keySet().iterator();
+		Iterator it2 = doc2.values().iterator();
+		float sqrSigmaDoc1 = 0, sqrSigmaDoc2 = 0, sigmaDoc1Doc2 = 0;
+		while (it1.hasNext()) {
+			Integer intObj=(Integer) it1.next();
+			sqrSigmaDoc1 += Math.pow(((Float) doc1.get(intObj)).floatValue(), 2);
+			if (doc2.get(intObj) != null) {
+				sigmaDoc1Doc2 += ((Float) doc1.get(intObj)).floatValue()
+						* ((Float) doc2.get(intObj)).floatValue();
+			}
+		}
+		while (it2.hasNext()) {
+			sqrSigmaDoc2 += Math.pow(((Float) it2.next()).floatValue(), 2);
+		}
+		return (float) (sigmaDoc1Doc2 / (Math.sqrt(sqrSigmaDoc1 * sqrSigmaDoc2)));
+	}
+	/**
+	 * intabe ba gereftan 2 file az vorodi yeki file docdoc be onvane
+	 * source file va digary filike mikhahim star ra dar an benevisim
+	 * be onvane target file, ba yek for loop tamame satr haye docdoc
+	 * ra khandeh va makan haye 1 ra dar file star minevisad.
+	 * @param srcFile : docdocMatrix file.
+	 * @param trgFile : star file.
+	 */
+	private void getStarEntries(File srcFile,File trgFile){
+		int docnum=Integer.parseInt(io.readFileAsString(srcFile,1));
+		Vector vctr=new Vector();
+		int dif=0;
+		for(int i=2;i<docnum+2;i++){
+			dif=0;
+			String star=io.readFileAsString(srcFile,i);
+			while(star.indexOf("1")!= -1){
+				int loc=star.indexOf("1");
+				vctr.add(new Integer(loc+dif+1));
+				dif+=loc+1;
+				star=star.substring(loc+1);
+			}
+			io.writeStarVectorToFile(trgFile,vctr);
+		}
+	}
+	private boolean biConnected(File docterm,File srcFile,File trgFile,File centralIdFile,Vector cntrVctr){
+		int docnum=Integer.parseInt(io.readFileAsString(srcFile,1));
+		Vector DFS_Number=new Vector(),high=new Vector();
+		//initializing vector to zero
+		for(int i=0;i<docnum;i++){
+			DFS_Number.add(new Integer(0));
+			high.add(new Integer(0));
+		}
+		int DFS_N=docnum,v=0;
+		Stack vertexStack=new Stack();
+		bC(v,vertexStack,DFS_N,DFS_Number,high,srcFile,trgFile);
+		int firstZero=0,totZero=0;
+		for(int i=0;i<high.size();i++){
+			if(((Integer)high.get(i)).intValue()==0){
+				firstZero=i;
+				totZero++;
+			}
+		}
+		while(totZero>0){
+			bC(firstZero,vertexStack,totZero,DFS_Number,high,srcFile,trgFile);
+			totZero=0;
+			for(int i=0;i<high.size();i++){
+				if(((Integer)high.get(i)).intValue()==0){
+					firstZero=i;
+					totZero++;
+				}
+			}
+		}
+		Set set=new HashSet();
+		Iterator it=high.iterator();
+		while(it.hasNext()){
+			set.add(it.next());
+		}
+		if(set.size()==docnum)
+			return false;
+		Integer temp=null;
+		Iterator sit=set.iterator();
+		int tempCntr=1,ifCntr=0;
+		HashMap hash;
+		HashMap addHash=new HashMap();
+		Vector clusterVctr=new Vector();
+		Iterator hashIt;
+		while(sit.hasNext()){
+			addHash.clear();
+			it=high.iterator();
+			temp=(Integer)sit.next();
+			tempCntr=1;
+			ifCntr=0;
+			clusterVctr.clear();
+			clusterVctr.add(cntrVctr.get(0));// baraye cluster ebteda shomare centeralid ra migozarim
+			while(it.hasNext()){
+				Integer keyIt=(Integer)it.next();
+				if(keyIt.intValue()==temp.intValue()){
+					clusterVctr.add(new Integer(tempCntr));
+					hash=io.readDocTermAsHashMap(docterm,tempCntr);
+					hashIt=hash.keySet().iterator();
+					while(hashIt.hasNext())
+					{	
+						Integer key=(Integer)hashIt.next();
+						if(addHash.containsKey(key)){
+							float first=((Float)addHash.remove(key)).floatValue();
+							float second=((Float)hash.get(key)).floatValue();
+							addHash.put(key,new Float(first+second));
+						}
+						else{
+							addHash.put(key,hash.get(key));
+						}
+					}
+					ifCntr++;
+				}
+				tempCntr++;
+			}
+			Iterator addHashIt2=addHash.keySet().iterator();
+//			Integer addHashKey= new Integer(0);
+			try{
+			while(addHashIt2.hasNext()){
+				Integer addHashKey=(Integer)addHashIt2.next();
+				float addHashTemp=((Float)addHash.get(addHashKey)).floatValue() / ifCntr;
+				addHash.put(addHashKey,new Float(addHashTemp));
+			}
+			}catch(ConcurrentModificationException e){
+				System.out.println(e.getMessage());
+			}
+			String strBuf=(cntrVctr.get(0).toString())+"$";
+			//cntr=new Integer((cntr.intValue())+1);
+			cntrVctr.set(0,new Integer(((Integer)cntrVctr.get(0)).intValue()+1));
+			Iterator addHashIt=addHash.keySet().iterator();
+			while(addHashIt.hasNext()){
+				Integer addHashKey=(Integer)addHashIt.next();
+				strBuf+=addHashKey+":"+(Float)addHash.get(addHashKey)+" ";
+			}
+			io.appendStringToFile(centralIdFile,strBuf.trim());
+			io.writeStarVectorToFile(trgFile,clusterVctr);//neveshtane cluster ha dar file
+		}//end main while
+
+		
+		
+		
+		return true;
+	}
+	private void bC(int root,Stack vertexStack,int DFS_N,Vector DFS_Number,Vector high,File srcFile,File trgFile){
+		DFS_Number.set(root,new Integer(DFS_N));
+		DFS_N--;
+		int parent= -1;
+		if(!vertexStack.isEmpty())
+			parent = ((Integer)vertexStack.peek()).intValue();
+		vertexStack.push(new Integer(root));
+		high.set(root,DFS_Number.get(root));
+		//ebteda satre root om ra mikhanim tamame deraye haye 1 ra dar yel
+		//vector migozarim.
+		String line=io.readFileAsString(srcFile,root+2);
+		int dif=0;
+		int loc=0;
+		while(line.indexOf("1")!= -1){
+			loc=line.indexOf("1")+dif;
+//			TwoPair tp=new TwoPair(root,loc);
+			//dar soorati ke pedarash nabashad
+			if(loc!=parent){
+				if(0==((Integer)DFS_Number.get(loc)).intValue()){
+					bC(loc,vertexStack,DFS_N,DFS_Number,high,srcFile,trgFile);
+					if(((Integer)high.get(loc)).intValue()<=((Integer)DFS_Number.get(root)).intValue()){
+						while(!vertexStack.isEmpty()){
+							Integer temp=(Integer)vertexStack.pop();
+							if(temp.intValue()==root){
+								vertexStack.push(temp);
+								break;
+							}
+						}
+						high.set(root,new Integer(Math.max(((Integer)high.get(root)).intValue(),((Integer)high.get(loc)).intValue())));
+					}
+				}
+				else{
+					high.set(root,new Integer(Math.max(((Integer)high.get(root)).intValue(),((Integer)DFS_Number.get(loc)).intValue())));						
+				}
+			}
+			dif+=line.indexOf("1")+1;
+			line=line.substring(line.indexOf("1")+1);
+		}//ends of while
+	}
+}//ends PostInitialize
+class TwoPair{
+	int first;
+	int end;
+	TwoPair(int first,int end){
+		this.first=first;
+		this.end=end;
+	}
+}

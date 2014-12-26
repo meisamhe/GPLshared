@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+ <globalConfiguration>
+  <parameter name="sendMultiRefs" value="true"/>
+  <parameter name="disablePrettyXML" value="true"/>
+  <parameter name="adminPassword" value="admin"/>
+  <parameter name="attachments.Directory" value="C:\Documents and Settings\Meisam\workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ActionTrackingSystem\WEB-INF\attachments"/>
+  <parameter name="dotNetSoapEncFix" value="true"/>
+  <parameter name="enableNamespacePrefixOptimization" value="false"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+  <parameter name="sendXsiTypes" value="true"/>
+  <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+  <requestFlow>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="session"/>
+   </handler>
+   <handler type="java:org.apache.axis.handlers.JWSHandler">
+    <parameter name="scope" value="request"/>
+    <parameter name="extension" value=".jwr"/>
+   </handler>
+  </requestFlow>
+ </globalConfiguration>
+ <handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+ <handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+ <handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+ <service name="Task" provider="java:RPC" style="wrapped" use="literal">
+  <operation name="getOwnerName" qname="ns1:getOwnerName" returnQName="ns1:getOwnerNameReturn" returnType="xsd:string" soapAction="" xmlns:ns1="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <operation name="setOwnerName" qname="ns2:setOwnerName" soapAction="" xmlns:ns2="http://actionTracking.com">
+   <parameter qname="ns2:ownerName" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="getTaskID" qname="ns3:getTaskID" returnQName="ns3:getTaskIDReturn" returnType="xsd:int" soapAction="" xmlns:ns3="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <operation name="setTaskID" qname="ns4:setTaskID" soapAction="" xmlns:ns4="http://actionTracking.com">
+   <parameter qname="ns4:taskID" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <parameter name="allowedMethods" value="getTaskID setOwnerName setTaskID getOwnerName"/>
+  <parameter name="wsdlPortType" value="Task"/>
+  <parameter name="typeMappingVersion" value="1.2"/>
+  <parameter name="schemaQualified" value="http://actionTracking.com"/>
+  <parameter name="wsdlServicePort" value="Task"/>
+  <parameter name="className" value="com.actionTracking.Task"/>
+  <parameter name="wsdlTargetNamespace" value="http://actionTracking.com"/>
+  <parameter name="wsdlServiceElement" value="TaskService"/>
+ </service>
+ <service name="AdminService" provider="java:MSG">
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="false"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+ </service>
+ <service name="MainService" provider="java:RPC" style="wrapped" use="literal">
+  <operation name="getLocation" qname="ns5:getLocation" returnQName="ns5:getLocationReturn" returnType="xsd:string" soapAction="" xmlns:ns5="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <operation name="changeState" qname="ns6:changeState" returnQName="ns6:changeStateReturn" returnType="xsd:string" soapAction="" xmlns:ns6="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns6:activityID" type="xsd:long"/>
+   <parameter qname="ns6:personType" type="xsd:string"/>
+   <parameter qname="ns6:state" type="xsd:long"/>
+   <parameter qname="ns6:personUser" type="xsd:string"/>
+   <parameter qname="ns6:date" type="xsd:long"/>
+  </operation>
+  <operation name="getActivity" qname="ns7:getActivity" returnQName="ns7:getActivityReturn" returnType="xsd:string" soapAction="" xmlns:ns7="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns7:activityID" type="xsd:long"/>
+  </operation>
+  <operation name="intArray" qname="ns8:intArray" returnQName="ns8:intArrayReturn" returnType="xsd:int" soapAction="" xmlns:ns8="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <operation name="reassign" qname="ns9:reassign" returnQName="ns9:reassignReturn" returnType="xsd:string" soapAction="" xmlns:ns9="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns9:activityID" type="xsd:long"/>
+   <parameter qname="ns9:changerUser" type="xsd:string"/>
+   <parameter qname="ns9:firstPersonUser" type="xsd:string"/>
+   <parameter qname="ns9:firstPersonType" type="xsd:string"/>
+   <parameter qname="ns9:secondPersonUser" type="xsd:string"/>
+   <parameter qname="ns9:secondPersonType" type="xsd:string"/>
+   <parameter qname="ns9:date" type="xsd:long"/>
+  </operation>
+  <operation name="defineEmployee" qname="ns10:defineEmployee" returnQName="ns10:defineEmployeeReturn" returnType="xsd:string" soapAction="" xmlns:ns10="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns10:name" type="xsd:string"/>
+   <parameter qname="ns10:family" type="xsd:string"/>
+   <parameter qname="ns10:user" type="xsd:string"/>
+   <parameter qname="ns10:password" type="xsd:string"/>
+   <parameter qname="ns10:department" type="xsd:string"/>
+   <parameter qname="ns10:location" type="xsd:string"/>
+  </operation>
+  <operation name="defineDepartment" qname="ns11:defineDepartment" returnQName="ns11:defineDepartmentReturn" returnType="xsd:string" soapAction="" xmlns:ns11="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns11:name" type="xsd:string"/>
+   <parameter qname="ns11:location" type="xsd:string"/>
+   <parameter qname="ns11:upperDepartmentName" type="xsd:string"/>
+   <parameter qname="ns11:upperDepartmentLocation" type="xsd:string"/>
+  </operation>
+  <operation name="defineManager" qname="ns12:defineManager" returnQName="ns12:defineManagerReturn" returnType="xsd:string" soapAction="" xmlns:ns12="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns12:name" type="xsd:string"/>
+   <parameter qname="ns12:family" type="xsd:string"/>
+   <parameter qname="ns12:user" type="xsd:string"/>
+   <parameter qname="ns12:password" type="xsd:string"/>
+   <parameter qname="ns12:department" type="xsd:string"/>
+   <parameter qname="ns12:location" type="xsd:string"/>
+  </operation>
+  <operation name="replaceEmployee" qname="ns13:replaceEmployee" returnQName="ns13:replaceEmployeeReturn" returnType="xsd:string" soapAction="" xmlns:ns13="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns13:user" type="xsd:string"/>
+   <parameter qname="ns13:secondName" type="xsd:string"/>
+   <parameter qname="ns13:secondFamily" type="xsd:string"/>
+   <parameter qname="ns13:secondUser" type="xsd:string"/>
+   <parameter qname="ns13:secondPassword" type="xsd:string"/>
+  </operation>
+  <operation name="deleteEmployee" qname="ns14:deleteEmployee" returnQName="ns14:deleteEmployeeReturn" returnType="xsd:string" soapAction="" xmlns:ns14="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns14:user" type="xsd:string"/>
+  </operation>
+  <operation name="replaceManager" qname="ns15:replaceManager" returnQName="ns15:replaceManagerReturn" returnType="xsd:string" soapAction="" xmlns:ns15="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns15:user" type="xsd:string"/>
+   <parameter qname="ns15:secondName" type="xsd:string"/>
+   <parameter qname="ns15:secondFamily" type="xsd:string"/>
+   <parameter qname="ns15:secondUser" type="xsd:string"/>
+   <parameter qname="ns15:secondPassword" type="xsd:string"/>
+  </operation>
+  <operation name="defineActivity" qname="ns16:defineActivity" returnQName="ns16:defineActivityReturn" returnType="xsd:string" soapAction="" xmlns:ns16="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns16:name" type="xsd:string"/>
+   <parameter qname="ns16:description" type="xsd:string"/>
+   <parameter qname="ns16:deadline" type="xsd:long"/>
+   <parameter qname="ns16:initializedDate" type="xsd:long"/>
+   <parameter qname="ns16:personUser" type="xsd:string"/>
+   <parameter qname="ns16:personType" type="xsd:string"/>
+   <parameter qname="ns16:assignedByUser" type="xsd:string"/>
+   <parameter qname="ns16:upperActivityID" type="xsd:long"/>
+  </operation>
+  <operation name="preciseDescription" qname="ns17:preciseDescription" returnQName="ns17:preciseDescriptionReturn" returnType="xsd:string" soapAction="" xmlns:ns17="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns17:activityID" type="xsd:long"/>
+   <parameter qname="ns17:personType" type="xsd:string"/>
+   <parameter qname="ns17:description" type="xsd:string"/>
+   <parameter qname="ns17:personUser" type="xsd:string"/>
+  </operation>
+  <operation name="extendDeadline" qname="ns18:extendDeadline" returnQName="ns18:extendDeadlineReturn" returnType="xsd:string" soapAction="" xmlns:ns18="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns18:activityID" type="xsd:long"/>
+   <parameter qname="ns18:type" type="xsd:string"/>
+   <parameter qname="ns18:deadline" type="xsd:long"/>
+   <parameter qname="ns18:assignedUser" type="xsd:string"/>
+   <parameter qname="ns18:date" type="xsd:long"/>
+   <parameter qname="ns18:changerUser" type="xsd:string"/>
+  </operation>
+  <operation name="unActivateActivity" qname="ns19:unActivateActivity" returnQName="ns19:unActivateActivityReturn" returnType="xsd:string" soapAction="" xmlns:ns19="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns19:activityID" type="xsd:long"/>
+   <parameter qname="ns19:personType" type="xsd:string"/>
+   <parameter qname="ns19:personUser" type="xsd:string"/>
+   <parameter qname="ns19:changerUser" type="xsd:string"/>
+   <parameter qname="ns19:date" type="xsd:long"/>
+  </operation>
+  <operation name="addResourceToActivity" qname="ns20:addResourceToActivity" returnQName="ns20:addResourceToActivityReturn" returnType="xsd:string" soapAction="" xmlns:ns20="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns20:activityID" type="xsd:long"/>
+   <parameter qname="ns20:type" type="xsd:string"/>
+   <parameter qname="ns20:resourceName" type="xsd:string"/>
+   <parameter qname="ns20:resourcePlace" type="xsd:string"/>
+   <parameter qname="ns20:resourceQuantity" type="xsd:long"/>
+   <parameter qname="ns20:assignedUser" type="xsd:string"/>
+  </operation>
+  <operation name="defineResourceForOrganization" qname="ns21:defineResourceForOrganization" returnQName="ns21:defineResourceForOrganizationReturn" returnType="xsd:string" soapAction="" xmlns:ns21="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns21:name" type="xsd:string"/>
+   <parameter qname="ns21:place" type="xsd:string"/>
+   <parameter qname="ns21:inHand" type="xsd:int"/>
+  </operation>
+  <operation name="addReportToActivity" qname="ns22:addReportToActivity" returnQName="ns22:addReportToActivityReturn" returnType="xsd:string" soapAction="" xmlns:ns22="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns22:activityID" type="xsd:long"/>
+   <parameter qname="ns22:type" type="xsd:string"/>
+   <parameter qname="ns22:title" type="xsd:string"/>
+   <parameter qname="ns22:reportpath" type="xsd:string"/>
+   <parameter qname="ns22:assignedUser" type="xsd:string"/>
+   <parameter qname="ns22:date" type="xsd:long"/>
+  </operation>
+  <operation name="changeResourceQuantityOfActivity" qname="ns23:changeResourceQuantityOfActivity" returnQName="ns23:changeResourceQuantityOfActivityReturn" returnType="xsd:string" soapAction="" xmlns:ns23="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns23:activityID" type="xsd:long"/>
+   <parameter qname="ns23:type" type="xsd:string"/>
+   <parameter qname="ns23:resourceName" type="xsd:string"/>
+   <parameter qname="ns23:resourcePlace" type="xsd:string"/>
+   <parameter qname="ns23:resourceQuantity" type="xsd:long"/>
+   <parameter qname="ns23:assignedUser" type="xsd:string"/>
+  </operation>
+  <operation name="changeResourceQuantityOfOrganization" qname="ns24:changeResourceQuantityOfOrganization" returnQName="ns24:changeResourceQuantityOfOrganizationReturn" returnType="xsd:string" soapAction="" xmlns:ns24="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns24:name" type="xsd:string"/>
+   <parameter qname="ns24:place" type="xsd:string"/>
+   <parameter qname="ns24:inHand" type="xsd:long"/>
+  </operation>
+  <operation name="uncompletedActivityUntilDateOfSpecialPerson" qname="ns25:uncompletedActivityUntilDateOfSpecialPerson" returnQName="ns25:uncompletedActivityUntilDateOfSpecialPersonReturn" returnType="ns25:Activity" soapAction="" xmlns:ns25="http://actionTracking.com">
+   <parameter qname="ns25:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns25:date" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns25:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="uncompleted" qname="ns26:uncompleted" returnQName="ns26:uncompletedReturn" returnType="ns26:Activity" soapAction="" xmlns:ns26="http://actionTracking.com">
+   <parameter qname="ns26:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns26:date" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns26:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="uncompletedActivityUntilDateOfsubsidary" qname="ns27:uncompletedActivityUntilDateOfsubsidary" returnQName="ns27:uncompletedActivityUntilDateOfsubsidaryReturn" returnType="ns27:Activity" soapAction="" xmlns:ns27="http://actionTracking.com">
+   <parameter qname="ns27:date" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns27:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="completedActivityBetweenDatesEmployee" qname="ns28:completedActivityBetweenDatesEmployee" returnQName="ns28:completedActivityBetweenDatesEmployeeReturn" returnType="ns28:Activity" soapAction="" xmlns:ns28="http://actionTracking.com">
+   <parameter qname="ns28:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns28:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns28:firstDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns28:lastDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="completedActivityBetweenDatesSubsidary" qname="ns29:completedActivityBetweenDatesSubsidary" returnQName="ns29:completedActivityBetweenDatesSubsidaryReturn" returnType="ns29:Activity" soapAction="" xmlns:ns29="http://actionTracking.com">
+   <parameter qname="ns29:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns29:firstDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns29:lastDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="unCompletedActivityBetweenDatesEmployee" qname="ns30:unCompletedActivityBetweenDatesEmployee" returnQName="ns30:unCompletedActivityBetweenDatesEmployeeReturn" returnType="ns30:Activity" soapAction="" xmlns:ns30="http://actionTracking.com">
+   <parameter qname="ns30:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns30:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns30:firstDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns30:lastDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="unCompletedActivityBetweenDatesSubsidary" qname="ns31:unCompletedActivityBetweenDatesSubsidary" returnQName="ns31:unCompletedActivityBetweenDatesSubsidaryReturn" returnType="ns31:Activity" soapAction="" xmlns:ns31="http://actionTracking.com">
+   <parameter qname="ns31:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns31:firstDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns31:lastDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="allActivityBetweenDatesEmployee" qname="ns32:allActivityBetweenDatesEmployee" returnQName="ns32:allActivityBetweenDatesEmployeeReturn" returnType="ns32:Activity" soapAction="" xmlns:ns32="http://actionTracking.com">
+   <parameter qname="ns32:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns32:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns32:firstDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns32:lastDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="allActivityBetweenDatesSubsidary" qname="ns33:allActivityBetweenDatesSubsidary" returnQName="ns33:allActivityBetweenDatesSubsidaryReturn" returnType="ns33:Activity" soapAction="" xmlns:ns33="http://actionTracking.com">
+   <parameter qname="ns33:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns33:firstDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns33:lastDate" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="getPersonel" qname="ns34:getPersonel" returnQName="ns34:getPersonelReturn" returnType="ns34:Person" soapAction="" xmlns:ns34="http://actionTracking.com">
+   <parameter qname="ns34:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="getDepartments" qname="ns35:getDepartments" returnQName="ns35:getDepartmentsReturn" returnType="ns35:Department" soapAction="" xmlns:ns35="http://actionTracking.com"/>
+  <operation name="getPersonelWithName" qname="ns36:getPersonelWithName" returnQName="ns36:getPersonelWithNameReturn" returnType="ns36:Person" soapAction="" xmlns:ns36="http://actionTracking.com">
+   <parameter qname="ns36:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns36:name" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="getDepartmentsWithName" qname="ns37:getDepartmentsWithName" returnQName="ns37:getDepartmentsWithNameReturn" returnType="ns37:Department" soapAction="" xmlns:ns37="http://actionTracking.com">
+   <parameter qname="ns37:name" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="getLocationWithName" qname="ns38:getLocationWithName" returnQName="ns38:getLocationWithNameReturn" returnType="xsd:string" soapAction="" xmlns:ns38="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns38:name" type="xsd:string"/>
+  </operation>
+  <operation name="viewReportOfActivity" qname="ns39:viewReportOfActivity" returnQName="ns39:viewReportOfActivityReturn" returnType="ns39:Report" soapAction="" xmlns:ns39="http://actionTracking.com">
+   <parameter qname="ns39:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns39:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns39:ActivityID" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="getReportCountOfActivity" qname="ns40:getReportCountOfActivity" returnQName="ns40:getReportCountOfActivityReturn" returnType="xsd:int" soapAction="" xmlns:ns40="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns40:user" type="xsd:string"/>
+   <parameter qname="ns40:type" type="xsd:string"/>
+   <parameter qname="ns40:ActivityID" type="xsd:long"/>
+  </operation>
+  <operation name="viewResourceOfOrganization" qname="ns41:viewResourceOfOrganization" returnQName="ns41:viewResourceOfOrganizationReturn" returnType="ns41:Resource" soapAction="" xmlns:ns41="http://actionTracking.com"/>
+  <operation name="viewResourceOfActivity" qname="ns42:viewResourceOfActivity" returnQName="ns42:viewResourceOfActivityReturn" returnType="ns42:Resource" soapAction="" xmlns:ns42="http://actionTracking.com">
+   <parameter qname="ns42:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns42:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns42:ActivityID" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="personAuthentication" qname="ns43:personAuthentication" returnQName="ns43:personAuthenticationReturn" returnType="xsd:int" soapAction="" xmlns:ns43="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns43:user" type="xsd:string"/>
+   <parameter qname="ns43:password" type="xsd:string"/>
+   <parameter qname="ns43:type" type="xsd:string"/>
+  </operation>
+  <operation name="hello" qname="ns44:hello" returnQName="ns44:helloReturn" returnType="xsd:string" soapAction="" xmlns:ns44="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <operation name="returnInteger" qname="ns45:returnInteger" returnQName="ns45:returnIntegerReturn" returnType="xsd:int" soapAction="" xmlns:ns45="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  <operation name="intDynamicArray" qname="ns46:intDynamicArray" returnQName="ns46:intDynamicArrayReturn" returnType="xsd:string" soapAction="" xmlns:ns46="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns46:i" type="xsd:int"/>
+  </operation>
+  <operation name="miladiToShamsi" qname="ns47:miladiToShamsi" returnQName="ns47:miladiToShamsiReturn" returnType="ns47:ShamsiDate" soapAction="" xmlns:ns47="http://actionTracking.com">
+   <parameter qname="ns47:iMiladiYear" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns47:iMiladiMonth" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns47:iMiladiDay" type="xsd:int" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="getPersonelOfDepartment" qname="ns48:getPersonelOfDepartment" returnQName="ns48:getPersonelOfDepartmentReturn" returnType="ns48:Person" soapAction="" xmlns:ns48="http://actionTracking.com">
+   <parameter qname="ns48:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns48:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="getSubsidaryPersonel" qname="ns49:getSubsidaryPersonel" returnQName="ns49:getSubsidaryPersonelReturn" returnType="ns49:Person" soapAction="" xmlns:ns49="http://actionTracking.com">
+   <parameter qname="ns49:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns49:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="getPerson" qname="ns50:getPerson" returnQName="ns50:getPersonReturn" returnType="ns50:Person" soapAction="" xmlns:ns50="http://actionTracking.com">
+   <parameter qname="ns50:employeeID" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns50:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="viewUsedResource" qname="ns51:viewUsedResource" returnQName="ns51:viewUsedResourceReturn" returnType="ns51:Resource" soapAction="" xmlns:ns51="http://actionTracking.com">
+   <parameter qname="ns51:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="viewAvailableResource" qname="ns52:viewAvailableResource" returnQName="ns52:viewAvailableResourceReturn" returnType="ns52:Resource" soapAction="" xmlns:ns52="http://actionTracking.com">
+   <parameter qname="ns52:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="getSubsidaryActivity" qname="ns53:getSubsidaryActivity" returnQName="ns53:getSubsidaryActivityReturn" returnType="ns53:Activity" soapAction="" xmlns:ns53="http://actionTracking.com">
+   <parameter qname="ns53:activityID" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns53:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns53:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="stateAvoidedChangeOneEmployee" qname="ns54:stateAvoidedChangeOneEmployee" returnQName="ns54:stateAvoidedChangeOneEmployeeReturn" returnType="ns54:ActivityLogItem" soapAction="" xmlns:ns54="http://actionTracking.com">
+   <parameter qname="ns54:personUser" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns54:personType" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="stateAvoidedChangeAllEmployee" qname="ns55:stateAvoidedChangeAllEmployee" returnQName="ns55:stateAvoidedChangeAllEmployeeReturn" returnType="ns55:ActivityLogItem" soapAction="" xmlns:ns55="http://actionTracking.com">
+   <parameter qname="ns55:managerUser" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="removedActivityReport" qname="ns56:removedActivityReport" returnQName="ns56:removedActivityReportReturn" returnType="ns56:ActivityLogItem" soapAction="" xmlns:ns56="http://actionTracking.com">
+   <parameter qname="ns56:managerUser" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="refrenceChangeReport" qname="ns57:refrenceChangeReport" returnQName="ns57:refrenceChangeReportReturn" returnType="ns57:ActivityLogItem" soapAction="" xmlns:ns57="http://actionTracking.com">
+   <parameter qname="ns57:managerUser" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="deadLineChangeOfActivity" qname="ns58:deadLineChangeOfActivity" returnQName="ns58:deadLineChangeOfActivityReturn" returnType="ns58:ActivityLogItem" soapAction="" xmlns:ns58="http://actionTracking.com">
+   <parameter qname="ns58:activityID" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="allChangesOfActivity" qname="ns59:allChangesOfActivity" returnQName="ns59:allChangesOfActivityReturn" returnType="ns59:ActivityLogItem" soapAction="" xmlns:ns59="http://actionTracking.com">
+   <parameter qname="ns59:activityID" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <operation name="defineUser" qname="ns60:defineUser" returnQName="ns60:defineUserReturn" returnType="xsd:string" soapAction="" xmlns:ns60="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns60:user" type="xsd:string"/>
+   <parameter qname="ns60:password" type="xsd:string"/>
+   <parameter qname="ns60:type" type="xsd:string"/>
+  </operation>
+  <operation name="changePassowrd" qname="ns61:changePassowrd" returnQName="ns61:changePassowrdReturn" returnType="xsd:string" soapAction="" xmlns:ns61="http://actionTracking.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns61:user" type="xsd:string"/>
+   <parameter qname="ns61:oldPassword" type="xsd:string"/>
+   <parameter qname="ns61:type" type="xsd:string"/>
+   <parameter qname="ns61:newPassword" type="xsd:string"/>
+  </operation>
+  <operation name="completedActivityTodaySubsidary" qname="ns62:completedActivityTodaySubsidary" returnQName="ns62:completedActivityTodaySubsidaryReturn" returnType="ns62:Activity" soapAction="" xmlns:ns62="http://actionTracking.com">
+   <parameter qname="ns62:type" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns62:user" type="xsd:string" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+   <parameter qname="ns62:date" type="xsd:long" xmlns:xsd="http://www.w3.org/2001/XMLSchema"/>
+  </operation>
+  <parameter name="allowedMethods" value="unCompletedActivityBetweenDatesSubsidary preciseDescription getActivity stateAvoidedChangeOneEmployee viewReportOfActivity returnInteger getPerson getLocationWithName refrenceChangeReport getPersonel viewUsedResource viewResourceOfOrganization reassign changeResourceQuantityOfOrganization getSubsidaryPersonel allActivityBetweenDatesEmployee getDepartmentsWithName defineDepartment viewAvailableResource completedActivityTodaySubsidary getPersonelWithName intArray getReportCountOfActivity extendDeadline changeState addReportToActivity allChangesOfActivity personAuthentication defineUser intDynamicArray miladiToShamsi deleteEmployee addResourceToActivity getDepartments removedActivityReport completedActivityBetweenDatesEmployee defineResourceForOrganization unActivateActivity defineManager changePassowrd defineActivity changeResourceQuantityOfActivity uncompleted uncompletedActivityUntilDateOfsubsidary unCompletedActivityBetweenDatesEmployee replaceManager stateAvoidedChangeAllEmployee replaceEmployee getLocation viewResourceOfActivity hello getPersonelOfDepartment defineEmployee allActivityBetweenDatesSubsidary completedActivityBetweenDatesSubsidary getSubsidaryActivity uncompletedActivityUntilDateOfSpecialPerson deadLineChangeOfActivity"/>
+  <parameter name="typeMappingVersion" value="1.2"/>
+  <parameter name="wsdlPortType" value="MainService"/>
+  <parameter name="className" value="com.actionTracking.MainService"/>
+  <parameter name="wsdlServicePort" value="MainService"/>
+  <parameter name="schemaQualified" value="http://actionTracking.com"/>
+  <parameter name="wsdlTargetNamespace" value="http://actionTracking.com"/>
+  <parameter name="wsdlServiceElement" value="MainServiceService"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns63:Department" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.actionTracking.Department" xmlns:ns63="http://actionTracking.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns64:Report" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.actionTracking.Report" xmlns:ns64="http://actionTracking.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns65:Resource" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.actionTracking.Resource" xmlns:ns65="http://actionTracking.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns66:ShamsiDate" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.actionTracking.ShamsiDate" xmlns:ns66="http://actionTracking.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns67:ActivityLogItem" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.actionTracking.ActivityLogItem" xmlns:ns67="http://actionTracking.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns68:Person" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.actionTracking.Person" xmlns:ns68="http://actionTracking.com"/>
+  <typeMapping deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="" qname="ns69:Activity" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" type="java:com.actionTracking.Activity" xmlns:ns69="http://actionTracking.com"/>
+ </service>
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+ <service name="Hello" provider="java:RPC" style="wrapped" use="literal">
+  <operation name="sayHello" qname="ns70:sayHello" returnQName="ns70:sayHelloReturn" returnType="xsd:string" soapAction="" xmlns:ns70="http://ws.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <parameter qname="ns70:firstNumber" type="xsd:string"/>
+   <parameter qname="ns70:secondNumber" type="xsd:string"/>
+  </operation>
+  <parameter name="allowedMethods" value="sayHello"/>
+  <parameter name="typeMappingVersion" value="1.2"/>
+  <parameter name="wsdlPortType" value="Hello"/>
+  <parameter name="className" value="com.ws.Hello"/>
+  <parameter name="wsdlServicePort" value="Hello"/>
+  <parameter name="schemaQualified" value="http://ws.com"/>
+  <parameter name="wsdlTargetNamespace" value="http://ws.com"/>
+  <parameter name="wsdlServiceElement" value="HelloService"/>
+ </service>
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+  <parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+  <parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+  <parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+  <parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+ </transport>
+ <transport name="local">
+  <responseFlow>
+   <handler type="LocalResponder"/>
+  </responseFlow>
+ </transport>
+</deployment>

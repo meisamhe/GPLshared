@@ -1,0 +1,156 @@
+package Retrieval;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
+import java.awt.*;
+
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JFileChooser;
+import javax.swing.JButton;
+import javax.swing.BorderFactory;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.Border;
+import com.borland.jbcl.layout.XYLayout;
+import com.borland.jbcl.layout.*;
+import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+
+public class SearchFrame extends JFrame {
+    BorderLayout borderLayout1 = new BorderLayout();
+    JTabbedPane jTabMain = new JTabbedPane();
+    JPanel jPSearch = new JPanel();
+    JPanel jPAbout = new JPanel();
+    JButton jButtonSearch = new JButton();
+    Border border1 = BorderFactory.createEtchedBorder(EtchedBorder.RAISED,
+            Color.white, new Color(156, 156, 158));
+    XYLayout xYLayout1 = new XYLayout();
+    JTextField jTextFile = new JTextField();
+    JButton jButtonBrows = new JButton();
+    JTextArea jTextAreaAbout = new JTextArea();
+    BorderLayout borderLayout2 = new BorderLayout();
+    private String about="\n \n"+
+    "    This is the firs version of cotlet search engin \n"+
+    "               written by Mani and Meysam \n"+
+    "           under supervision of Mr Pourvatan \n"+
+    "            written and finished in agust 2005 \n"+
+    "          Amir Kabir University of Technology";
+    private File queryFile=null;
+    JLabel jLabelThreshold = new JLabel();
+    JTextField jTextFieldThreshold = new JTextField();
+    private String userName="";
+    private String path="";
+    public SearchFrame(String userName,String path){
+    	this.userName=userName;
+    	this.path=path;
+        try {
+            jbInit();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private void jbInit() throws Exception {
+        getContentPane().setLayout(borderLayout1);
+        jButtonSearch.setBorder(BorderFactory.createEtchedBorder());
+        jButtonSearch.setOpaque(false);
+        jButtonSearch.setActionCommand("Search");
+        jButtonSearch.setText("Search");
+        jButtonSearch.addActionListener(new
+                                        SearchFrame_jButtonSearch_actionAdapter(this));
+        jPSearch.setLayout(xYLayout1);
+        jTextFile.setText("No File Selected");
+        jButtonBrows.setBorder(BorderFactory.createEtchedBorder());
+        jButtonBrows.setText("Brows");
+        jButtonBrows.addActionListener(new
+                                       SearchFrame_jButtonBrows_actionAdapter(this));
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        jPSearch.setBorder(BorderFactory.createEtchedBorder());
+        jPAbout.setBorder(BorderFactory.createEtchedBorder());
+        jPAbout.setLayout(borderLayout2);
+        jTextAreaAbout.setFont(new java.awt.Font("Arial Narrow", Font.BOLD, 20));
+        jTextAreaAbout.setForeground(new Color(42, 102, 193));
+        jTextAreaAbout.setOpaque(false);
+        jTextAreaAbout.setEditable(false);
+        jTextAreaAbout.setLineWrap(true);
+        jTextAreaAbout.setWrapStyleWord(true);
+        jLabelThreshold.setText("Threshold");
+        jTextFieldThreshold.setText("0.5");
+        this.getContentPane().add(jTabMain, java.awt.BorderLayout.CENTER);
+        jTabMain.add(jPSearch, "Search");
+        jPSearch.add(jButtonBrows, new XYConstraints(50, 117, 80, 30));
+        jPSearch.add(jTextFile, new XYConstraints(50, 87, 294, 23));
+        jPSearch.add(jButtonSearch, new XYConstraints(255, 117, 90, 30));
+        jTabMain.add(jPAbout, "About Us");
+        jPAbout.add(jTextAreaAbout, java.awt.BorderLayout.CENTER);
+        jPSearch.add(jLabelThreshold, new XYConstraints(53, 18, 61, 22));
+        jPSearch.add(jTextFieldThreshold, new XYConstraints(116, 18, 29, 23));
+        jTextAreaAbout.setText(about);
+        this.setTitle("Cotlet Search Engin (ver.1.0.1) - User:"+userName+"@Cotlet");
+        this.setBounds(250,100,450,400);
+        this.setVisible(true);
+    }
+/*
+    public static void main(String[] args) {
+        SearchFrame searchframe = new SearchFrame();
+        searchframe.setVisible(true);
+    }
+*/
+    public void jButtonBrows_actionPerformed(ActionEvent e) {
+        jTextFile.setText("No File Selected");
+        JFileChooser jf=new JFileChooser();
+        jf.showOpenDialog(this);
+        queryFile=jf.getSelectedFile();
+        if(queryFile!=null)
+            jTextFile.setText(queryFile.getAbsolutePath());
+    }
+
+    public void jButtonSearch_actionPerformed(ActionEvent e) {
+    	float threshold=0;
+    	if(jTextFieldThreshold.getText()==null)
+    		return;
+    	try{
+    		threshold=Float.parseFloat(jTextFieldThreshold.getText());
+    		if(threshold>=1 || threshold<0){
+    			JOptionPane.showMessageDialog(null,"Threshold must be a number between 0 and 1!","Wrong Threshold",JOptionPane.INFORMATION_MESSAGE);
+    			return;
+    		}
+    	}
+    	catch(Exception exp){
+    		threshold=0.5f;
+    		jTextFieldThreshold.setText("0.5");
+    		JOptionPane.showMessageDialog(null,"Threshold must be a number between 0 and 1!","Wrong Threshold",JOptionPane.INFORMATION_MESSAGE);
+    		return;
+    	}
+    	Search srch = new Search(new File(path + "lexical.txt"),path, queryFile,0.5f);
+    }
+}
+
+
+class SearchFrame_jButtonSearch_actionAdapter implements ActionListener {
+    private SearchFrame adaptee;
+    SearchFrame_jButtonSearch_actionAdapter(SearchFrame adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        adaptee.jButtonSearch_actionPerformed(e);
+    }
+}
+
+
+class SearchFrame_jButtonBrows_actionAdapter implements ActionListener {
+    private SearchFrame adaptee;
+    SearchFrame_jButtonBrows_actionAdapter(SearchFrame adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        adaptee.jButtonBrows_actionPerformed(e);
+    }
+}

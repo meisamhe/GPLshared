@@ -1,0 +1,224 @@
+package Storage;
+
+/**
+ * @author ManiBH
+ *
+ * TODO To change the template for this generated type comment go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+import java.text.ParseException;
+import java.util.Vector;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import java.awt.*;
+
+import javax.swing.JDialog;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JButton;
+
+import com.borland.jbcl.layout.VerticalFlowLayout;
+import com.borland.jbcl.layout.XYConstraints;
+import com.borland.jbcl.layout.XYLayout;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.io.File;
+import java.util.Iterator;
+import javax.swing.JTextField;
+import javax.swing.*;
+
+
+public class DocTermCheckList extends JDialog {
+
+
+    private int numberOfElements=0;
+    private Vector elements=null;
+    private Vector list=null;
+    private JPanel northPanel =new JPanel();
+    private BorderLayout borderLayout2 = new BorderLayout();
+    private JScrollPane jScrollPane1 = new JScrollPane();
+    private VerticalFlowLayout verticalFlowLayout1 = new VerticalFlowLayout();
+    private JSplitPane mainSplitPane = new JSplitPane();
+    private JPanel jSouthPanel = new JPanel();
+    private XYLayout xYLayout1 = new XYLayout();
+    private JButton jButtonUnCheck = new JButton();
+    private JButton jButtonFinish = new JButton();
+    private String note="";
+    private FileIO io=new FileIO();
+    private String path="";
+    public DocTermCheckList(Vector elements,String note,String path) {
+        this.setModal(true);
+        this.note=note;
+        this.elements=elements;
+        this.path=path;
+        try {
+                        jbInit();
+                }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    private void jbInit(){
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.getContentPane().setLayout(borderLayout2);
+        northPanel.setLayout(verticalFlowLayout1);
+        mainSplitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        jSouthPanel.setLayout(xYLayout1);
+        jButtonUnCheck.setText("Check All");
+        jButtonUnCheck.addMouseListener(new DocTermCheckList_jButtonUnCheck_mouseAdapter(this));
+        jButtonFinish.addMouseListener(new DocTermCheckList_jButtonFinish_mouseAdapter(this));
+        jButtonFinish.setText("Finished");
+        jButtonView.setText("View Doc");
+        jButtonView.addMouseListener(new
+                                     DocTermCheckList_jButtonView_mouseAdapter(this));
+        jTextDoc.setBackground(Color.lightGray);
+        jTextDoc.setBorder(BorderFactory.createEtchedBorder());
+        this.getContentPane().add(mainSplitPane, java.awt.BorderLayout.CENTER);
+        jScrollPane1.getViewport().add(northPanel);
+        mainSplitPane.add(jScrollPane1, JSplitPane.TOP);
+        mainSplitPane.add(jSouthPanel, JSplitPane.BOTTOM);
+        jSouthPanel.add(jTextDoc, new XYConstraints(198, 9, 42, 22));
+        jSouthPanel.add(jButtonUnCheck, new XYConstraints(274, 9, -1, 22));
+        jSouthPanel.add(jButtonView, new XYConstraints(110, 9, 91, 22));
+        jSouthPanel.add(jButtonFinish, new XYConstraints(17, 9, 79, 22));
+        list=initCheckList();
+        for(int i=0;i<list.size();i++)
+            northPanel.add((JCheckBox)list.get(i));
+        this.setBounds(300,100,400,500);
+        this.setTitle(note);
+        //this.pack();
+        mainSplitPane.setDividerLocation(400);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setVisible(true);
+    }
+    private Vector initCheckList(){
+        Vector vctr=new Vector();
+        JCheckBox temp=null;
+        for(int i=0;i<elements.size();i++){
+                temp=new JCheckBox(io.getTermName(new File(path+"termhashfile.txt"),
+                        ((DocTermCheckStruct)elements.get(i)).termNumber)+
+                                        "  From Document Number : " + ((DocTermCheckStruct)elements.get(i)).docNumber);
+
+                        temp.setSelected(((DocTermCheckStruct)elements.get(i)).status);
+                        vctr.add(temp);
+        }
+        return vctr;
+    }
+//    public static void main(String[] args) {
+//
+//        CheckList checklist = new CheckList(elements);
+//        checklist.setVisible(true);
+//    }
+
+    void jButtonUnCheck_mouseClicked(MouseEvent e) {
+        Iterator it=list.iterator();
+        if(jButtonUnCheck.getText().equals("Check All")){
+           while(it.hasNext()){
+               ((JCheckBox) it.next()).setSelected(true);
+               jButtonUnCheck.setText("UnChecked All");
+           }
+        }
+        else{
+            while(it.hasNext()){
+               ((JCheckBox) it.next()).setSelected(false);
+               jButtonUnCheck.setText("Check All");
+           }
+
+        }
+    }
+        /**
+         * @param e
+         */
+    private Vector results=new Vector();
+    JButton jButtonView = new JButton();
+    JTextField jTextDoc = new JTextField();
+    public void jButtonFinish_mouseClicked(MouseEvent e) {
+                Iterator it=list.iterator();
+                int cntr=0;
+                while(it.hasNext()){
+                        ((DocTermCheckStruct)elements.get(cntr++)).status=((JCheckBox)it.next()).isSelected();
+                }
+                Iterator itDummy=DummyObject.iterator();
+                while(itDummy.hasNext()){
+    				((ShowDoc)itDummy.next()).dispose();
+    			}
+    			DummyObject.clear();
+    			this.dispose();
+        }
+    Vector DummyObject=new Vector();
+    public void jButtonView_mouseClicked(MouseEvent e) {
+    	int temp=0;
+    	if(jTextDoc.getText()!=null){
+    		try{
+    			Iterator it=DummyObject.iterator();
+    			while(it.hasNext()){
+    				((ShowDoc)it.next()).dispose();
+    			}
+    			DummyObject.clear();
+    			temp=Integer.parseInt(jTextDoc.getText());
+    			ShowDoc sd=new ShowDoc(temp,path);
+    			DummyObject.add(sd);
+    		}
+    		catch(Exception ex){
+    			System.out.println("you must enter the Document Number!!!");
+    			jTextDoc.setText("");
+    		}
+    	}    		
+    }
+}
+
+
+class DocTermCheckList_jButtonView_mouseAdapter extends MouseAdapter {
+    private DocTermCheckList adaptee;
+    DocTermCheckList_jButtonView_mouseAdapter(DocTermCheckList adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void mouseClicked(MouseEvent e) {
+        adaptee.jButtonView_mouseClicked(e);
+    }
+}
+
+
+class DocTermCheckStruct_jButtonUnCheck_actionAdapter implements ActionListener {
+    private DocTermCheckStruct adaptee;
+    DocTermCheckStruct_jButtonUnCheck_actionAdapter(DocTermCheckStruct adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+    }
+}
+
+
+class DocTermCheckList_jButtonUnCheck_mouseAdapter extends MouseAdapter {
+    private DocTermCheckList adaptee;
+    DocTermCheckList_jButtonUnCheck_mouseAdapter(DocTermCheckList adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void mouseClicked(MouseEvent e) {
+        adaptee.jButtonUnCheck_mouseClicked(e);
+    }
+}
+class DocTermCheckList_jButtonFinish_mouseAdapter extends MouseAdapter {
+    private DocTermCheckList adaptee;
+    DocTermCheckList_jButtonFinish_mouseAdapter(DocTermCheckList adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void mouseClicked(MouseEvent e) {
+        adaptee.jButtonFinish_mouseClicked(e);
+    }
+}
+class DocTermCheckStruct{
+        public int docNumber = 0;
+        public int termNumber = 0;
+        public boolean status=false;
+        public DocTermCheckStruct(int doc,int term){
+                this.docNumber=doc;
+                this.termNumber=term;
+        }
+}

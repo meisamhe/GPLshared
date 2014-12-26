@@ -1,0 +1,269 @@
+<html><head><!-- Linux Tips and Tricks at <a href="http://www.patoche.org/LTT/">http://www.patoche.org/LTT/</a> --><!-- Don't redistribute before asking pat@patoche.org -->
+
+
+
+<meta name="keywords" content="server networking"><title>Linux Tips &amp; Tricks : How to write a server ?</title></head><body bgcolor="white" text="black">
+<h1>How to write a server ?</h1>
+<em>Extracted from askslashdot</em>
+<br>
+<em>Tip provided by ?</em>
+<blockquote>
+
+<a href="mailto:arouse@austin.ibm.com">Allen Rouse</a>
+asks <i>" What books are there that deal exclusively with the issues of 
+writing
+servers? For example, Richard Stevens' books deal with the tools needed
+to write any kind of UNIX software, servers are just one among many. He
+mentions general TYPES of servers but not much about the specific issues
+encountered in writing complex servers (like say NetTrek or an ORB)."</i>
+
+<p>
+<b>Stallman is the starting point</b><br>
+Specifically, the book series<br>
+<b>"Unix Network Programming"</b> 
+
+is a very very good place to start. Currently, only the 1st volume of 
+the series is available, but it is offers a very in depth view of what 
+to do to write a server (and clients, etc) and why. Unfortunately, 
+Stallman has a nasty tendancy to make you read through his entire book 
+to understand a more advanced concept, so you can't just 'flip' to a later 
+topic and pick up there without at least some going back of chapters to see 
+how he explains things... even if you already have an idea of what he's 
+trying to say.</p><p>
+
+If you're like me, you probably want to immediately leap into an operational 
+code situation right away. There's a number of FAQs online about quick 'n 
+dirty client server, but a suprisingly straightfoward c-s demonstration 
+is available in the Perl manual, by typing <b>man perlipc</b>. That's where 
+I got my start.
+
+</p><p><br>
+<b>Server?</b>
+<br>
+Hmm... well, it depends on what you want to serve.  And how you want to 
+transmit information.  You can write "server" shell scripts, and run them 
+from inetd, and they will use their standard in/standard out.  A simple web 
+"server", for instance, could be
+</p><p>
+<tt>
+#!/bin/sh
+<br>
+HTTP/1.0 200 OK
+<br>
+echo Content-type text/html
+<br>
+echo
+<br>
+echo
+'&lt;html&gt;&lt;head&gt;&lt;title&gt;Hello!&lt;/title&gt;&lt;/head&gt;&lt;body&gt;Hello,
+World! You said:'"`cat`"'&lt;/body&gt;&lt;/html&gt;'
+<br>
+</tt>
+</p><p>
+run from port 80.
+</p><p>
+Now, if you want a daemon, I don't remember... you have to fork, cut off 
+stdin/out/err, and do a couple of other things...
+</p><p>
+Also, remember that this server should be secure.  Keep away from possible 
+buffer overruns.  Stuff like that.
+
+<br>
+</p><p>
+<b>Secure programming hints</b>
+<br>
+For servers, it's important to start thinking in terms of security as early
+as possible.
+</p><p>
+Here are some nice resources I've found that deal with secure programming:
+</p><ul>
+<li><a href="http://www.sunworld.com/swol-04-1998/swol-04-security.html">Designing secure software</a>
+</li><li><a href="http://olympus.cs.ucdavis.edu/%7Ebishop/secprog.html">Writing Safe Setuid Programs</a>
+</li><li><a href="http://www.homeport.org/%7Eadam/review.html">Security Code Review Guidelines</a>
+</li><li><a href="ftp://ftp.auscert.org.au/pub/auscert/papers/secure_programming_checklist">secure programming checklist</a>
+
+<p>
+<br>
+<b>Perl? Try NetServer::Generic</b><br>
+<br>Just a quick plug for NetServer::Generic, a perl
+module intended to make writing TCP/IP servers
+easy.
+</p><p>
+Version 0.2 should show up on CPAN in a week or
+so (when I finish jumping up and down on it and
+write some installation tests and documentation).
+
+</p><p>
+<br>
+<b>Entire Book on writing servers is overkill!</b><br>
+
+<br>While it certainly doesn't seem that way <br>initially, it's a very steep 
+learning curve<br>which becomes almost horizontal after the first<br>few feet.
+(insert other annoying analogies at<br>your leisure).<br><br>Servers require 
+a several page magazine article<br>at best (The Linux Journal had one in 
+fact :)<br><br>Things you must learn, not entirely server<br>related, but 
+the sum of these make whole:<br><br>* Sockets. Without sockets, you may as 
+well not<br>have a computer. You can find a fairly neat <br>sockets 
+programming tutorial at <br>http://www.ecst.csuchico.edu/~beej/guide/net<br>
+VERY useful.<br><br>* UNIX programming. (duh). Seriously, 
+UNIX<br>programming is more than just knowing C. UNIX<br>programming manuals 
+will help with this quite<br>wonderfully (obviously :).<br><br>* 
+Forking/Threading. You DO want your server to<br>handle more than one 
+connection at a time, don't<br>you? Forking is part of UNIX programming 
+lore, but<br>threading is newer, less-standardized, and <br>trickier.<br><br>* 
+RFC. The Sacred RFC's define much of our lives.<br>If you're looking to write 
+a server, search an<br>RFC Index for the server in question, download 
+the<br>RFC, and assimilate it. They're rather cryptic<br>and sterile in 
+nature, but you get used to it<br>after you read a hundred or so. 
+:)<br><br>Probably the coolest way of writing a server if<br>you don't want 
+to sweat all of the sockets/forking<br>details is by making use of inetd. 
+(man inetd).<br><br>inetd can basically let IDIOTS (no offense :) <br>write 
+functional servers. (man inetd.conf)<br>Basically this happens:<br><br>When 
+something connects to your system, inetd<br>will see if it has a servlet to 
+handle it, if it<br>does, it starts the servlet and sends whatever 
+it<br>recieves on a socket to the servlet's standard<br>input, and whatever 
+the servlet writes to standard<br>output is sent to the remote client over 
+the<br>network. Neat huh?<br><br>As for complex servers, really complicated 
+servers<br>are just simple servers with complicated features.<br>(I can 
+probably say dumber things today, wait)<br><br>There's really not much to 
+learn. Now the data<br>you want to send back to a client that connects<br>to 
+your server is a different story, but it<br>itself isn't much a server thing 
+at all. :)<br><br>
+
+</p><p><br>
+<b>Use the source</b><br>
+
+
+If you want to know how to write a server, find a package that you think 
+was written around similar principles as what you expect yours to be like, 
+and which you like to use, and start examining what was done in that 
+program, and why.</p><p>
+
+If you want a fast and secure network server, look at the design of qmail, 
+and ask about the design choices on the qmail list.  If you want to know 
+more about something like a MUSH, then find your favorite mush server, 
+and talk to the folks who wrote the server, and those who designed 
+the world.  Etc., etc.</p><p>
+
+It's also very instructional to find out what specific changes were made 
+in different versions of the same program, or in competing programs.</p><p>
+
+<br>
+</p><p>
+<b>Re: Writing a server?</b><br>
+I would suggest UNIX Distributed Programming by Chris Brown.<br><br>
+Prentice Hall Press; ISBN: 0130758965<br><br>This is a well written book 
+with tons of working code.  It will definitely get you going in the 
+right direction.
+
+<br></p><p>
+<b>reference for writing a (web) server</b><br>
+
+If you are interested in writing a Web server or<br>an application that uses 
+the HTTP protocols), <br>have a look at the book "Illustrated Guide to HTTP" 
+by Paul Hethmon.  Unfortunately he doesn't<br>use Unix/Linux (although the 
+code examples are<br>written in C/C++) but the book does cover how to<br>use 
+the HTTP/1.1 protocols.  Then you could<br>have a look at Apache and 
+Jigsaw to see how<br>they are implemented.
+
+<br></p><p>
+<b>Internetworking w/ TCP/IP Vol III</b><br>
+THE book you are looking for is Internetworking w/ TCP/IP Vol. III.  by 
+Comer and Stevens.  (2nd edition).  It has everything you'll need to 
+develop clients and servers for BSD socket based systems.  Here is a short 
+chapter listing:
+</p><p>
+1.  Introduction and Overview
+<br>
+2.  The Client Server Model and Software Design
+<br>
+3.  Concurrent Processing in Client-Server Software
+<br>
+4.  Program Interface to Protocols
+<br>
+5.  The Socket Interface
+<br>
+6.  Algorithms and Issues in Client Software Design
+<br>
+7.  Example Client Software
+<br>
+8.  Algorithms and Issues in Server Software Design
+<br>
+9.  Iterative, Connectionless Servers (UDP)
+<br>
+10.  Iterative, Connection-Oriented Servers (TCP)
+<br>
+11.  Concurrent, Connection-Oriented Servers(TCP)
+<br>
+12.  Single-Process, Concurrent Servers (TCP)
+<br>
+13.  Multiprotocol Servers (TCP, UDP)
+<br>
+14.  Multiservice Servers (TCP,UDP)
+<br>
+15.  Uniform, Effiecient Management of Server Concurrency
+<br>
+16.  Concurrency in Clients
+<br>
+17.  Tunneling At the Transport And Application Levels
+<br>
+18.  Application Level Gateways
+<br>
+19.  External Data Representation (XDR)
+<br>
+20.  Remote Procedural Call Concept (RPC)
+</p><p>
+
+Ugh, there are 8 more chapters.. but you get the idea.  Lots of GREAT examples,
+easy to understand.  I use this book all the time.
+</p><p>
+
+</p><p><br>
+<b>OO Framework for building communication SW...</b><br>
+See http://www.cs.wustl.edu/~schmidt/ACE.html<br><br>Here's for those who 
+won't make it to the web site : <br>Overview of ACE<br><br>The ADAPTIVE 
+Communication Environment (ACE) is an object-oriented (OO) framework that 
+implements many core<br>design patterns for concurrent communication 
+software. ACE provides a rich set of reusable C++ wrappers and<br>framework 
+components that perform common communication software tasks across a range 
+of OS platforms. The<br>communication software tasks provided by ACE 
+include event demultiplexing and event handler dispatching, signal<br>handling,
+service initialization, interprocess communication, shared memory management, 
+message routing, dynamic<br>(re)configuration of distributed services, 
+concurrent execution and synchronization. <br><br>ACE is targeted for 
+developers of high-performance and real-time communication services and 
+applications. It<br>simplifies the development of OO network applications 
+and services that utilize interprocess communication, event<br>demultiplexing, 
+explicit dynamic linking, and concurrency. In addition, ACE automates system 
+configuration and<br>reconfiguration by dynamically linking services into 
+applications at run-time and executing these services in one or<br>more 
+processes or threads. <br><br>ACE has been ported and tested on a wide range 
+of OS platforms including Win32 (i.e., WinNT 3.5.x, 4.x, Win95, and<br>WinCE 
+using MSVC++ and Borland C++ on Intel and Alpha platforms), most versions of 
+UNIX (e.g., Solaris 1.x and 2.x on<br>SPARC and Intel, SGI IRIX 5.x and 6.x, 
+DG/UX, HP-UX 9.x, 10.x, and 11.x, DEC UNIX 3.x and 4.x, AIX 3.x and 4.x, 
+DG/UX,<br>UnixWare, SCO, and freely available UNIX implementations like Linux, 
+FreeBSD, and NetBSD), real-time operating<br>systems (e.g., LynxOS, VxWorks, 
+and PSoS), and MVS OpenEdition. A single source tree is used for all these 
+platforms.<br>There is also a Java version of ACE.
+
+</p></li></ul></blockquote>
+<hr>
+Follow-up :
+<br>
+|
+<a href="http://www.patoche.org/LTT/all/00000015.html">Previous</a> | <a href="http://www.patoche.org/LTT/all/00000017.html">Next</a> | <a href="http://www.patoche.org/LTT/programming/index.html">Index of category</a> | <a href="http://www.patoche.org/LTT/index.html">Main Index</a> | <a href="http://www.patoche.org/LTT/submit.html?from=16">Submit</a> |
+<br>
+<hr>
+<br>
+Appears in section(s) :
+<a href="http://www.patoche.org/LTT/net/index.html">net</a> <a href="http://www.patoche.org/LTT/programming/index.html">programming</a>
+<br>
+<small>
+Tip recorded : 02-11-1998 10:00:00
+<br>
+HTML page last changed : 27-07-1999 20:08:02
+</small>
+<hr>
+
+</body></html>

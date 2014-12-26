@@ -1,0 +1,16 @@
+open( OUT, '>Output/TypeFacilityoutput.txt' );
+for ($k=1;$k<=4;$k++){
+	$inputfilename ="profile.php_00";
+	$inputfilename=$inputfilename.$k;
+	$inputfilename=$inputfilename.".html";
+	open( FILE2, $inputfilename );
+	open( FILE2, $inputfilename );
+	$i=0;
+	while( $line = <FILE2> ) {
+		if ($line=~/<td align="left">([A-Za-z- 1-90]*)<\/td>/ && $i==0){
+			$i=1;		
+			print "$1\n";
+			print OUT "$1\n";	
+		}	
+	}
+}

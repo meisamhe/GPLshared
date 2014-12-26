@@ -1,0 +1,59 @@
+'============================================
+' Meisam Hjazi Nia
+' Manga Project Crawler Module to save rank page
+'============================================
+SET !ERRORIGNORE YES
+SET savepath {{currworkDirect}}\DataOfMangaPrj\{{!NOW:ddmmyy}}\{{realizationPath}}\
+' no image to both reduce size and speed up
+FILTER Type=IMAGES STATUS=ON
+
+'=================================================
+'    Save Piracy Ranking Page
+'=================================================
+
+URL GOTO=http://www.animeultima.tv/top-animes/
+WAIT SECONDS=.5
+DS CMD=MOVETO X=450 Y=410
+DS CMD=MOVETO X=100 Y=410
+DS CMD=MOVETO X=450 Y=100
+DS CMD=MOVETO X=100 Y=100
+WAIT SECONDS=3
+'save the main page
+SAVEAS TYPE=CPL FOLDER={{savepath}} FILE=PiracyRankingPage_P{{pagenum}}_{{!NOW:ddmmyy_hhnnss}}.htm
+WAIT SECONDS=1
+
+'=================================================
+'    Save Alexa for Funimation
+'=================================================
+
+URL GOTO=http://www.alexa.com/siteinfo/http%3A%2F%2Fwww.funimation.com
+WAIT SECONDS=.5
+DS CMD=MOVETO X=450 Y=410
+DS CMD=MOVETO X=100 Y=410
+DS CMD=MOVETO X=450 Y=100
+DS CMD=MOVETO X=100 Y=100
+WAIT SECONDS=3
+'save the main page
+SAVEAS TYPE=CPL FOLDER={{savepath}} FILE=FunimationAlexa_P{{pagenum}}_{{!NOW:ddmmyy_hhnnss}}.htm
+WAIT SECONDS=1
+
+'=================================================
+'    Save Alexa for CrunchyRole
+'=================================================
+
+URL GOTO=http://www.alexa.com/siteinfo/http%3A%2F%2Fwww.crunchyroll.com
+WAIT SECONDS=.5
+DS CMD=MOVETO X=450 Y=410
+DS CMD=MOVETO X=100 Y=410
+DS CMD=MOVETO X=450 Y=100
+DS CMD=MOVETO X=100 Y=100
+WAIT SECONDS=3
+'save the main page
+SAVEAS TYPE=CPL FOLDER={{savepath}} FILE=CrunchyRoleAlexa_P{{pagenum}}_{{!NOW:ddmmyy_hhnnss}}.htm
+WAIT SECONDS=1
+
+
+
+'========================================
+' Termination is inside main page
+'==========================================

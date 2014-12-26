@@ -1,0 +1,18 @@
+'============================================
+' Meisam Hjazi Nia
+' Manga Project Crawler Module to save rank page
+'============================================
+SET !ERRORIGNORE YES
+SET savepath {{currworkDirect}}\DataOfMangaPrj\{{!NOW:ddmmyy}}\{{realizationPath}}\
+' no image to both reduce size and speed up
+FILTER Type=IMAGES STATUS=ON
+TAG XPATH="//*[@id="pagnNextString"]"
+WAIT SECONDS=5
+SET  !EXTRACT {{!URLCURRENT}}
+URL GOTO=http:{{!URLCURRENT}}
+
+SAVEAS TYPE=CPL FOLDER={{savepath}} FILE=AnimeMainRank_P{{pagenum}}_{{!NOW:ddmmyy_hhnnss}}.htm
+WAIT SECONDS=1
+'========================================
+' Termination is inside main page
+'========================================

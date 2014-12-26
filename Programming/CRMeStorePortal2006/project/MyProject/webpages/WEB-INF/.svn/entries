@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wc-entries
+   xmlns="svn:">
+<entry
+   revision="3358"
+   repos="svn://192.168.10.174/root/svn-repos/tts"
+   url="svn://192.168.10.174/root/svn-repos/tts/trunk/webpages/WEB-INF/tld"
+   last-author="afroozeh"
+   committed-date="2006-07-16T12:29:28.075000Z"
+   kind="dir"
+   name=""
+   committed-rev="3358"/>
+<entry
+   checksum="1f69b18655c6e3f8b81a8d27809b47c6"
+   last-author="afroozeh"
+   text-time="2006-07-16T12:27:05.000000Z"
+   committed-date="2006-07-16T12:29:28.075000Z"
+   name="portlet.tld"
+   kind="file"
+   committed-rev="3358"/>
+<entry
+   checksum="e711d9311deff979d04d3d9e3de1671d"
+   last-author="afroozeh"
+   text-time="2006-07-16T12:27:05.000000Z"
+   committed-date="2006-07-16T12:29:28.075000Z"
+   kind="file"
+   name="valuelist.tld"
+   committed-rev="3358"/>
+</wc-entries>

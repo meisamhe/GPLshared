@@ -1,0 +1,24 @@
+#mainContentMiddleBorder {
+	BORDER-RIGHT: #d5ae65 0px solid; BORDER-TOP: #d5ae65 1px solid; MARGIN-LEFT: auto; BORDER-LEFT: #d5ae65 1px solid; WIDTH: 1100px; MARGIN-RIGHT: auto; BORDER-BOTTOM: #d5ae65 6px solid; BACKGROUND-COLOR: #ffffff; TEXT-ALIGN: left
+}
+#mainBody {
+	MARGIN: 10px
+}
+#mainContentLargeImg {
+	BORDER-RIGHT: #d5ae65 1px solid
+}
+#mainContentRight {
+	MARGIN-LEFT: auto; WIDTH: 881px; MARGIN-RIGHT: 100px; PADDING-TOP: 10px
+}
+#infoLine {
+	PADDING-BOTTOM: 5px; WIDTH: 100%; COLOR: #d5ae65; PADDING-TOP: 5px
+}
+#infoLine A {
+	FONT-WEIGHT: bold; COLOR: #fff
+}
+#infoLine B {
+	COLOR: #fff
+}
+#mainContent {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px auto; WIDTH: 1100px; PADDING-TOP: 0px
+}

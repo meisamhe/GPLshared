@@ -1,0 +1,23 @@
+'============================================
+' Meisam Hjazi Nia
+' Manga Project Crawler Module to save rank page
+'============================================
+SET !ERRORIGNORE YES
+SET savepath {{currworkDirect}}\DataOfMangaPrj\{{!NOW:ddmmyy}}\{{realizationPath}}\
+' no image to both reduce size and speed up
+FILTER Type=IMAGES STATUS=ON
+
+URL GOTO=http://www.amazon.com/s/ref=sr_il_ti_movies-tv?rh=n%3A2625373011%2Ck%3Aanime%2Cp_n_format_browse-bin%3A2650304011%7C2650305011%2Cp_n_theme_browse-bin%3A2650364011&sort=popularity-rank&keywords=anime&ie=UTF8&qid=1400679567&lo=movies-tv
+WAIT SECONDS=.5
+DS CMD=MOVETO X=450 Y=410
+DS CMD=MOVETO X=100 Y=410
+DS CMD=MOVETO X=450 Y=100
+DS CMD=MOVETO X=100 Y=100
+WAIT SECONDS=3
+'save the main page
+SAVEAS TYPE=CPL FOLDER={{savepath}} FILE=AnimeMainRank_P{{pagenum}}_{{!NOW:ddmmyy_hhnnss}}.htm
+WAIT SECONDS=1
+
+'========================================
+' Termination is inside main page
+'==========================================

@@ -1,0 +1,22 @@
+body {
+ margin-right: 20px;
+ margin-left: 20px;
+ margin-top: 20px;
+ margin-bottom: 10px;
+ font-family: sans-serif;
+ color: black;
+ background: white;
+}
+span.modified { font-size: small; }
+span.booktitle { font-style: italic; }
+span.label { font-weight: bold; }
+span.tentative { color: gray; }
+span.code { font-weight: bold; }
+sub { font-size: x-small; }
+sup { font-size: x-small; }
+ol { list-style-type: decimal }
+ol ol { list-style-type: lower-alpha }
+ul.spaced > li, ol.spaced > li { margin-top: 1em; margin-bottom: 1em }
+ol.upperalpha { list-style-type: upper-alpha; }
+ol.arabic { list-style-type: decimal }
+span.term { font-weight: bold; }

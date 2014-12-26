@@ -1,0 +1,124 @@
+<%@page contentType="text/html; charset=windows-1256"%>
+<html>
+  <head>
+    <title>buyBasket</title>
+  </head>
+  <%@page import="java.sql.Connection"%>
+  <%@page import="java.sql.ResultSet"%>
+  <%@page import="java.sql.SQLException"%>
+  <%@page import="java.util.ArrayList"%>
+  <jsp:useBean id="MySqlObj" scope="page" class="jdbcMySql.MySqlConnector"/>
+  <jsp:setProperty name="MySqlObj" property="*"/>
+<%
+  if (session.getAttribute("UserID") == null)
+    response.sendRedirect("Login.jsp");
+%>
+  <body>
+  <%
+    if (request.getParameter("StuffTable") != null && request.getParameter("StuffID") != null) {
+      String StuffTable;
+      String StuffID;
+      StuffTable = request.getParameter("StuffTable").toLowerCase();
+      StuffID = request.getParameter("StuffID").toLowerCase();
+      try {
+        Connection con = MySqlObj.getDbConnection("mani", "mbh", "3306", "localhost", "3m");
+        ResultSet rslt = MySqlObj.runSqlQuery("select * from " + StuffTable + " where ID=" + StuffID, con);
+        if (rslt.next()) {
+          ArrayList al;
+          al = (ArrayList) session.getAttribute("basket");
+          al.add(new String[] {StuffTable, StuffID, String.valueOf(1)});
+        }
+        else { //end if (rslt.next())
+          out.println("Stuff is not correct.");
+        }
+      }
+      catch (SQLException e) { //end try
+        e.printStackTrace();
+      }
+      catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    } //end if
+    if (request.getParameter("DeleteID") != null) {
+      String DeleteID;
+      DeleteID = request.getParameter("DeleteID").toLowerCase();
+      ArrayList al;
+      al = (ArrayList) session.getAttribute("basket");
+      al.remove(Integer.parseInt(DeleteID));
+    }
+  %>
+    <form action="buyBasket.jsp" method="POST">
+      <%--for show basket --%>
+      <table border="0" cellpadding="0" cellspacing="0">
+        <!-- MSTableType="layout" -->
+        <!--each row is one product -->
+      <%
+        ArrayList outAl;
+        outAl = (ArrayList) session.getAttribute("basket");
+        for (int i = 0; i < outAl.size(); i++) {
+      %>
+        <tr>
+          <td valign="top" style="width: 500px; border-style: solid;border-color: #800000;">
+          <%
+            String StuffTable;
+            String StuffID;
+            String StuffCount;
+            StuffTable = ((String[]) outAl.get(i))[0].toLowerCase();
+            StuffID = ((String[]) outAl.get(i))[1].toLowerCase();
+            StuffCount = ((String[]) outAl.get(i))[2].toLowerCase();
+            try {
+              Connection con = MySqlObj.getDbConnection("mani", "mbh", "3306", "localhost", "3m");
+              ResultSet rslt = MySqlObj.runSqlQuery("select * from " + StuffTable + " where ID=" + StuffID, con);
+              if (rslt.next()) {
+                switch (StuffTable.charAt(0)) {
+                case 'b': //books
+                  out.println("<br>" + "Name: " + rslt.getString("NAME") + "<br>");
+                  out.println("WRITER: " + rslt.getString("WRITER") + "<br>");
+                  out.println("PUBLISHER: " + rslt.getString("PUBLISHER") + "<br>");
+                  out.println("EDITION: " + String.valueOf(rslt.getInt("EDITION")) + "<br>");
+                  out.println("PRICE: " + String.valueOf(rslt.getDouble("PRICE")) + "<br>");
+          %>
+            <input name="<%="StuffCount"+String .valueOf(i)%>" type="text" value="<%=StuffCount%>"/>
+            <br/>
+          <%
+            out.println("<a href=\"buyBasket.jsp?DeleteID=" + String.valueOf(i) + "\">Delete From Basket</a>");
+            break;
+            case 'c': //CDs
+              out.println("<br>" + "TITLE: " + rslt.getString("TITLE") + "<br>");
+              out.println("NAME: " + rslt.getString("NAME") + "<br>");
+              out.println("PUBLISHER: " + rslt.getString("PUBLISHER") + "<br>");
+              out.println("PRICE: " + String.valueOf(rslt.getDouble("PRICE")) + "<br>");
+          %>
+            <input name="<%="StuffCount"+String .valueOf(i)%>" type="text" value="<%=StuffCount%>"/>
+            <br/>
+          <%
+            out.println("<a href=\"buyBasket.jsp?DeleteID=" + String.valueOf(i) + "\">Delete From Basket</a>");
+            break;
+            case 's': //stationaries
+              out.println("<br>" + "TITLE: " + rslt.getString("TITLE") + "<br>");
+              out.println("NAME: " + rslt.getString("NAME") + "<br>");
+              out.println("MANUFACTURED_BY: " + rslt.getString("MANUFACTURED_BY") + "<br>");
+              out.println("PRICE: " + String.valueOf(rslt.getDouble("PRICE")) + "<br>");
+          %>
+            <input name="<%="StuffCount"+String .valueOf(i)%>" type="text" value="<%=StuffCount%>"/>
+            <br/>
+          <%
+            out.println("<a href=\"buyBasket.jsp?DeleteID=" + String.valueOf(i) + "\">Delete From Basket</a>");
+            break;
+            default:
+            } //end switch
+            } //end if (rslt.next())
+            } catch (SQLException e) { //end try
+              e.printStackTrace();
+            }
+            catch (Exception ex) {
+              ex.printStackTrace();
+            }
+          %>
+          </td>
+        </tr>
+      <%}      %>
+      </table>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+package board;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+
+/**
+ * <p>Title: </p>
+ *
+ * <p>Description: </p>
+ *
+ * <p>Copyright: Copyright (c) 2007</p>
+ *
+ * <p>Company: </p>
+ *
+ * @author not attributable
+ * @version 1.0
+ */
+public class menu {
+    menu(){
+        JMenu fileMenu = new JMenu( "File" ); // create file menu
+        fileMenu.setMnemonic( 'F' ); // set mnemonic to F
+        // create About... menu item
+        JMenuItem aboutItem = new JMenuItem( "About..." );
+        aboutItem.setMnemonic( 'A' ); // set mnemonic to A
+        fileMenu.add( aboutItem ); // add about item to file menu
+        aboutItem.addActionListener(
+
+           new ActionListener() // anonymous inner class
+           {
+             // display message dialog when user selects About...
+              public void actionPerformed( ActionEvent event )
+              {
+                 JOptionPane.showMessageDialog( menu,
+                   "This is an example\nof using menus",
+                   "About", JOptionPane.PLAIN_MESSAGE );
+              } // end method actionPerformed
+           } // end anonymous inner class
+        ); // end call to addActionListener
+
+        JMenuItem exitItem = new JMenuItem( "Exit" ); // create exit item
+        exitItem.setMnemonic( 'x' ); // set mnemonic to x
+        fileMenu.add( exitItem ); // add exit item to file menu
+        exitItem.addActionListener(
+           new ActionListener() // anonymous inner class
+           {
+              // terminate application when user clicks exitItem
+              public void actionPerformed( ActionEvent event )
+              {
+                 System.exit( 0 ); // exit application
+              } // end method actionPerformed
+           } // end anonymous inner class
+        ); // end call to addActionListener
+        JMenuBar bar = new JMenuBar(); // create menu bar
+        setJMenuBar( bar ); // add menu bar to application
+        bar.add( fileMenu ); // add file menu to menu bar
+        JMenu formatMenu = new JMenu( "Format" ); // create format menu
+        formatMenu.setMnemonic( 'r' ); // set mnemonic to r
+        JMenu colorMenu = new JMenu( "Color" ); // create color menu
+        colorMenu.setMnemonic( 'C' ); // set mnemonic to C
+
+    }
+    public static void main(String[] args) {
+        menu menu = new menu();
+    }
+}

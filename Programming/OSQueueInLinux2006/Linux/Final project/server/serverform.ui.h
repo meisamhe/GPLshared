@@ -1,0 +1,107 @@
+/****************************************************************************
+** ui.h extension file, included from the uic-generated form implementation.
+**
+** If you want to add, delete, or rename functions or slots, use
+** Qt Designer to update this file, preserving your code.
+**
+** You should not define a constructor or destructor in this file.
+** Instead, write your code in functions called init() and destroy().
+** These will automatically be called by the form's constructor and
+** destructor.
+*****************************************************************************/
+
+#include "../common/structures.h"
+#include <sstream>
+using namespace std;
+
+int number[4];
+
+int Try = 0;
+
+void ServerForm::showEvent( QShowEvent * )
+{
+}
+
+
+void ServerForm::pushButton1_clicked()
+{
+	Message msg;
+	msg.Cmd = SERVER_NUMBER_CHOSEN;
+	number[0] = msg.data[0] = (unsigned char)d1->value();
+	number[1] = msg.data[1] = (unsigned char)d2->value();
+	number[2] = msg.data[2] = (unsigned char)d3->value();
+	number[3] = msg.data[3] = (unsigned char)d4->value();
+	groupBox1->setEnabled(false);
+	mysocket->clientHost->writeBlock((char*)&msg , sizeof(Message));
+	Try = 10;
+}
+
+
+
+void ServerForm::init()
+{
+ logEdit->append(":D");
+ logEdit->append("<font color=#bb5599>pending for a client to connect</font>");
+ 
+mysocket = new MyServerSocket(this);
+	connect(mysocket->clientHost , SIGNAL(readyRead()) , this ,SLOT(socket_readyBytes()));
+ 
+}
+
+
+void ServerForm::socket_readyBytes()
+{
+    logEdit->append("Message recieved");
+	if ( mysocket->clientHost->size() >= sizeof(Message) )
+	{
+		Message msg;
+		mysocket->clientHost->readBlock((char*)&msg,sizeof(Message));
+		stringstream ss;
+		int greencount = 0;
+		switch(msg.Cmd)
+		{
+			case CLIENT_GUESS:
+				ss << "Client Guessed " << (int)msg.data[0] << " , " <<(int)msg.data[1] << " , " << (int)msg.data[2] << " , " << (int)msg.data[3] ;
+				logEdit->append(ss.str().c_str());
+				
+				greencount = 0;
+				Message response;
+				response.Cmd = SERVER_GAMERUNNING;
+				for ( int i = 0 ; i < 4 ; ++i )
+				{
+					if ( (int)msg.data[i] == number[i] )
+					{
+						response.data[i] = GREEN;
+						++greencount;
+					}
+					else
+					{
+						bool bo = false;
+						for ( int j = 0 ; j < 4 ; ++j )
+						{
+							if ( (int)msg.data[i] == number[j] )
+								bo = true;
+						}
+						if ( bo )
+							response.data[i] = YELLOW;
+						else
+							response.data[i] = RED;
+					}
+				}
+				if ( greencount == 4 )
+					response.Cmd = SERVER_GAMEOVER_WIN;
+					
+				Try--;
+				if ( Try == 0 )
+					response.Cmd = SERVER_GAMEOVER_LOSE;
+					
+				mysocket->clientHost->writeBlock((char*)&response , sizeof(Message));
+				break;
+				
+			    case CLIENT_START:
+				break;
+		}	
+	}    
+}
+
+

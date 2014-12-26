@@ -1,0 +1,54 @@
+package Storage;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Set;
+
+import Ritrival.Search;
+
+public class Test {
+
+	
+	public Test() {
+		super();
+	}
+
+	public static void main(String[] args) {
+		FileIO io=new FileIO();
+		String path="C:\\testhome\\";
+		String Document=path+"document.txt";
+		String GeneralFileJmpPath=(path+"generalJmp.txt");
+		String GeneralFileTriePath=(path+"generalTrie.txt");
+		String GeneralFileLevelPath=(path+"generalLevel.txt");
+		String docTermFile=path+"docTermFile.txt";
+		String workHashFile=path+"workHashFile.txt";
+		String WorkFileJmpPath=(path+"WorkJmp.txt");
+		String WorkFileTriePath=(path+"WorkTrie.txt");
+		String WorkFileLevelPath=(path+"WorkLevel.txt");
+		String docNum=(path+"docNum.txt");
+		try{/*		
+			PreInitialize pre = new PreInitialize(new File(path+"doc1.txt"),
+			io.createFile(path+"stemming.txt"),new File(path+"Lexical.txt"),new File(Document),"<p>");
+			Trie workTrie = new Trie(60,GeneralFileJmpPath,GeneralFileTriePath,GeneralFileLevelPath);
+			Trie generalTrie = new Trie(60,WorkFileJmpPath,WorkFileTriePath,WorkFileLevelPath);
+			HashMap wordsHash = new HashMap();
+			HashMap workHash = new HashMap();
+			Initialize init= new Initialize(new File(path+"stemming.txt"),
+					io.createFile(path+"termDoc.txt"),io.createFile(path+"termHashFile.txt")
+					,io.createFile(docTermFile),io.createFile(docNum),io.createFile(workHashFile),
+					wordsHash,workHash,generalTrie,workTrie,path);
+			
+			PostInitialize ps=new PostInitialize(0.5f,new File(docTermFile));*/
+			Search srch = new Search(new File(path + "lexical.txt"),path, new File(path
+					+ "query.txt"),0.2f);
+			Set test=srch.init(new File(path+"query.txt"));
+			System.out.println(test);
+		}
+		catch(Throwable e){
+			System.out.println(e.getMessage());
+		}
+		finally{
+			System.exit(0);
+		}	
+	}
+}

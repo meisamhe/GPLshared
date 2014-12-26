@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module relativePaths="true" type="J2ME_MODULE" version="4">
+  <component name="J2ME Module Properties">
+    <mobileApplicationType name="MIDP" />
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_4" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../Peer2Me&amp;JavaBT/MobileRMI.V.1">
+      <sourceFolder url="file://$MODULE_DIR$/../../Peer2Me&amp;JavaBT/MobileRMI.V.1/src" isTestSource="false" />
+    </content>
+    <orderEntry type="jdk" jdkName="Sun Java(TM) Wireless Toolkit 2.5.2 for CLDC (1)" jdkType="MobileSDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntryProperties />
+  </component>
+  <component name="com.intellij.j2meplugin.module.settings.midp.MIDPSettings">
+    <setting name="MIDlet-1" module.settings.user.defined.value="RMIClient,,ninja.simpleRMI.RmiClientMIDlet" />
+    <setting name="MIDlet-2" module.settings.user.defined.value="RMIRegistry,,Registry.RegistryMIDlet" />
+    <setting name="MIDlet-3" module.settings.user.defined.value="ServerMIDlet,,ninja.simpleRMI.RmiServerMIDlet" />
+    <setting name="MIDlet-Jar-Size" module.settings.user.defined.value="150566" />
+    <setting name="MIDlet-Jar-URL" module.settings.user.defined.value="MobileRMI.V.1.jar" />
+    <setting name="MIDlet-Name" module.settings.user.defined.value="MobileRMI.V.1" />
+    <setting name="MIDlet-Vendor" module.settings.user.defined.value="My Vendor" />
+    <setting name="MIDlet-Version" module.settings.user.defined.value="1.0" />
+    <setting name="MicroEdition-Configuration" module.settings.user.defined.value="CLDC-1.1" />
+    <setting name="MicroEdition-Profile" module.settings.user.defined.value="MIDP-2.1" />
+    <jarUrl jarUrlName="$MODULE_DIR$/../../Peer2Me&amp;JavaBT/MobileRMI.V.1/MobileRMI.V.1.jar" />
+    <descriptionPath path="$MODULE_DIR$/../../Peer2Me&amp;JavaBT/MobileRMI.V.1/MobileRMI.V.1.jad" useUserDescriptor="false" />
+    <manifest useUserManifest="false" />
+  </component>
+</module>
+

@@ -1,0 +1,71 @@
+// Fig. 12.9: Fonts.java
+// Using fonts.
+import java.awt.*;
+import javax.swing.*;
+
+public class Fonts extends JFrame {
+
+   // set window's title bar and dimensions
+   public Fonts()
+   {
+      super( "Using fonts" );
+
+      setSize( 100, 100 );
+      setVisible( true );
+   }
+
+   // display Strings in different fonts and colors
+   public void paint( Graphics g )
+   {
+      // call superclass's paint method
+      super.paint( g );
+
+      // set font to Serif (Times), bold, 12pt and draw a string
+ /*      g.setFont( new Font( "Sylfaen", Font.ITALIC, 20 ) );
+      g.drawString( "UNTIDIST", 15, 50 );
+      g.drawString( "ABLISHME", 15, 70 );
+      g.drawString( "NTRIALISM", 15, 90 );*/
+     g.setFont(new Font("B Mitra", Font.CENTER_BASELINE,30));
+     String s = "Å«·«\u06CC‘ê«Â";
+     g.drawString(s,30,70);
+
+
+      // set font to Monospaced (Courier), italic, 24pt and draw a string
+//      g.setFont( new Font( "Monospaced", Font.ITALIC, 24 ) );
+ //     g.drawString( "Monospaced 24 point italic.", 20, 70 );
+
+      // set font to SansSerif (Helvetica), plain, 14pt and draw a string
+ //     g.setFont( new Font( "SansSerif", Font.PLAIN, 14 ) );
+  //    g.drawString( "SansSerif 14 point plain.", 20, 90 );
+
+      // set font to Serif (Times), bold/italic, 18pt and draw a string
+    //  g.setColor( Color.RED );
+   //   g.setFont( new Font( "Serif", Font.BOLD + Font.ITALIC, 18 ) );
+     // g.drawString( g.getFont().getName() + " " + g.getFont().getSize() +
+      //   " point bold italic.", 20, 110 );
+
+   } // end method paint
+
+   // execute application
+   public static void main( String args[] )
+   {
+      Fonts application = new Fonts();
+      application.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+   }
+
+} // end class Fonts
+
+/**************************************************************************
+ * (C) Copyright 1992-2003 by Deitel & Associates, Inc. and               *
+ * Prentice Hall. All Rights Reserved.                                    *
+ *                                                                        *
+ * DISCLAIMER: The authors and publisher of this book have used their     *
+ * best efforts in preparing the book. These efforts include the          *
+ * development, research, and testing of the theories and programs        *
+ * to determine their effectiveness. The authors and publisher make       *
+ * no warranty of any kind, expressed or implied, with regard to these    *
+ * programs or to the documentation contained in these books. The authors *
+ * and publisher shall not be liable in any event for incidental or       *
+ * consequential damages in connection with, or arising out of, the       *
+ * furnishing, performance, or use of these programs.                     *
+ *************************************************************************/

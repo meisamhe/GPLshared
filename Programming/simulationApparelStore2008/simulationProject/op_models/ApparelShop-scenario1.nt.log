@@ -1,0 +1,12 @@
+[Environment]
+duration=25200.000000
+seed=1234
+net_name=ApparelShop-scenario1
+sim_log_delim=TAB
+
+[Run Info]
+run_date=01:29:39 Tue Feb 05 2008
+
+
+[Summary]
+Low-Lev.	Simulation	Error	0

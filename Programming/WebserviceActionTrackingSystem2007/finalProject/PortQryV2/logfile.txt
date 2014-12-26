@@ -1,0 +1,4593 @@
+PortQry Version 2.0 Log File
+
+System Date: Mon Dec 03 13:17:31 2007
+
+Command run:
+ portqry -local -l logfile.txt -v
+
+Local computer name:
+
+ ENGINEER
+
+verbose output requested
+
+TCP/UDP Port to Process Mappings
+
+41 mappings found
+
+PID:Process		Port		Local IP	State		 Remote IP:Port
+4:System		TCP 445  	0.0.0.0 	LISTENING	 0.0.0.0:30744
+4:System		TCP 139  	192.168.0.72 	LISTENING	 0.0.0.0:24584
+4:System		UDP 445  	0.0.0.0 			 *:*
+4:System		UDP 137  	192.168.0.72 			 *:*
+4:System		UDP 138  	192.168.0.72 			 *:*
+272			UDP 1900  	127.0.0.1 			 *:*
+272			UDP 1900  	192.168.0.72 			 *:*
+440:StatusClient.exe	TCP 1069  	127.0.0.1 	ESTABLISHED	 127.0.0.1:5226
+568:YAHOOM~1.EXE	TCP 5051  	0.0.0.0 	LISTENING	 0.0.0.0:26744
+568:YAHOOM~1.EXE	TCP 5101  	0.0.0.0 	LISTENING	 0.0.0.0:61588
+568:YAHOOM~1.EXE	TCP 1037  	192.168.0.72 	ESTABLISHED	 216.155.193.141:5050
+568:YAHOOM~1.EXE	TCP 1049  	192.168.0.72 	ESTABLISHED	 68.142.233.184:443
+568:YAHOOM~1.EXE	UDP 5051  	0.0.0.0 			 *:*
+568:YAHOOM~1.EXE	UDP 1042  	127.0.0.1 			 *:*
+568:YAHOOM~1.EXE	UDP 1057  	192.168.0.72 			 *:*
+568:YAHOOM~1.EXE	UDP 1058  	192.168.0.72 			 *:*
+600:Wcescomm.exe	TCP 5679  	127.0.0.1 	LISTENING	 0.0.0.0:16474
+600:Wcescomm.exe	TCP 7438  	127.0.0.1 	LISTENING	 0.0.0.0:47139
+1328:lsass.exe		UDP 500  	0.0.0.0 			 *:*
+1328:lsass.exe		UDP 4500  	0.0.0.0 			 *:*
+1624:			TCP 135  	0.0.0.0 	LISTENING	 0.0.0.0:39118
+1816:svchost.exe	UDP 123  	127.0.0.1 			 *:*
+1816:svchost.exe	UDP 123  	192.168.0.72 			 *:*
+1932			UDP 1036  	0.0.0.0 			 *:*
+1932			UDP 1047  	0.0.0.0 			 *:*
+2324:rapimgr.exe	TCP 990  	0.0.0.0 	LISTENING	 0.0.0.0:30902
+2500:javaw.exe		TCP 5225  	0.0.0.0 	LISTENING	 0.0.0.0:34902
+2500:javaw.exe		TCP 5226  	0.0.0.0 	LISTENING	 0.0.0.0:26648
+2500:javaw.exe		TCP 8008  	0.0.0.0 	LISTENING	 0.0.0.0:6248
+2500:javaw.exe		TCP 1072  	127.0.0.1 	CLOSE WAIT	 127.0.0.1:5225
+2500:javaw.exe		TCP 5226  	127.0.0.1 	ESTABLISHED	 127.0.0.1:1069
+2500:javaw.exe		TCP 8005  	127.0.0.1 	LISTENING	 0.0.0.0:18650
+2552:FileZillaServer.exe	TCP 21  	0.0.0.0 	LISTENING	 0.0.0.0:45148
+2552:FileZillaServer.exe	TCP 14147  	127.0.0.1 	LISTENING	 0.0.0.0:43237
+2892:vsserv.exe		TCP 10025  	127.0.0.1 	LISTENING	 0.0.0.0:32775
+2892:vsserv.exe		TCP 10110  	127.0.0.1 	LISTENING	 0.0.0.0:8364
+2992:			TCP 1035  	127.0.0.1 	LISTENING	 0.0.0.0:8236
+3276:mysqld-nt.exe	TCP 3306  	0.0.0.0 	LISTENING	 0.0.0.0:26629
+4944:iexplore.exe	TCP 1118  	192.168.0.72 	ESTABLISHED	 66.249.93.189:80
+4944:iexplore.exe	TCP 1209  	192.168.0.72 	CLOSE WAIT	 72.14.221.83:80
+4944:iexplore.exe	UDP 1085  	127.0.0.1 			 *:*
+
+Port Statistics
+
+TCP mappings: 25
+UDP mappings: 16
+
+TCP ports in a LISTENING state: 	18 = 72.00%
+TCP ports in a ESTABLISHED state: 	5 = 20.00%
+TCP ports in a CLOSE WAIT state: 	2 = 8.00%
+
+
+Port and Module Information by Process
+
+Note: restrictions applied to some processes may 
+      prevent PortQry from accessing more information
+
+      For best results run PortQry in the context of
+      the local administrator
+
+======================================================
+
+Process ID: 0 (System Idle)
+
+
+System Idle Process
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+
+Could not access module information for this process
+
+======================================================
+
+Process ID: 4 (System)
+
+System Process
+
+PID	Port		Local IP	State		 Remote IP:Port
+4	TCP 445  	0.0.0.0 	LISTENING	 0.0.0.0:30744
+4	TCP 139  	192.168.0.72 	LISTENING	 0.0.0.0:24584
+4	UDP 445  	0.0.0.0 			 *:*
+4	UDP 137  	192.168.0.72 			 *:*
+4	UDP 138  	192.168.0.72 			 *:*
+
+Port Statistics
+
+TCP mappings: 2
+UDP mappings: 3
+
+TCP ports in a LISTENING state: 	2 = 100.00%
+
+
+Could not access module information for this process
+
+======================================================
+
+Process ID: 1200 (smss.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+\SystemRoot\System32\smss.exe (0x48580000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+======================================================
+
+Process ID: 1248 
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+
+Could not access module information for this process
+
+======================================================
+
+Process ID: 1272 (winlogon.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+\??\C:\WINDOWS\system32\winlogon.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\AUTHZ.dll (0x776C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\NDdeApi.dll (0x75940000)
+C:\WINDOWS\system32\PROFMAP.dll (0x75930000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\system32\REGAPI.dll (0x76BC0000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\MSGINA.dll (0x75970000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\ODBC32.dll (0x74320000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\odbcint.dll (0x20000000)
+C:\WINDOWS\system32\SHSVCS.dll (0x776E0000)
+C:\WINDOWS\system32\sfc.dll (0x76BB0000)
+C:\WINDOWS\system32\sfc_os.dll (0x76C60000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\Apphelp.dll (0x77B40000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\WINSCARD.DLL (0x723D0000)
+C:\WINDOWS\system32\WTSAPI32.dll (0x76F50000)
+C:\WINDOWS\system32\sxs.dll (0x75E90000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\WINDOWS\system32\Ati2evxx.dll (0x10000000)
+C:\WINDOWS\system32\cscdll.dll (0x76600000)
+C:\WINDOWS\system32\WlNotify.dll (0x75950000)
+C:\WINDOWS\system32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\system32\MPR.dll (0x71B20000)
+C:\WINDOWS\system32\WgaLogon.dll (0x01320000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\NTMARTA.DLL (0x77690000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\msv1_0.dll (0x77C70000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\cscui.dll (0x77A20000)
+C:\WINDOWS\system32\xpsp2res.dll (0x01690000)
+C:\WINDOWS\system32\wdmaud.drv (0x72D20000)
+C:\WINDOWS\system32\msacm32.drv (0x72D10000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\midimap.dll (0x77BD0000)
+======================================================
+
+Process ID: 1316 (services.exe)
+
+Service Name: Eventlog
+Display Name: Event Log
+Service Type: shares a process with other services
+
+Service Name: PlugPlay
+Display Name: Plug and Play
+Service Type: shares a process with other services
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\services.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\SCESRV.dll (0x758E0000)
+C:\WINDOWS\system32\AUTHZ.dll (0x776C0000)
+C:\WINDOWS\system32\umpnpmgr.dll (0x7DBA0000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\NCObjAPI.DLL (0x5F770000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\system32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcAdProc.dll (0x47260000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\Apphelp.dll (0x77B40000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\eventlog.dll (0x77B70000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\system32\wtsapi32.dll (0x76F50000)
+======================================================
+
+Process ID: 1328 (lsass.exe)
+
+Service Name: PolicyAgent
+Display Name: IPSEC Services
+Service Type: shares a process with other services
+
+Service Name: ProtectedStorage
+Display Name: Protected Storage
+
+Service Name: SamSs
+Display Name: Security Accounts Manager
+Service Type: shares a process with other services
+
+PID	Port		Local IP	State		 Remote IP:Port
+1328	UDP 500  	0.0.0.0 			 *:*
+1328	UDP 4500  	0.0.0.0 			 *:*
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 2
+
+
+Loaded modules:
+C:\WINDOWS\system32\lsass.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\LSASRV.dll (0x75730000)
+C:\WINDOWS\system32\MPR.dll (0x71B20000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\NTDSAPI.dll (0x767A0000)
+C:\WINDOWS\system32\DNSAPI.dll (0x76F20000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\WINDOWS\system32\SAMSRV.dll (0x74440000)
+C:\WINDOWS\system32\cryptdll.dll (0x76790000)
+C:\WINDOWS\system32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcGenral.DLL (0x6F880000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\msprivs.dll (0x20000000)
+C:\WINDOWS\system32\kerberos.dll (0x71CF0000)
+C:\WINDOWS\system32\msv1_0.dll (0x77C70000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\netlogon.dll (0x744B0000)
+C:\WINDOWS\system32\w32time.dll (0x767C0000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\system32\schannel.dll (0x767F0000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\wdigest.dll (0x74380000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\WINDOWS\system32\scecli.dll (0x74410000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\pwdmon.dll (0x10000000)
+C:\WINDOWS\system32\ipsecsvc.dll (0x743E0000)
+C:\WINDOWS\system32\AUTHZ.dll (0x776C0000)
+C:\WINDOWS\system32\oakley.DLL (0x75D90000)
+C:\WINDOWS\system32\WINIPSEC.DLL (0x74370000)
+C:\WINDOWS\system32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\hnetcfg.dll (0x662B0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+C:\WINDOWS\system32\pstorsvc.dll (0x743A0000)
+C:\WINDOWS\system32\psbase.dll (0x743C0000)
+C:\WINDOWS\system32\dssenh.dll (0x68100000)
+======================================================
+
+Process ID: 1512 (ibmpmsvc.exe)
+
+Service Name: IBMPMSVC
+Display Name: IBM PM Service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\System32\ibmpmsvc.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\System32\LPK.DLL (0x629C0000)
+C:\WINDOWS\System32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+======================================================
+
+Process ID: 1552 (Ati2evxx.exe)
+
+Service Name: Ati HotKey Poller
+Display Name: Ati HotKey Poller
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\Ati2evxx.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\Ati2edxx.dll (0x00BE0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+======================================================
+
+Process ID: 1564 (svchost.exe)
+
+Service Name: DcomLaunch
+Display Name: DCOM Server Process Launcher
+Service Type: shares a process with other services
+
+Service Name: TermService
+Display Name: Terminal Services
+Service Type: shares a process with other services
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\svchost.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcGenral.DLL (0x6F880000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\NTMARTA.DLL (0x77690000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+c:\windows\system32\rpcss.dll (0x76A80000)
+c:\windows\system32\WS2_32.dll (0x71AB0000)
+c:\windows\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+c:\windows\system32\termsrv.dll (0x760F0000)
+c:\windows\system32\ICAAPI.dll (0x74F70000)
+c:\windows\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+c:\windows\system32\AUTHZ.dll (0x776C0000)
+c:\windows\system32\mstlsapi.dll (0x75110000)
+c:\windows\system32\ACTIVEDS.dll (0x77CC0000)
+c:\windows\system32\adsldpc.dll (0x76E10000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+c:\windows\system32\ATL.DLL (0x76B20000)
+C:\WINDOWS\system32\REGAPI.dll (0x76BC0000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\WINDOWS\system32\WTSAPI32.dll (0x76F50000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\msv1_0.dll (0x77C70000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+C:\WINDOWS\system32\Apphelp.dll (0x77B40000)
+======================================================
+
+Process ID: 1624 
+
+Service Name: RpcSs
+Display Name: Remote Procedure Call (RPC)
+Service Type: shares a process with other services
+
+PID	Port		Local IP	State		 Remote IP:Port
+1624	TCP 135  	0.0.0.0 	LISTENING	 0.0.0.0:39118
+
+Port Statistics
+
+TCP mappings: 1
+UDP mappings: 0
+
+TCP ports in a LISTENING state: 	1 = 100.00%
+
+
+Could not access module information for this process
+
+======================================================
+
+Process ID: 1816 (svchost.exe)
+
+Service Name: AudioSrv
+Display Name: Windows Audio
+Service Type: shares a process with other services
+
+Service Name: BITS
+Display Name: Background Intelligent Transfer Service
+Service Type: shares a process with other services
+
+Service Name: Browser
+Display Name: Computer Browser
+Service Type: shares a process with other services
+
+Service Name: CryptSvc
+Display Name: Cryptographic Services
+Service Type: shares a process with other services
+
+Service Name: Dhcp
+Display Name: DHCP Client
+Service Type: shares a process with other services
+
+Service Name: ERSvc
+Display Name: Error Reporting Service
+Service Type: shares a process with other services
+
+Service Name: EventSystem
+Display Name: COM+ Event System
+Service Type: shares a process with other services
+
+Service Name: helpsvc
+Display Name: Help and Support
+Service Type: shares a process with other services
+
+Service Name: Irmon
+Display Name: Infrared Monitor
+Service Type: shares a process with other services
+
+Service Name: lanmanserver
+Display Name: Server
+Service Type: shares a process with other services
+
+Service Name: lanmanworkstation
+Display Name: Workstation
+Service Type: shares a process with other services
+
+Service Name: Netman
+Display Name: Network Connections
+
+Service Name: Nla
+Display Name: Network Location Awareness (NLA)
+Service Type: shares a process with other services
+
+Service Name: RasMan
+Display Name: Remote Access Connection Manager
+Service Type: shares a process with other services
+
+Service Name: Schedule
+Display Name: Task Scheduler
+
+Service Name: seclogon
+Display Name: Secondary Logon
+
+Service Name: SENS
+Display Name: System Event Notification
+Service Type: shares a process with other services
+
+Service Name: SharedAccess
+Display Name: Windows Firewall/Internet Connection Sharing (ICS)
+Service Type: shares a process with other services
+
+Service Name: ShellHWDetection
+Display Name: Shell Hardware Detection
+Service Type: shares a process with other services
+
+Service Name: srservice
+Display Name: System Restore Service
+Service Type: shares a process with other services
+
+Service Name: TapiSrv
+Display Name: Telephony
+Service Type: shares a process with other services
+
+Service Name: Themes
+Display Name: Themes
+Service Type: shares a process with other services
+
+Service Name: TrkWks
+Display Name: Distributed Link Tracking Client
+Service Type: shares a process with other services
+
+Service Name: W32Time
+Display Name: Windows Time
+Service Type: shares a process with other services
+
+Service Name: winmgmt
+Display Name: Windows Management Instrumentation
+Service Type: shares a process with other services
+
+Service Name: wscsvc
+Display Name: Security Center
+Service Type: shares a process with other services
+
+Service Name: wuauserv
+Display Name: Automatic Updates
+Service Type: shares a process with other services
+
+Service Name: WZCSVC
+Display Name: Wireless Zero Configuration
+Service Type: shares a process with other services
+
+PID	Port		Local IP	State		 Remote IP:Port
+1816	UDP 123  	127.0.0.1 			 *:*
+1816	UDP 123  	192.168.0.72 			 *:*
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 2
+
+
+Loaded modules:
+C:\WINDOWS\System32\svchost.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\System32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcGenral.DLL (0x6F880000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\System32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\System32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\System32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\System32\LPK.DLL (0x629C0000)
+C:\WINDOWS\System32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\System32\NTMARTA.DLL (0x77690000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\System32\SAMLIB.dll (0x71BF0000)
+C:\WINDOWS\System32\xpsp2res.dll (0x20000000)
+c:\windows\system32\shsvcs.dll (0x776E0000)
+C:\WINDOWS\System32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\System32\rsaenh.dll (0x0FFD0000)
+c:\windows\system32\dhcpcsvc.dll (0x76D80000)
+c:\windows\system32\DNSAPI.dll (0x76F20000)
+c:\windows\system32\WS2_32.dll (0x71AB0000)
+c:\windows\system32\WS2HELP.dll (0x71AA0000)
+c:\windows\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\mswsock.dll (0x71A50000)
+C:\WINDOWS\System32\hnetcfg.dll (0x662B0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+c:\windows\system32\wzcsvc.dll (0x77620000)
+c:\windows\system32\rtutils.dll (0x76E80000)
+c:\windows\system32\WMI.dll (0x76D30000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+c:\windows\system32\WTSAPI32.dll (0x76F50000)
+c:\windows\system32\ESENT.dll (0x606B0000)
+c:\windows\system32\ATL.DLL (0x76B20000)
+c:\windows\system32\irmon.dll (0x65F40000)
+C:\WINDOWS\system32\msv1_0.dll (0x77C70000)
+C:\WINDOWS\System32\rastls.dll (0x76B70000)
+C:\WINDOWS\system32\CRYPTUI.dll (0x754D0000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x00D20000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\System32\MPRAPI.dll (0x76D40000)
+C:\WINDOWS\System32\ACTIVEDS.dll (0x77CC0000)
+C:\WINDOWS\System32\adsldpc.dll (0x76E10000)
+C:\WINDOWS\System32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\System32\RASAPI32.dll (0x76EE0000)
+C:\WINDOWS\System32\rasman.dll (0x76E90000)
+C:\WINDOWS\System32\TAPI32.dll (0x76EB0000)
+C:\WINDOWS\System32\SCHANNEL.dll (0x767F0000)
+C:\WINDOWS\System32\WinSCard.dll (0x723D0000)
+C:\WINDOWS\System32\wshirda.dll (0x58D30000)
+C:\WINDOWS\System32\raschap.dll (0x76BD0000)
+C:\WINDOWS\System32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\System32\COMRes.dll (0x77050000)
+c:\windows\system32\schedsvc.dll (0x77300000)
+c:\windows\system32\NTDSAPI.dll (0x767A0000)
+C:\WINDOWS\System32\MSIDLE.DLL (0x74F50000)
+c:\windows\system32\audiosrv.dll (0x708B0000)
+c:\windows\system32\wkssvc.dll (0x76E40000)
+c:\windows\system32\qmgr.dll (0x5B9F0000)
+C:\WINDOWS\system32\MPR.dll (0x71B20000)
+c:\windows\system32\SHFOLDER.dll (0x76780000)
+c:\windows\system32\WINHTTP.dll (0x4D4F0000)
+c:\windows\system32\cryptsvc.dll (0x76CE0000)
+c:\windows\system32\certcli.dll (0x77B90000)
+c:\windows\system32\ersvc.dll (0x74F80000)
+c:\windows\system32\es.dll (0x77710000)
+c:\windows\pchealth\helpctr\binaries\pchsvc.dll (0x74F40000)
+c:\windows\system32\srvsvc.dll (0x75090000)
+c:\windows\system32\netman.dll (0x77D00000)
+c:\windows\system32\netshell.dll (0x76400000)
+c:\windows\system32\credui.dll (0x76C00000)
+c:\windows\system32\WZCSAPI.DLL (0x73030000)
+C:\WINDOWS\System32\upnp.dll (0x76DE0000)
+C:\WINDOWS\System32\SSDPAPI.dll (0x74F00000)
+c:\windows\system32\srsvc.dll (0x751A0000)
+c:\windows\system32\POWRPROF.dll (0x74AD0000)
+c:\windows\system32\sens.dll (0x722D0000)
+c:\windows\system32\seclogon.dll (0x73D20000)
+C:\WINDOWS\System32\netcfgx.dll (0x755F0000)
+C:\WINDOWS\System32\CLUSAPI.dll (0x76D10000)
+C:\WINDOWS\System32\wbem\wbemcomn.dll (0x75290000)
+C:\WINDOWS\System32\SXS.DLL (0x75E90000)
+C:\WINDOWS\system32\comsvcs.dll (0x76620000)
+C:\WINDOWS\system32\colbact.DLL (0x75130000)
+C:\WINDOWS\system32\MTXCLU.DLL (0x750F0000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\System32\RESUTILS.DLL (0x750B0000)
+C:\WINDOWS\System32\mtxoci.dll (0x750D0000)
+C:\WINDOWS\System32\rasmans.dll (0x7DF30000)
+C:\WINDOWS\System32\WINIPSEC.DLL (0x74370000)
+c:\windows\system32\wuauserv.dll (0x50000000)
+c:\windows\system32\wbem\wmisvc.dll (0x59490000)
+C:\WINDOWS\system32\VSSAPI.DLL (0x753E0000)
+C:\WINDOWS\system32\wuaueng.dll (0x50040000)
+C:\WINDOWS\System32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\System32\Cabinet.dll (0x75150000)
+C:\WINDOWS\System32\mspatcha.dll (0x600A0000)
+c:\windows\system32\w32time.dll (0x767C0000)
+c:\windows\system32\MSVCP60.dll (0x76080000)
+c:\windows\system32\trkwks.dll (0x75070000)
+c:\windows\system32\browser.dll (0x76DA0000)
+c:\windows\system32\ipnathlp.dll (0x66460000)
+c:\windows\system32\AUTHZ.dll (0x776C0000)
+C:\WINDOWS\System32\Wbem\wbemcore.dll (0x762C0000)
+C:\WINDOWS\System32\Wbem\esscli.dll (0x75310000)
+C:\WINDOWS\System32\Wbem\FastProx.dll (0x75690000)
+c:\windows\system32\wscsvc.dll (0x4C0A0000)
+c:\windows\system32\msi.dll (0x7D1E0000)
+C:\WINDOWS\System32\sfc.dll (0x76BB0000)
+C:\WINDOWS\System32\sfc_os.dll (0x76C60000)
+C:\WINDOWS\System32\wbem\wbemsvc.dll (0x74ED0000)
+C:\WINDOWS\System32\wbem\wmiutils.dll (0x75020000)
+C:\WINDOWS\System32\wbem\repdrvfs.dll (0x75200000)
+C:\WINDOWS\System32\wbem\wmiprvsd.dll (0x597F0000)
+C:\WINDOWS\system32\NCObjAPI.DLL (0x5F770000)
+C:\WINDOWS\System32\wbem\wbemess.dll (0x75390000)
+C:\WINDOWS\System32\wbem\ncprov.dll (0x5F740000)
+C:\WINDOWS\system32\Apphelp.dll (0x77B40000)
+c:\windows\system32\tapisrv.dll (0x733E0000)
+c:\windows\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\System32\rastapi.dll (0x75880000)
+C:\WINDOWS\System32\rasadhlp.dll (0x76FC0000)
+C:\WINDOWS\System32\unimdm.tsp (0x57CC0000)
+C:\WINDOWS\System32\uniplat.dll (0x72000000)
+C:\WINDOWS\System32\unimdmat.dll (0x5B070000)
+C:\WINDOWS\system32\modemui.dll (0x61650000)
+C:\WINDOWS\System32\kmddsp.tsp (0x57D40000)
+C:\WINDOWS\System32\ndptsp.tsp (0x57D20000)
+C:\WINDOWS\System32\ipconf.tsp (0x57D50000)
+C:\WINDOWS\System32\h323.tsp (0x57D70000)
+C:\WINDOWS\System32\hidphone.tsp (0x57D60000)
+C:\WINDOWS\System32\HID.DLL (0x688F0000)
+C:\WINDOWS\System32\rasppp.dll (0x72240000)
+C:\WINDOWS\System32\ntlsapi.dll (0x724B0000)
+C:\WINDOWS\system32\kerberos.dll (0x71CF0000)
+C:\WINDOWS\System32\cryptdll.dll (0x76790000)
+C:\WINDOWS\System32\RASDLG.dll (0x768D0000)
+C:\WINDOWS\system32\wups2.dll (0x50E60000)
+C:\WINDOWS\System32\dssenh.dll (0x68100000)
+C:\WINDOWS\System32\msxml3.dll (0x74980000)
+C:\WINDOWS\System32\winrnr.dll (0x76FB0000)
+C:\WINDOWS\system32\advpack.dll (0x42EC0000)
+======================================================
+
+Process ID: 1932 
+
+Service Name: Dnscache
+Display Name: DNS Client
+Service Type: shares a process with other services
+
+PID	Port		Local IP	State		 Remote IP:Port
+1932	UDP 1036  	0.0.0.0 			 *:*
+1932	UDP 1047  	0.0.0.0 			 *:*
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 2
+
+
+
+Could not access module information for this process
+
+======================================================
+
+Process ID: 272 
+
+Service Name: LmHosts
+Display Name: TCP/IP NetBIOS Helper
+Service Type: shares a process with other services
+
+Service Name: RemoteRegistry
+Display Name: Remote Registry
+Service Type: shares a process with other services
+
+Service Name: SSDPSRV
+Display Name: SSDP Discovery Service
+Service Type: shares a process with other services
+
+Service Name: WebClient
+Display Name: WebClient
+Service Type: shares a process with other services
+
+PID	Port		Local IP	State		 Remote IP:Port
+272	UDP 1900  	127.0.0.1 			 *:*
+272	UDP 1900  	192.168.0.72 			 *:*
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 2
+
+
+
+Could not access module information for this process
+
+======================================================
+
+Process ID: 712 (spoolsv.exe)
+
+Service Name: Spooler
+Display Name: Print Spooler
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\spoolsv.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcGenral.DLL (0x6F880000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\SPOOLSS.DLL (0x742E0000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\DNSAPI.dll (0x76F20000)
+C:\WINDOWS\system32\rasadhlp.dll (0x76FC0000)
+C:\WINDOWS\system32\localspl.dll (0x75BB0000)
+C:\WINDOWS\system32\sfc_os.dll (0x76C60000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\winspool.drv (0x73000000)
+C:\WINDOWS\system32\netapi32.dll (0x5B860000)
+C:\WINDOWS\system32\AdobePDF.dll (0x50400000)
+C:\WINDOWS\system32\MSVCR71.dll (0x7C340000)
+C:\Program Files\Adobe\Acrobat 7.0\Distillr\adistres.dll (0x65000000)
+C:\WINDOWS\system32\cnbjmon.dll (0x742A0000)
+C:\WINDOWS\system32\HPBMMON.DLL (0x10000000)
+C:\WINDOWS\system32\hppamon0.dll (0x00F90000)
+C:\WINDOWS\system32\hpdomon.dll (0x00FB0000)
+C:\WINDOWS\system32\pjlmon.dll (0x74280000)
+C:\WINDOWS\system32\usbmon.dll (0x723F0000)
+C:\WINDOWS\system32\HPBHealr.dll (0x67200000)
+C:\WINDOWS\system32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\msonpmon.dll (0x00FE0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+C:\WINDOWS\system32\tcpmon.dll (0x72400000)
+C:\WINDOWS\System32\spool\PRTPROCS\W32X86\hpzpp041.dll (0x015E0000)
+C:\WINDOWS\System32\spool\PRTPROCS\W32X86\hpzpp052.dll (0x01600000)
+C:\WINDOWS\System32\spool\PRTPROCS\W32X86\msonpppr.dll (0x01620000)
+C:\WINDOWS\System32\winrnr.dll (0x76FB0000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\win32spl.dll (0x75C10000)
+C:\WINDOWS\system32\NETRAP.dll (0x71C80000)
+C:\WINDOWS\system32\NTDSAPI.dll (0x767A0000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\inetpp.dll (0x74300000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\hppadt40.dll (0x01710000)
+C:\WINDOWS\system32\HPZidr12.dll (0x01A60000)
+C:\WINDOWS\system32\setupapi.dll (0x77920000)
+C:\WINDOWS\system32\hpbmmjno.dll (0x01740000)
+======================================================
+
+Process ID: 1072 (Ati2evxx.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\Ati2evxx.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\Ati2edxx.dll (0x00D80000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 1144 (Explorer.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\Explorer.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\BROWSEUI.dll (0x75F80000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\SHDOCVW.dll (0x77760000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\CRYPTUI.dll (0x754D0000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x00400000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcGenral.DLL (0x6F880000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\appHelp.dll (0x77B40000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\PROGRA~1\MICROS~2\Office12\GRA8E1~1.DLL (0x661C0000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveUtil.DLL (0x68EF0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveNew.DLL (0x68FF0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_6e805841\ATL80.DLL (0x7C630000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\WINDOWS\system32\MSImg32.dll (0x76380000)
+C:\WINDOWS\System32\cscui.dll (0x77A20000)
+C:\WINDOWS\System32\CSCDLL.dll (0x76600000)
+C:\WINDOWS\System32\themeui.dll (0x5BA60000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\System32\msutb.dll (0x5FC10000)
+C:\WINDOWS\System32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\PROGRA~1\MICROS~2\Office12\GR99D3~1.DLL (0x65E30000)
+C:\WINDOWS\system32\urlmon.dll (0x42CF0000)
+C:\WINDOWS\System32\msxml3.dll (0x74980000)
+C:\WINDOWS\system32\LINKINFO.dll (0x76980000)
+C:\WINDOWS\system32\ntshrui.dll (0x76990000)
+C:\WINDOWS\system32\ATL.DLL (0x76B20000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\ieframe.dll (0x42EF0000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\system32\NETSHELL.dll (0x76400000)
+C:\WINDOWS\system32\rtutils.dll (0x76E80000)
+C:\WINDOWS\system32\credui.dll (0x76C00000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+C:\WINDOWS\system32\MLANG.dll (0x75CF0000)
+C:\PROGRA~1\MICROS~2\Office12\GR326C~1.DLL (0x66B40000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\webcheck.dll (0x42E40000)
+C:\WINDOWS\System32\stobject.dll (0x76280000)
+C:\WINDOWS\System32\BatMeter.dll (0x74AF0000)
+C:\WINDOWS\System32\POWRPROF.dll (0x74AD0000)
+C:\WINDOWS\System32\WTSAPI32.dll (0x76F50000)
+C:\WINDOWS\system32\WPDShServiceObj.dll (0x164A0000)
+C:\WINDOWS\system32\WINHTTP.dll (0x4D4F0000)
+C:\PROGRA~1\ThinkPad\UTILIT~1\pwrmonit.dll (0x10000000)
+C:\WINDOWS\system32\MFC42.DLL (0x73DD0000)
+C:\WINDOWS\system32\MFC42LOC.DLL (0x5FD00000)
+C:\WINDOWS\System32\mydocs.dll (0x72410000)
+C:\WINDOWS\system32\PortableDeviceTypes.dll (0x109C0000)
+C:\WINDOWS\system32\PortableDeviceApi.dll (0x10930000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\idle.dll (0x60300000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\MSVCR71.dll (0x7C340000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\wdmaud.drv (0x72D20000)
+C:\WINDOWS\system32\msacm32.drv (0x72D10000)
+C:\WINDOWS\system32\midimap.dll (0x77BD0000)
+C:\WINDOWS\system32\MPR.dll (0x71B20000)
+C:\WINDOWS\System32\drprov.dll (0x75F60000)
+C:\WINDOWS\System32\ntlanman.dll (0x71C10000)
+C:\WINDOWS\System32\NETUI0.dll (0x71CD0000)
+C:\WINDOWS\System32\NETUI1.dll (0x71C90000)
+C:\WINDOWS\System32\NETRAP.dll (0x71C80000)
+C:\WINDOWS\System32\davclnt.dll (0x75F70000)
+C:\WINDOWS\system32\WZCSAPI.DLL (0x73030000)
+C:\WINDOWS\system32\wzcdlg.dll (0x5DF10000)
+C:\Program Files\Babylon\Babylon-Pro\CAPTLIB.DLL (0x02800000)
+C:\WINDOWS\system32\OLEACC.dll (0x74C80000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\system32\SXS.DLL (0x75E90000)
+C:\Program Files\FlashGet\fgmgr.dll (0x01F10000)
+C:\WINDOWS\system32\browselc.dll (0x01210000)
+C:\Program Files\Adobe\Acrobat 6.0\Reader\ActiveX\AcroIEHelper.dll (0x014E0000)
+C:\Program Files\FlashGet\jccatch.dll (0x03350000)
+C:\WINDOWS\system32\dla\tfswshx.dll (0x03370000)
+C:\WINDOWS\system32\tfswapi.dll (0x03390000)
+C:\WINDOWS\system32\dla\tfswcres.dll (0x044D0000)
+C:\Program Files\Microsoft Office\Office12\1033\GrooveIntlResource.dll (0x046C0000)
+C:\WINDOWS\system32\MSFTEDIT.DLL (0x4B400000)
+C:\WINDOWS\system32\DUSER.dll (0x6C1B0000)
+C:\WINDOWS\system32\MSGINA.dll (0x75970000)
+C:\WINDOWS\system32\ODBC32.dll (0x74320000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\odbcint.dll (0x04E60000)
+C:\Program Files\Microsoft Office\Office12\msohevi.dll (0x6BD10000)
+C:\Program Files\Common Files\Ahead\Lib\NeroDigitalExt.dll (0x05360000)
+C:\Program Files\Common Files\Ahead\Lib\MFC71.DLL (0x7C140000)
+C:\Program Files\Common Files\Ahead\Lib\MSVCP71.dll (0x7C3A0000)
+C:\WINDOWS\system32\MFC71ENU.DLL (0x5D360000)
+C:\Program Files\Adobe\Acrobat 7.0\ActiveX\PDFShell.dll (0x02AC0000)
+C:\WINDOWS\System32\shmedia.dll (0x5CAD0000)
+C:\WINDOWS\System32\MSVFW32.dll (0x75A70000)
+C:\WINDOWS\System32\AVIFIL32.dll (0x73B50000)
+C:\WINDOWS\system32\wmvcore.dll (0x15110000)
+C:\WINDOWS\system32\WMASF.DLL (0x11C70000)
+C:\WINDOWS\system32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\system32\RICHED32.DLL (0x732E0000)
+C:\WINDOWS\system32\RICHED20.dll (0x74E30000)
+C:\Program Files\Adobe\Acrobat 7.0\Acrobat Elements\ContextMenu.dll (0x05C10000)
+C:\Program Files\Adobe\Acrobat 7.0\Distillr\ADIST32.dll (0x05CA0000)
+======================================================
+
+Process ID: 1788 (SynTPLpr.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Synaptics\SynTP\SynTPLpr.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 1796 (SynTPEnh.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Synaptics\SynTP\SynTPEnh.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\SynCOM.dll (0x10000000)
+C:\WINDOWS\system32\SynTPAPI.dll (0x63010000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\netapi32.dll (0x5B860000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\appHelp.dll (0x77B40000)
+C:\PROGRA~1\MICROS~2\Office12\GRA8E1~1.DLL (0x661C0000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveUtil.DLL (0x68EF0000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x01210000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveNew.DLL (0x68FF0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_6e805841\ATL80.DLL (0x7C630000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\WINDOWS\system32\MSImg32.dll (0x76380000)
+C:\PROGRA~1\MICROS~2\Office12\GR99D3~1.DLL (0x65E30000)
+C:\WINDOWS\system32\urlmon.dll (0x42CF0000)
+C:\WINDOWS\System32\msxml3.dll (0x74980000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x01BA0000)
+======================================================
+
+Process ID: 1844 (TpShocks.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\TpShocks.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\COMCTL32.dll (0x773D0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\Sensor.dll (0x10000000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 1884 (TPHKMGR.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\PROGRA~1\ThinkPad\PkgMgr\HOTKEY\TPHKMGR.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\netapi32.dll (0x5B860000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\appHelp.dll (0x77B40000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\WINDOWS\system32\MSImg32.dll (0x76380000)
+C:\WINDOWS\system32\urlmon.dll (0x42CF0000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\wdmaud.drv (0x72D20000)
+C:\WINDOWS\system32\msacm32.drv (0x72D10000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\midimap.dll (0x77BD0000)
+C:\Program Files\ThinkPad\PkgMgr\HOTKEY_2\tphk_2k.dll (0x10000000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\system32\Oemdspif.dll (0x00D30000)
+C:\PROGRA~1\ThinkPad\PkgMgr\HOTKEY\tpfnf7.dll (0x00DD0000)
+C:\WINDOWS\system32\wtsapi32.dll (0x76F50000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 1536 (EzEjMnAp.Exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\PROGRA~1\ThinkPad\UTILIT~1\EzEjMnAp.Exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\COMCTL32.dll (0x773D0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\system32\oledlg.dll (0x7DF70000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEPRO32.DLL (0x5EDD0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\setupapi.dll (0x77920000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 1992 (tfswctrl.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\dla\tfswctrl.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\tfswapi.dll (0x10000000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\dla\tfswcres.dll (0x00320000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\Wtsapi32.dll (0x76F50000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+======================================================
+
+Process ID: 2000 (ibmmessages.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\IBM\Messages By IBM\ibmmessages.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\AIBMRUNL.dll (0x10000000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\oledlg.dll (0x7DF70000)
+C:\WINDOWS\system32\OLEPRO32.DLL (0x5EDD0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x00320000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\ieframe.dll (0x42EF0000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\ws2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\apphelp.dll (0x77B40000)
+C:\Program Files\IBM\Messages By IBM\AcpPollingEngine.dll (0x01770000)
+C:\WINDOWS\system32\MFC42.DLL (0x73DD0000)
+C:\WINDOWS\system32\MFC42LOC.DLL (0x5FD00000)
+C:\WINDOWS\system32\IbmEgath.dll (0x018A0000)
+C:\WINDOWS\system32\LZ32.DLL (0x73DC0000)
+C:\WINDOWS\system32\CABINET.DLL (0x75150000)
+C:\WINDOWS\system32\NTMARTA.DLL (0x77690000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\SXS.DLL (0x75E90000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+C:\WINDOWS\System32\msxml3.dll (0x74980000)
+C:\WINDOWS\system32\urlmon.dll (0x42CF0000)
+C:\PROGRA~1\COMMON~1\MICROS~1\OFFICE12\MSOXMLMF.DLL (0x38A70000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+======================================================
+
+Process ID: 2024 (ibmprc.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\IBMTOOLS\UTILS\ibmprc.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 2032 (QCTRAY.EXE)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\ThinkPad\ConnectUtilities\QCTRAY.EXE (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\COMCTL32.dll (0x773D0000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\Program Files\ThinkPad\ConnectUtilities\QCON.dll (0x20000000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\RASAPI32.dll (0x76EE0000)
+C:\WINDOWS\system32\rasman.dll (0x76E90000)
+C:\WINDOWS\system32\TAPI32.dll (0x76EB0000)
+C:\WINDOWS\system32\rtutils.dll (0x76E80000)
+C:\WINDOWS\system32\RASDLG.dll (0x768D0000)
+C:\WINDOWS\system32\MPRAPI.dll (0x76D40000)
+C:\WINDOWS\system32\ACTIVEDS.dll (0x77CC0000)
+C:\WINDOWS\system32\adsldpc.dll (0x76E10000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\ATL.DLL (0x76B20000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x00330000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\Program Files\ThinkPad\ConnectUtilities\MerlinC201.dll (0x10000000)
+C:\WINDOWS\system32\MSVCIRT.dll (0x00340000)
+C:\WINDOWS\system32\MFC42.DLL (0x73DD0000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\MFC42LOC.DLL (0x5FD00000)
+C:\WINDOWS\system32\CfgMgr32.dll (0x74AE0000)
+C:\Program Files\ThinkPad\ConnectUtilities\Res\US\TrayRes.dll (0x01270000)
+C:\Program Files\ThinkPad\ConnectUtilities\ClymerWrap_2.dll (0x012D0000)
+C:\WINDOWS\system32\athcfg11.dll (0x012F0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\Apphelp.dll (0x77B40000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\Program Files\ThinkPad\ConnectUtilities\ANCA.dll (0x01D60000)
+C:\Program Files\ThinkPad\ConnectUtilities\ANC.dll (0x01D80000)
+======================================================
+
+Process ID: 164 (QCWLICON.EXE)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\ThinkPad\ConnectUtilities\QCWLICON.EXE (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\Program Files\ThinkPad\ConnectUtilities\QCON.dll (0x20000000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\RASAPI32.dll (0x76EE0000)
+C:\WINDOWS\system32\rasman.dll (0x76E90000)
+C:\WINDOWS\system32\TAPI32.dll (0x76EB0000)
+C:\WINDOWS\system32\rtutils.dll (0x76E80000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\RASDLG.dll (0x768D0000)
+C:\WINDOWS\system32\MPRAPI.dll (0x76D40000)
+C:\WINDOWS\system32\ACTIVEDS.dll (0x77CC0000)
+C:\WINDOWS\system32\adsldpc.dll (0x76E10000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\ATL.DLL (0x76B20000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x00320000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\Program Files\ThinkPad\ConnectUtilities\MerlinC201.dll (0x10000000)
+C:\WINDOWS\system32\MSVCIRT.dll (0x00330000)
+C:\WINDOWS\system32\MFC42.DLL (0x73DD0000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\MFC42LOC.DLL (0x5FD00000)
+C:\WINDOWS\system32\CfgMgr32.dll (0x74AE0000)
+C:\Program Files\ThinkPad\ConnectUtilities\ClymerWrap_2.dll (0x00A20000)
+C:\WINDOWS\system32\athcfg11.dll (0x01100000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\Apphelp.dll (0x77B40000)
+C:\Program Files\ThinkPad\ConnectUtilities\Res\US\IconRes.dll (0x012A0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 224 (RunDll32.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\RunDll32.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcGenral.DLL (0x6F880000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\PROGRA~1\ThinkPad\UTILIT~1\pwrmonit.dll (0x10000000)
+C:\WINDOWS\system32\MFC42.DLL (0x73DD0000)
+C:\WINDOWS\system32\MFC42LOC.DLL (0x5FD00000)
+C:\WINDOWS\system32\setupapi.dll (0x77920000)
+C:\WINDOWS\system32\powrprof.dll (0x74AD0000)
+C:\PROGRA~1\ThinkPad\UTILIT~1\tppwrw32.dll (0x00A00000)
+C:\WINDOWS\system32\sensor.dll (0x00A30000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 240 (rundll32.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\rundll32.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcGenral.DLL (0x6F880000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\PROGRA~1\ThinkPad\UTILIT~1\BatInfEx.dll (0x10000000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\system32\oledlg.dll (0x7DF70000)
+C:\WINDOWS\system32\OLEPRO32.DLL (0x5EDD0000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\PROGRA~1\ThinkPad\UTILIT~1\tppwrw32.dll (0x00EA0000)
+C:\WINDOWS\system32\sensor.dll (0x00A70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 252 (bdmcon.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\PROGRA~1\Softwin\BITDEF~1\bdmcon.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\XCOMM.dll (0x10000000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\PROGRA~1\Softwin\BITDEF~1\procinf.dll (0x00330000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\PROGRA~1\Softwin\BITDEF~1\TxTools.dll (0x00350000)
+C:\PROGRA~1\Softwin\BITDEF~1\BDGUICtl.dll (0x00360000)
+C:\PROGRA~1\Softwin\BITDEF~1\bdutils.dll (0x003D0000)
+C:\WINDOWS\system32\SHFOLDER.dll (0x76780000)
+C:\WINDOWS\system32\MFC71.DLL (0x7C140000)
+C:\WINDOWS\system32\MSVCR71.dll (0x7C340000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\MSVCP71.dll (0x7C3A0000)
+C:\PROGRA~1\Softwin\BITDEF~1\txmlx.dll (0x003E0000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\PROGRA~1\Softwin\BITDEF~1\bdch.dll (0x00450000)
+C:\PROGRA~1\Softwin\BITDEF~1\bdsubmit.dll (0x00460000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x004A0000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\PROGRA~1\Softwin\BITDEF~1\NAG.dll (0x004B0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\MFC71ENU.DLL (0x5D360000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\NTMARTA.DLL (0x77690000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\PROGRA~1\Softwin\BITDEF~1\popup.dll (0x00C80000)
+C:\PROGRA~1\Softwin\BITDEF~1\agentreg.dll (0x01000000)
+C:\PROGRA~1\Softwin\BITDEF~1\getfile.dll (0x00CA0000)
+C:\PROGRA~1\Softwin\BITDEF~1\WSLib.dll (0x01020000)
+C:\PROGRA~1\Softwin\BITDEF~1\bdusers.dll (0x01040000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\PROGRA~1\Softwin\BITDEF~1\main.dll (0x01B40000)
+C:\PROGRA~1\Softwin\BITDEF~1\antivirus.dll (0x013B0000)
+C:\PROGRA~1\Softwin\BITDEF~1\fwgui.dll (0x01BD0000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\PROGRA~1\Softwin\BITDEF~1\dbokf.dll (0x013C0000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\PROGRA~1\Softwin\BITDEF~1\libexpat.dll (0x01F80000)
+C:\PROGRA~1\Softwin\BITDEF~1\antispam.dll (0x01FC0000)
+C:\PROGRA~1\Softwin\BITDEF~1\antispy.dll (0x01FE0000)
+C:\PROGRA~1\Softwin\BITDEF~1\pcontrol.dll (0x01FF0000)
+C:\PROGRA~1\Softwin\BITDEF~1\Wizards.dll (0x02070000)
+C:\PROGRA~1\Softwin\BITDEF~1\live.dll (0x023D0000)
+C:\PROGRA~1\Softwin\BITDEF~1\vshield.dll (0x02840000)
+C:\PROGRA~1\Softwin\BITDEF~1\vscan.dll (0x02BC0000)
+C:\PROGRA~1\Softwin\BITDEF~1\quar.dll (0x02C20000)
+C:\WINDOWS\system32\URL.dll (0x427A0000)
+C:\WINDOWS\system32\SHDOCVW.dll (0x77760000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\CRYPTUI.dll (0x754D0000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\ieframe.DLL (0x42EF0000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\PROGRA~1\Softwin\BITDEF~1\quarcore.dll (0x02D90000)
+C:\PROGRA~1\Softwin\BITDEF~1\NTTools.dll (0x02DB0000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\appHelp.dll (0x77B40000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\PROGRA~1\MICROS~2\Office12\GRA8E1~1.DLL (0x661C0000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveUtil.DLL (0x68EF0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveNew.DLL (0x68FF0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_6e805841\ATL80.DLL (0x7C630000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\WINDOWS\system32\MSImg32.dll (0x76380000)
+C:\WINDOWS\System32\cscui.dll (0x77A20000)
+C:\WINDOWS\System32\CSCDLL.dll (0x76600000)
+C:\PROGRA~1\Softwin\BITDEF~1\bwlist.dll (0x03360000)
+C:\PROGRA~1\Softwin\BITDEF~1\UnicoWS.dll (0x7F2D0000)
+C:\WINDOWS\system32\MPR.dll (0x71B20000)
+C:\WINDOWS\system32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\system32\oledlg.dll (0x7DF70000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\AVICAP32.dll (0x73B80000)
+C:\WINDOWS\system32\MSVFW32.dll (0x75A70000)
+C:\PROGRA~1\Softwin\BITDEF~1\ashield.dll (0x03C10000)
+C:\PROGRA~1\Softwin\BITDEF~1\privintf.dll (0x03F70000)
+C:\PROGRA~1\Softwin\BITDEF~1\sysinfo.dll (0x03F90000)
+C:\PROGRA~1\Softwin\BITDEF~1\BDElev.DLL (0x04010000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+C:\Program Files\FlashGet\fgmgr.dll (0x04580000)
+======================================================
+
+Process ID: 260 (bdagent.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Softwin\BitDefender10\bdagent.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\Program Files\Softwin\BitDefender10\bdch.dll (0x10000000)
+C:\Program Files\Softwin\BitDefender10\bdsubmit.dll (0x00320000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\Normaliz.dll (0x00360000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\MSVCP71.dll (0x7C3A0000)
+C:\WINDOWS\system32\MSVCR71.dll (0x7C340000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\Program Files\Softwin\BitDefender10\bdutils.dll (0x00370000)
+C:\WINDOWS\system32\SHFOLDER.dll (0x76780000)
+C:\WINDOWS\system32\MFC71.DLL (0x7C140000)
+C:\WINDOWS\system32\XCOMM.dll (0x00380000)
+C:\Program Files\Softwin\BitDefender10\procinf.dll (0x003B0000)
+C:\Program Files\Softwin\BitDefender10\BDGUICtl.dll (0x00420000)
+C:\Program Files\Softwin\BitDefender10\txmlx.dll (0x003D0000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\MFC71ENU.DLL (0x5D360000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\NTMARTA.DLL (0x77690000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\Program Files\Softwin\BitDefender10\bdoe.dll (0x00CF0000)
+C:\Program Files\Softwin\BitDefender10\mimeinf.dll (0x00D20000)
+C:\WINDOWS\system32\wtsapi32.dll (0x76F50000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+======================================================
+
+Process ID: 1920 (GrooveMonitor.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Microsoft Office\Office12\GrooveMonitor.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\Program Files\Microsoft Office\Office12\GrooveUtil.DLL (0x68EF0000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x00340000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+C:\Program Files\Microsoft Office\Office12\GrooveNew.DLL (0x68FF0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_6e805841\ATL80.DLL (0x7C630000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\Program Files\Microsoft Office\Office12\USP10.dll (0x6BD30000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\PROGRA~1\MICROS~2\Office12\GRA8E1~1.DLL (0x661C0000)
+C:\WINDOWS\system32\MSImg32.dll (0x76380000)
+C:\PROGRA~1\MICROS~2\Office12\GR99D3~1.DLL (0x65E30000)
+C:\WINDOWS\system32\urlmon.dll (0x42CF0000)
+C:\WINDOWS\system32\LINKINFO.dll (0x76980000)
+C:\WINDOWS\system32\ntshrui.dll (0x76990000)
+C:\WINDOWS\system32\ATL.DLL (0x76B20000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\System32\msxml3.dll (0x74980000)
+======================================================
+
+Process ID: 284 (Babylon.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Babylon\Babylon-Pro\Babylon.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\COMCTL32.dll (0x773D0000)
+C:\Program Files\Babylon\Babylon-Pro\BException.dll (0x10000000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEPRO32.DLL (0x5EDD0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\urlmon.dll (0x42CF0000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\IMM32.dll (0x76390000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x00330000)
+C:\WINDOWS\system32\RASAPI32.dll (0x76EE0000)
+C:\WINDOWS\system32\rasman.dll (0x76E90000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\TAPI32.dll (0x76EB0000)
+C:\WINDOWS\system32\rtutils.dll (0x76E80000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\Program Files\Babylon\Babylon-Pro\BabyServices.DLL (0x00FD0000)
+C:\WINDOWS\system32\SHFolder.dll (0x76780000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\System32\msxml3.dll (0x74980000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\Program Files\Babylon\Babylon-Pro\CAPTLIB.DLL (0x01740000)
+C:\WINDOWS\system32\OLEACC.dll (0x74C80000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\System32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\DNSAPI.dll (0x76F20000)
+C:\WINDOWS\System32\winrnr.dll (0x76FB0000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\rasadhlp.dll (0x76FC0000)
+C:\Program Files\Babylon\Babylon-Pro\BContentServer.DLL (0x019F0000)
+C:\WINDOWS\System32\mlang.dll (0x75CF0000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ieframe.dll (0x42EF0000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\system32\SXS.DLL (0x75E90000)
+C:\WINDOWS\system32\appHelp.dll (0x77B40000)
+C:\WINDOWS\system32\mshtml.dll (0x435D0000)
+C:\WINDOWS\system32\msls31.dll (0x746C0000)
+C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG\pdm.dll (0x54B20000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG\msdbg2.dll (0x548E0000)
+C:\Program Files\Common Files\Microsoft Shared\Speech\sapi.dll (0x6D6E0000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\System32\msimtf.dll (0x746F0000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+c:\windows\system32\jscript.dll (0x63380000)
+C:\WINDOWS\system32\msv1_0.dll (0x77C70000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\idle.dll (0x60300000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\MSVCR71.dll (0x7C340000)
+======================================================
+
+Process ID: 352 (jusched.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Java\jre1.6.0\bin\jusched.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\Normaliz.dll (0x00330000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\Program Files\Java\jre1.6.0\bin\MSVCR71.dll (0x7C340000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+======================================================
+
+Process ID: 1916 (hpgs2wnd.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Hewlett-Packard\HP Share-to-Web\hpgs2wnd.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\Program Files\Hewlett-Packard\HP Share-to-Web\S2WNSRES.DLL (0x10000000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\Program Files\Hewlett-Packard\HP Share-to-Web\hpgs2wnfps.dll (0x00A70000)
+======================================================
+
+Process ID: 316 (VCDDaemon.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Elaborate Bytes\VirtualCloneDrive\VCDDaemon.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ElbyVCD.dll (0x10000000)
+C:\WINDOWS\system32\ElbyCDIO.dll (0x00320000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\CFGMGR32.dll (0x74AE0000)
+C:\WINDOWS\system32\setupapi.dll (0x77920000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+======================================================
+
+Process ID: 408 (qttask.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\QuickTime\qttask.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\QuickTime.qts (0x66800000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\WININET.DLL (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x00A60000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\ddraw.dll (0x73760000)
+C:\WINDOWS\system32\DCIMAN32.dll (0x73BC0000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\QuickTime\QuickTimeAuthoring.qtx (0x66EB0000)
+C:\WINDOWS\system32\QuickTime\QuickTimeCapture.qtx (0x67030000)
+C:\WINDOWS\system32\QuickTime\QuickTimeEffects.qtx (0x67080000)
+C:\WINDOWS\system32\QuickTime\QuickTimeEssentials.qtx (0x672C0000)
+C:\WINDOWS\system32\QuickTime\QuickTimeImage.qtx (0x67110000)
+C:\WINDOWS\system32\QuickTime\QuickTimeInternetExtras.qtx (0x66DE0000)
+C:\WINDOWS\system32\QuickTime\QuickTimeMPEG.qtx (0x67250000)
+C:\WINDOWS\system32\QuickTime\QuickTimeMPEG4.qtx (0x67340000)
+C:\WINDOWS\system32\QuickTime\QuickTimeMPEG4Authoring.qtx (0x673C0000)
+C:\WINDOWS\system32\QuickTime\QuickTimeMusic.qtx (0x67190000)
+C:\WINDOWS\system32\QuickTime\QuickTimeStreaming.qtx (0x66C10000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\QuickTime\QuickTimeStreamingAuthoring.qtx (0x67550000)
+C:\WINDOWS\system32\QuickTime\QuickTimeStreamingExtras.qtx (0x675B0000)
+C:\WINDOWS\system32\NTMARTA.DLL (0x77690000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+======================================================
+
+Process ID: 428 (Acrotray.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Adobe\Acrobat 7.0\Distillr\Acrotray.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\OLEACC.dll (0x74C80000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 440 (StatusClient.exe)
+
+Process doesn't appear to be a service
+
+PID	Port		Local IP	State		 Remote IP:Port
+440	TCP 1069  	127.0.0.1 	ESTABLISHED	 127.0.0.1:5226
+
+Port Statistics
+
+TCP mappings: 1
+UDP mappings: 0
+
+TCP ports in a ESTABLISHED state: 	1 = 100.00%
+
+Loaded modules:
+C:\Program Files\Hewlett-Packard\Toolbox\StatusClient\StatusClient.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\Program Files\Hewlett-Packard\Toolbox\StatusClient\hpptui0.dll (0x10000000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\System32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\DNSAPI.dll (0x76F20000)
+C:\WINDOWS\System32\winrnr.dll (0x76FB0000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\rasadhlp.dll (0x76FC0000)
+C:\WINDOWS\system32\hnetcfg.dll (0x662B0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\Program Files\FlashGet\fgmgr.dll (0x01840000)
+======================================================
+
+Process ID: 460 (HPWuSchd2.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Hewlett-Packard\HP Software Update\HPWuSchd2.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 488 (issch.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Common Files\InstallShield\UpdateService\issch.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+======================================================
+
+Process ID: 552 (msmsgs.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Messenger\msmsgs.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\COMCTL32.dll (0x773D0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.2600.2180_x-ww_522f9f82\gdiplus.dll (0x4EC50000)
+C:\WINDOWS\system32\MSIMG32.dll (0x76380000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x00400000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\cryptdll.dll (0x76790000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\XPOB2RES.DLL (0x20000000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\xpsp2res.dll (0x00A90000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\SXS.DLL (0x75E90000)
+C:\WINDOWS\System32\es.dll (0x77710000)
+C:\WINDOWS\system32\wtsapi32.dll (0x76F50000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\credui.dll (0x76C00000)
+C:\Program Files\Messenger\msgsc.dll (0x754A0000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+======================================================
+
+Process ID: 560 (ctfmon.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\ctfmon.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\MSUTB.dll (0x5FC10000)
+C:\WINDOWS\system32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcGenral.DLL (0x6F880000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\Program Files\FlashGet\fgmgr.dll (0x10000000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+======================================================
+
+Process ID: 568 (YAHOOM~1.EXE)
+
+Process doesn't appear to be a service
+
+PID	Port		Local IP	State		 Remote IP:Port
+568	TCP 5051  	0.0.0.0 	LISTENING	 0.0.0.0:26744
+568	TCP 5101  	0.0.0.0 	LISTENING	 0.0.0.0:61588
+568	TCP 1037  	192.168.0.72 	ESTABLISHED	 216.155.193.141:5050
+568	TCP 1049  	192.168.0.72 	ESTABLISHED	 68.142.233.184:443
+568	UDP 5051  	0.0.0.0 			 *:*
+568	UDP 1042  	127.0.0.1 			 *:*
+568	UDP 1057  	192.168.0.72 			 *:*
+568	UDP 1058  	192.168.0.72 			 *:*
+
+Port Statistics
+
+TCP mappings: 4
+UDP mappings: 4
+
+TCP ports in a LISTENING state: 	2 = 50.00%
+TCP ports in a ESTABLISHED state: 	2 = 50.00%
+
+Loaded modules:
+C:\PROGRA~1\Yahoo!\MESSEN~1\YAHOOM~1.EXE (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\idle.dll (0x60300000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\MSVCR71.dll (0x7C340000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\Normaliz.dll (0x00320000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\pcre.dll (0x65EC0000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\YML.dll (0x68400000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\YImage.dll (0x68300000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\IMM32.dll (0x76390000)
+C:\WINDOWS\system32\RICHED20.dll (0x74E30000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\xmlparse.dll (0x20000000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\xmltok.dll (0x67000000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\yvoiceui.dll (0x68700000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\yaudiomgr.dll (0x68100000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\GIPSVoiceEngineDLL.dll (0x10000000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\MSVCP71.dll (0x7C3A0000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\id3lib.dll (0x00330000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\YIniDom.dll (0x00370000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\YCPFoundation.dll (0x00890000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\nspr4.dll (0x30000000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\YPluginRegistry.dll (0x009D0000)
+C:\WINDOWS\system32\urlmon.dll (0x42CF0000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\msimg32.dll (0x76380000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\Program Files\Yahoo!\Messenger\ft60.dll (0x60200000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\res_msgr.dll (0x65000000)
+C:\WINDOWS\system32\xpsp2res.dll (0x02040000)
+C:\Program Files\Yahoo!\Shared\YbSkin2.dll (0x63600000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\System32\es.dll (0x77710000)
+C:\WINDOWS\system32\wtsapi32.dll (0x76F50000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\Program Files\Yahoo!\Messenger\MyYahoo.dll (0x60000000)
+C:\Program Files\Yahoo!\Messenger\D32-FW.DLL (0x01C50000)
+C:\WINDOWS\System32\msxml3.dll (0x74980000)
+C:\WINDOWS\system32\Macromed\Flash\Flash9d.ocx (0x03620000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\wdmaud.drv (0x72D20000)
+C:\WINDOWS\system32\msacm32.drv (0x72D10000)
+C:\WINDOWS\system32\midimap.dll (0x77BD0000)
+C:\WINDOWS\system32\ieframe.dll (0x42EF0000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\system32\SXS.DLL (0x75E90000)
+C:\WINDOWS\system32\schannel.dll (0x767F0000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\RASAPI32.DLL (0x76EE0000)
+C:\WINDOWS\system32\rasman.dll (0x76E90000)
+C:\WINDOWS\system32\TAPI32.dll (0x76EB0000)
+C:\WINDOWS\system32\rtutils.dll (0x76E80000)
+C:\WINDOWS\system32\ICMP.DLL (0x74290000)
+C:\WINDOWS\system32\sensapi.dll (0x722B0000)
+C:\WINDOWS\System32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\DNSAPI.dll (0x76F20000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+C:\WINDOWS\System32\winrnr.dll (0x76FB0000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+C:\WINDOWS\system32\rasadhlp.dll (0x76FC0000)
+C:\WINDOWS\system32\hnetcfg.dll (0x662B0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+C:\PROGRA~1\COMMON~1\MICROS~1\OFFICE12\MSOXMLMF.DLL (0x38A70000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+C:\Program Files\Babylon\Babylon-Pro\CAPTLIB.DLL (0x05430000)
+C:\WINDOWS\system32\OLEACC.dll (0x74C80000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\system32\msv1_0.dll (0x77C70000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\WINDOWS\system32\dssenh.dll (0x058E0000)
+C:\WINDOWS\system32\appHelp.dll (0x77B40000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\yvoicesm.dll (0x06120000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\rvsip.dll (0x65400000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\rvcommon.dll (0x65200000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\rvads.dll (0x062C0000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\rvsdp.dll (0x65300000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\P2PCE.dll (0x062D0000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\yv_res.dll (0x68500000)
+C:\WINDOWS\system32\perfos.dll (0x5E760000)
+C:\WINDOWS\system32\mshtml.dll (0x435D0000)
+C:\WINDOWS\system32\msls31.dll (0x746C0000)
+C:\WINDOWS\system32\MLANG.dll (0x75CF0000)
+C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG\pdm.dll (0x54B20000)
+C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG\msdbg2.dll (0x548E0000)
+c:\windows\system32\jscript.dll (0x63380000)
+C:\WINDOWS\System32\msimtf.dll (0x746F0000)
+C:\WINDOWS\ime\sptip.dll (0x5C2C0000)
+C:\WINDOWS\IME\SPGRMR.DLL (0x02460000)
+C:\Program Files\Common Files\Microsoft Shared\INK\SKCHUI.DLL (0x02480000)
+c:\windows\system32\vbscript.dll (0x73300000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\System32\ddrawex.dll (0x6D430000)
+C:\WINDOWS\System32\DDRAW.dll (0x73760000)
+C:\WINDOWS\System32\DCIMAN32.dll (0x73BC0000)
+C:\Program Files\Yahoo!\Shared\YAlertCenter.dll (0x01240000)
+C:\Program Files\FlashGet\fgmgr.dll (0x01280000)
+======================================================
+
+Process ID: 600 (Wcescomm.exe)
+
+Process doesn't appear to be a service
+
+PID	Port		Local IP	State		 Remote IP:Port
+600	TCP 5679  	127.0.0.1 	LISTENING	 0.0.0.0:16474
+600	TCP 7438  	127.0.0.1 	LISTENING	 0.0.0.0:47139
+
+Port Statistics
+
+TCP mappings: 2
+UDP mappings: 0
+
+TCP ports in a LISTENING state: 	2 = 100.00%
+
+Loaded modules:
+C:\Program Files\Microsoft ActiveSync\Wcescomm.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\CEUTIL.dll (0x22B00000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+C:\WINDOWS\system32\RAPI.dll (0x21300000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\Program Files\Microsoft ActiveSync\TCP2UDP.dll (0x21E00000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\hnetcfg.dll (0x662B0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+C:\Program Files\Microsoft ActiveSync\rapiproxystub.dll (0x26000000)
+C:\WINDOWS\system32\Wtsapi32.dll (0x76F50000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\Program Files\Microsoft ActiveSync\dtptdns.dll (0x21D00000)
+======================================================
+
+Process ID: 832 (TPONSCR.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\ThinkPad\PkgMgr\HOTKEY\TPONSCR.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+======================================================
+
+Process ID: 952 (DLG.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Digital Line Detect\DLG.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\Program Files\Digital Line Detect\BVRPDIAG.dll (0x10000000)
+C:\WINDOWS\system32\SHFOLDER.dll (0x76780000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\MdmXSdk.dll (0x00A60000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+======================================================
+
+Process ID: 960 (TpScrex.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\ThinkPad\PkgMgr\HOTKEY_1\TpScrex.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\DDRAW.dll (0x73760000)
+C:\WINDOWS\system32\DCIMAN32.dll (0x73BC0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+======================================================
+
+Process ID: 1048 (ARLaunch.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Infinite Mind LC\eyeQ\ARLaunch.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+======================================================
+
+Process ID: 1112 (ApacheMonitor.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Apache Group\Apache2\bin\ApacheMonitor.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+======================================================
+
+Process ID: 1140 (WZQKPICK.EXE)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\WinZip\WZQKPICK.EXE (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\System32\hhctrl.ocx (0x00AF0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+======================================================
+
+Process ID: 2324 (rapimgr.exe)
+
+Process doesn't appear to be a service
+
+PID	Port		Local IP	State		 Remote IP:Port
+2324	TCP 990  	0.0.0.0 	LISTENING	 0.0.0.0:30902
+
+Port Statistics
+
+TCP mappings: 1
+UDP mappings: 0
+
+TCP ports in a LISTENING state: 	1 = 100.00%
+
+Loaded modules:
+C:\PROGRA~1\MI3AA1~1\rapimgr.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\CEUTIL.dll (0x22B00000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCP80.dll (0x7C420000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\netapi32.dll (0x5B860000)
+C:\WINDOWS\system32\WTSApi32.dll (0x76F50000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+C:\Program Files\Microsoft ActiveSync\rapiproxystub.dll (0x26000000)
+C:\WINDOWS\system32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\hnetcfg.dll (0x662B0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+======================================================
+
+Process ID: 2416 (hpgs2wnf.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Hewlett-Packard\HP Share-to-Web\hpgs2wnf.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\Program Files\Hewlett-Packard\HP Share-to-Web\S2WNSRES.DLL (0x10000000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\Program Files\Hewlett-Packard\HP Share-to-Web\hpgs2wnfps.dll (0x00A60000)
+======================================================
+
+Process ID: 2500 (javaw.exe)
+
+Process doesn't appear to be a service
+
+PID	Port		Local IP	State		 Remote IP:Port
+2500	TCP 5225  	0.0.0.0 	LISTENING	 0.0.0.0:34902
+2500	TCP 5226  	0.0.0.0 	LISTENING	 0.0.0.0:26648
+2500	TCP 8008  	0.0.0.0 	LISTENING	 0.0.0.0:6248
+2500	TCP 1072  	127.0.0.1 	CLOSE WAIT	 127.0.0.1:5225
+2500	TCP 5226  	127.0.0.1 	ESTABLISHED	 127.0.0.1:1069
+2500	TCP 8005  	127.0.0.1 	LISTENING	 0.0.0.0:18650
+
+Port Statistics
+
+TCP mappings: 6
+UDP mappings: 0
+
+TCP ports in a LISTENING state: 	4 = 66.67%
+TCP ports in a ESTABLISHED state: 	1 = 16.67%
+TCP ports in a CLOSE WAIT state: 	1 = 16.67%
+
+Loaded modules:
+C:\Program Files\Hewlett-Packard\Toolbox\jre\bin\javaw.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\MSVCRT.dll (0x77C10000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\Program Files\Hewlett-Packard\Toolbox\jre\bin\hotspot\jvm.dll (0x6D420000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\Program Files\Hewlett-Packard\Toolbox\jre\bin\hpi.dll (0x6D220000)
+C:\Program Files\Hewlett-Packard\Toolbox\jre\bin\verify.dll (0x6D3B0000)
+C:\Program Files\Hewlett-Packard\Toolbox\jre\bin\java.dll (0x6D250000)
+C:\Program Files\Hewlett-Packard\Toolbox\jre\bin\zip.dll (0x6D3C0000)
+C:\Program Files\Hewlett-Packard\Toolbox\jre\bin\net.dll (0x6D340000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\hnetcfg.dll (0x662B0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+C:\WINDOWS\system32\DNSAPI.dll (0x76F20000)
+C:\WINDOWS\System32\winrnr.dll (0x76FB0000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\jst.dll (0x10000000)
+C:\WINDOWS\system32\rasadhlp.dll (0x76FC0000)
+C:\WINDOWS\system32\d4channel.dll (0x09960000)
+C:\WINDOWS\system32\setupapi.dll (0x77920000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+======================================================
+
+Process ID: 2552 (FileZillaServer.exe)
+
+Service Name: FileZilla Server
+Display Name: FileZilla Server FTP server
+
+PID	Port		Local IP	State		 Remote IP:Port
+2552	TCP 21  	0.0.0.0 	LISTENING	 0.0.0.0:45148
+2552	TCP 14147  	127.0.0.1 	LISTENING	 0.0.0.0:43237
+
+Port Statistics
+
+TCP mappings: 2
+UDP mappings: 0
+
+TCP ports in a LISTENING state: 	2 = 100.00%
+
+Loaded modules:
+C:\Program Files\xampp\FileZillaFTP\FileZillaServer.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\hnetcfg.dll (0x662B0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+======================================================
+
+Process ID: 2884 (rrpcsb.exe)
+
+Service Name: IBM Rapid Restore Ultra Service
+Display Name: IBM Rapid Restore Ultra Service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\IBM\IBM Rapid Restore Ultra\rrpcsb.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SensApi.dll (0x722B0000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\netapi32.dll (0x5B860000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\appHelp.dll (0x77B40000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\PROGRA~1\MICROS~2\Office12\GRA8E1~1.DLL (0x661C0000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveUtil.DLL (0x68EF0000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x00E00000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveNew.DLL (0x68FF0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_6e805841\ATL80.DLL (0x7C630000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\WINDOWS\system32\MSImg32.dll (0x76380000)
+C:\PROGRA~1\MICROS~2\Office12\GR99D3~1.DLL (0x65E30000)
+C:\WINDOWS\system32\urlmon.dll (0x42CF0000)
+C:\WINDOWS\System32\msxml3.dll (0x74980000)
+======================================================
+
+Process ID: 3000 (MDM.EXE)
+
+Service Name: MDM
+Display Name: Machine Debug Manager
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG\MDM.EXE (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\psapi.dll (0x76BF0000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\Program Files\Common Files\Microsoft Shared\VS7Debug\csm.dll (0x54A30000)
+C:\Program Files\Common Files\Microsoft Shared\VS7DEBUG\msdbg2.dll (0x548E0000)
+======================================================
+
+Process ID: 3276 (mysqld-nt.exe)
+
+Service Name: MySQL5
+Display Name: MySQL5
+Service Type: runs in its own process
+
+PID	Port		Local IP	State		 Remote IP:Port
+3276	TCP 3306  	0.0.0.0 	LISTENING	 0.0.0.0:26629
+
+Port Statistics
+
+TCP mappings: 1
+UDP mappings: 0
+
+TCP ports in a LISTENING state: 	1 = 100.00%
+
+Loaded modules:
+C:\Program Files\MySQL\MySQL Server 5.0\bin\mysqld-nt.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\System32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\DNSAPI.dll (0x76F20000)
+C:\WINDOWS\System32\winrnr.dll (0x76FB0000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\hnetcfg.dll (0x662B0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+======================================================
+
+Process ID: 3368 (nutsrv4.exe)
+
+Service Name: NuTCRACKERService
+Display Name: NuTCRACKERService
+Service Type: runs in its own process
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\nutsrv4.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\nutmsg4.dll (0x2C500000)
+C:\WINDOWS\system32\MSVCRT.dll (0x77C10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\netapi32.dll (0x5B860000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+======================================================
+
+Process ID: 3708 (HPZipm12.exe)
+
+Service Name: Pml Driver HPZ12
+Display Name: Pml Driver HPZ12
+Service Type: runs in its own process
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\HPZipm12.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\NTMARTA.DLL (0x77690000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+======================================================
+
+Process ID: 3776 (QCONSVC.EXE)
+
+Service Name: QCONSVC
+Display Name: QCONSVC
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\System32\QCONSVC.EXE (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\System32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\System32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\System32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\System32\LPK.DLL (0x629C0000)
+C:\WINDOWS\System32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\Apphelp.dll (0x77B40000)
+======================================================
+
+Process ID: 1576 (TpKmpSVC.exe)
+
+Service Name: TpKmpSVC
+Display Name: IBM KCU Service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\TpKmpSVC.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+======================================================
+
+Process ID: 2200 (xcommsvr.exe)
+
+Service Name: XCOMM
+Display Name: BitDefender Communicator
+Service Type: runs in its own process
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Common Files\Softwin\BitDefender Communicator\xcommsvr.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+======================================================
+
+Process ID: 2300 (bdss.exe)
+
+Service Name: bdss
+Display Name: BitDefender Scan Server
+Service Type: runs in its own process
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Common Files\Softwin\BitDefender Scan Server\bdss.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\XCOMM.dll (0x10000000)
+C:\Program Files\Common Files\Softwin\BitDefender Scan Server\bdcore.dll (0x00330000)
+C:\Program Files\Common Files\Softwin\BitDefender Scan Server\bdsubmit.dll (0x00370000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\Normaliz.dll (0x003A0000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\MSVCP71.dll (0x7C3A0000)
+C:\WINDOWS\system32\MSVCR71.dll (0x7C340000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\Program Files\Common Files\Softwin\BitDefender Scan Server\libfn.dll (0x00D60000)
+C:\Program Files\Common Files\Softwin\BitDefender Scan Server\avxdisk.dll (0x00DE0000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+======================================================
+
+Process ID: 2432 (livesrv.exe)
+
+Service Name: LIVESRV
+Display Name: BitDefender Desktop Update Service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Common Files\Softwin\BitDefender Update Service\livesrv.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\XCOMM.dll (0x10000000)
+C:\Program Files\Common Files\Softwin\BitDefender Update Service\HTTPGETF.dll (0x00330000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\MSVCP71.dll (0x7C3A0000)
+C:\WINDOWS\system32\MSVCR71.dll (0x7C340000)
+C:\Program Files\Common Files\Softwin\BitDefender Update Service\zlib.dll (0x00350000)
+C:\WINDOWS\system32\CRTDLL.dll (0x73D90000)
+C:\Program Files\Common Files\Softwin\BitDefender Update Service\bdch.dll (0x00370000)
+C:\Program Files\Common Files\Softwin\BitDefender Update Service\bdsubmit.dll (0x00380000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\Normaliz.dll (0x003C0000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHFOLDER.dll (0x76780000)
+C:\WINDOWS\system32\MFC71.DLL (0x7C140000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\MFC71ENU.DLL (0x5D360000)
+======================================================
+
+Process ID: 2636 (SymWSC.exe)
+
+Service Name: SymWSC
+Display Name: SymWMI Service
+Service Type: runs in its own process
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+c:\Program Files\Common Files\Symantec Shared\Security Center\SymWSC.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\DBGHELP.DLL (0x59A60000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+c:\Program Files\Common Files\Symantec Shared\Security Center\WSCHlpr.dll (0x10000000)
+c:\Program Files\Common Files\Symantec Shared\Security Center\sscnis7.dll (0x007D0000)
+c:\Program Files\Common Files\Symantec Shared\Security Center\sscnis56.dll (0x00A40000)
+c:\Program Files\Common Files\Symantec Shared\Security Center\sscnav.dll (0x00A70000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\System32\wbem\wbemprox.dll (0x74EF0000)
+C:\WINDOWS\System32\wbem\wbemcomn.dll (0x75290000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\System32\wbem\wbemsvc.dll (0x74ED0000)
+C:\WINDOWS\System32\wbem\fastprox.dll (0x75690000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\system32\NTDSAPI.dll (0x767A0000)
+C:\WINDOWS\system32\DNSAPI.dll (0x76F20000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+C:\WINDOWS\system32\SXS.DLL (0x75E90000)
+======================================================
+
+Process ID: 3188 
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+
+Could not access module information for this process
+
+======================================================
+
+Process ID: 3200 (wscntfy.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\wscntfy.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+======================================================
+
+Process ID: 2892 (vsserv.exe)
+
+Service Name: VSSERV
+Display Name: BitDefender Virus Shield
+Service Type: runs in its own process
+
+PID	Port		Local IP	State		 Remote IP:Port
+2892	TCP 10025  	127.0.0.1 	LISTENING	 0.0.0.0:32775
+2892	TCP 10110  	127.0.0.1 	LISTENING	 0.0.0.0:8364
+
+Port Statistics
+
+TCP mappings: 2
+UDP mappings: 0
+
+TCP ports in a LISTENING state: 	2 = 100.00%
+
+Loaded modules:
+C:\Program Files\Softwin\BitDefender10\vsserv.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\Program Files\Softwin\BitDefender10\bdfltlib.dll (0x10000000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\Program Files\Softwin\BitDefender10\zlib.dll (0x00330000)
+C:\WINDOWS\system32\CRTDLL.dll (0x73D90000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\Normaliz.dll (0x00350000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\XCOMM.dll (0x00360000)
+C:\Program Files\Softwin\BitDefender10\procinf.dll (0x00390000)
+C:\Program Files\Softwin\BitDefender10\mimeinf.dll (0x003B0000)
+C:\Program Files\Softwin\BitDefender10\bdch.dll (0x003C0000)
+C:\Program Files\Softwin\BitDefender10\bdsubmit.dll (0x00490000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\MSVCP71.dll (0x7C3A0000)
+C:\WINDOWS\system32\MSVCR71.dll (0x7C340000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\URL.dll (0x427A0000)
+C:\WINDOWS\system32\SHDOCVW.dll (0x77760000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\CRYPTUI.dll (0x754D0000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\ieframe.DLL (0x42EF0000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\Program Files\Softwin\BitDefender10\bdfdll_x86.dll (0x003E0000)
+C:\Program Files\Softwin\BitDefender10\bdutils.dll (0x004E0000)
+C:\WINDOWS\system32\SHFOLDER.dll (0x76780000)
+C:\WINDOWS\system32\MFC71.DLL (0x7C140000)
+C:\Program Files\Softwin\BitDefender10\WSLib.dll (0x004F0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\MFC71ENU.DLL (0x5D360000)
+C:\Program Files\Softwin\BitDefender10\quarcore.dll (0x00AC0000)
+C:\Program Files\Softwin\BitDefender10\NTTools.dll (0x00AE0000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\NTMARTA.DLL (0x77690000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\Program Files\Softwin\BitDefender10\privscan.dll (0x01210000)
+C:\Program Files\Softwin\BitDefender10\agentreg.dll (0x01230000)
+C:\Program Files\Softwin\BitDefender10\getfile.dll (0x01250000)
+C:\Program Files\Softwin\BitDefender10\BDGUICtl.dll (0x01690000)
+C:\Program Files\Softwin\BitDefender10\txmlx.dll (0x01260000)
+C:\WINDOWS\system32\winhttp.dll (0x4D4F0000)
+C:\Program Files\Softwin\BitDefender10\wsid.dll (0x01B90000)
+C:\Program Files\Softwin\BitDefender10\bdfdrvi.dll (0x01DD0000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\Program Files\Softwin\BitDefender10\libexpat.dll (0x02100000)
+C:\WINDOWS\system32\sockspy.dll (0x02350000)
+C:\Program Files\Softwin\BitDefender10\as2core.dll (0x024F0000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\System32\wbem\wbemprox.dll (0x74EF0000)
+C:\WINDOWS\System32\wbem\wbemcomn.dll (0x75290000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\System32\wbem\wbemsvc.dll (0x74ED0000)
+C:\Program Files\Softwin\BitDefender10\asemlbr.mdl (0x02830000)
+C:\WINDOWS\System32\wbem\fastprox.dll (0x75690000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\system32\NTDSAPI.dll (0x767A0000)
+C:\WINDOWS\system32\DNSAPI.dll (0x76F20000)
+C:\Program Files\Softwin\BitDefender10\asemldsp.mdl (0x029D0000)
+C:\Program Files\Softwin\BitDefender10\asemlf.mdl (0x02A00000)
+C:\Program Files\Softwin\BitDefender10\asemlimg.mdl (0x02A50000)
+C:\Program Files\Softwin\BitDefender10\asemlnn2.mdl (0x02B90000)
+C:\Program Files\Softwin\BitDefender10\asemlrtr.mdl (0x02C20000)
+C:\Program Files\Softwin\BitDefender10\asemlsgn.mdl (0x02C50000)
+C:\Program Files\Softwin\BitDefender10\ashttpbr.mdl (0x02CD0000)
+C:\Program Files\Softwin\BitDefender10\ashttpdsp.mdl (0x02D00000)
+C:\Program Files\Softwin\BitDefender10\ashttpf.mdl (0x02D20000)
+C:\Program Files\Softwin\BitDefender10\iconv.dll (0x02D50000)
+C:\Program Files\Softwin\BitDefender10\asregex.dll (0x02E30000)
+C:\Program Files\Softwin\BitDefender10\mimepack.dll (0x03A60000)
+C:\Program Files\Softwin\BitDefender10\sch_serv.dll (0x04CA0000)
+C:\Program Files\Softwin\BitDefender10\bdardrv.dll (0x04CC0000)
+C:\Program Files\Softwin\BitDefender10\PROFOS.dll (0x04CD0000)
+C:\Program Files\Softwin\BitDefender10\trufos.dll (0x04CE0000)
+C:\Program Files\Softwin\BitDefender10\libmpack.dll (0x04D00000)
+C:\WINDOWS\system32\XRegLib.dll (0x05160000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\system32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\hnetcfg.dll (0x662B0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+C:\Program Files\Softwin\BitDefender10\htmlpack.dll (0x04D20000)
+C:\Program Files\Softwin\BitDefender10\bdpredir.dll (0x04D30000)
+C:\Program Files\Softwin\BitDefender10\bdpop3p.dll (0x05350000)
+C:\Program Files\Softwin\BitDefender10\bdsmtpp.dll (0x05380000)
+C:\WINDOWS\System32\winrnr.dll (0x76FB0000)
+C:\WINDOWS\system32\rasadhlp.dll (0x76FC0000)
+C:\Program Files\Softwin\BitDefender10\httproxy.dll (0x05DE0000)
+======================================================
+
+Process ID: 3884 (acs.exe)
+
+Service Name: ACS
+Display Name: ACU Configuration Service
+Service Type: runs in its own process
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\acs.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\athcfg11.dll (0x10000000)
+C:\WINDOWS\system32\CFGMGR32.dll (0x74AE0000)
+C:\WINDOWS\system32\setupapi.dll (0x77920000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\MFC42.DLL (0x73DD0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\system32\MSVCIRT.dll (0x00340000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\MFC42LOC.DLL (0x5FD00000)
+C:\WINDOWS\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\Comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\PROGRA~1\ThinkPad\CONNEC~1\QcAthExt.dll (0x00800000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\AegisE5.dll (0x00E30000)
+======================================================
+
+Process ID: 2992 
+
+Service Name: ALG
+Display Name: Application Layer Gateway Service
+Service Type: runs in its own process
+
+PID	Port		Local IP	State		 Remote IP:Port
+2992	TCP 1035  	127.0.0.1 	LISTENING	 0.0.0.0:8236
+
+Port Statistics
+
+TCP mappings: 1
+UDP mappings: 0
+
+TCP ports in a LISTENING state: 	1 = 100.00%
+
+
+Could not access module information for this process
+
+======================================================
+
+Process ID: 3096 (wuauclt.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\wuauclt.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcGenral.DLL (0x6F880000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\sockspy.dll (0x10000000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\wucltui.dll (0x507E0000)
+C:\WINDOWS\system32\MSIMG32.dll (0x76380000)
+C:\WINDOWS\system32\Cabinet.dll (0x75150000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\wups2.dll (0x50E60000)
+======================================================
+
+Process ID: 4944 (iexplore.exe)
+
+Process doesn't appear to be a service
+
+PID	Port		Local IP	State		 Remote IP:Port
+4944	TCP 1118  	192.168.0.72 	ESTABLISHED	 66.249.93.189:80
+4944	TCP 1209  	192.168.0.72 	CLOSE WAIT	 72.14.221.83:80
+4944	UDP 1085  	127.0.0.1 			 *:*
+
+Port Statistics
+
+TCP mappings: 2
+UDP mappings: 1
+
+TCP ports in a ESTABLISHED state: 	1 = 50.00%
+TCP ports in a CLOSE WAIT state: 	1 = 50.00%
+
+Loaded modules:
+C:\Program Files\Internet Explorer\iexplore.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\urlmon.dll (0x42CF0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\sockspy.dll (0x10000000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\IEFRAME.dll (0x42EF0000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\IEUI.dll (0x5DFF0000)
+C:\WINDOWS\system32\MSIMG32.dll (0x76380000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.2600.2180_x-ww_522f9f82\gdiplus.dll (0x4EC50000)
+C:\WINDOWS\system32\xmllite.dll (0x47060000)
+C:\WINDOWS\system32\apphelp.dll (0x77B40000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\System32\msimtf.dll (0x746F0000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+C:\PROGRA~1\MICROS~2\Office12\GRA8E1~1.DLL (0x661C0000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveUtil.DLL (0x68EF0000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x01A20000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveNew.DLL (0x68FF0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_6e805841\ATL80.DLL (0x7C630000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\WINDOWS\System32\cscui.dll (0x77A20000)
+C:\WINDOWS\System32\CSCDLL.dll (0x76600000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\Program Files\Microsoft Office\Office12\msohevi.dll (0x6BD10000)
+C:\WINDOWS\ime\sptip.dll (0x5C2C0000)
+C:\WINDOWS\system32\OLEACC.dll (0x74C80000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\WINDOWS\IME\SPGRMR.DLL (0x01AD0000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+C:\Program Files\Common Files\Microsoft Shared\INK\SKCHUI.DLL (0x01AF0000)
+C:\Program Files\Internet Explorer\ieproxy.dll (0x61930000)
+C:\Program Files\Babylon\Babylon-Pro\CAPTLIB.DLL (0x02220000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\idle.dll (0x60300000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\MSVCR71.dll (0x7C340000)
+C:\WINDOWS\system32\SXS.DLL (0x75E90000)
+C:\WINDOWS\system32\MLANG.dll (0x75CF0000)
+C:\WINDOWS\system32\ws2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\Program Files\Adobe\Acrobat 6.0\Reader\ActiveX\AcroIEHelper.dll (0x02C00000)
+C:\Program Files\FlashGet\jccatch.dll (0x02C10000)
+C:\WINDOWS\system32\dla\tfswshx.dll (0x02C30000)
+C:\WINDOWS\system32\tfswapi.dll (0x02C50000)
+C:\WINDOWS\system32\dla\tfswcres.dll (0x02CA0000)
+C:\Program Files\Microsoft Office\Office12\1033\GrooveIntlResource.dll (0x02CF0000)
+C:\WINDOWS\system32\MSFTEDIT.DLL (0x4B400000)
+C:\Program Files\FlashGet\fgmgr.dll (0x01DA0000)
+C:\PROGRA~1\MICROS~2\Office12\GR99D3~1.DLL (0x65E30000)
+C:\PROGRA~1\MICROS~2\Office12\GR326C~1.DLL (0x66B40000)
+C:\WINDOWS\System32\msxml3.dll (0x74980000)
+C:\Program Files\Java\jre1.6.0\bin\ssv.dll (0x6D7C0000)
+C:\Program Files\Adobe\Acrobat 7.0\Acrobat\AcroIEFavClient.dll (0x037C0000)
+C:\WINDOWS\system32\ATL71.DLL (0x7C120000)
+C:\WINDOWS\system32\MSVCP71.dll (0x7C3A0000)
+C:\Program Files\PardisProxy Toolbar\PardisProxy1.3.dll (0x03830000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\dbghelp.dll (0x59A60000)
+C:\Program Files\PardisProxy Toolbar\tbhelper.dll (0x03AA0000)
+C:\Program Files\FlashGet\getflash.dll (0x041F0000)
+C:\WINDOWS\system32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\hnetcfg.dll (0x045C0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+C:\WINDOWS\system32\RASAPI32.dll (0x76EE0000)
+C:\WINDOWS\system32\rasman.dll (0x76E90000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\TAPI32.dll (0x76EB0000)
+C:\WINDOWS\system32\rtutils.dll (0x76E80000)
+C:\WINDOWS\system32\msv1_0.dll (0x77C70000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\actxprxy.dll (0x71D40000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\sensapi.dll (0x722B0000)
+C:\WINDOWS\system32\rasadhlp.dll (0x76FC0000)
+C:\WINDOWS\system32\DNSAPI.dll (0x76F20000)
+C:\WINDOWS\system32\mshtml.dll (0x435D0000)
+C:\WINDOWS\system32\msls31.dll (0x746C0000)
+C:\WINDOWS\system32\ieapfltr.dll (0x43560000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\NTMARTA.DLL (0x77690000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\Program Files\Hewlett-Packard\HP Share-to-Web\HPGS2WNS.DLL (0x05750000)
+C:\Program Files\Hewlett-Packard\HP Share-to-Web\S2WNSRES.DLL (0x020D0000)
+C:\Program Files\Hewlett-Packard\HP Share-to-Web\hpgs2wnfps.dll (0x05450000)
+C:\WINDOWS\system32\wdmaud.drv (0x72D20000)
+C:\WINDOWS\system32\msacm32.drv (0x72D10000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\midimap.dll (0x77BD0000)
+C:\WINDOWS\system32\schannel.dll (0x767F0000)
+C:\WINDOWS\system32\dssenh.dll (0x68100000)
+c:\windows\system32\jscript.dll (0x63380000)
+C:\WINDOWS\system32\cryptnet.dll (0x75E60000)
+C:\WINDOWS\system32\WINHTTP.dll (0x4D4F0000)
+C:\WINDOWS\system32\Macromed\Flash\Flash9d.ocx (0x30000000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\system32\mshtmled.dll (0x42B90000)
+C:\WINDOWS\system32\ImgUtil.dll (0x1B000000)
+C:\WINDOWS\system32\pngfilt.dll (0x1B060000)
+C:\WINDOWS\system32\mscms.dll (0x73B30000)
+C:\WINDOWS\system32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\System32\ddrawex.dll (0x6D430000)
+C:\WINDOWS\System32\DDRAW.dll (0x73760000)
+C:\WINDOWS\System32\DCIMAN32.dll (0x73BC0000)
+C:\WINDOWS\system32\Dxtrans.dll (0x420C0000)
+C:\WINDOWS\system32\ATL.DLL (0x76B20000)
+C:\WINDOWS\system32\Dxtmsft.dll (0x35CB0000)
+C:\WINDOWS\system32\MSRATING.dll (0x42B40000)
+C:\WINDOWS\system32\ntshrui.dll (0x76990000)
+C:\WINDOWS\system32\LINKINFO.dll (0x76980000)
+C:\WINDOWS\system32\wuapi.dll (0x506A0000)
+C:\WINDOWS\system32\Cabinet.dll (0x75150000)
+======================================================
+
+Process ID: 5996 (OUTLOOK.EXE)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\Microsoft Office\Office12\OUTLOOK.EXE (0x30000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCR80.dll (0x78130000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\IMM32.dll (0x76390000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\credui.dll (0x76C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\Program Files\Microsoft Office\Office12\USP10.dll (0x6BD30000)
+C:\WINDOWS\system32\sockspy.dll (0x10000000)
+C:\WINDOWS\system32\ws2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\Program Files\Common Files\Microsoft Shared\office12\mso.dll (0x32600000)
+C:\WINDOWS\system32\msi.dll (0x7D1E0000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\Program Files\FlashGet\fgmgr.dll (0x00B30000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\System32\msimtf.dll (0x746F0000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+C:\Program Files\Microsoft Office\Office12\1033\OUTLLIBR.DLL (0x30C80000)
+C:\Program Files\Common Files\Microsoft Shared\OFFICE12\MSORES.DLL (0x01290000)
+C:\Program Files\Common Files\Microsoft Shared\office12\1033\MSOINTL.DLL (0x01900000)
+C:\WINDOWS\system32\mscoree.dll (0x79000000)
+C:\Program Files\Common Files\Microsoft Shared\office12\riched20.dll (0x3A780000)
+c:\progra~1\micros~2\office12\olmapi32.dll (0x38EE0000)
+c:\progra~1\micros~2\office12\1033\mapir.dll (0x34BB0000)
+C:\WINDOWS\system32\MSIMG32.dll (0x76380000)
+c:\progra~1\micros~2\office12\contab32.dll (0x38350000)
+c:\progra~1\micros~2\office12\mspst32.dll (0x38D70000)
+C:\Program Files\Common Files\Microsoft Shared\OFFICE12\MSPTLS.DLL (0x6BDC0000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\NTMARTA.DLL (0x77690000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\SAMLIB.dll (0x71BF0000)
+C:\Program Files\Microsoft Office\Office12\Intldate.dll (0x3A420000)
+C:\Program Files\Softwin\BitDefender10\bdo.dll (0x04670000)
+C:\WINDOWS\system32\MAPI32.dll (0x61DD0000)
+C:\WINDOWS\system32\XCOMM.dll (0x046A0000)
+C:\Program Files\Softwin\BitDefender10\BDGUICtl.dll (0x046D0000)
+C:\Program Files\Softwin\BitDefender10\bdutils.dll (0x04740000)
+C:\WINDOWS\system32\SHFOLDER.dll (0x76780000)
+C:\WINDOWS\system32\MFC71.DLL (0x7C140000)
+C:\WINDOWS\system32\MSVCR71.dll (0x7C340000)
+C:\WINDOWS\system32\MSVCP71.dll (0x7C3A0000)
+C:\Program Files\Softwin\BitDefender10\txmlx.dll (0x04750000)
+C:\Program Files\Softwin\BitDefender10\mimeinf.dll (0x04770000)
+C:\Program Files\Softwin\BitDefender10\bdch.dll (0x04780000)
+C:\Program Files\Softwin\BitDefender10\bdsubmit.dll (0x04790000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x047D0000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\MFC71ENU.DLL (0x5D360000)
+C:\Program Files\Softwin\BitDefender10\bwlist.dll (0x04820000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\Program Files\Softwin\BitDefender10\UnicoWS.dll (0x7F2D0000)
+C:\WINDOWS\system32\MPR.dll (0x71B20000)
+C:\WINDOWS\system32\WINSPOOL.DRV (0x73000000)
+C:\WINDOWS\system32\oledlg.dll (0x7DF70000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\AVICAP32.dll (0x73B80000)
+C:\WINDOWS\system32\MSVFW32.dll (0x75A70000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\rsaenh.dll (0x0FFD0000)
+C:\PROGRA~1\MICROS~2\Office12\ADDINS\COLLEA~1.DLL (0x39A40000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+c:\Program Files\Duden\Duden Korrektor\DK3.dll (0x11000000)
+C:\WINDOWS\system32\MSVBVM60.DLL (0x73420000)
+C:\WINDOWS\system32\VB6IT.DLL (0x66630000)
+c:\WINDOWS\system32\MBControls.ocx (0x05C10000)
+C:\WINDOWS\system32\HHCtrl.ocx (0x05D60000)
+C:\WINDOWS\system32\msxml4.dll (0x69B10000)
+C:\WINDOWS\system32\urlmon.dll (0x42CF0000)
+C:\PROGRA~1\COMMON~1\MICROS~1\OFFICE12\MSOXMLMF.DLL (0x38A70000)
+C:\WINDOWS\System32\mlang.dll (0x75CF0000)
+C:\WINDOWS\system32\SXS.DLL (0x75E90000)
+C:\PROGRA~1\MICROS~2\Office12\GRE698~1.DLL (0x65860000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveUtil.DLL (0x68EF0000)
+C:\PROGRA~1\MICROS~2\Office12\GrooveNew.DLL (0x68FF0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.ATL_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_6e805841\ATL80.DLL (0x7C630000)
+C:\PROGRA~1\MICROS~2\Office12\OMSMAIN.DLL (0x3D420000)
+C:\PROGRA~1\MICROS~2\Office12\ONBttnOL.dll (0x34DA0000)
+C:\Program Files\Adobe\Acrobat 7.0\PDFMaker\Mail\Outlook\PDFMOutlook.dll (0x06E30000)
+C:\Program Files\Adobe\Acrobat 7.0\PDFMaker\Common\AdobePDFMakerX.dll (0x06F50000)
+C:\WINDOWS\system32\mscms.dll (0x73B30000)
+C:\PROGRA~1\MICROS~2\Office12\ADDINS\UMOUTL~1.DLL (0x34E80000)
+C:\WINDOWS\WinSxS\x86_Microsoft.VC80.CRT_1fc8b3b9a1e18e3b_8.0.50727.42_x-ww_0de06acd\MSVCP80.dll (0x7C420000)
+C:\WINDOWS\system32\OLEACC.dll (0x74C80000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\Program Files\Microsoft Office\Office12\1033\UmOutlookStrings.dll (0x34EF0000)
+C:\WINDOWS\system32\MSCOMCTL.OCX (0x27580000)
+C:\WINDOWS\system32\asycfilt.dll (0x708F0000)
+c:\Program Files\Duden\Duden Korrektor\Register.dll (0x07BD0000)
+C:\Program Files\Common Files\SYSTEM\MSMAPI\1033\MSMAPI32.DLL (0x38ED0000)
+C:\WINDOWS\ime\sptip.dll (0x5C2C0000)
+C:\WINDOWS\IME\SPGRMR.DLL (0x07C80000)
+C:\Program Files\Common Files\Microsoft Shared\INK\SKCHUI.DLL (0x07CA0000)
+c:\progra~1\micros~2\office12\outlrpc.dll (0x38330000)
+c:\progra~1\micros~2\office12\exsec32.dll (0x38920000)
+C:\Program Files\Microsoft Office\Office12\wwlib.dll (0x31240000)
+C:\Program Files\Microsoft Office\Office12\oart.dll (0x3A9D0000)
+C:\Program Files\Microsoft Office\Office12\1033\wwintl.dll (0x33D00000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\Program Files\Common Files\Microsoft Shared\OFFICE11\msxml5.dll (0x78800000)
+C:\Program Files\Microsoft Office\Office12\MSOSTYLE.DLL (0x39E20000)
+C:\WINDOWS\system32\appHelp.dll (0x77B40000)
+C:\PROGRA~1\MICROS~2\Office12\GRA8E1~1.DLL (0x661C0000)
+C:\WINDOWS\System32\cscui.dll (0x77A20000)
+C:\WINDOWS\System32\CSCDLL.dll (0x76600000)
+C:\WINDOWS\system32\msfeeds.dll (0x42AA0000)
+C:\WINDOWS\system32\actxprxy.dll (0x71D40000)
+c:\progra~1\micros~2\office12\outlph.dll (0x34D70000)
+C:\WINDOWS\system32\WSOCK32.dll (0x71AD0000)
+C:\WINDOWS\System32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\DNSAPI.dll (0x76F20000)
+C:\WINDOWS\system32\rasadhlp.dll (0x76FC0000)
+C:\PROGRA~1\MICROS~2\Office12\OUTLMIME.DLL (0x38530000)
+C:\WINDOWS\system32\hnetcfg.dll (0x09CD0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+c:\progra~1\micros~2\office12\rtfhtml.dll (0x38450000)
+C:\Program Files\Microsoft Office\Office12\OUTLFLTR.DLL (0x34F00000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\idndl.dll (0x09FE0000)
+C:\WINDOWS\System32\msident.dll (0x608A0000)
+C:\WINDOWS\System32\msidntld.dll (0x60890000)
+C:\WINDOWS\system32\PSTOREC.DLL (0x5E0C0000)
+C:\WINDOWS\system32\ATL.DLL (0x76B20000)
+C:\WINDOWS\System32\msoeacct.dll (0x68810000)
+C:\WINDOWS\System32\MSOERT2.dll (0x76880000)
+C:\WINDOWS\System32\acctres.dll (0x71780000)
+C:\Program Files\Babylon\Babylon-Pro\CAPTLIB.DLL (0x02FA0000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\idle.dll (0x60300000)
+C:\Program Files\Microsoft Office\Office12\msproof6.dll (0x40390000)
+C:\Program Files\Common Files\Microsoft Shared\OFFICE12\OGL.DLL (0x3BD10000)
+C:\WINDOWS\system32\WTSAPI32.DLL (0x76F50000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+======================================================
+
+Process ID: 4968 (jetAudio.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\Program Files\JetAudio\jetAudio.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\Program Files\JetAudio\JetCfg.dll (0x10000000)
+C:\Program Files\JetAudio\jdl_ximage.dll (0x00630000)
+C:\Program Files\JetAudio\MFC42.DLL (0x5F400000)
+C:\WINDOWS\system32\MSVCRT.dll (0x77C10000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\COMCTL32.dll (0x773D0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x00330000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\sockspy.dll (0x00BF0000)
+C:\WINDOWS\system32\MFC42LOC.DLL (0x5FD00000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\WINDOWS\system32\Msimg32.dll (0x76380000)
+C:\Program Files\JetAudio\JetCrash.dll (0x00F80000)
+C:\Program Files\JetAudio\MSVCP60.dll (0x00FB0000)
+C:\Program Files\JetAudio\dbghelp.dll (0x02800000)
+C:\Program Files\FlashGet\fgmgr.dll (0x01140000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\RICHED32.DLL (0x732E0000)
+C:\WINDOWS\system32\RICHED20.dll (0x74E30000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\Program Files\JetAudio\JFEFFB3D.DLL (0x016D0000)
+C:\Program Files\JetAudio\JFEFFBBE.DLL (0x016E0000)
+C:\Program Files\JetAudio\JFEFFDRC.DLL (0x016F0000)
+C:\Program Files\JetAudio\JFEFFFX.DLL (0x01700000)
+C:\Program Files\JetAudio\JFEFFRVB.DLL (0x01820000)
+C:\Program Files\JetAudio\JFEFFWID.DLL (0x01830000)
+C:\Program Files\JetAudio\JFEFFXB.DLL (0x01840000)
+C:\Program Files\JetAudio\JFEFFEQ.DLL (0x01850000)
+C:\WINDOWS\system32\shfolder.dll (0x76780000)
+C:\WINDOWS\system32\WINTRUST.dll (0x76C30000)
+C:\WINDOWS\system32\CRYPT32.dll (0x77A80000)
+C:\WINDOWS\system32\MSASN1.dll (0x77B20000)
+C:\WINDOWS\system32\IMAGEHLP.dll (0x76C90000)
+C:\WINDOWS\system32\wdmaud.drv (0x72D20000)
+C:\WINDOWS\system32\msacm32.drv (0x72D10000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\midimap.dll (0x77BD0000)
+C:\WINDOWS\system32\wtsapi32.dll (0x76F50000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\Program Files\JetAudio\JXCDMan.dll (0x020F0000)
+C:\WINDOWS\system32\xpsp2res.dll (0x20000000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+C:\WINDOWS\system32\wmvcore.dll (0x15110000)
+C:\WINDOWS\system32\WMASF.DLL (0x11C70000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\System32\mlang.dll (0x75CF0000)
+C:\Program Files\JetAudio\JFAUDFP.DLL (0x02510000)
+C:\Program Files\JetAudio\JFWMARD.DLL (0x02530000)
+C:\Program Files\JetAudio\JFWAVOUT.DLL (0x02560000)
+C:\WINDOWS\system32\dsound.dll (0x73F10000)
+C:\WINDOWS\system32\KsUser.dll (0x73EE0000)
+C:\WINDOWS\system32\msdmo.dll (0x736B0000)
+C:\WINDOWS\system32\wmadmod.dll (0x11820000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\mfplat.dll (0x0BEF0000)
+C:\Program Files\JetAudio\JFEffSp.dll (0x027A0000)
+C:\Program Files\JetAudio\JXTag.dll (0x027B0000)
+C:\Program Files\JetAudio\jdl_id3lib.dll (0x03060000)
+======================================================
+
+Process ID: 1572 (eclipse.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\eclipseee\eclipse.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\COMCTL32.dll (0x5D090000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\MSVCRT.dll (0x77C10000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\sockspy.dll (0x10000000)
+C:\eclipseee\plugins\org.eclipse.equinox.launcher.win32.win32.x86_1.0.2.R331_v20071019\eclipse_1021.dll (0x72000000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\uxtheme.dll (0x5AD70000)
+C:\Program Files\FlashGet\fgmgr.dll (0x00A90000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+C:\Program Files\Java\jre1.6.0\bin\client\jvm.dll (0x6D7C0000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\MSVCR71.dll (0x7C340000)
+C:\Program Files\Java\jre1.6.0\bin\hpi.dll (0x6D310000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\Program Files\Java\jre1.6.0\bin\verify.dll (0x6D770000)
+C:\Program Files\Java\jre1.6.0\bin\java.dll (0x6D3B0000)
+C:\Program Files\Java\jre1.6.0\bin\zip.dll (0x6D7B0000)
+C:\Program Files\Java\jre1.6.0\bin\net.dll (0x6D570000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\Program Files\Java\jre1.6.0\bin\nio.dll (0x6D590000)
+C:\eclipseee\configuration\org.eclipse.osgi\bundles\334\1\.cp\swt-win32-3347.dll (0x04760000)
+C:\WINDOWS\WinSxS\X86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\COMCTL32.dll (0x773D0000)
+C:\WINDOWS\system32\comdlg32.dll (0x763B0000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\WININET.dll (0x42C10000)
+C:\WINDOWS\system32\Normaliz.dll (0x047B0000)
+C:\WINDOWS\system32\iertutil.dll (0x42990000)
+C:\Program Files\Babylon\Babylon-Pro\CAPTLIB.DLL (0x04D20000)
+C:\WINDOWS\system32\OLEACC.dll (0x74C80000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\idle.dll (0x60300000)
+C:\eclipseee\configuration\org.eclipse.osgi\bundles\35\1\.cp\os\win32\x86\localfile_1_0_0.dll (0x04D70000)
+C:\eclipseee\configuration\org.eclipse.osgi\bundles\334\1\.cp\swt-gdip-win32-3347.dll (0x05220000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.GdiPlus_6595b64144ccf1df_1.0.2600.2180_x-ww_522f9f82\gdiplus.dll (0x4EC50000)
+C:\WINDOWS\system32\xpsp2res.dll (0x05510000)
+C:\WINDOWS\system32\CLBCATQ.DLL (0x76FD0000)
+C:\WINDOWS\system32\COMRes.dll (0x77050000)
+C:\WINDOWS\System32\mlang.dll (0x75CF0000)
+C:\WINDOWS\system32\msimg32.dll (0x76380000)
+C:\WINDOWS\system32\mswsock.dll (0x71A50000)
+C:\WINDOWS\system32\hnetcfg.dll (0x662B0000)
+C:\WINDOWS\System32\wshtcpip.dll (0x71A90000)
+======================================================
+
+Process ID: 5896 (taskmgr.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\taskmgr.exe (0x01000000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\COMCTL32.dll (0x773D0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\VDMDBG.dll (0x5AD60000)
+C:\WINDOWS\system32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcGenral.DLL (0x6F880000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\sockspy.dll (0x10000000)
+C:\Program Files\FlashGet\fgmgr.dll (0x00AF0000)
+C:\WINDOWS\system32\SynTPFcs.dll (0x63000000)
+C:\WINDOWS\system32\MSCTF.dll (0x74720000)
+C:\WINDOWS\system32\msctfime.ime (0x755C0000)
+C:\WINDOWS\system32\WINSTA.dll (0x76360000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\UTILDLL.dll (0x5ADB0000)
+C:\WINDOWS\system32\TAPI32.dll (0x76EB0000)
+C:\WINDOWS\system32\rtutils.dll (0x76E80000)
+C:\WINDOWS\system32\SETUPAPI.dll (0x77920000)
+C:\WINDOWS\system32\mslbui.dll (0x605D0000)
+C:\Program Files\Babylon\Babylon-Pro\CAPTLIB.DLL (0x00ED0000)
+C:\WINDOWS\system32\OLEACC.dll (0x74C80000)
+C:\WINDOWS\system32\MSVCP60.dll (0x76080000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\idle.dll (0x60300000)
+C:\PROGRA~1\Yahoo!\MESSEN~1\MSVCR71.dll (0x7C340000)
+======================================================
+
+Process ID: 5256 (cmd.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\WINDOWS\system32\cmd.exe (0x4AD00000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ShimEng.dll (0x5CB70000)
+C:\WINDOWS\AppPatch\AcGenral.DLL (0x6F880000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\WINMM.dll (0x76B40000)
+C:\WINDOWS\system32\ole32.dll (0x774E0000)
+C:\WINDOWS\system32\OLEAUT32.dll (0x77120000)
+C:\WINDOWS\system32\MSACM32.dll (0x77BE0000)
+C:\WINDOWS\system32\VERSION.dll (0x77C00000)
+C:\WINDOWS\system32\SHELL32.dll (0x7C9C0000)
+C:\WINDOWS\system32\SHLWAPI.dll (0x77F60000)
+C:\WINDOWS\system32\USERENV.dll (0x769C0000)
+C:\WINDOWS\system32\UxTheme.dll (0x5AD70000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\sockspy.dll (0x10000000)
+C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll (0x773D0000)
+C:\WINDOWS\system32\comctl32.dll (0x5D090000)
+C:\WINDOWS\system32\Apphelp.dll (0x77B40000)
+======================================================
+
+Process ID: 4228 (PortQry.exe)
+
+Process doesn't appear to be a service
+
+
+Port Statistics
+
+TCP mappings: 0
+UDP mappings: 0
+
+
+Loaded modules:
+C:\PortQryV2\PortQry.exe (0x00400000)
+
+C:\WINDOWS\system32\ntdll.dll (0x7C900000)
+C:\WINDOWS\system32\kernel32.dll (0x7C800000)
+C:\WINDOWS\system32\USER32.dll (0x7E410000)
+C:\WINDOWS\system32\GDI32.dll (0x77F10000)
+C:\WINDOWS\system32\ADVAPI32.dll (0x77DD0000)
+C:\WINDOWS\system32\RPCRT4.dll (0x77E70000)
+C:\WINDOWS\system32\Secur32.dll (0x77FE0000)
+C:\WINDOWS\system32\WS2_32.dll (0x71AB0000)
+C:\WINDOWS\system32\msvcrt.dll (0x77C10000)
+C:\WINDOWS\system32\WS2HELP.dll (0x71AA0000)
+C:\WINDOWS\system32\WLDAP32.dll (0x76F60000)
+C:\WINDOWS\system32\NETAPI32.dll (0x5B860000)
+C:\WINDOWS\system32\iphlpapi.dll (0x76D60000)
+C:\WINDOWS\system32\PSAPI.DLL (0x76BF0000)
+C:\WINDOWS\system32\IMM32.DLL (0x76390000)
+C:\WINDOWS\system32\LPK.DLL (0x629C0000)
+C:\WINDOWS\system32\USP10.dll (0x74D90000)
+C:\WINDOWS\system32\sockspy.dll (0x10000000)
+
+========= end of log file ========= 
+
+  PortQry developed by Tim Rains

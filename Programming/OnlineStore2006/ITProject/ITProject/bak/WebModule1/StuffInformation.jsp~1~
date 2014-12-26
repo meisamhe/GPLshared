@@ -1,0 +1,74 @@
+<%@page contentType="text/html; charset=windows-1256"%>
+<html>
+  <head>
+    <title>StuffInformation</title>
+  </head>
+  <%@page import="java.sql.Connection"%>
+  <%@page import="java.sql.ResultSet"%>
+  <%@page import="java.sql.SQLException"%>
+  <%@page import="java.io.*"%>
+  <jsp:useBean id="MySqlObj" scope="page" class="jdbcMySql.MySqlConnector"/>
+  <jsp:setProperty name="MySqlObj" property="*"/>
+  <body>
+  <%
+    if (request.getParameter("StuffTable") != null && request.getParameter("StuffID") != null) {
+      String StuffTable;
+      String StuffID;
+      StuffTable = request.getParameter("StuffTable").toLowerCase();
+      StuffID = request.getParameter("StuffID").toLowerCase();
+      try {
+        Connection con = MySqlObj.getDbConnection("mani", "mbh", "3306", "localhost", "3m");
+        ResultSet rslt = MySqlObj.runSqlQuery("select * from " + StuffTable + " where ID=" + StuffID, con);
+        if (rslt.next()) {
+          FileOutputStream os = new FileOutputStream("/" + StuffTable + StuffID + ".jpg");
+          os.write(rslt.getBytes("PICTURE"));
+          os.close();
+  %>
+    <img alt="salam" src="<%= "/" + StuffTable + StuffID + ".jpg" %>">
+  <%
+    switch (StuffTable.charAt(0)) {
+    case 'b': //books
+      out.println("<br>" + "Name: " + rslt.getString("NAME") + "<br>");
+      out.println("WRITER: " + rslt.getString("WRITER") + "<br>");
+      out.println("PUBLISHER: " + rslt.getString("PUBLISHER") + "<br>");
+      out.println("EDITION: " + String.valueOf(rslt.getInt("EDITION")) + "<br>");
+      out.println("PUBLISHED_YEAR: " + String.valueOf(rslt.getInt("PUBLISHED_YEAR")) + "<br>");
+      out.println("ISBN: " + rslt.getString("ISBN") + "<br>");
+      out.println("PRICE: " + String.valueOf(rslt.getDouble("PRICE")) + "<br>");
+      out.println("DESCRIPTION: " + rslt.getString("DESCRIPTION") + "<br>");
+      out.println("<a href=\"buyBasket.jsp?StuffTable=" + StuffTable + "&StuffID=" + StuffID + "\">Add To Basket</a>");
+      break;
+    case 'c': //CDs
+      out.println("<br>" + "TITLE: " + rslt.getString("TITLE") + "<br>");
+      out.println("NAME: " + rslt.getString("NAME") + "<br>");
+      out.println("PUBLISHER: " + rslt.getString("PUBLISHER") + "<br>");
+      out.println("SERIAL_NUMBER: " + rslt.getString("SERIAL_NUMBER") + "<br>");
+      out.println("PRICE: " + String.valueOf(rslt.getDouble("PRICE")) + "<br>");
+      out.println("DESCRIPTION: " + rslt.getString("DESCRIPTION") + "<br>");
+      out.println("<a href=\"buyBasket.jsp?StuffTable=" + StuffTable + "&StuffID=" + StuffID + "\">Add To Basket</a>");
+      break;
+    case 's': //stationaries
+      out.println("<br>" + "TITLE: " + rslt.getString("TITLE") + "<br>");
+      out.println("NAME: " + rslt.getString("NAME") + "<br>");
+      out.println("MANUFACTURED_BY: " + rslt.getString("MANUFACTURED_BY") + "<br>");
+      out.println("PRICE: " + String.valueOf(rslt.getDouble("PRICE")) + "<br>");
+      out.println("DESCRIPTION: " + rslt.getString("DESCRIPTION") + "<br>");
+      out.println("<a href=\"buyBasket.jsp?StuffTable=" + StuffTable + "&StuffID=" + StuffID + "\">Add To Basket</a>");
+      break;
+    default:
+    } //end switch
+  %>
+  <%
+    } else { //end if (rslt.next())
+      out.println("Stuff is not correct.");
+    }
+    } catch (SQLException e) { //end try
+      e.printStackTrace();
+    }
+    catch (Exception ex) {
+      ex.printStackTrace();
+    }
+    } //end if
+  %>
+  </body>
+</html>

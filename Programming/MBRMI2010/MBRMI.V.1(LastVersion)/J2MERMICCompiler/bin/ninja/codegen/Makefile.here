@@ -1,0 +1,8 @@
+# This Makefile builds the actual RMI code (I changed jc to java)
+
+ROOT = .
+SUBDIRS = 
+
+SRC_JC = MethodDecomposer.java ParameterDecomposer.java ClassDecomposer.java TypeDecomposer.java
+
+include $(ROOT)/Make.rules

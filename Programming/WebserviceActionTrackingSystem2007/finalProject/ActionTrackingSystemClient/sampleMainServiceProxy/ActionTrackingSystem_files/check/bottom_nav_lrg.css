@@ -1,0 +1,63 @@
+#joinandFooter {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 702px; PADDING-TOP: 0px; HEIGHT: 70px
+}
+#joinEmailListLrg {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 15px 0px; FONT: bold 11px Arial, Verdana, Lucida, Helvetica, sans-serif; WIDTH: 702px; COLOR: #fff; PADDING-TOP: 0px; BORDER-BOTTOM: #d5ad68 1px solid; WHITE-SPACE: nowrap; HEIGHT: 30px
+}
+.floatleft {
+	FLOAT: left
+}
+.joinemail {
+	BORDER-RIGHT: #dddddd 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #dddddd 1px solid; PADDING-LEFT: 2px; PADDING-BOTTOM: 1px; MARGIN: 0px; FONT: 9px Arial, Helvetica, sans-serif; BORDER-LEFT: #dddddd 1px solid; COLOR: #666; PADDING-TOP: 1px; BORDER-BOTTOM: #dddddd 1px solid; BACKGROUND-COLOR: #eeeeee
+}
+A.joinemailGO {
+	BACKGROUND: url(../Nav/Images/bottomnav/botnav_lrg_go.gif) no-repeat 0px 0px; OVERFLOW: hidden; COLOR: #d5ae65; TEXT-DECORATION: none
+}
+A.joinemailGO:hover {
+	BACKGROUND-POSITION: 0px -13px; COLOR: #fff; BACKGROUND-REPEAT: no-repeat; TEXT-DECORATION: none
+}
+LABEL {
+	FONT: 11px Arial, Verdana, Lucida, Helvetica, sans-serif; COLOR: #fff
+}
+#bottomnavLrg {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; OVERFLOW: hidden; WIDTH: 702px; PADDING-TOP: 0px; HEIGHT: 10px
+}
+#bottomnavLrg UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+#bottomnavLrg LI {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#bottomnavLrg A {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FLOAT: left; PADDING-BOTTOM: 0px; OVERFLOW: hidden; PADDING-TOP: 10px; HEIGHT: 0px! important
+}
+#bottomnavLrg A:hover {
+	BACKGROUND-POSITION: 0px -12px
+}
+#bottomnavLrg LI.active {
+	BACKGROUND-POSITION: 0px -12px
+}
+#bottomnavLrg LI A.active {
+	BACKGROUND-POSITION: 0px -12px
+}
+#bottomnavLrg LI A.active:hover {
+	BACKGROUND-POSITION: 0px -12px
+}
+#stores A {
+	BACKGROUND: url(../Nav/Images/bottomnav/botnav_lrg_stores.gif) no-repeat left top; WIDTH: 47px; MARGIN-RIGHT: 54px
+}
+#catalog A {
+	BACKGROUND: url(../Nav/Images/bottomnav/botnav_lrg_catalog.gif) no-repeat left top; WIDTH: 60px; MARGIN-RIGHT: 54px
+}
+#advertising A {
+	BACKGROUND: url(../Nav/Images/bottomnav/botnav_lrg_advertising.gif) no-repeat left top; WIDTH: 90px; MARGIN-RIGHT: 54px
+}
+#thebrookscard A {
+	BACKGROUND: url(../Nav/Images/bottomnav/botnav_lrg_brookscard.gif) no-repeat left top; WIDTH: 125px; MARGIN-RIGHT: 54px
+}
+#help A {
+	BACKGROUND: url(../Nav/Images/bottomnav/botnav_lrg_help.gif) no-repeat left top; WIDTH: 33px; MARGIN-RIGHT: 63px
+}
+#aboutus A {
+	BACKGROUND: url(../Nav/Images/bottomnav/botnav_lrg_aboutus.gif) no-repeat left top; WIDTH: 66px
+}

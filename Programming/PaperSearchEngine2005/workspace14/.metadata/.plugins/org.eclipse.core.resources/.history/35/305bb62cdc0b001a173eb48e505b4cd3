@@ -1,0 +1,124 @@
+package Ritrival;
+
+import java.awt.BorderLayout;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.*;
+
+import Storage.FileIO;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
+import java.io.File;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Vector;
+
+public class ViewResault extends JFrame {
+    BorderLayout borderLayoutTop = new BorderLayout();
+    BorderLayout borderLayoutBottom = new BorderLayout();
+    JScrollPane jScrollPaneTop = new JScrollPane();
+    JScrollPane jScrollPaneBottom = new JScrollPane();
+    JSplitPane splitPane = new JSplitPane();
+    JPanel jPanelTop = new JPanel();
+    JPanel jPanelBottom = new JPanel();
+    FlowLayout flowLayout1 = new FlowLayout();
+    JTextArea jTextAreaDoc = new JTextArea();
+    private Set resSet=null;
+    private String path="";
+    private FileIO io=new FileIO();
+    public ViewResault(Set resSet,String path) {
+        this.resSet=resSet;
+        this.path=path;
+        try {
+            jbInit();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private void jbInit() throws Exception {
+        this.setTitle("Resaults Preview");
+        this.setBounds(250,150,300,400);
+        getContentPane().setLayout(borderLayoutTop);
+        jPanelBottom.setLayout(borderLayoutBottom);
+        jPanelTop.setLayout(flowLayout1);
+        splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        splitPane.setOneTouchExpandable(true);
+        jTextAreaDoc.setDoubleBuffered(true);
+        jTextAreaDoc.setEditable(false);
+        jTextAreaDoc.setText("");
+        jTextAreaDoc.setLineWrap(true);
+        jTextAreaDoc.setWrapStyleWord(true);
+        jScrollPaneTop.setVerticalScrollBarPolicy(JScrollPane.
+                                                  VERTICAL_SCROLLBAR_NEVER);
+        this.getContentPane().add(splitPane,BorderLayout.CENTER);
+//        this.getContentPane().add(jScrollPaneMain, java.awt.BorderLayout.CENTER);
+        splitPane.add(jScrollPaneTop,JSplitPane.TOP);
+        splitPane.add(jScrollPaneBottom,JSplitPane.BOTTOM);
+        jScrollPaneTop.getViewport().add(jPanelTop);
+        jScrollPaneBottom.getViewport().add(jPanelBottom);
+        jPanelBottom.add(jTextAreaDoc,BorderLayout.CENTER);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        initJLables();
+        splitPane.setDividerLocation(40);
+    }
+    private void initJLables(){
+        int num=resSet.size();
+        JLabel jl=null;
+        Iterator setIt=resSet.iterator();
+        for(int i=0;i<num;i++){
+            jl=new JLabel(((Integer)setIt.next()).toString());
+            jl.addMouseListener(new ViewResault_jLabel_mouseAdapter(this));
+            jPanelTop.add(jl);
+        }
+        resSet.clear();
+    }
+/*
+    public static void main(String[] args) {
+        Vector vctr=new Vector();
+        vctr.add(new Integer(1));
+        vctr.add(new Integer(2));
+        vctr.add(new Integer(3));
+        ViewResault viewresault = new ViewResault(vctr,"c:\\testhome\\");
+        viewresault.setVisible(true);
+    }
+*/
+    public void jLabel_mouseEntered(MouseEvent e) {
+        this.setCursor(Cursor.HAND_CURSOR);
+        ((JLabel)e.getSource()).setForeground(Color.BLUE);
+    }
+    public void jLabel_mouseExited(MouseEvent e){
+        this.setCursor(Cursor.DEFAULT_CURSOR);
+        ((JLabel)e.getSource()).setForeground(Color.BLACK);
+    }
+    public void jLabel_mouseClicked(MouseEvent e){
+        ((JLabel)e.getSource()).setForeground(Color.RED);
+        int temp=Integer.parseInt(((JLabel)e.getSource()).getText());
+        String doc=io.readFileAsString(new File(path+"document.txt"),temp);
+        jTextAreaDoc.setText(doc);
+    }
+
+}
+
+
+class ViewResault_jLabel_mouseAdapter extends MouseAdapter {
+    private ViewResault adaptee;
+    ViewResault_jLabel_mouseAdapter(ViewResault adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    public void mouseEntered(MouseEvent e) {
+        adaptee.jLabel_mouseEntered(e);
+    }
+    public void mouseExited(MouseEvent e){
+        adaptee.jLabel_mouseExited(e);
+    }
+    public void mouseClicked(MouseEvent e){
+        adaptee.jLabel_mouseClicked(e);
+    }
+}
+

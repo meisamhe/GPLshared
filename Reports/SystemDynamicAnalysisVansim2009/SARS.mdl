@@ -1,0 +1,110 @@
+Contact Between Infected and Uninfected People=
+	Probability of Contacs with Infected Person * Susceptible Contacts
+	~	
+	~		|
+
+Contact Frequency=
+	10
+	~	
+	~		|
+
+Infection Rate=
+	Infectivity*Contact Between Infected and Uninfected People
+	~	
+	~		|
+
+Infectivity=
+	0.05
+	~	
+	~		|
+
+Population Infected with SARS= INTEG (
+	Infection Rate,
+		1)
+	~	
+	~		|
+
+Population Susceptible to SARS= INTEG (
+	-Infection Rate,
+		800)
+	~	
+	~		|
+
+Probability of Contacs with Infected Person=
+	Population Infected with SARS/Total Population
+	~	
+	~		|
+
+Susceptible Contacts=
+	Contact Frequency*Population Susceptible to SARS
+	~	
+	~		|
+
+Total Population=
+	1000
+	~	
+	~		|
+
+********************************************************
+	.Control
+********************************************************~
+		Simulation Control Parameters
+	|
+
+FINAL TIME  = 50
+	~	Day
+	~	The final time for the simulation.
+	|
+
+INITIAL TIME  = 0
+	~	Day
+	~	The initial time for the simulation.
+	|
+
+SAVEPER  = 1
+	~	Day [0,?]
+	~	The frequency with which output is stored.
+	|
+
+TIME STEP  = 0.0625
+	~	Day [0,?]
+	~	The time step for the simulation.
+	|
+
+\\\---/// Sketch information - do not modify anything except names
+V300  Do not put anything below this section - it will be ignored
+*View 1
+$192-192-192,0,Times New Roman|12||0-0-0|0-0-0|0-0-255|-1--1--1|-1--1--1|96,96,100
+10,1,Population Susceptible to SARS,258,159,66,38,3,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+10,2,Population Infected with SARS,582,155,64,31,3,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+1,3,5,2,4,0,0,22,0,0,0,-1--1--1,,1|(472,155)|
+1,4,5,1,100,0,0,22,0,0,0,-1--1--1,,1|(369,155)|
+11,5,300,421,155,6,8,34,3,0,0,1,0,0,0
+10,6,Infection Rate,421,174,50,11,40,3,0,16,-1,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+10,7,Infectivity,359,51,36,11,8,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+1,8,7,5,1,0,0,0,0,64,0,-1--1--1,,1|(408,93)|
+10,9,Susceptible Contacts,214,293,41,19,8,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+10,10,Contact Frequency,107,357,37,19,8,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+10,11,Contact Between Infected and Uninfected People,437,343,84,28,8,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+10,12,Probability of Contacs with Infected Person,658,314,78,19,8,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+10,13,Total Population,754,377,57,11,8,3,0,16,0,0,0,0,0-0-0,0-0-0,|12|B|0-0-0
+1,14,1,9,1,0,0,0,0,64,0,-1--1--1,,1|(206,227)|
+1,15,9,11,1,0,0,0,0,64,0,-1--1--1,,1|(279,368)|
+1,16,10,9,1,0,0,0,0,64,0,-1--1--1,,1|(166,326)|
+1,17,11,6,1,0,0,0,0,64,0,-1--1--1,,1|(448,241)|
+1,18,2,12,1,0,0,0,0,64,0,-1--1--1,,1|(693,227)|
+1,19,12,11,1,0,0,0,0,64,0,-1--1--1,,1|(594,357)|
+1,20,13,12,1,0,0,0,0,64,0,-1--1--1,,1|(747,347)|
+///---\\\
+:L<%^E!@
+9:Current
+23:0
+15:0,0,0,0,0,0
+19:100,0
+27:2,
+34:0,
+4:Time
+5:Population Infected with SARS
+24:0
+25:50
+26:50

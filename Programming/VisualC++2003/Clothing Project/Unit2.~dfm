@@ -1,0 +1,78 @@
+object anbarForm: TanbarForm
+  Left = 192
+  Top = 114
+  BorderStyle = bsNone
+  Caption = 'Anbar'
+  ClientHeight = 566
+  ClientWidth = 792
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 256
+    Top = 32
+    Width = 225
+    Height = 33
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Anbar'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -19
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object addBtn: TButton
+    Left = 176
+    Top = 160
+    Width = 113
+    Height = 41
+    Caption = 'Add new cloth'
+    TabOrder = 0
+    OnClick = addBtnClick
+  end
+  object configureBtn: TButton
+    Left = 440
+    Top = 160
+    Width = 123
+    Height = 41
+    Caption = 'Change Information'
+    TabOrder = 1
+    OnClick = configureBtnClick
+  end
+  object insertBtn: TButton
+    Left = 176
+    Top = 272
+    Width = 113
+    Height = 41
+    Caption = 'Insert Cloth'
+    TabOrder = 2
+    OnClick = insertBtnClick
+  end
+  object reportBtn: TButton
+    Left = 448
+    Top = 280
+    Width = 115
+    Height = 33
+    Caption = 'Reports'
+    TabOrder = 3
+    OnClick = reportBtnClick
+  end
+  object backBtn: TButton
+    Left = 712
+    Top = 536
+    Width = 75
+    Height = 25
+    Caption = 'Back to main'
+    TabOrder = 4
+    OnClick = backBtnClick
+  end
+end

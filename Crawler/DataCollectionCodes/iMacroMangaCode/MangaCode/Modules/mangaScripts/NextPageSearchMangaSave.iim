@@ -1,0 +1,26 @@
+'============================================
+' Meisam Hjazi Nia
+' Manga Project Crawler Module to search each manga name
+'============================================
+SET !ERRORIGNORE YES
+SET savepath {{currworkDirect}}\DataOfMangaPrj\{{!NOW:ddmmyy}}\{{realizationPath}}\
+' no image to both reduce size and speed up
+FILTER Type=IMAGES STATUS=ON
+
+URL GOTO=http://www.amazon.com/s/ref=lp_4367_pg_2?rh=n%3A283155%2Cn%3A%211000%2Cn%3A4366%2Cn%3A4367&page={{pagenum}}&ie=UTF8&qid=1400713658&lo=stripbooks
+
+WAIT SECONDS=.5
+DS CMD=MOVETO X=450 Y=410
+DS CMD=MOVETO X=100 Y=410
+DS CMD=MOVETO X=450 Y=100
+DS CMD=MOVETO X=100 Y=100
+WAIT SECONDS=3
+'save the main page
+SAVEAS TYPE=CPL FOLDER={{savepath}} FILE=MangaMainRank_P{{pagenum}}_{{!NOW:ddmmyy_hhnnss}}.htm
+WAIT SECONDS=1
+SET  !EXTRACT {{!URLCURRENT}}
+
+'========================================
+' Termination is inside main page
+'==========================================
+

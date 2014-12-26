@@ -1,0 +1,52 @@
+salam Meisam
+ 
+az inke codet ro ferestadi mamnoonam vali:
+1. be ezaye file voroodiye zir kamtarin tedade dastoor ro nemide:
+ 
+A.TXT
+X:=A/B-C+A
+#
+ 
+B.TXT (OUTPUTE BARNAMEYE TO = 8 dastoor)
+LOAD R0,A
+LOAD R1,B
+DIV R2, R0, R1
+LOAD R0,C
+SUB R1, R2, R0
+LOAD R2,A
+ADD R0, R1, R2
+STORE X, R0
+ 
+B.TXT (OUTPUTE BARNAMEYE MAN = 7 dastoor)
+LOAD R0, A
+LOAD R1, B
+DIV R2, R0, R1
+LOAD R3, C
+SUB R4, R2, R3
+ADD R5, R4, R0
+STORE X, R5
+ 
+be nazaram nabayad register haye R0 va R1 ro pas az amale jam' avaz koni...chon momkene be dard bokhoran.
+ 
+in halat ro ham emtehan kardam...be nazaram yeki az khathaye khorooji javabe 
+dorost nemide:
+ 
+X:=A/B-C+A
+Y:=X/(E*F+G/H*(D-A)*I+E)-X
+#
+ 
+ye bakhshesh injooriye:
+.
+.
+.
+SUB R5, R1, R2
+MUL R1, R7, R7
+LOAD R2,I
+.
+.
+.
+ 
+felan
+ashkan
+ 
+PS: felan be hamin addresse yahoom email bede...chon gmailamo nemitoonam check konam

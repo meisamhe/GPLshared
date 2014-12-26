@@ -1,0 +1,72 @@
+#bottomMiddleNavTable {
+	WIDTH: 585px
+}
+#mainTable {
+	MARGIN-TOP: 8px; WIDTH: 713px
+}
+#leftNav {
+	WIDTH: 114px; PADDING-TOP: 15px; TEXT-ALIGN: left
+}
+#leftNav TABLE {
+	WIDTH: 118px
+}
+#rightContent {
+	PADDING-LEFT: 15px; WIDTH: 584px
+}
+#breadCrumb {
+	MARGIN-TOP: 0px
+}
+#leftNav A {
+	FONT-SIZE: 10px; COLOR: white; TEXT-DECORATION: none
+}
+#leftNav A:hover {
+	COLOR: #d5ae65
+}
+.navActive {
+	FONT-WEIGHT: bold; COLOR: #d5ae65
+}
+#leftNav IMG {
+	MARGIN-RIGHT: 6px
+}
+#leftNav TD {
+	PADDING-LEFT: 0px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px
+}
+#leftNavSectionImage {
+	MARGIN-BOTTOM: 5px; PADDING-BOTTOM: 5px; WIDTH: 100px; BORDER-BOTTOM: #d5ae65 1px solid
+}
+.subNav {
+	DISPLAY: none; MARGIN-LEFT: 7px
+}
+.subNav TD {
+	PADDING-RIGHT: 1px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px
+}
+BODY #leftNav .subNav {
+	PADDING-RIGHT: 0px; WIDTH: 110px
+}
+.mainNav {
+	COLOR: #ffffff
+}
+.mainNavActive {
+	COLOR: #d5ae65
+}
+#rightContentInnerBox {
+	BORDER-RIGHT: #d5ae65 1px solid; BORDER-TOP: #d5ae65 1px solid; BORDER-LEFT: #d5ae65 1px solid; BORDER-BOTTOM: #d5ae65 6px solid; BACKGROUND-COLOR: white
+}
+.outfitHeadline {
+	FONT-WEIGHT: bold; COLOR: #192238; PADDING-TOP: 17px
+}
+.featuredOutfitInactive {
+	BORDER-RIGHT: white 2px solid; BORDER-TOP: white 2px solid; BORDER-LEFT: white 2px solid; BORDER-BOTTOM: white 2px solid
+}
+.featuredOutfit {
+	BORDER-RIGHT: #222e4b 2px solid; BORDER-TOP: #222e4b 2px solid; BORDER-LEFT: #222e4b 2px solid; BORDER-BOTTOM: #222e4b 2px solid
+}
+#leftNavBottomPadder {
+	MARGIN-TOP: 20px
+}
+.rightContentInnerBoxDefaultPadding {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 15px; PADDING-BOTTOM: 15px; PADDING-TOP: 15px
+}
+.rightContentTableMaxWidth {
+	WIDTH: 554px
+}

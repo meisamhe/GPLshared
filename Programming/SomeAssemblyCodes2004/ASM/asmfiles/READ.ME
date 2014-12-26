@@ -1,0 +1,136 @@
+
+                                           
+                              About the Diskette
+
+
+                This diskette contains both the .ASM and .COM versions of all 
+        the end-of-chapter examples in the book Advanced Assembly Language for 
+        the IBM PC. In the order they appear in both the book and on the 
+        diskette, these programs are: LOCK, UNLOCK, KEEPER, DIREX, PHOTO, 
+        CACHE, and LOCATE. In general, the use of these programs is kept 
+        straightforward, making the programs easy to use. Here is an overview 
+        of each program.
+        
+        LOCK and UNLOCK
+        
+                This pair of programs let you encrypt files with medium 
+        security (a determined specialist was able to break the code in about 
+        28 hours of steady effort). To use them to lock a file named FILE.EXT, 
+        just type "LOCK FILE.EXT FILE.SBL", where FILE.SBL will be the 
+        scrambled version of the file. If you do not supply a second file name, 
+        LOCK will name the file FILE.LOC. 
+                LOCK will ask you to type a pass-phrase. Once you do, the file 
+        will be encoded from a key made from the ASCII characters in the 
+        phrase. To decode the file, type "UNLOCK FILE.SBL FILE.EXT", and 
+        FILE.EXT will be regenerated. Be sure you type the SAME pass-phrase. 
+                It is possible to double the security by encoding an 
+        already-encoded file a second time, but make sure to use the 
+        pass-phrases in reverse order of application.
+                                             
+
+        KEEPER
+        
+                KEEPER stores your DOS commands and lets you recall them. As 
+        KEEPER.ASM is set up on the diskette, it uses ^N as a trigger key. To 
+        install KEEPER, just run KEEPER.COM. If you want to recall some 
+        previous DOS command, type a ^N. A reverse-video window will appear on 
+        the screen with the last eight DOS commands. Using the cursor keys, you 
+        can make the command you want to recall blink. When you type another 
+        ^N, the command is re-entered at DOS level and the window disappears. 
+        If you don't want to choose any of the available commands, leave the 
+        blinking cursor on the bottom line and type ^N. No DOS command will be 
+        entered.
+                If you want to use a trigger key other than ^N, enter the scan 
+        and ASCII codes of your trigger key into KEEPER.ASM in the one location 
+        indicated and reassemble KEEPER.
+        
+                
+        DIREX
+        
+                This utility is a directory manager. It has seven commands, 
+        which appear on the bottom of the screen for reference. The rest of the 
+        screen is filled with the file names of the current subdirectory. To 
+        use DIREX, move the reverse-video cursor that highlights file names 
+        around the screen with the cursor keys. You can select a number of 
+        files and perform an operation on them en masse (protecting, deleting, 
+        copying, etc.). To mark a files for further work, move the cursor to 
+        their name and press the space bar. The file name will stay highlighted 
+        when you move the cursor away. This file has now been marked. To unmark 
+        a file, move the cursor to its name and press the space bar again.
+                After you have marked the files, you can delete them all at 
+        once with the D command, protect them as read-only with P, unprotect 
+        them with U, or copy them to a new path with C. When you press C, DIREX 
+        asks you for the path name the files are to be copied to (e.g., B: or 
+        C:\ARCHIVE). You can work on the files in any subdirectory by using the 
+        N, or new directory command. When you press N, DIREX will ask you for a 
+        new path name to make the default. To quit, use Q.
+                                                        
+
+        PHOTO
+
+                This utility is a small screen manager. It is a memory-resident 
+        program that allows you to capture screens for later use, or to recall 
+        a few select screens that you have created yourself. For example, if 
+        you are assembling a file and there are some errors, you can save the 
+        screen (with ^N as PHOTO.COM is set up), edit the file, and then, while 
+        still in your editor, recall the screenful of errors with another key 
+        (^F as PHOTO.COM is set up). Once the recalled screen is displayed, 
+        touching any key restores the screen to its original condition (i.e., 
+        before you pushed ^N). 
+                You can also install up to three of your own screens in memory, 
+        to be recalled with other control characters (^A, ^B, and ^C as 
+        PHOTO.COM is set up). When PHOTO.COM is run, it searches for the three 
+        files A.DAT, B.DAT, and C.DAT, in that order. Each file should be 
+        exactly 2000 bytes long. If they are not there, PHOTO will still run 
+        without problem. If, however, they are there, they are loaded into 
+        memory to be recalled at will. On this diskette is a sample file, 
+        A.DAT, with a screenful of ASCII codes that can be recalled at any time 
+        (by pressing ^A). To install your own trigger keys, simply enter the 
+        correct scan and ASCII codes as marked in PHOTO.ASM and reassemble the 
+        program.
+                
+
+        CACHE
+        
+                This program is a write-through disk cache system. It stores 
+        the most frequently used sectors in memory. The next time these sectors 
+        are read by some program, CACHE supplies them from memory instead of 
+        reading them from the disk. It is a "write-through" cache because as 
+        sectors get written, their copies in memory are updated as well.
+                This system is different from the buffers DOS uses, since the 
+        buffers are flushed when a program exits. With CACHE, you can go 
+        through the edit, assemble, and link cycle many times and save time 
+        each time you do since CACHE always stays in memory. 
+                As CACHE.COM is set up, it will store up to 64 sectors in 
+        memory. You can change this by changing the one marked location in 
+        CACHE.ASM (the minimum is 24 and the maximum is 124).
+        
+
+        LOCATE
+
+                LOCATE tries to find character strings in files. If you type 
+        "LOCATE This is a test.", LOCATE will try to find the character string 
+        in all the files in the current subdirectory. If a match is made 
+        (LOCATE is case-sensitive), the name of the file and the line in which 
+        the match was found are both printed out.
+                Besides searching the current subdirectory, you can have LOCATE 
+        search other directories as you require. To do this, place a file named 
+        PATH.DAT in the main directory of the current disk. In this file, place 
+        the names of the other paths you want LOCATE to search. Terminate each 
+        path name, even the last one, with a <cr> <lf>. Here is a sample 
+        PATH.DAT:
+        
+                                A:
+                                \ARCHIVE
+                                \RECORDS
+        
+        LOCATE will read in PATH.DAT and search all the files in those paths 
+        for the specified string as well.
+
+
+        
+
+
+
+
+

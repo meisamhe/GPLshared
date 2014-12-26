@@ -1,0 +1,102 @@
+package jdbcMySql;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class MySqlConnector {
+	private Connection mySql;
+	
+	public Connection getDbConnection(String user, String pass, String port,
+			String host, String sid) {
+		if (mySql == null) {
+			String mySqlDriver = "com.mysql.jdbc.Driver";// URI of driver class
+														// in driver jar file
+			Connection mySql = null;
+			String url = "jdbc:mysql://" + host + ":" + port + "/" + sid;
+			System.out.println(url);
+			try {
+				Class.forName(mySqlDriver);
+				mySql = DriverManager.getConnection(url, user, pass);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return mySql;
+		} else {
+			return mySql;
+		}
+	}
+	
+	/**
+	 * this class will return the result of your query in a result set.
+	 * @param sql: this parameter is your sql query string.
+	 * @param mySql: this parameter is your connection object;
+	 * @return this class will return ResultSet object.
+	 */
+	 
+	public ResultSet runSqlQuery(String sql,Connection mySql){		
+		if(mySql==null)
+			return null;
+		PreparedStatement pstmt=null;
+		ResultSet rslt=null;
+		try {
+			pstmt=mySql.prepareStatement(sql);
+			rslt=pstmt.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("runSqlQuery failed ->"+e.getMessage());
+
+		}
+		return rslt;
+	}
+	/**
+	 * 
+	 * @param sql : sql statement for insert,update or delete.
+	 * @param mySql : mySql database connection object.
+	 * @return if it returns -1 it means that there is no sql statement, 
+	 * 		   if it returns 0 means no rows updated,inserted or deleted,
+	 * 		   if it returns more than zero means the number of updated,inserted or deleted.
+	 */
+	public int runSqlDDL(String sql,Connection mySql){		
+		int res=-1;
+		if(mySql==null)
+			return res;
+		PreparedStatement pstmt=null;
+		try {
+			pstmt=mySql.prepareStatement(sql);
+			res=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("runSqlQuery failed ->"+e.getMessage());
+
+		}
+		return res;
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		MySqlConnector us = new MySqlConnector();
+		Connection con = us.getDbConnection("mani", "mbh", "3306", "localhost",
+				"3m");
+		ResultSet rslt=us.runSqlQuery("select * from users", con);
+		try {
+			rslt.next();
+			System.out.println(rslt.getString(4));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//Users usr=new Users(con);
+		Stationaries st=new Stationaries(con);
+		st.insert("ketab", "amir kabir", 2000, 50, "ketabe khobie");
+		//System.out.println(usr.insert("Meisam", "Hejazi nia","meisam","mbh",2000,"meysam@yahoo.com",'M',
+		//		"tehran","4416",'Y',"","2007-01-27","2007-03-27","2007-01-27"));
+		//System.out.println(usr.update(1, "L_NAME='HOSSEINI JAN'"));
+	}
+
+}

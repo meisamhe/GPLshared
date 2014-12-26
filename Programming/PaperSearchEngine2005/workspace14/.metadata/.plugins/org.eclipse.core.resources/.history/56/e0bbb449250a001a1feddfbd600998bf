@@ -1,0 +1,40 @@
+/*
+ * Created on Aug 11, 2005
+ *
+ * TODO To change the template for this generated file go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+package Storage;
+
+import java.io.File;
+
+/**
+ * @author ManiBH
+ *
+ * TODO To change the template for this generated type comment go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+public class MergeCluster {
+	int docDocTreeNum;//tedade file haye doc az sefr shoro mishavad
+	String path;
+	MergeCluster(int docDocTreeNum,String path){
+		this.docDocTreeNum=docDocTreeNum;
+		this.path=path;
+	}
+	public void merge(){
+		int size=0;
+		while(docDocTreeNum>=0){
+			File test=new File(path+docDocTreeNum+".txt");
+			if(test.length()==0){
+				docDocTreeNum--;
+				continue;
+			}
+			System.out.println("mani");
+			
+		}
+	}
+	public static void main(String[] args){
+		MergeCluster mc=new MergeCluster(3,"c:\\testhome\\");
+		mc.merge();
+	}
+}

@@ -1,0 +1,58 @@
+
+package Storage;
+
+import java.io.File;
+import java.util.HashMap;
+
+public class Test {
+
+	
+	public Test() {
+		super();
+	}
+
+	public static void main(String[] args) {
+		FileIO io=new FileIO();
+		String path="C:\\testhome\\";
+		String GeneralFileJmpPath=(path+"generalJmp.txt");
+		String GeneralFileTriePath=(path+"generalTrie.txt");
+		String GeneralFileLevelPath=(path+"generalLevel.txt");
+		String docTermFile=path+"docTermFile.txt";
+		String workHashFile=path+"workHashFile.txt";
+		String WorkFileJmpPath=(path+"WorkJmp.txt");
+		String WorkFileTriePath=(path+"WorkTrie.txt");
+		String WorkFileLevelPath=(path+"WorkLevel.txt");
+		try{
+//			PreInitialize pre = new PreInitialize(new File(path+"doc1.txt"),
+//			io.createFile(path+"stemming.txt"),new File(path+"Lexical.txt"),"<p>");
+//			Trie workTrie = new Trie(60,GeneralFileJmpPath,GeneralFileTriePath,GeneralFileLevelPath);
+//			Trie generalTrie = new Trie(60,WorkFileJmpPath,WorkFileTriePath,WorkFileLevelPath);
+//			HashMap wordsHash = new HashMap();
+//			HashMap workHash = new HashMap();
+//			Initialize init= new Initialize(new File(path+"stemming.txt"),
+//					io.createFile(path+"termDoc.txt"),io.createFile(path+"termHashFile.txt")
+//					,io.createFile(docTermFile),io.createFile(workHashFile),
+//					wordsHash,workHash,generalTrie,workTrie);
+			
+			//Vector man=io.readSparceAsVector(new File(path+"stemming.txt"),5);
+			//float goz=io.searchSparceForFreq(new File(path+"stemming.txt"),13,3);
+			//System.out.println(goz);
+//			PostInitialize ps=new PostInitialize(0.5f,new File(docTermFile));
+			System.out.println("12345".substring(2));
+		}
+		catch(Throwable e){
+			System.out.println(e.getMessage());
+		}
+		finally{
+			System.exit(0);
+		}	
+		
+//		Golomb gb=new Golomb(1024);
+//		BitSet bs=new BitSet();
+//		gb.add(1024,bs);
+//		int size=bs.length();
+//		System.out.println(gb.toString(bs));
+//		System.out.println(gb.contains(gb.retrive(gb.toString(bs),size)).toString());
+		
+	}
+}

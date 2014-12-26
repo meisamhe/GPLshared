@@ -1,0 +1,709 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+
+<!-- START DOCUMENT HEADER --><HEAD>
+ <TITLE>Meisam Hejazinia [Amirkabir University of technology]</TITLE>
+ 
+
+<LINK REV="home" href="http:// ce.aut.ac.ir"/>
+
+
+<META http-equiv="Content-Location" href="http://ce.aut.ac.ir"/>
+<META http-equiv="URI" href="http://ce.aut.ac.ir"/>
+
+ 
+ <link HREF="/bccrc.css" rel="stylesheet" type="text/css"/> 
+ <LINK REL="SHORTCUT ICON" href="/bcca.ico"/><Script Language="JavaScript">
+<!--
+function red(){
+	document.body.style.backgroundColor="red";
+	
+}
+function green(){
+	document.body.style.backgroundColor="green";
+}
+function blue(){
+	document.body.style.backgroundColor="blue";
+}
+/*function getCookie(name) {
+	if (document.cookie.length > 0) { //at least one cookie present
+	var searchField = name + "=";
+	var offset = document.cookie.indexOf(searchField);
+	if (offset != -1) { //if "memName=" found
+	offset += searchField.length; //index set to after "="
+	end = document.cookie.indexOf(";", offset) //end set to next cookie
+	if (end == -1) { //if end of cookie	not found
+	end = document.cookie.length; //replace –1 with end of all
+	}
+	return document.cookie.substring(offset,end);
+	} else {
+	document.cookie=cookie = document.cookie.substring(0,document.cookie.length)+";"+ name+"="+"0" + ";";
+	alert(document.cookie+"00000"+cookie);
+	//cookie not found
+	}
+	} else { //no cookies present
+	document.cookie =cookie= document.cookie.substring(0,document.cookie.length)+";"+ name+"="+"0" + ";";
+	alert(document.cookie+"000000"+cookie);
+	return 'null';
+	}
+}
+function setoneCookie(name, value) {
+	if (document.cookie.length > 0) { //at least one cookie present
+	var searchField = name + "=";
+	var offset = document.cookie.indexOf(searchField);
+	var cookie = getCookie("username");
+	if (offset != -1) { //if "memName=" found
+		offset += searchField.length; //index set to after "="
+		end = document.cookie.indexOf(";", offset) //end set to next cookie
+		if (end == -1) { //if end of cookie	not found
+			end = document.cookie.length; //replace –1 with end of all
+		}
+		cookie = document.cookie.substring(0,offset)+ value + ";"+
+			document.cookie.substring(end, document.cookie.length );
+	} else {
+	//cookie not found
+		cookie = name + "=" + value + ";";
+		}
+	} else { //no cookies present
+		cookie= name + "=" + value + ";";
+	}
+	document.cookie = cookie;
+	alert(cookie+"/n"+ document.cookie);
+}*/
+function getCookie(name) 
+     { 
+       var start = document.cookie.indexOf(name+"="); 
+       var len = start+name.length+1; 
+       if ((!start) && (name!=document.cookie.substring(0,name.length))) 
+	return null; 
+        if (start == -1) return null; 
+        var end = document.cookie.indexOf(";",len); 
+        if (end == -1) end = document.cookie.length; 
+        return unescape(document.cookie.substring(len,end)); 
+      } 
+function delCookie(name) 
+	{ 
+	  var expireNow = new Date(); 
+	  document.cookie = name + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT" + "; path=/"; 
+	} 
+function setCookie(name,value,expires,path,domain,secure) 
+{ 
+ 	document.cookie = name + "=" +escape(value) +
+ 	( (expires) ? ";expires=" + expires.toGMTString() : "") + 
+ 	( (path) ? ";path=" + path : "") + 
+ 	( (domain) ? ";domain=" + domain : "") + 
+ 	( (secure) ? ";secure" : ""); 
+} 
+function showcookie(){
+	delCookie("username");
+	var username = getCookie("username");
+	if ((!username)||(username=='null'))
+	{username = prompt("Please enter your name:", "");setCookie("username",username);setCookie("counter","0");}
+	if (username) { 
+	document.write(username); 
+	setCookie("username",username);
+	} 
+}
+function changename(){
+	var username = getCookie("username");
+	username = prompt("Please enter your name:", "");
+	setCookie("username", username);
+	var visists= getCooke("counter");
+	counter="0";
+	setCookie("counter",visits);
+}
+
+function VisitCounter(){
+	var visits = getCookie("counter");
+	if (!visits) { visits = 1; 
+	document.write("By the way, this is your first time here.");
+	} 
+	else { 
+	visits = parseInt(visits) + 1; 
+	document.write("I note, you have been here " + visits + " times.");}
+	setCookie("counter", visits);
+}
+function SendOne()
+{
+	document.EmailMe.submit();
+}
+-->
+</Script>
+<script LANGUAGE="JAVASCRIPT" SRC="BackForwardNew.js">
+<!--//
+//--></script>
+<script
+LANGUAGE="JAVASCRIPT">
+<!--//
+var myMonths=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+var myDays= new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday");
+today=new Date();
+thisDay=myDays[today.getDay()]
+thisMonth=myMonths[today.getMonth()]
+thisYear=today.getFullYear()
+thisDate=today.getDate()
+switch (thisDate) {
+case 1:
+dateSuffix="st"
+break
+case 21:
+dateSuffix="st"
+break
+case 31:
+dateSuffix="st"
+break    
+case 2:  
+dateSuffix="nd"  
+break    
+case 22:
+dateSuffix="nd"
+break;   
+case 3:
+dateSuffix="rd"  
+break     
+case 23:
+dateSuffix="rd"  
+break      
+default:   
+dateSuffix="th"
+}
+todaysDate=thisDay+", "+thisDate+dateSuffix+" "+thisMonth+" "+thisYear
+function myClock(){
+today=new Date()
+var theHours=today.getHours()
+if (theHours>11)
+{
+theTimeSuffix="PM"
+}
+if (theHours>12)
+var theHours=theHours-12
+else
+{
+theTimeSuffix="AM"
+}
+var theMinutes=today.getMinutes()
+if (theMinutes<10)
+var theMinutes="0"+theMinutes
+var theSeconds=today.getSeconds()
+if (theSeconds<10)
+var theSeconds="0"+theSeconds
+var theTimeNow=theHours+":"+theMinutes+":"+theSeconds+" "+theTimeSuffix
+document.formTime.textTime.value=theTimeNow
+}
+var clockWork=setInterval("myClock()",1000)
+//-->
+</script>
+ </HEAD>
+<!-- END DOCUMENT HEADER -->
+
+<BODY background="#666699"  marginwidth="10" marginheight="10" topmargin="10" leftmargin="10"><BASEFONT face="Verdana" size=""><font face="Verdana">
+
+<!-- PAGE HEADER Start -->
+<FORM class="nospace" method="get" action="/cgi/search.pl" name="searchform">
+
+<!--  <DIV id="pageHeader"> -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+
+<tr><!-- Row B - Divider -->
+<td colspan="7" bgcolor="#000066"><img src="/images/common/empty.gif" width="1" height="1"/></td>
+</tr>
+
+<tr><!-- Row B - Divider -->
+<td bgcolor="#000066" rowspan="9"><img src="/images/common/empty.gif" width="1" height="1"/></td>
+<td bgcolor="#DDDDDD" colspan="5"><img src="/images/common/empty.gif" width="1" height="1"/></td>
+<td bgcolor="#000066" rowspan="9"><img src="/images/common/empty.gif" width="1" height="1"/></td>
+</tr>
+
+<tr><!-- Row A - BCCRC -->
+<td width="10" bgcolor="#DDDDDD"><img src="/images/common/empty.gif" width="10" height="1"/></td>
+<td bgcolor="#DDDDDD"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><A class="homelink" href="/index.html" title="Meisam hejazynia Homepage"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">Welcome to Meisam Hejazynia's Home page 
+      <script type="text/javascript"> showcookie()</script> 
+</A></font></td>
+<td width="10" bgcolor="#DDDDDD"><img src="/images/common/empty.gif" width="10" height="1"/></td>
+<td bgcolor="#DDDDDD" align="right"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><INPUT id="searchInput" size="25" name="find" value="">&nbsp;<input id="searchButton" type="submit" value="Search"/></font>
+</td>
+<td width="10"  bgcolor="#DDDDDD"><img src="/images/common/empty.gif" width="10" height="1"/></td>
+</tr>
+
+<tr><!-- Row B - Divider -->
+<td colspan="5" bgcolor="#000066"><img src="/images/common/empty.gif" width="1" height="1"/></td>
+</tr>
+
+<tr><td colspan="5">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#DDDDDD">
+        <tr> 
+          <td align="left"><a href="/index.html" title="BC Cancer Research Centre Home Page" class="nohilite"><img  src="index/arm2.jpg" width="78" height="81" border="0" ></a></td>
+          <td align="center">
+<!-- START Left Ad Cell -->
+&nbsp;
+<!-- END Left Ad Cell -->
+</td>
+          <td align="right">
+<!-- START Middle Ad Cell -->
+<!--
+<div style="padding: 3px; border: 1px solid black; background: #FFFF99; text-align: center;">
+<font size="1">Research Assistant <br><a href="/ce/training.html" title="Cancer Endocrinology Job Posting">Job Opening</a><br>Cancer Endocrinology</font>
+</div>
+-->
+<!-- END Middle Ad Cell -->
+</td>
+<td align="center">
+<!-- START Right Ad Cell -->
+<a href="http://ce.aut.ac.ir" title="Amirkabir University of technology"><img  src="index/autice.gif" width="157" height="72" border="0"/></a>
+<!-- END Right Ad Cell --></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</td></tr>
+
+
+<tr><!-- Row F - Divider -->
+<td colspan="5" bgcolor="#000066"><img src="/images/common/empty.gif" width="1" height="1"></td>
+</tr>
+<tr><!-- Row F - Divider -->
+<td colspan="5" bgcolor="#DDDDDD"><img src="/images/common/empty.gif" width="1" height="1"></td>
+</tr>
+
+<tr><!-- Row G - You are Here -->
+<td colspan="5" bgcolor="#DDDDDD"><font size="1" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;</font>
+<DIV id="youarehere"><font size="1" face="Verdana, Arial, Helvetica, sans-serif"><B>Meisam Hejazinia </B></font></DIV>
+</td>
+</tr>
+
+<tr><!-- Row F - Divider -->
+<td colspan="5" bgcolor="#DDDDDD"><img src="/images/common/empty.gif" width="1" height="1"></td>
+</tr>
+<tr><!-- Row H - Divider -->
+<td colspan="5" bgcolor="#000066"><img src="/images/common/empty.gif" width="1" height="2"></td>
+</tr>
+
+</table>
+</FORM>
+
+<!-- PAGE HEADER End -->
+
+<!--  <DIV class="clearall"/> -->
+
+<!-- START MAIN BODY TABLE -->
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr valign="top">
+
+<td><table width="100%" cellpadding="0" cellspacing="0" border="0">
+
+
+
+
+<tr><td bgcolor="#487FBA"><table align="right" cellpadding="0" cellspacing="0" border="0"><tr><td align="right" bgcolor="#FFFFFF" class="deptccr"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;Computer and IT Research&nbsp;</font></td></tr></table></td></tr>
+
+
+<tr><td bgcolor="#000000">
+<table width="100%" cellpadding="10" cellspacing="1" border="0"><tr><td bgcolor="#FFFFFF">
+<font size="2" face="Verdana, Arial, Helvetica, sans-serif">
+<!--  Personal -->
+  <!-- Page Title START -->
+  <p>Hello. Today is: <script LANGUAGE="JAVASCRIPT">
+<!--//
+document.write(todaysDate)
+//-->
+</script> </p>
+<form NAME="formTime" METHOD="POST" ENCTYPE="TEXT/PLAIN">
+  <p><input TYPE="TEXT" NAME="textTime" SIZE="25" MAXLENGTH="25"> <br>
+  </p>
+</form>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td><img src="/images/common/empty.gif" width="300" height="1"></td></tr>
+<tr><td width="100%" bgcolor="#990000"><img src="/images/common/empty.gif" width="300" height="1"></td></tr>
+<tr><td><img src="/images/common/empty.gif" width="300" height="1"></td></tr>
+<tr><td width="100%" bgcolor="#990000"><img src="/images/common/empty.gif" width="300" height="1"></td></tr>
+<tr><td><img src="/images/common/empty.gif" width="300" height="1"></td></tr>
+</table>
+  <!-- Page Title END -->
+  <!-- Content START -->
+                                       <!-- Bio Template START -->
+<table align="right" width="1%" border="0" cellpadding="0" cellspacing="0">
+<tr><td bgcolor="#000000">
+<table width="100%" border="0" cellpadding="3" cellspacing="1"> 
+<tr><td bgcolor="#FFFFFF"><font size="2">
+  <IMG src="index/DSC022311.jpg" width="210" height="158"><br/>
+  
+</font></td></tr></table>
+</td></tr></table>
+</font>
+<DIV id="bioInternet"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><A href="mailto:meisam.hejazynia@gmail.com" class="email" title="Send email to meisam.hejazynia@gmail.com"><IMG src="/images/common/mailto.gif" BORDER="0" width="14" height="10" alt="Send email to meisam.hejazynia@gmail.com">&nbsp;meisam.hejazinynia@gmail.com</A><BR>
+</font></DIV>
+<font size="2" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;</font><DIV id="bioTitle"><UL><LI><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Diploma from Highschool of Allame Helli in 2001,Boronz medal in Internal Mathematic Olympiad ,2001</font></LI><LI><font size="2" face="Verdana, Arial, Helvetica, sans-serif">First year of University in Ferdowsi University of Mashhad, 2003</font></LI>
+  <LI><font size="2">BS degree in Information technology 2007 </font></LI>
+  <LI><font size="2">dominant in IAUMCCC personal programming contest April 2004 </font></LI>
+  <li><font size="2" face="Verdana, Arial, Helvetica, sans-serif">BS degree in Computer Engineering 2007</font></li>
+  <li><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Work in Sabalan Parcheh as an IT Expert 2005 </font></li>
+</UL>
+</DIV>
+
+
+<font size="2" face="Verdana, Arial, Helvetica, sans-serif"><P><A class="navi" href="pubs_mrosin.html"></A></P>
+
+
+<TABLE border="0" cellpadding="3" cellspacing="0">
+  
+    <TR valign="top">
+      <TD class="bioKey"><SPAN class="bioKey">Department:</SPAN></TD>
+      <TD class="bioVal"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Computer &amp; IT Faculty </font></TD>
+    </TR>
+  
+  
+    <TR valign="top">
+      <TD class="bioKey"><SPAN class="bioKey"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Accupation</font></SPAN></TD>
+      <TD class="bioVal"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">BS Student </font></TD>
+    </TR>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <TR valign="top">
+      <TD class="bioKey"><SPAN class="bioKey">Education:</SPAN></TD>
+      <TD class="bioVal">B.Sc.<font size="2" face="Verdana, Arial, Helvetica, sans-serif">in Amirkabir University of tehran </font><BR></TD>
+    </TR>
+  
+  
+  
+    <TR valign="top">
+      <TD class="bioKey"><SPAN class="bioKey">Phone:</SPAN></TD>
+      <TD class="bioVal"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">+98-9121247676</font></TD>
+    </TR>
+  
+  
+    <TR valign="top">
+      <TD class="bioKey"><SPAN class="bioKey">Fax:</SPAN></TD>
+      <TD class="bioVal"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">+98-9121247676</font></TD>
+    </TR>
+  
+  <TR><TD></TD></TR>
+</TABLE>
+
+<P class="subhead">Research Interests:</P>
+<DIV id="bioResearchTopic"><LI>Enterprise Resourse Planning(ERP) Implementation and Rapid Implementation</LI><LI>Customer Relationship Management(CRM) specially Datamining</LI><LI>Business Process Reengineering</LI><LI>Artificial Intelligence and Expert Systems</LI></DIV>
+  </font>
+<P><font size="2">Project that I had in my courses  </font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">: </font>
+  <font size="2" face="Verdana, Arial, Helvetica, sans-serif">&nbsp;</font><UL>
+    <LI><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Search engin for Documents with Vector model with java </font></LI>
+    <LI><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Analysing and Designing human Resourse Management System for Special company</font></LI>
+    <LI><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Analysing and designing and Implementing a small e-store with CRM System</font></LI>
+    <LI><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Writing an Http Server multi thread with java
+</font></LI>
+  </UL>
+
+<br clear="all"/>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td colspan="2" bgcolor="#990000"><img src="/images/common/empty.gif" height="1"></td></tr>
+<tr><td colspan="2" bgcolor="#FFFFFF"><img src="/images/common/empty.gif" height="2"></td></tr>
+<tr><td align="left"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
+<A href="#_top_">Top of Page <img src="index/arrow_up.gif" width="8" height="12" border="0"></A>
+</font></td>
+<td align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
+
+<A href="http://ce.aut.ac.ir" title="Meisam Hejazinia"><img src="index/arrow_left2.gif" width="17" height="13" border="0"> Prev</A>
+
+(50 of 69)
+
+<A href="http://ce.aut.ac.ir" title="Nelson Ha">Next <img src="file:///C|/Documents and Settings/Eng/Desktop/index/arrow_right2.gif" width="17" height="13" border="0"></A>
+
+</font></td>
+</tr>
+<tr><td><p align="left"><script type="text/javascript">VisitCounter()</script>
+      <input type="button" value="Change Name" name="B1"
+onClick="changename()" >
+      </p>
+    <p align="left">Theme:    </p>
+    <DL><DD><INPUT TYPE="RADIO" NAME="theme"
+VALUE="red" onClick="red()">
+Red
+<DD><INPUT TYPE="RADIO" NAME="theme"
+VALUE="green" onClick="green()">
+Green
+<DD><input type="radio" name="theme"
+value="blue" onClick="blue()">
+Blue
+</DL>
+</p></td>
+<td><p><font face="Verdana">IT2 HW2:</font></p>
+  <p><font face="Verdana"><a href="input.xml">inputXML</a></font></p>
+  <p><font face="Verdana"><a href="Query.xql">XQuery</a></font></p>
+  <p><font face="Verdana"><a href="XQuery Output.xml">Output</a></font></p></td>
+</tr>
+</table>
+
+
+<p align="center"><font size="1">URL: <a href="http://ce.aut.ac.ir">http://ce.aut.ac.ir</a><br/>
+      <br/>
+  This page was last modified at <font face="Verdana">8</font>:<font face="Verdana">50</font>am on <font face="Verdana">November 03 </font>, 200<font face="Verdana">6</font><br/>
+  </font></p>
+<!-- End of Footer --></td></tr></table></td></tr>
+
+
+</table></td>
+
+<td>&nbsp;</td> <!--  Middle Margin -->
+
+<td width="150"><table width="150" cellpadding="0" cellspacing="0" border="0">
+
+<tr><td bgcolor="#000000">
+<table width="100%" cellpadding="2" cellspacing="1" border="0">
+<tr><td bgcolor="#DDDDDD" width="100%" align="center">
+<font size="2" face="Verdana, Arial, Helvetica, sans-serif">
+
+<!--
+<A class="navi" href="people_mmorris.html" title="Michelle Morris"><B>Prev</B></A> (50 of 69) <A class="navi" href="people_nha.html" title="Nelson Ha"><B>Next</B></A>
+-->
+
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+<tr><td width="100%" bgcolor="#990000"><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+<tr><td><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+</table>
+<b>Navigation Menu</b>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+<tr><td width="100%" bgcolor="#990000"><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+<tr><td><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+</table>
+
+<TABLE cellpadding="0" cellspacing="0" border="0"><TR valign="top" align="left"><TD width="10"><IMG src="/images/common/sb_downarrow.gif" border="0" align="top" vspace="0" alt="" width="9"  height="12"/></TD>
+<TD class="sidebarLink"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">photo<A class="navi" href="../index.html"></A></font></TD>
+</TR>
+<TR valign="top" align="left"><TD width="10"><IMG src="/images/common/sb_downarrow.gif" border="0" align="top" vspace="0" alt="" width="9"  height="12"/></TD>
+<TD class="sidebarLink"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">company<A class="navi" href="../dept.html"></A></font></TD>
+</TR>
+<TR valign="top" align="left"><TD width="10"><IMG src="/images/common/sb_downarrow.gif" border="0" align="top" vspace="0" alt="" width="9"  height="12"/></TD>
+<TD class="sidebarLink"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">myfamily<A class="navi" href="index.html"></A></font></TD>
+</TR>
+<TR valign="top" align="left"><TD width="10"><IMG src="/images/common/sb_downarrow.gif" border="0" align="top" vspace="0" alt="" width="9"  height="12"/></TD>
+<TD class="sidebarLink"><font size="2" face="Verdana, Arial, Helvetica, sans-serif">my goal <A class="navi" href="people.html"></A></font></TD>
+</TR>
+
+<!-- Sibling  Links --><TR valign="top"><TD colspan="2" class="sidebarLink"><UL class="sidebarList">
+<LI><B><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Meisam </font></B><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><strong> Hejazinia </strong></font></LI>
+</UL></TD></TR></TABLE>
+<br>
+  <A href="/sitemap.html">View Site Map</A>
+<br><br>
+
+
+
+   <!-- Feedback Link BEGIN -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+<tr><td width="100%" bgcolor="#990000"><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+<tr><td><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+</table>
+<b>Contact Us</b>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+<tr><td width="100%" bgcolor="#990000"><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+<tr><td><img src="/images/common/empty.gif" width="150" height="1"></td></tr>
+</table>
+
+<font size="1">
+    <DIV id="feedback"><A class="feedback" title="Share your comments or questions about this page with us" href="/cgi/feedback.pl"><IMG src="/images/common/feedback.gif" BORDER="0" width="14" height="11" alt="Share your comments or questions about this page with us"> Comments/Questions about this page?</A></DIV>
+</font></font>
+<p><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><font size="1"><br/>
+  Amirkabir University of Technology </font></font><font size="2" face="Verdana, Arial, Helvetica, sans-serif">
+  
+        <br/>
+        <br/>
+  </font></p>
+<font size="2" face="Verdana, Arial, Helvetica, sans-serif">
+<table wwidth="146" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td width="45"><a href="http://ce.aut.ac.ir"></a></td>
+     </tr>
+</table>
+<!-- Feedback Link END   -->
+
+</font></td>
+</tr></table></td></tr>
+
+</table></td>
+
+</tr>
+<tr></tr>
+</table>
+
+<!-- END MAIN BODY TABLE -->
+
+</font>
+
+
+</BODY>
+</HTML>
+  
+<script language="JavaScript">
+// this code is taken from below man's website
+//Analog clock script- By Amir Ali M (fbiaam@yahoo.com)
+//Script featured on Dynamic Drive
+//Visit http://www.sevom.persianblog.com for this script and more
+
+fCol='444444'; //face colour.
+sCol='FF0000'; //seconds colour.
+mCol='444444'; //minutes colour.
+hCol='444444'; //hours colour.
+
+Ybase=30; //Clock height.
+Xbase=30; //Clock width.
+
+
+H='...';
+H=H.split('');
+M='....';
+M=M.split('');
+S='.....';
+S=S.split('');
+NS4=(document.layers);
+NS6=(document.getElementById&&!document.all);
+IE4=(document.all);
+Ypos=0;
+Xpos=0;
+dots=12;
+Split=360/dots;
+if (NS6){
+for (i=1; i < dots+1; i++){
+document.write('<div id="n6Digits'+i+'" style="position:absolute;top:0px;left:0px;width:30px;height:30px;font-family:Arial;font-size:10px;color:#'+fCol+';text-align:center;padding-top:10px">'+i+'</div>');
+}
+for (i=0; i < M.length; i++){
+document.write('<div id="Ny'+i+'" style="position:absolute;top:0px;left:0px;width:2px;height:2px;font-size:2px;background:#'+mCol+'"></div>');
+}
+for (i=0; i < H.length; i++){
+document.write('<div id="Nz'+i+'" style="position:absolute;top:0px;left:0px;width:2px;height:2px;font-size:2px;background:#'+hCol+'"></div>');
+}
+for (i=0; i < S.length; i++){
+document.write('<div id="Nx'+i+'" style="position:absolute;top:0px;left:0px;width:2px;height:2px;font-size:2px;background:#'+sCol+'"></div>');
+}
+}
+if (NS4){
+dgts='1 2 3 4 5 6 7 8 9 10 11 12';
+dgts=dgts.split(' ')
+for (i=0; i < dots; i++){
+document.write('<layer name=nsDigits'+i+' top=0 left=0 height=30 width=30><center><font face=Arial size=1 color='+fCol+'>'+dgts[i]+'</font></center></layer>');
+}
+for (i=0; i < M.length; i++){
+document.write('<layer name=ny'+i+' top=0 left=0 bgcolor='+mCol+' clip="0,0,2,2"></layer>');
+}
+for (i=0; i < H.length; i++){
+document.write('<layer name=nz'+i+' top=0 left=0 bgcolor='+hCol+' clip="0,0,2,2"></layer>');
+}
+for (i=0; i < S.length; i++){
+document.write('<layer name=nx'+i+' top=0 left=0 bgcolor='+sCol+' clip="0,0,2,2"></layer>');
+}
+}
+if (IE4){
+document.write('<div style="position:absolute;top:0px;left:0px"><div style="position:relative">');
+for (i=1; i < dots+1; i++){
+document.write('<div id="ieDigits" style="position:absolute;top:0px;left:0px;width:30px;height:30px;font-family:Arial;font-size:10px;color:'+fCol+';text-align:center;padding-top:10px">'+i+'</div>');
+}
+document.write('</div></div>')
+document.write('<div style="position:absolute;top:0px;left:0px"><div style="position:relative">');
+for (i=0; i < M.length; i++){
+document.write('<div id=y style="position:absolute;width:2px;height:2px;font-size:2px;background:'+mCol+'"></div>');
+}
+document.write('</div></div>')
+document.write('<div style="position:absolute;top:0px;left:0px"><div style="position:relative">');
+for (i=0; i < H.length; i++){
+document.write('<div id=z style="position:absolute;width:2px;height:2px;font-size:2px;background:'+hCol+'"></div>');
+}
+document.write('</div></div>')
+document.write('<div style="position:absolute;top:0px;left:0px"><div style="position:relative">');
+for (i=0; i < S.length; i++){
+document.write('<div id=x style="position:absolute;width:2px;height:2px;font-size:2px;background:'+sCol+'"></div>');
+}
+document.write('</div></div>')
+}
+
+
+
+function clock(){
+time = new Date ();
+secs = time.getSeconds();
+sec = -1.57 + Math.PI * secs/30;
+mins = time.getMinutes();
+min = -1.57 + Math.PI * mins/30;
+hr = time.getHours();
+hrs = -1.57 + Math.PI * hr/6 + Math.PI*parseInt(time.getMinutes())/360;
+
+if (NS6){
+Ypos=window.pageYOffset+window.innerHeight-Ybase-25;
+Xpos=window.pageXOffset+window.innerWidth-Xbase-30;
+for (i=1; i < dots+1; i++){
+ document.getElementById("n6Digits"+i).style.top=Ypos-15+Ybase*Math.sin(-1.56 +i *Split*Math.PI/180)
+ document.getElementById("n6Digits"+i).style.left=Xpos-15+Xbase*Math.cos(-1.56 +i*Split*Math.PI/180)
+ }
+for (i=0; i < S.length; i++){
+ document.getElementById("Nx"+i).style.top=Ypos+i*Ybase/4.1*Math.sin(sec);
+ document.getElementById("Nx"+i).style.left=Xpos+i*Xbase/4.1*Math.cos(sec);
+ }
+for (i=0; i < M.length; i++){
+ document.getElementById("Ny"+i).style.top=Ypos+i*Ybase/4.1*Math.sin(min);
+ document.getElementById("Ny"+i).style.left=Xpos+i*Xbase/4.1*Math.cos(min);
+ }
+for (i=0; i < H.length; i++){
+ document.getElementById("Nz"+i).style.top=Ypos+i*Ybase/4.1*Math.sin(hrs);
+ document.getElementById("Nz"+i).style.left=Xpos+i*Xbase/4.1*Math.cos(hrs);
+ }
+}
+if (NS4){
+Ypos=window.pageYOffset+window.innerHeight-Ybase-20;
+Xpos=window.pageXOffset+window.innerWidth-Xbase-30;
+for (i=0; i < dots; ++i){
+ document.layers["nsDigits"+i].top=Ypos-5+Ybase*Math.sin(-1.045 +i*Split*Math.PI/180)
+ document.layers["nsDigits"+i].left=Xpos-15+Xbase*Math.cos(-1.045 +i*Split*Math.PI/180)
+ }
+for (i=0; i < S.length; i++){
+ document.layers["nx"+i].top=Ypos+i*Ybase/4.1*Math.sin(sec);
+ document.layers["nx"+i].left=Xpos+i*Xbase/4.1*Math.cos(sec);
+ }
+for (i=0; i < M.length; i++){
+ document.layers["ny"+i].top=Ypos+i*Ybase/4.1*Math.sin(min);
+ document.layers["ny"+i].left=Xpos+i*Xbase/4.1*Math.cos(min);
+ }
+for (i=0; i < H.length; i++){
+ document.layers["nz"+i].top=Ypos+i*Ybase/4.1*Math.sin(hrs);
+ document.layers["nz"+i].left=Xpos+i*Xbase/4.1*Math.cos(hrs);
+ }
+}
+
+if (IE4){
+Ypos=document.body.scrollTop+window.document.body.clientHeight-Ybase-20;
+Xpos=document.body.scrollLeft+window.document.body.clientWidth-Xbase-20;
+for (i=0; i < dots; ++i){
+ ieDigits[i].style.pixelTop=Ypos-15+Ybase*Math.sin(-1.045 +i *Split*Math.PI/180)
+ ieDigits[i].style.pixelLeft=Xpos-15+Xbase*Math.cos(-1.045 +i *Split*Math.PI/180)
+ }
+for (i=0; i < S.length; i++){
+ x[i].style.pixelTop =Ypos+i*Ybase/4.1*Math.sin(sec);
+ x[i].style.pixelLeft=Xpos+i*Xbase/4.1*Math.cos(sec);
+ }
+for (i=0; i < M.length; i++){
+ y[i].style.pixelTop =Ypos+i*Ybase/4.1*Math.sin(min);
+ y[i].style.pixelLeft=Xpos+i*Xbase/4.1*Math.cos(min);
+ }
+for (i=0; i < H.length; i++){
+ z[i].style.pixelTop =Ypos+i*Ybase/4.1*Math.sin(hrs);
+ z[i].style.pixelLeft=Xpos+i*Xbase/4.1*Math.cos(hrs);
+ }
+}
+setTimeout('clock()',100);
+}
+clock();
+//-->
+</script>
+<script language="JavaScript">

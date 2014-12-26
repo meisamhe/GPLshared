@@ -1,0 +1,81 @@
+ The result 0plus0 power 2 is:0
+ 
+passed time is: 9328ms, or
+  
+The result 1plus1 power 2 is:2
+ 
+passed time is: 16313ms, or
+  
+The result 2plus2 power 2 is:6
+ 
+passed time is: 23266ms, or
+   
+The result 3plus3 power 2 is:12
+ 
+passed time is: 30219ms, or
+   
+The result 4plus4 power 2 is:20
+ 
+passed time is: 36766ms, or
+   
+The result 5plus5 power 2 is:30
+ 
+assed time is: 43313ms, or
+   
+The result 6plus6 power 2 is:42
+ 
+passed time is: 49875ms, or
+   
+The result 7plus7 power 2 is:56
+ 
+passed time is: 56422ms, or
+   
+The result 8plus8 power 2 is:72
+ 
+passed time is: 62985ms, or
+   
+The result 9plus9 power 2 is:90
+ 
+passed time is: 70422ms, or
+  
+#The result 10plus10 power 2 is:110
+ 
+passed time is: 77781ms, or
+  
+#The result 11plus11 power 2 is:132
+ 
+passed time is: 85156ms, or
+  #
+The result 12plus12 power 2 is:156
+ 
+passed time is: 92516ms, or
+  #
+The result 13plus13 power 2 is:182
+ 
+passed time is: 100047ms, or
+  #
+The result 14plus14 power 2 is:210
+ 
+passed time is: 107000ms, or
+  #
+The result 15plus15 power 2 is:240
+ 
+passed time is: 113953ms, or
+  #
+The result 16plus16 power 2 is:272
+ 
+passed time is: 121360ms, or
+  #
+The result 17plus17 power 2 is:306
+ 
+passed time is: 127922ms, or
+  #
+The result 18plus18 power 2 is:342
+ 
+passed time is: 134485ms, or
+  #
+The result 19plus19 power 2 is:380
+ 
+passed time is: 141844ms, or
+  
+&20 RMIs in 141844ms, or 7092.2 ms/RMI.

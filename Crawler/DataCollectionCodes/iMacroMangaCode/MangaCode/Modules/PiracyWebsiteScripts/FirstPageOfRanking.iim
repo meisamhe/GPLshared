@@ -1,0 +1,24 @@
+'============================================
+' Meisam Hjazi Nia
+' Manga Project Crawler Module to save rank page
+'============================================
+SET !ERRORIGNORE YES
+SET savepath {{currworkDirect}}\DataOfMangaPrj\{{!NOW:ddmmyy}}\{{realizationPath}}\
+' no image to both reduce size and speed up
+FILTER Type=IMAGES STATUS=ON
+
+URL GOTO=http://mangafox.me/directory/?rating
+WAIT SECONDS=.5
+DS CMD=MOVETO X=450 Y=410
+DS CMD=MOVETO X=100 Y=410
+DS CMD=MOVETO X=450 Y=100
+DS CMD=MOVETO X=100 Y=100
+WAIT SECONDS=3
+'save the main page
+SAVEAS TYPE=CPL FOLDER={{savepath}} FILE={{realizationPath}}_P{{pagenum}}_{{!NOW:ddmmyy_hhnnss}}.htm
+WAIT SECONDS=1
+TAG XPATH=//*[@id="nav"]/ul/li[11]/a EXTRACT=TXT
+
+'========================================
+' Termination is inside main page
+'==========================================

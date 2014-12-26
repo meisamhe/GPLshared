@@ -1,0 +1,12 @@
+[Environment]
+duration=25200.000000
+seed=431
+net_name=mm1net-mm1
+sim_log_delim=TAB
+
+[Run Info]
+run_date=02:39:37 Thu Jan 31 2008
+
+
+[Summary]
+Low-Lev.	Simulation	Error	0

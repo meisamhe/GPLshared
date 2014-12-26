@@ -1,0 +1,33 @@
+<%
+  if (request.getParameter("StuffTable") != null && request.getParameter("StuffID") != null) {
+    String StuffTable;
+    String StuffID;
+    StuffTable = request.getParameter("StuffTable").toLowerCase();
+    StuffID = request.getParameter("StuffID").toLowerCase();
+    try {
+      Connection con = MySqlObj.getDbConnection("mani", "mbh", "3306", "localhost", "3m");
+      ResultSet rslt = MySqlObj.runSqlQuery("select * from " + StuffTable + " where ID=" + StuffID, con);
+      if (rslt.next()) {
+        ArrayList al;
+        al = (ArrayList) session.getAttribute("basket");
+        al.add(new String[] {StuffTable, StuffID, String.valueOf(1)});
+      }
+      else { //end if (rslt.next())
+        out.println("Stuff is not correct.");
+      }
+    }
+    catch (SQLException e) { //end try
+      e.printStackTrace();
+    }
+    catch (Exception ex) {
+      ex.printStackTrace();
+    }
+  } //end if
+  if (request.getParameter("DeleteID") != null) {
+    String DeleteID;
+    DeleteID = request.getParameter("DeleteID").toLowerCase();
+    ArrayList al;
+    al = (ArrayList) session.getAttribute("basket");
+    al.remove(Integer.parseInt(DeleteID));
+  }
+%>

@@ -1,0 +1,14 @@
+Comic:http://198.142.254.142/coolaz/servlet/ComicServlet
+MIDlet-Jar-Size:24013
+MIDlet-2:Comics,,Comic
+Reg:http://198.142.254.142/coolaz/servlet/RegistrationServlet
+MIDlet-1:Register,, Registration
+MIDlet-Jar-URL:http://midlet.org/repository/serkanazmi/comics/CoolazComics.jar?md=289
+Login-URL:http://198.142.254.142/coolaz/servlet/LoginServlet
+MicroEdition-Configuration:CLDC-1.0
+MIDlet-Version:1.0.4
+MIDlet-Vendor:Coolaz Technology
+MIDlet-Name:Comics
+MIDlet-Data-Size:512
+MIDlet-Description:Coolaz Comics
+MicroEdition-Profile:MIDP-1.0

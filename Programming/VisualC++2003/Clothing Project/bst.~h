@@ -1,0 +1,25 @@
+#include <iostream.h>
+//--------------------------------------------------------
+#ifndef BST_H
+#define BST_H
+//---------------------------------------------------------
+template <class data, class position>
+class bst
+{
+        struct treenode
+        {
+                data d;
+                position *p;
+                treenode *right, *left;
+        };
+        private:
+                treenode root;
+                void GlC(treenode, treenode&, treenode&); //Grand Left Data
+        public:
+                bst(){root=NULL;};
+                bool insert (data, position*);
+                bool del (data);
+                position search (data);
+                ~bst();
+}
+#endif

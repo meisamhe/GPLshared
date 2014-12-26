@@ -1,0 +1,69 @@
+object storeForm: TstoreForm
+  Left = 193
+  Top = 116
+  BorderStyle = bsNone
+  Caption = 'Store'
+  ClientHeight = 566
+  ClientWidth = 792
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 320
+    Top = 56
+    Width = 145
+    Height = 57
+    Alignment = taCenter
+    AutoSize = False
+    Caption = 'Store'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -32
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
+  object sellBtn: TButton
+    Left = 144
+    Top = 160
+    Width = 121
+    Height = 73
+    Caption = 'Sell'
+    TabOrder = 0
+    OnClick = sellBtnClick
+  end
+  object configBtn: TButton
+    Left = 504
+    Top = 160
+    Width = 139
+    Height = 73
+    Caption = 'Configuration'
+    TabOrder = 1
+    OnClick = configBtnClick
+  end
+  object reportBtn: TButton
+    Left = 296
+    Top = 280
+    Width = 145
+    Height = 89
+    Caption = 'Reports'
+    TabOrder = 2
+    OnClick = reportBtnClick
+  end
+  object backBtn: TButton
+    Left = 704
+    Top = 528
+    Width = 75
+    Height = 25
+    Caption = 'Back to main'
+    TabOrder = 3
+    OnClick = backBtnClick
+  end
+end

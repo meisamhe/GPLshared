@@ -1,0 +1,23 @@
+#ifndef SUMMER_H
+#define SUMMER_H
+#include "cloth.h"
+//----------------------------------------------------
+enum cooling {low, medium, high};
+enum lenght {low, medium, high};
+//----------------------------------------------------
+class summer : public cloth
+{
+        private:
+                cooling coolDegree;
+                lenght shortness;
+        public:
+                summer (size s, int q, int d, int bp, int sp, color cc, kind ck, int vq,  int sd, cooling cd, lenght l): cloth (size s, int q, int d, int bp, int sp, color cc, kind ck, int vq,  int sd)
+                {
+                        coolDegree=cd;
+                        shortness=l;
+                }
+                cooling getCoolDegree () {return (coolDegree);};
+                lenght getShortness () {return (shortness);};
+                ~summer();
+};//end class summer
+#endif

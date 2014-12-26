@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app version="2.4" 
+	xmlns="http://java.sun.com/xml/ns/j2ee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <display-name>MyProject</display-name>
+	<!-- context-param>
+  		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+  		<param-value>properties.ApplicationResources</param-value>
+	</context-param-->
+
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+		        <param-value>/WEB-INF/application-context.xml</param-value>
+      </context-param>
+					  
+	<servlet>
+		<servlet-name>SpringContextServlet</servlet-name>
+		<servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+
+    
+    <servlet>
+        <servlet-name>MyPortlet</servlet-name>
+        <display-name>MyPortlet</display-name>
+        <description>Automated generated Portlet Wrapper</description>
+        <servlet-class>org.apache.pluto.core.PortletServlet</servlet-class>
+        <init-param>
+            <param-name>portlet-class</param-name>
+        	<param-value>MyPortlet</param-value>
+        </init-param>
+        <init-param>
+            <param-name>portlet-guid</param-name>
+            <param-value>MyProject.MyPortlet</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>MyPortlet</servlet-name>
+        <url-pattern>/MyProject/MyPortlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SearchManager</servlet-name>
+        <display-name>SearchManager</display-name>
+        <description>Automated generated Portlet Wrapper</description>
+        <servlet-class>org.apache.pluto.core.PortletServlet</servlet-class>
+        <init-param>
+            <param-name>portlet-class</param-name>
+        	<param-value>SearchManager</param-value>
+        </init-param>
+        <init-param>
+            <param-name>portlet-guid</param-name>
+            <param-value>MyProject.SearchManager</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchManager</servlet-name>
+        <url-pattern>/MyProject/SearchManager</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CartManager</servlet-name>
+        <display-name>CartManager</display-name>
+        <description>Automated generated Portlet Wrapper</description>
+        <servlet-class>org.apache.pluto.core.PortletServlet</servlet-class>
+        <init-param>
+            <param-name>portlet-class</param-name>
+        	<param-value>CartManager</param-value>
+        </init-param>
+        <init-param>
+            <param-name>portlet-guid</param-name>
+            <param-value>MyProject.CartManager</param-value>
+        </init-param>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>CartManager</servlet-name>
+        <url-pattern>/MyProject/CartManager</url-pattern>
+    </servlet-mapping>
+    
+    
+    <taglib>
+        <taglib-uri>http://java.sun.com/portlet</taglib-uri>
+        <taglib-location>/WEB-INF/tld/portlet.tld</taglib-location>
+    </taglib>
+	<taglib>
+	    <taglib-uri>http://valuelist.sourceforge.net/tags-valuelist</taglib-uri>
+	    <taglib-location>/WEB-INF/tld/valuelist.tld</taglib-location>
+	</taglib>
+
+<!--	
+	<filter>
+	    <filter-name>hibernateFilter</filter-name>
+	    <filter-class>
+	      org.springframework.orm.hibernate.support.OpenSessionInViewFilter
+	    </filter-class>
+   </filter>
+
+  <filter-mapping>
+    <filter-name>hibernateFilter</filter-name>
+     <url-pattern>*.*</url-pattern>
+  </filter-mapping>
+-->
+	
+</web-app>

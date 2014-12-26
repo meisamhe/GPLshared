@@ -1,0 +1,56 @@
+package board;
+
+/**
+ * <p>Title: </p>
+ *
+ * <p>Description: </p>
+ *
+ * <p>Copyright: Copyright (c) 2007</p>
+ *
+ * <p>Company: </p>
+ *
+ * @author not attributable
+ * @version 1.0
+ */
+import java.util.Random;
+import java.applet.AudioClip;
+import java.net.URL;
+
+   class musicThread implements Runnable
+   {
+      private int sleepTime; // random sleep time for thread
+      private String threadName; // name of thread
+      private static Random generator = new Random();
+      private URL url;
+     // assign name to thread
+     public musicThread( String name )
+     {
+        threadName = name; // set name of thread
+
+        // pick random sleep time between 0 and 5 seconds
+        sleepTime = generator.nextInt( 5000 );
+     } // end PrintTask constructor
+
+     // method run is the code to be executed by new thread
+     public void run()
+     {
+        try // put thread to sleep for sleepTime amount of time
+        {
+            AudioClip sound;
+         sound = getAudioClip(url, "gamemusic.wav");
+         //   System.out.print(getDocumentBase());
+         sound.play();
+
+
+           Thread.sleep( sleepTime ); // put thread to sleep
+        } // end try
+        // if thread interrupted while sleeping, print stack trace
+        catch ( InterruptedException exception )
+        {
+           exception.printStackTrace();
+        } // end catch
+
+        // print thread name
+        System.out.printf( "%s done sleeping\n", threadName );
+     } // end method run
+ } // end class PrintTask

@@ -1,0 +1,1290 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><title>A light-weighted client/server socket class in C++ - The Code Project - Internet &amp; Network</title>
+
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="MS.LOCALE" content="en-US">
+<meta name="Description" content="A multi-platform client/server socket in C++.">
+<meta name="Search.TopicType" content="kbArticle">
+<meta name="Author" content="liyang yu">
+<meta name="Search.PublishDate" content="19 May 2004 14:00:00 GMT">
+<meta name="Search.RevisedDate" content="19 May 2004 14:00:00 GMT"><!--<meta name="Search.UserRating"  content="86 %" /> -->
+
+
+<meta name="keywords" content="Free source code, Internet &amp; Network, Visual C++, MFC, Windows, client/server, socket, C++">
+<meta name="Copyright" content="Article content copyright liyang yu, 2004, everthing else Copyright © CodeProject, 1999-2006, All Rights Reserved.">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Lounge Postings" href="http://www.codeproject.com/webservices/LoungeRSS.aspx">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - All topics" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=1">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - MFC / C++" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=2">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - C#" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=3">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - ASP.NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=4">
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - .NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=5">
+<meta http-equiv="Reply-to" content="mailto:webmaster@codeproject.com">
+<link rel="icon" href="http://www.codeproject.com/favicon.ico" type="image/ico">
+<link rel="SHORTCUT ICON" href="http://www.codeproject.com/favicon.ico">
+
+<link rel="stylesheet" type="text/css" href="client_server_socket.asp_files/global.css">
+<script language="javascript" src="client_server_socket.asp_files/oncopy.js"></script>
+<link rel="stylesheet" type="text/css" href="client_server_socket.asp_files/netscape6.css"></head><body style="background-color: rgb(255, 255, 255);" topmargin="3" leftmargin="3" oncopy="return copyCode();" alink="red" bgcolor="white" link="blue" text="black" vlink="purple">
+
+
+<!-- COPYRIGHT 2006 I/PRO Corporation ALL RIGHTS RESERVED. - Page view auditing -->
+<script language="JavaScript">
+var LSPT="";
+LSPT += "?durl=" + escape(document.URL);
+LSPT += "&hostname=" + location.hostname;
+LSPT += "&url=" + location.pathname;
+LSPT += "&query=" + escape(location.search) + escape(location.hash);
+LSPT += "&referrer=" + escape(document.referrer);
+LSPT += "&browser=" + escape(navigator.appName);
+LSPT += "&version=" + escape(navigator.appVersion);
+LSPT += "&os=" + escape(navigator.platform);
+LSPT += "&xdomain=codeproject.com";
+LSPT += "&custid=codeproject";
+</script>
+<script language="Javascript">
+document.write('<img src=http://'+'content.ipro.com/images/pixel.gif'+LSPT+' height="1" width="1" style="position:absolute; top:0px; left:0px">');
+</script><img src="client_server_socket.asp_files/pixel.gif" style="position: absolute; top: 0px; left: 0px;" height="1" width="1">
+<noscript>
+<img src="http://content.ipro.com/images/pixel?version=nonjava" height="1" width="1" style="position:absolute;top:0px;left:0px">
+</noscript>
+<!-- END I/PRO PAGE TAG -->
+
+
+<table bgcolor="#ff9900" border="0" cellpadding="0" cellspacing="0" width="100%">
+<tbody><tr><td width="100%">
+<table bgcolor="#ff9900" border="0" cellpadding="0" cellspacing="1" width="100%"><tbody><tr>
+
+<td valign="top"><a href="http://www.codeproject.com/">
+<img src="client_server_socket.asp_files/logo225x72.gif" alt="The Code Project" border="0" height="72" width="225"></a></td>
+<td align="right"><span id="AdBanner4"><table cellpadding="0" cellspacing="0"><tbody><tr><td><a class="AdLink" href="http://www.codeproject.com/script/admentor/ads.asp">View our advertisers</a></td><td align="right"><a class="AdLink" href="http://www.codeproject.com/info/mediakit">Advertise with us</a></td></tr><tr><td colspan="2"><script language="javascript">document.write("<a href=\"/script/admentor/admentorredir.asp?id=1814&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FUTB%5F468x60%2Egif&C=False&id=1814&cb=3645709\" alt=\"\" border=0 width=468 height=60></a>");</script><a href="http://www.codeproject.com/script/admentor/admentorredir.asp?id=1814&amp;way=ban" target="_blank"><img src="client_server_socket.asp_files/ServeImg_002.htm" alt="" border="0" height="60" width="468"></a></td></tr></tbody></table></span></td>
+
+</tr>
+
+<tr><td colspan="2" bgcolor="#fbedbb">
+<table bgcolor="#fbedbb" border="0" cellpadding="3" width="100%">
+
+<tbody><tr valign="top">
+	<td width="100%">
+		<font style="font-size: 8pt;"><a href="http://www.codeproject.com/?cat=1">All Topics</a>, <a href="http://www.codeproject.com/?cat=2">MFC / C++</a> &gt;&gt; <a href="http://www.codeproject.com/internet/">Internet &amp; Network</a> &gt;&gt; <a href="http://www.codeproject.com/internet/#Client%2FServer+Development">Client/Server Development</a></font><br>
+
+		<br><b><font style="font-size: 16pt;" size="4">A light-weighted client/server socket class in C++</font></b><br><b>
+		By <a href="http://www.codeproject.com/script/profile/whos_who.asp?id=736920">liyang yu</a>
+		</b>
+		<br><br><font style="font-size: 9pt;">A multi-platform client/server socket in C++.&nbsp;</font>
+	</td>
+	<td align="right" valign="top">
+		<table border="0" cellpadding="1" cellspacing="0" width="200">	
+
+		<tbody><tr valign="top"><td>&nbsp;</td><td class="SmallText">C++ (VC6)<br> Windows (WinXP, Win2K, Win2003, Win95, Win98, WinME)<br> MFC, Win32, VS<br> Dev</td></tr>
+		<tr><td>&nbsp;</td><td class="SmallText" nowrap="nowrap">Posted 20 May 2004 0:00</td></tr>
+	
+		<tr valign="top"><td><img src="client_server_socket.asp_files/hlp.gif" height="16" width="16"></td><td class="SmallText" nowrap="nowrap"><a href="http://www.codeproject.com/script/Articles/list_articles.asp?userid=736920">Articles by this author</a></td></tr>
+
+		<tr valign="top"><td></td><td class="SmallText" nowrap="nowrap"><b>57,709</b> views</td></tr>
+
+		</tbody></table>
+	</td>
+</tr>
+
+
+</tbody></table>
+</td></tr>
+
+<tr><td colspan="2">
+
+
+
+<table id="tblSiteToolbar" border="0" cellpadding="1" cellspacing="0" width="100%"><tbody><tr>
+<form method="post" action="/info/search.asp" name="Search"></form>
+<td align="left" valign="top" width="100%">
+<table border="0" cellpadding="1" cellspacing="0"><tbody><tr valign="center">
+<td class="smallText"><b><font color="white">Search:</font></b></td>
+<td class="navbar" nowrap="nowrap"><input class="smallText" name="target" size="10" maxlength="255"></td><td valign="top"><select class="smallText" name="st">
+<option value="kw">Articles</option>
+<option value="au">Authors</option>
+</select></td>
+<td><input class="formButton" value="Go" type="submit"></td>
+</tr></tbody></table></td>
+
+
+
+<td>
+<div id="MenuPos" style="position: relative; width: 380px; height: 20px;">
+
+<table cellpadding="2" cellspacing="0" height="20" width="375"><tbody><tr>
+<td><a href="http://www.codeproject.com/info/faq.asp" class="NavMenuItem">Help!</a></td>
+<td><a href="http://www.codeproject.com/info/latest.asp" class="NavMenuItem">Articles</a></td>
+<td><a href="http://www.codeproject.com/script/comments/forums.asp" class="NavMenuItem">Message Boards</a></td>
+<td><a href="http://www.codeproject.com/store/" class="NavMenuItem">StoreFront</a></td>
+<td><a href="http://www.codeproject.com/lounge.asp" class="NavMenuItem">Lounge</a></td>
+</tr></tbody></table>
+</div>
+</td>
+
+
+</tr></tbody></table>
+
+
+<script type="text/javascript">function Go(){return}</script>
+<script type="text/javascript" src="client_server_socket.asp_files/cpmenu_var.js"></script>
+<script type="text/javascript" src="client_server_socket.asp_files/menu10_com.js"></script>
+
+</td></tr>
+
+</tbody></table></td></tr></tbody></table>
+
+<table border="0" cellpadding="1" cellspacing="0">
+
+<tbody><tr valign="top">
+	<td rowspan="2" bgcolor="#fbedbb" valign="top">
+	<table border="0" cellpadding="0" cellspacing="0">
+		
+
+<script language="javascript">
+function ErrorHandle() {}
+window.onerror = ErrorHandle;
+
+function OnNLSubmit(option)
+{
+	if (option=="up")
+		document.subForm.action = "/script/profile/modify.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp";
+	else if (option=="in")
+		document.subForm.action = "/script/profile/process_logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp";
+	document.subForm.submit();
+	return true;
+}
+</script>
+
+
+<tbody><tr><td>
+<table cellpadding="0" cellspacing="3">
+<tbody><tr valign="top"><td></td><td></td></tr><tr valign="top"><td><img src="client_server_socket.asp_files/support_icon.gif" height="16" width="16"></td><td class="smallText"><a href="http://www.codeproject.com/store/"><b>Ultimate Combo<br>MFC tools $449</b></a></td></tr><tr valign="top"><td></td><td></td></tr>
+<tr valign="top">	
+      <td><img src="client_server_socket.asp_files/mail.gif" height="16" width="16"></td>
+      <td class="SmallText"><a href="http://www.codeproject.com/script/recommend/form.asp?guid=client%5Fserver%5Fsocket%2Finternet5%2F20%2F2004">Send to a friend</a></td>
+</tr>
+<tr valign="top"><td></td><td></td></tr><tr><td colspan="2" bgcolor="black"><img src="client_server_socket.asp_files/space.gif" height="1" width="1"></td></tr><tr valign="top"><td colspan="2" class="InfoBarHeader"><br>Sign in / Sign up</td></tr>
+</tbody></table></td></tr>
+
+<tr><td class="smallText">
+<form name="subForm" id="subForm" action="/script/profile/process_logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp" method="post">
+<table bgcolor="#ffcc99" border="0" cellpadding="0" cellspacing="0" width="125">
+	<tbody><tr><td colspan="2"><img src="client_server_socket.asp_files/space.gif" height="3"></td></tr>
+
+	<tr>
+		<td class="smallText">&nbsp;Email</td>
+		<td class="smallText"><input class="smallText" name="Email" id="Email" style="width: 60px;" type="text">
+		</td>
+	</tr>
+	<tr>
+		<td class="smallText">&nbsp;Password</td>
+		<td><input class="smallText" name="Password" id="Password" style="width: 60px;" type="password"></td>
+	</tr>
+	<tr>
+		<td colspan="2" class="smallText" valign="middle"><input checked="checked" name="cookie" type="checkbox">Remember me</td>
+	</tr>
+	<tr><td colspan="2"><img src="client_server_socket.asp_files/space.gif" height="3"></td></tr>
+
+
+	<tr>
+		<td align="center"><a href="http://www.codeproject.com/script/profile/modify.asp"><img src="client_server_socket.asp_files/signup.gif" border="0"></a></td>
+		<td align="center"><input src="client_server_socket.asp_files/signin.gif" border="0" type="image"></td>
+	</tr>
+
+
+	<tr><td colspan="2"><img src="client_server_socket.asp_files/space.gif" height="3"></td></tr>
+</tbody></table>
+</form></td></tr>
+
+<tr><td class="smallText"><a class="smallText" href="http://www.codeproject.com/script/profile/forgot.asp" name="HLLink">Lost your Password?</a></td></tr>
+
+		<tr><td>&nbsp;</td></tr>
+		<tr><td>
+		
+<center><script language="javascript">document.write("<a href=\"/script/admentor/admentorredir.asp?id=1957&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2Fmainsoft%5F120x600%5Fgrasshopper%2Egif&C=False&id=1957&cb=3645716\" alt=\"Visual Studio .NET on Linux\" border=0 width=120 height=600></a>");</script><a href="http://www.codeproject.com/script/admentor/admentorredir.asp?id=1957&amp;way=ban" target="_blank"><img src="client_server_socket.asp_files/ServeImg_004.htm" alt="Visual Studio .NET on Linux" border="0" height="600" width="120"></a><br>
+
+</center><br>
+
+		</td></tr>
+	</tbody></table>
+	</td>
+	<td rowspan="2" width="5">
+		<img src="client_server_socket.asp_files/space.gif" height="1" width="5">	
+	</td>
+
+
+
+	<td align="right" bgcolor="white" width="100%">
+
+
+<table width="100%"><tbody><tr valign="top"><td class="smallText" nowrap="nowrap" valign="top"><table><tbody><tr><td class="smallText" bgcolor="#ffffff"><img src="client_server_socket.asp_files/print.gif" align="absmiddle"> <a href="http://www.codeproject.com/internet/client_server_socket.asp?print=true" target="_print">Print</a></td><td class="smallText" bgcolor="#ffffff"><img src="client_server_socket.asp_files/sitebuild_icon.gif" align="absmiddle"><a href="http://www.codeproject.com/script/submit/ReportProblem.asp?GUID=client%5Fserver%5Fsocket%2Finternet5%2F20%2F2004">Broken Article?</a></td><td class="smallText" bgcolor="#ffffff"><img src="client_server_socket.asp_files/link.gif" align="absmiddle"><a href="http://www.codeproject.com/script/profile/add_bookmark.asp?t=0&amp;ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp&amp;guid=client%5Fserver%5Fsocket%2Finternet5%2F20%2F2004">Bookmark</a></td><td class="smallText" bgcolor="#ffffff"><img src="client_server_socket.asp_files/mail_small.gif" align="absmiddle"> <a href="#__comments">Discuss</a></td></tr></tbody></table>
+</td>
+<td align="right" nowrap="nowrap"><a name="__top"></a><table><tbody><tr><td class="smallText" align="right">31 votes  for this article.</td><td>
+<table border="2" cellpadding="0" cellspacing="0"><tbody><tr>
+<td><img src="client_server_socket.asp_files/red.gif" border="0" height="5" width="20"></td>
+<td><img src="client_server_socket.asp_files/red.gif" border="0" height="5" width="20"></td>
+<td><img src="client_server_socket.asp_files/red.gif" border="0" height="5" width="20"></td>
+<td><img src="client_server_socket.asp_files/red.gif" border="0" height="5" width="19"><img src="client_server_socket.asp_files/white.gif" border="0" height="5" width="1"></td>
+<td><img src="client_server_socket.asp_files/white.gif" border="0" height="5" width="20"></td>
+</tr></tbody></table>
+</td></tr><tr><td colspan="2" class="smallText" align="right"><a href="http://www.codeproject.com/script/articles/top_articles.asp?st=2" title="Calculated as rating x Log10(# votes)">Popularity: 5.88</a>. Rating: <b>3.94</b> out of 5.</td></tr></tbody></table></td></tr></tbody></table>
+
+	</td>
+</tr>
+<tr>
+	<td valign="top" width="100%">
+
+<div id="contentdiv">
+
+
+<!-- Article Starts -->
+
+
+<ul class="download">
+<li><a href="http://www.codeproject.com/internet/client_server_socket/client_server_socket_src.zip">Download source files - 19.2 Kb</a> 
+</li><li><a href="http://www.codeproject.com/internet/client_server_socket/client_server_socket_demo.zip">Download demo project - 271 Kb</a> </li></ul>
+<h2>Background</h2>
+<p>A generic, light-weighted client/server socket class that is written
+in C++ is presented here, together with a mini-messenger that is
+constructed by using this class. There is indeed a vast amount of
+information about socket programming over the Internet, and it is not
+time-consuming for one to download relevant code directly, therefore,
+it is certainly necessary to discuss the advantage of this class first.</p>
+<p>First of all, this class is light-weighted. One can find socket APIs
+in MFC, in C#, in .NET framework, but apparently, to take advantage of
+these APIs, one has to bind the application with MFC, with .NET
+framework. In some cases, MFC, C# or .NET may not be the optimal
+solution to the application needs. Also, if the application is to be
+developed on a Unix/Linux platform, then these APIs are not even
+available. On the other hand, the class that is presented here can be
+easily used in a console application; there is no need to provide any
+window handle for this class to be used. Also, this class can be
+incorporated directly into applications that are developed on
+Unix/Linux platform by simply adding <code><span class="cpp-preprocessor">#define UNIX</span></code> to the header file.</p>
+<p>Secondly, this class provides high performance client/server
+structure by using the most generic and low-level building blocks. This
+gives the great flexibility back to the developer, for example, it is
+then up to the developer to add an appropriate custom-designed security
+system. Among other advantages, a server that is built by using this
+class can run on a Windows machine, the client can be on the same
+machine (the same machine with inter-processes communication), or more
+often on a different machine that runs either Windows system or Unix
+system. The other communication party can be a station on a local
+network, or it can be a machine that communicates across the Internet.</p>
+<h2>Introduction</h2>
+<p>The rest of this article is organized by following the intuitive flow of making a communication happen:</p>
+<ul>
+<li>before the communication; 
+</li><li>during the communication; 
+</li><li>after the communication; </li></ul>
+<p>Before the communication, we need to know the basic information
+about the communication parties: what is the local machine&#8217;s name, what
+is the local machine&#8217;s IP address? If I know the remote host&#8217;s name is <a href="http://www.codeproject.com/internet/www.yuchen.net" target="_blank">www.yuchen.net</a>, then what is the corresponding IP address? What about vise versa? This basic information can be easily retrieved by using our <code>myHostInfo</code> class - although not the &#8220;star&#8221; class in this article, still many developers may find it convenient to use.</p>
+<p>To make the communication happen, <code>mySocket</code> class and its sub-class, <code>myTcpSocket</code>,
+are the star classes. In order to ensure the performance, one needs to
+be able to control the behavior of a socket. The base class, <code>mySocket</code>,
+provides methods to control the socket behaviors such as blocking or
+non-blocking, linger on/off, receive buffer size, send buffer size etc.
+<code>myTcpSocket</code> further defines the socket to be a TCP socket, its methods make sure the communication happen in a reliable manner.</p>
+<p>After the communication, the house-keeping job is done by the above
+star class. It is also worthy of mentioning the other two classes that
+we developed to help the communication. Because of the complexity of
+communication, it is important to protect against possible failures. A
+very simple exception handling class, <code>myException</code>, is provided, the <code>response()</code> method is defined to be <code><span class="cpp-keyword">virtual</span></code>.
+The default implementation of this method is to simply output the error
+message to both the log file (see below) and the standard output.
+However, one may decide whatever specific handing one may desire by
+overriding this method.</p>
+<p>Another simple class is the system log class called <code>myLog</code>,
+which is very handy when recording the actions that are taken by the
+system. Very often, the log file that is generated by the system is the
+first place that one can locate errors.</p>
+<p>The last section of this article presents a small application that
+is developed by using the above classes. This application is called
+mini-messenger, two people can use it to talk to each other. It is
+essentially a Yahoo! Messenger, but when using it, you don&#8217;t have the
+Yahoo! logo showing on your screen, so you don&#8217;t have to worry that
+your boss who might be watching over your shoulders. The main purpose
+of this small application is certainly to show a possible way to use
+the classes we developed.</p>
+<h2>Class myHostInfo</h2>
+<p>The first step to build a communication is to understand the other party: its <a href="http://get-certified.net/?go=domain+name" target="_blank">domain name</a>, its corresponding IP address. <code>myHostInfo</code> class is provided to query the host networking information.</p>
+<h3>Constructor/Destructor Summary:</h3>
+<ul>
+<li><code>myHostInfo()</code> 
+<p>The default constructor. In the case where neither the domain name
+nor the IP address is given/known, this constructor could be used, and
+in which case, the standard name for the current processor will be used
+as the local host name.</p>
+</li><li><code>myHostInfo(string&amp; sHostName, hostType type)</code> 
+<p><code>sHostName</code> can be a host name, such as <a href="http://www.codeproject.com/internet/www.yuchen.net" target="_blank">www.yuchen.net</a>, in which case <code>type</code> has to use the value <code>NAME</code>. <code>sHostName</code> can also be an IP address, such as &#8220;128.34.67.23&#8221;, in which case <code>type</code> has to use the value <code>ADDRESS</code>.</p>
+</li><li><code>~myHostInfo()</code> </li></ul>
+<h3>Methods Summary:</h3>
+<ul class="method">
+<li><code><span class="cpp-keyword">const</span> string&amp; getHostIPAddress()</code> 
+<p>Returns the IP address of the host machine.</p>
+</li><li><code><span class="cpp-keyword">const</span> string&amp; getHostName()</code> 
+<p>Returns the <a href="http://0-2u.com/?go=domain+name" target="-blank">domain name</a> of the host machine.</p></li></ul>
+<p>The following example shows the usage of this class.</p><pre>string serverName = <span class="cpp-string">"www.yuchen.net"</span>;
+myHostInfo myServer(serverName,NAME);
+&nbsp;
+string serverName = myServer.getHostName();     
+string serverAddr = myServer.getHostIPAddress();
+&nbsp;
+cout &lt;&lt; <span class="cpp-string">"Server name: "</span> &lt;&lt; serverName &lt;&lt; endl;
+cout &lt;&lt; <span class="cpp-string">"Server IP address: "</span> &lt;&lt; serverAddr &lt;&lt; endl;</pre>
+<p>The output of the above code is as follows (I cannot get the screenshots, let me just use the simple cut-and-paste):</p><pre lang="text">Server name: www.yuchen.net
+Server IP address: 66.218.85.169
+Press any key to continue</pre>
+<h2>Class mySocket</h2>
+<p>Socket is the most fundamental building block for all Internet communications. <code>mySocket</code>
+class is provided as the base class for this building block. TCP and
+UDP sockets will be built from inheriting this base class (in this
+article, only TCP socket is developed).</p>
+<h3>Constructor/Destructor Summary:</h3>
+<ul>
+<li><code>mySocket(<span class="cpp-keyword">int</span> portNumber)</code> 
+<p>A port number is used to construct a socket.</p>
+</li><li><code><span class="cpp-keyword">virtual</span> ~mySocket()</code> 
+<p>Once a socket is created, it has a variety of settings that can be queried or reset by the application. The methods in <code>mySocket</code> class are mainly mutators for these settings.</p></li></ul>
+<h3>Methods Summary</h3>
+<p>We only present the set methods, the get methods are omitted, refer to the code for detail:</p>
+<ul class="method">
+<li><code><span class="cpp-keyword">void</span> setDebug(<span class="cpp-keyword">int</span>)</code> 
+<p>Turns on the recording of the debugging information. This option
+allows the kernel to maintain a history of messages sent and received.
+1 is ON, 0 is OFF.</p>
+</li><li><code><span class="cpp-keyword">void</span> setReuseAddr(<span class="cpp-keyword">int</span>)</code> 
+<p>Under normal conditions, two or more applications cannot bid to the same port and address using <code>bind()</code>. By setting this option on, this rule is ignored. 1 is ON, 0 is OFF.</p>
+</li><li><code><span class="cpp-keyword">void</span> setKeepAlive(<span class="cpp-keyword">int</span>)</code> 
+<p>Connected sockets are kept alive by enabling periodic transmission
+of messages. If the sending and receiving of messages fail, the
+connected socket is considered broken. 1 is ON, 0 is OFF.</p>
+</li><li><code><span class="cpp-keyword">void</span> setLingerOnOff(<span class="cpp-keyword">bool</span>)</code> 
+<p>Setting this option ON causes the socket to linger when closing the
+socket. Normally, when the application tries to close the socket, the
+system will attempt to deliver unsent data. If this option is ON, the
+process is blocked until all the data is transmitted or until the
+linger time expires. <code><span class="cpp-keyword">true</span></code> is ON and <code><span class="cpp-keyword">false</span></code> is OFF.</p>
+</li><li><code><span class="cpp-keyword">void</span> setLingerSeconds(<span class="cpp-keyword">int</span>)</code> 
+<p>Set how long the system will use to send all the unsent data. <code><span class="cpp-keyword">int</span></code> is in the unit of second. If 0 is set, data remaining to be sent is discarded when the socket is closed. See <code>setLingerOnOff(<span class="cpp-keyword">bool</span>)</code>.</p>
+</li><li><code><span class="cpp-keyword">void</span> setSocketBlocking(<span class="cpp-keyword">int</span>)</code> 
+<p>Setting blocking on and off for a given socket controls the process suspension when the following actions are performed:</p>
+<ul>
+<li>writing data to a connected TCP socket. 
+</li><li>receiving data from a connected TCP/UDP socket. 
+</li><li>accepting connections from peer applications using TCP sockets. </li></ul>
+<p>By default, these actions block the executing process. Use 1 as ON
+to enforce the blocking and 0 as OFF to turn off the blocking.</p>
+</li><li><code><span class="cpp-keyword">void</span> setSendBufSize(<span class="cpp-keyword">int</span>)</code> 
+<p>Sets the buffer size for sending data. This is useful only when the default send buffer size is not large enough. See also <code>setReceiveBufSize(<span class="cpp-keyword">int</span>)</code>.</p>
+</li><li><code><span class="cpp-keyword">void</span> setReceiveBufSize(<span class="cpp-keyword">int</span>)</code> 
+<p>Sets the buffer size for receiving data. This is useful only when the default receive buffer size if not large enough. See also <code>setSendBufSize(<span class="cpp-keyword">int</span>)</code>.</p>
+</li><li><code>friend ostream&amp; <span class="cpp-keyword">operator</span>&lt;&lt;(ostream&amp;,mySocket&amp;)</code> 
+<p>Used for logging the socket to the standard output or any other IO stream.</p></li></ul>
+<p>The following is an example showing the setting of a socket (notice that we used <code>myHostInfo</code> to get the information of my local machine):</p><pre>cout &lt;&lt; <span class="cpp-string">"Retrieve the local host name and address:"</span> &lt;&lt; endl;
+&nbsp;
+myHostInfo myLocalMachine;  <span class="cpp-comment">// use the default constructor</span>
+string localHostName = myLocalHost.getHostName();
+string localHostAddr = myLocalHost.getHostIPAddress();
+cout &lt;&lt; <span class="cpp-string">"Name: "</span> &lt;&lt; localHostName &lt;&lt; endl;
+cout &lt;&lt; <span class="cpp-string">"Address: "</span> &lt;&lt; localHostAddr &lt;&lt; endl;
+&nbsp;
+mySocket localSocket(<span class="cpp-literal">1000</span>);  <span class="cpp-comment">// 1000 is the port number</span>
+cout &lt;&lt; localSocket;         <span class="cpp-comment">// show this socket</span>
+&nbsp;
+<span class="cpp-comment">// change some setting: set linger on</span>
+localSocket.setLingerOnOff(<span class="cpp-keyword">true</span>);
+localSocket.setLingerSeconds(<span class="cpp-literal">10</span>);
+&nbsp;
+<span class="cpp-comment">// show it again</span>
+cout &lt;&lt; endl &lt;&lt; <span class="cpp-string">"After changing the socket settings ... "</span> &lt;&lt; endl;
+cout &lt;&lt; localSocket;</pre>
+<p>Here is the output from the above code:</p><pre lang="text">Name: liyang
+Address: 209.206.17.121
+--------------- Summary of socket settings -------------------
+   Socket Id: &nbsp;&nbsp;&nbsp;&nbsp;1960
+   port #:        1000
+   debug:         false
+   reuse addr:    false
+   keep alive:    false
+   send buf size: 8192
+   recv bug size: 8192
+   blocking:      true
+   linger on:     false
+   linger seconds: 0
+----------- End of Summary of socket settings ----------------
+&nbsp;
+After changing the socket settings ...
+--------------- Summary of socket settings -------------------
+   Socket Id:     1960
+   port #:        1000
+   debug:         false
+   reuse addr:    false
+   keep alive:    false
+   send buf size: 8192
+   recv bug size: 8192
+   blocking:      true
+   linger on:     true
+   linger seconds: 10
+----------- End of Summary of socket settings ----------------
+Press any key to continue</pre>
+<h2>Class myTcpSocket</h2>
+<p><code>myTcpSocket</code> class is used to build communications based
+on TCP sockets. We will first describe the important methods in this
+class, then discuss the flow of building a communication between server
+and client.</p>
+<h3>Constructor/Destructor Summary:</h3>
+<ul>
+<li><code>myTcpSocket(<span class="cpp-keyword">int</span>)</code> 
+<p>The constructor that is used by applications. <code><span class="cpp-keyword">int</span></code> is the port number that is going to be associated with this socket.</p>
+</li><li><code>~myTcpSocket()</code> </li></ul>
+<p>Once a TCP socket is created, the following methods can be used to build the communication between two sockets.</p>
+<h3>Methods Summary:</h3>
+<ul class="method">
+<li><code><span class="cpp-keyword">int</span> sendMessage(string&amp;)</code> 
+<p>Send message <code>string&amp;</code> to the other party. The number of bytes that are sent is returned. This can be either a server call or a client call.</p>
+</li><li><code><span class="cpp-keyword">void</span> bindSocket()</code> 
+<p>This call is used to associate the socket file descriptor with the
+socket port number, along with the address that the future client will
+use. It is a necessary call before any communication can happen. This
+is called only for the server end, not for the client.</p>
+</li><li><code>myTcpSocket* acceptClient(string&amp;)</code> 
+<p>This function is called to accept a connecting client. This again is
+a server call and not for the client end. This will also block the
+thread until an incoming client call is detected. Once an incoming
+client call is detected, a new socket is returned. For the server, this
+new socket is the sole representation of the incoming client: any
+forthcoming communication with this connecting client is done via this
+socket.</p>
+<p>The incoming client&#8217;s host name, such as <a href="http://www.codeproject.com/internet/www.yuchen.net" target="_blank">www.yuchen.net</a>, is saved in the <code>string&amp;</code> for easy access.</p>
+</li><li><code><span class="cpp-keyword">void</span> listenToClient(<span class="cpp-keyword">int</span> numPorts = <span class="cpp-literal">5</span>)</code> 
+<p>A server end call to set the server in the &#8220;listening&#8221; status. The <code>numPorts</code> specifies how many incoming calls altogether the server can handle.</p>
+</li><li><code><span class="cpp-keyword">virtual</span> <span class="cpp-keyword">void</span> connectToServer(string&amp;,hostType)</code> 
+<p>A client end call for the client to be connected with the server. The <code>string&amp;</code> is either the name or the IP address of the server which the client tries to connect to. The definition of the <code>hostType</code> is as follows:</p><pre><span class="cpp-keyword">enum</span> hostType {NAME, ADDRESS};</pre>
+<p>A typical call normally takes one of the following two forms:</p>
+<ul>
+<li><code>myClient.connectToServer(<a href="http://www.codeproject.com/internet/www.yuchen.net" target="_blank">www.yuchen.net</a>, NAME);</code> 
+</li><li><code>myClient.connectToServer(&#8220;<span class="cpp-literal">128.23</span>.<span class="cpp-literal">36.89</span>&#8221;, ADDRESS);</code> </li></ul>
+</li><li><code><span class="cpp-keyword">int</span> recieveMessage(string&amp;)</code> 
+<p>Receive message from the other party. This can be either a server call or a client call. The <code>string&amp;</code> holds the buffer, which will have the message after a successful return, and the return <code><span class="cpp-keyword">int</span></code> value shows how many bytes have been received.</p></li></ul>
+<h3>Building a communication</h3>
+<p>Now, it is the time to describe the flow of building a communication
+between a server and a client (we are not going into the details about <code>myException</code> class and <code>myLog</code>
+class, one can read the document/code to understand them). Since this
+article is not intended to be a tutorial, so this description will only
+capture the important part of the story.</p>
+<p>The server has to be started first:</p><pre>myTcpSocket myServer(PORTNUM);  <span class="cpp-comment">// create the socket and everything</span>
+cout &lt;&lt; myServer;               <span class="cpp-comment">// show the server configuration</span></pre>
+<p>This will create a server called <code>myServer</code>. Inside this class, a socket has been built using the port number given by <code>PORTNUM</code>.
+This is quite like applying for a phone line for your house: you
+called, let us say, BellSouth, already, so you have got a phone number
+for your house.</p>
+<p>The next thing to do is to bind your phone with the phone number you
+got, you accomplish this by connecting the phone to the phone jack on
+the wall. The phone jack on the wall is the socket that is just
+created, and the phone itself is like the <code>PORTNUM</code>:</p><pre>myServer.bindSocket();</pre>
+<p>After this, you are ready to receive phone calls from your friends
+(and sadly, your billing companies). This is done by waiting for the
+incoming calls. In our model, this is accomplished by the following:</p><pre>myServer.listenToClient();</pre>
+<p>When the phone rings, you will accept the incoming call by picking it up:</p><pre><span class="cpp-comment">/*
+   wait to accept a client connection.  
+   processing is suspended until the client connects
+*/</span>
+cout &lt;&lt; <span class="cpp-string">"server is waiting for client connection ... "</span> &lt;&lt; endl;
+&nbsp;
+<span class="cpp-comment">// connection dedicated for client communication</span>
+myTcpSocket* client;    
+string clientHost;      <span class="cpp-comment">// to hold the client&#8217;s name</span>
+client = myServer.acceptClient(clientHost);  <span class="cpp-comment">// pick up the call!</span></pre>
+<p>Notice that the server accepts the incoming client call by creating
+a new socket, it will in fact continue to wait for other incoming calls
+on its own socket &#8211; this can be understood like the &#8220;call waiting&#8221;
+function that is offered by phone companies.</p>
+<p>Once we reach this point, the only thing the server will do is to
+pass information back and forth with the client by calling the <code>sendMessage()</code> and <code>receiveMessage()</code> functions. The mini-messenger in the next section shows the details.</p>
+<p>The client side, on the other hand, is quite simple. However, before
+we start the client, we do need to know which server we are going to
+call. Assuming we know the IP address of the server (if not, we should
+know the name of the server, then we can use <code>myHostInfo</code> class to query the IP address of the server), we need to write this IP address into the <i>serverConfig.txt</i> file, and we need to read this file to get the IP address of the server so we can call it.</p>
+<p>First, let us build the client:</p><pre>myTcpSocket myClient(PORTNUM);  <span class="cpp-comment">// build the client</span>
+myClient.setLingerOnOff(<span class="cpp-keyword">true</span>);
+myClient.setLingerSeconds(<span class="cpp-literal">10</span>);
+cout &lt;&lt; myClient;   <span class="cpp-comment">// show the client configuration</span></pre>
+<p>Assuming the server&#8217;s IP address is saved in <code>serverAddr</code>, we can now connect to the server:</p><pre><span class="cpp-comment">// connect to the server.</span>
+myClient.connectToServer(serverAddr,ADDRESS);</pre>
+<p>The next is to communicate with the server by using the <code>sendMessage()</code> and <code>receiveMessage()</code> methods.</p>
+<h2>Mini-Messenger</h2>
+<p>To demo the usage of the classes we discussed so far, a small
+application is developed. This application lets you to talk with your
+party over the Internet without using things like Yahoo! Messenger.
+With the discussion above, it should be fairly easy to understand both
+the server and client side now.</p>
+<p>To use this messenger, assuming your party is the server, he has to
+start the server on his side, and then he will let you know the IP
+address of his server, say, by giving you a call (we still need the
+low-tech). After writing the IP address in your <i>serverConfig.txt</i> file, you can start your client, and you are ready to talk.</p>
+<h4>The server side:</h4><pre><span class="cpp-preprocessor">#include "..\mySocket\mySocket.h"</span>
+<span class="cpp-preprocessor">#include "..\myLog\myLog.h"</span>
+<span class="cpp-preprocessor">#include "..\myException\myException.h"</span>
+<span class="cpp-preprocessor">#include "..\myHostInfo\myHostInfo.h"</span>
+&nbsp;
+myLog winLog;
+&nbsp;
+<span class="cpp-keyword">int</span> main()
+{
+&nbsp;
+<span class="cpp-preprocessor">#ifdef WINDOWS_XP</span>
+&nbsp;
+   <span class="cpp-comment">// Initialize the winsock library</span>
+   WSADATA wsaData;
+   winLog &lt;&lt; <span class="cpp-string">"system started ..."</span> &lt;&lt; endl;
+   winLog &lt;&lt; endl &lt;&lt; <span class="cpp-string">"initialize the winsock library ... "</span>;
+&nbsp;
+   <span class="cpp-keyword">try</span> 
+   {
+      <span class="cpp-keyword">if</span> (WSAStartup(<span class="cpp-literal">0x101</span>, &amp;wsaData))
+      {
+         myException* initializationException = <span class="cpp-keyword">new</span>   
+                      myException(<span class="cpp-literal">0</span>,<span class="cpp-string">"Error: calling WSAStartup()"</span>);
+         <span class="cpp-keyword">throw</span> initializationException;
+      }
+   }
+   <span class="cpp-keyword">catch</span>(myException* excp)
+   {
+      excp-&gt;response();
+      <span class="cpp-keyword">delete</span> excp;
+      exit(<span class="cpp-literal">1</span>);
+   }
+   winLog &lt;&lt; <span class="cpp-string">"successful"</span> &lt;&lt; endl;
+&nbsp;
+<span class="cpp-preprocessor">#endif</span>
+
+<span class="cpp-comment">// get local information for the server</span>
+&nbsp;
+winLog &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">"Retrieve the local host name and address:"</span> &lt;&lt; endl;
+      
+myHostInfo uHostAddress;
+string localHostName = uHostAddress.getHostName();
+string localHostAddr = uHostAddress.getHostIPAddress();
+cout &lt;&lt; <span class="cpp-string">"----------------------------------------"</span> &lt;&lt; endl;
+cout &lt;&lt; <span class="cpp-string">"   My local host information:"</span> &lt;&lt; endl;
+cout &lt;&lt; <span class="cpp-string">"         Name:    "</span> &lt;&lt; localHostName &lt;&lt; endl;
+cout &lt;&lt; <span class="cpp-string">"         Address: "</span> &lt;&lt; localHostAddr &lt;&lt; endl;
+cout &lt;&lt; <span class="cpp-string">"----------------------------------------"</span> &lt;&lt; endl;
+&nbsp;
+winLog &lt;&lt; <span class="cpp-string">"       ==&gt; Name: "</span> &lt;&lt; localHostName &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">"       ==&gt; Address: "</span> &lt;&lt; localHostAddr &lt;&lt; endl;
+&nbsp;
+<span class="cpp-comment">// open socket on the local host</span>
+myTcpSocket myServer(PORTNUM);
+cout &lt;&lt; myServer;
+winLog &lt;&lt; <span class="cpp-string">"server configuation: "</span> &lt;&lt; endl;
+winLog &lt;&lt; myServer;
+&nbsp;
+myServer.bindSocket();
+cout   &lt;&lt; endl &lt;&lt; <span class="cpp-string">"server finishes binding process... "</span> &lt;&lt; endl;
+winLog &lt;&lt; endl &lt;&lt; <span class="cpp-string">"server finishes binding process... "</span> &lt;&lt; endl;
+      
+myServer.listenToClient();
+cout   &lt;&lt; <span class="cpp-string">"server is listening to the port ... "</span> &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">"server is listening to the port ... "</span> &lt;&lt; endl;
+&nbsp;
+<span class="cpp-comment">// wait to accept a client connection.  </span>
+<span class="cpp-comment">// processing is suspended until the client connects</span>
+cout   &lt;&lt; <span class="cpp-string">"server is waiting for client connecction ... "</span> &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">"server is waiting for client connnection ... "</span> &lt;&lt; endl;
+&nbsp;
+<span class="cpp-comment">// connection dedicated for client communication</span>
+myTcpSocket* client;    
+string clientHost;      <span class="cpp-comment">// client name etc. </span>
+client = myServer.acceptClient(clientHost);
+        
+cout   &lt;&lt; endl &lt;&lt; <span class="cpp-string">"==&gt; A client from ["</span> &lt;&lt; clientHost 
+       &lt;&lt; <span class="cpp-string">"] is connected!"</span> &lt;&lt; endl &lt;&lt; endl;
+winLog &lt;&lt; endl &lt;&lt; <span class="cpp-string">"==&gt; A client from ["</span> &lt;&lt; clientHost 
+       &lt;&lt; <span class="cpp-string">"] is connected!"</span> &lt;&lt; endl &lt;&lt; endl;
+
+<span class="cpp-keyword">while</span>(<span class="cpp-literal">1</span>)
+{
+   string clientMessageIn = <span class="cpp-string">""</span>;
+            
+   <span class="cpp-comment">// receive from the client</span>
+&nbsp;
+   <span class="cpp-keyword">int</span> numBytes = client-&gt;recieveMessage(clientMessageIn);
+   <span class="cpp-keyword">if</span> ( numBytes == -<span class="cpp-literal">99</span> ) <span class="cpp-keyword">break</span>;
+&nbsp;
+   cout   &lt;&lt; <span class="cpp-string">"[RECV:"</span> &lt;&lt; clientHost &lt;&lt; <span class="cpp-string">"]: "</span> 
+          &lt;&lt; clientMessageIn &lt;&lt; endl;
+   winLog &lt;&lt; <span class="cpp-string">"[RECV:"</span> &lt;&lt; clientHost &lt;&lt; <span class="cpp-string">"]: "</span> 
+          &lt;&lt; clientMessageIn &lt;&lt; endl;
+&nbsp;
+   <span class="cpp-comment">// send to the clien</span>
+&nbsp;
+   <span class="cpp-keyword">char</span> sendmsg[MAX_MSG_LEN+<span class="cpp-literal">1</span>];
+   memset(sendmsg,<span class="cpp-literal">0</span>,<span class="cpp-keyword">sizeof</span>(sendmsg));
+   cout &lt;&lt; <span class="cpp-string">"["</span> &lt;&lt; localHostName &lt;&lt; <span class="cpp-string">":SEND] "</span>;
+   cin.getline(sendmsg,MAX_MSG_LEN);
+&nbsp;
+   <span class="cpp-keyword">if</span> ( numBytes == -<span class="cpp-literal">99</span> ) <span class="cpp-keyword">break</span>;
+   string sendMsg(sendmsg);
+   <span class="cpp-keyword">if</span> ( sendMsg.compare(<span class="cpp-string">"Bye"</span>) == <span class="cpp-literal">0</span> || sendMsg.compare(<span class="cpp-string">"bye"</span>) == <span class="cpp-literal">0</span> )
+      <span class="cpp-keyword">break</span>;
+&nbsp;
+   winLog &lt;&lt; <span class="cpp-string">"["</span> &lt;&lt; localHostName &lt;&lt; <span class="cpp-string">": SEND] "</span> &lt;&lt; sendMsg &lt;&lt; endl;
+   client-&gt;sendMessage(sendMsg);
+&nbsp;
+}
+&nbsp;
+<span class="cpp-preprocessor">#ifdef WINDOWS_XP</span>
+&nbsp;
+   <span class="cpp-comment">// Close the winsock library</span>
+   winLog &lt;&lt; endl &lt;&lt; <span class="cpp-string">"system shut down ..."</span>;          
+      
+   <span class="cpp-keyword">try</span> 
+   {
+      <span class="cpp-keyword">if</span> (WSACleanup())
+      {
+         myException* cleanupException 
+         = <span class="cpp-keyword">new</span> myException(<span class="cpp-literal">0</span>,<span class="cpp-string">"Error: calling WSACleanup()"</span>);
+         <span class="cpp-keyword">throw</span> cleanupException;
+      }
+}
+<span class="cpp-keyword">catch</span>(myException* excp)
+{
+   excp-&gt;response();
+   <span class="cpp-keyword">delete</span> excp;
+   exit(<span class="cpp-literal">1</span>);
+}
+winLog &lt;&lt; <span class="cpp-string">"successful"</span> &lt;&lt; endl;
+&nbsp;
+<span class="cpp-preprocessor">#endif</span>
+&nbsp;
+<span class="cpp-keyword">return</span> <span class="cpp-literal">1</span>;
+&nbsp;
+}</pre>
+<h4>The client side:</h4><pre><span class="cpp-preprocessor">#include "..\mySocket\mySocket.h"</span>
+<span class="cpp-preprocessor">#include "..\myLog\myLog.h"</span>
+<span class="cpp-preprocessor">#include "..\myException\myException.h"</span>
+<span class="cpp-preprocessor">#include "..\myHostInfo\myHostInfo.h"</span>
+&nbsp;
+myLog winLog;
+string serverIPAddress = <span class="cpp-string">""</span>;
+&nbsp;
+<span class="cpp-keyword">void</span> readServerConfig();
+<span class="cpp-keyword">void</span> checkFileExistence(<span class="cpp-keyword">const</span> string&amp;);
+&nbsp;
+<span class="cpp-keyword">int</span> main()
+{
+&nbsp;
+<span class="cpp-preprocessor">#ifdef WINDOWS_XP</span>
+&nbsp;
+   <span class="cpp-comment">// Initialize the winsock library</span>
+   WSADATA wsaData;
+   winLog &lt;&lt; <span class="cpp-string">"system started ..."</span> &lt;&lt; endl;
+   winLog &lt;&lt; endl &lt;&lt; <span class="cpp-string">"initialize the winsock library ... "</span>;
+&nbsp;
+   <span class="cpp-keyword">try</span> 
+   {
+      <span class="cpp-keyword">if</span> (WSAStartup(<span class="cpp-literal">0x101</span>, &amp;wsaData))
+      {
+         myException* initializationException = 
+         <span class="cpp-keyword">new</span> myException(<span class="cpp-literal">0</span>,<span class="cpp-string">"Error: calling WSAStartup()"</span>);
+         <span class="cpp-keyword">throw</span> initializationException;
+      }
+   }
+   <span class="cpp-keyword">catch</span>(myException* excp)
+   {
+      excp-&gt;response();
+      <span class="cpp-keyword">delete</span> excp;
+      exit(<span class="cpp-literal">1</span>);
+   }
+   winLog &lt;&lt; <span class="cpp-string">"successful"</span> &lt;&lt; endl;
+<span class="cpp-preprocessor">#endif</span>
+
+<span class="cpp-comment">// get local information for the client</span>
+&nbsp;
+winLog &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">"Retrieve the localHost [CLIENT] name and address:"</span> &lt;&lt; endl;
+      
+myHostInfo uHostAddress;
+string localHostName = uHostAddress.getHostName();
+string localHostAddr = uHostAddress.getHostIPAddress();
+cout &lt;&lt; <span class="cpp-string">"Name: "</span> &lt;&lt; localHostName &lt;&lt; endl;
+cout &lt;&lt; <span class="cpp-string">"Address: "</span> &lt;&lt; localHostAddr &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">"       ==&gt; Name: "</span> &lt;&lt; localHostName &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">"       ==&gt; Address: "</span> &lt;&lt; localHostAddr &lt;&lt; endl;
+&nbsp;
+<span class="cpp-comment">// get server's information</span>
+readServerConfig();
+winLog &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">"Retrieve the remoteHost [SERVER] name and address:"</span> &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">" ==&gt; the given address is "</span> &lt;&lt; serverIPAddress &lt;&lt; endl;
+&nbsp;
+myHostInfo serverInfo(serverIPAddress,ADDRESS);
+string serverName = serverInfo.getHostName();
+string serverAddr = serverInfo.getHostIPAddress();
+cout &lt;&lt; <span class="cpp-string">"Name: "</span> &lt;&lt; serverName &lt;&lt; endl;
+cout &lt;&lt; <span class="cpp-string">"Address: "</span> &lt;&lt; serverAddr &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">"       ==&gt; Name: "</span> &lt;&lt; serverName &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">"       ==&gt; Address: "</span> &lt;&lt; serverAddr &lt;&lt; endl;
+&nbsp;
+<span class="cpp-comment">// an instance of the myTcpSocket is created.  At this point a TCP </span>
+<span class="cpp-comment">// socket has been created and a port has been defined.</span>
+myTcpSocket myClient(PORTNUM);
+myClient.setLingerOnOff(<span class="cpp-keyword">true</span>);
+myClient.setLingerSeconds(<span class="cpp-literal">10</span>);
+&nbsp;
+cout &lt;&lt; myClient;
+winLog &lt;&lt; <span class="cpp-string">"client configuation: "</span> &lt;&lt; endl;
+winLog &lt;&lt; myClient;
+&nbsp;
+<span class="cpp-comment">// connect to the server.</span>
+cout   &lt;&lt; <span class="cpp-string">"connecting to the server ["</span> &lt;&lt; serverName 
+       &lt;&lt; <span class="cpp-string">"] ... "</span> &lt;&lt; endl;
+winLog &lt;&lt; <span class="cpp-string">"connecting to the server ["</span> &lt;&lt; serverName 
+       &lt;&lt; <span class="cpp-string">"] ... "</span> &lt;&lt; endl;
+myClient.connectToServer(serverAddr,ADDRESS);
+&nbsp;
+<span class="cpp-keyword">int</span> recvBytes = <span class="cpp-literal">0</span>;
+&nbsp;
+<span class="cpp-keyword">while</span> (<span class="cpp-literal">1</span>)
+{
+   <span class="cpp-comment">// send message to server</span>
+&nbsp;
+   <span class="cpp-keyword">char</span> sendmsg[MAX_MSG_LEN+<span class="cpp-literal">1</span>];
+   memset(sendmsg,<span class="cpp-literal">0</span>,<span class="cpp-keyword">sizeof</span>(sendmsg));
+   cout &lt;&lt; <span class="cpp-string">"["</span> &lt;&lt; localHostName &lt;&lt; <span class="cpp-string">":SEND] "</span>;
+   cin.getline(sendmsg,MAX_MSG_LEN);
+&nbsp;
+   string sendMsg(sendmsg);
+   <span class="cpp-keyword">if</span> ( sendMsg.compare(<span class="cpp-string">"Bye"</span>) == <span class="cpp-literal">0</span> || sendMsg.compare(<span class="cpp-string">"bye"</span>) == <span class="cpp-literal">0</span> )    
+      <span class="cpp-keyword">break</span>;
+&nbsp;
+   winLog &lt;&lt; <span class="cpp-string">"["</span> &lt;&lt; localHostName &lt;&lt; <span class="cpp-string">": SEND] "</span> &lt;&lt; sendMsg &lt;&lt; endl;
+   myClient.sendMessage(sendMsg);
+&nbsp;
+   <span class="cpp-comment">// receive message from server</span>
+&nbsp;
+   string clientMessageIn = <span class="cpp-string">""</span>;
+   recvBytes = myClient.recieveMessage(clientMessageIn);
+   <span class="cpp-keyword">if</span> ( recvBytes == -<span class="cpp-literal">99</span> ) <span class="cpp-keyword">break</span>;
+&nbsp;
+   cout   &lt;&lt; <span class="cpp-string">"[RECV:"</span> &lt;&lt; serverName &lt;&lt; <span class="cpp-string">"]: "</span> 
+          &lt;&lt; clientMessageIn &lt;&lt; endl;
+   winLog &lt;&lt; <span class="cpp-string">"[RECV:"</span> &lt;&lt; serverName &lt;&lt; <span class="cpp-string">"]: "</span> 
+          &lt;&lt; clientMessageIn &lt;&lt; endl;
+&nbsp;
+}
+&nbsp;
+<span class="cpp-preprocessor">#ifdef WINDOWS_XP</span>
+&nbsp;
+   <span class="cpp-comment">// Close the winsock library</span>
+   winLog &lt;&lt; endl &lt;&lt; <span class="cpp-string">"system shut down ..."</span>;          
+      
+   <span class="cpp-keyword">try</span> 
+   {
+      <span class="cpp-keyword">if</span> (WSACleanup())
+      {
+         myException* cleanupException = 
+         <span class="cpp-keyword">new</span> myException(<span class="cpp-literal">0</span>,<span class="cpp-string">"Error: calling WSACleanup()"</span>);
+         <span class="cpp-keyword">throw</span> cleanupException;
+      }
+   }
+   <span class="cpp-keyword">catch</span>(myException* excp)
+   {
+      excp-&gt;response();
+      <span class="cpp-keyword">delete</span> excp;
+      exit(<span class="cpp-literal">1</span>);
+   }
+   winLog &lt;&lt; <span class="cpp-string">"successful"</span> &lt;&lt; endl;
+&nbsp;
+<span class="cpp-preprocessor">#endif</span>
+&nbsp;
+<span class="cpp-keyword">return</span> <span class="cpp-literal">1</span>;
+&nbsp;
+}
+&nbsp;
+<span class="cpp-keyword">void</span> readServerConfig()
+{
+   string serverConfigFile = <span class="cpp-string">"serverConfig.txt"</span>;     
+   checkFileExistence(serverConfigFile);
+   ifstream serverConfig(serverConfigFile.c_str());
+&nbsp;
+   <span class="cpp-comment">// read server's IP address</span>
+   getline(serverConfig,serverIPAddress);
+   serverConfig.close();
+}
+
+<span class="cpp-keyword">void</span> checkFileExistence(<span class="cpp-keyword">const</span> string&amp; fileName)
+{
+   ifstream file(fileName.c_str());
+   <span class="cpp-keyword">if</span> (!file) 
+   {
+      cout &lt;&lt; <span class="cpp-string">"Cannot continue:"</span> &lt;&lt; fileName 
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;&lt; <span class="cpp-string">" does NOT exist!"</span> &lt;&lt; endl;
+      exit(<span class="cpp-literal">1</span>);
+   }
+   file.close();
+}</pre>
+<p>Here is a sample output screen (notice that I am using a single PC to talk, still via Internet though):</p>
+<h4>The server:</h4><pre lang="text">------------------------------------------------------
+       &nbsp;My local host information:
+                Name:    liyang
+                Address: 209.206.17.121
+------------------------------------------------------
+--------------- Summary of socket settings -------------------
+   Socket Id:     1960
+   port #:     &nbsp;&nbsp;&nbsp;1200
+   debug:         false
+   reuse addr:    false
+   keep alive:    false
+   send buf size: 8192
+   recv bug size: 8192
+   blocking:      true
+   linger on:     false
+   linger seconds: 0
+----------- End of Summary of socket settings ----------------
+&nbsp;
+server finishes binding process...
+server is listening to the port ...
+server is waiting for client connecction ...
+&nbsp;
+==&gt; A client from [liyang] is connected!
+&nbsp;
+[RECV:liyang]: hello?
+[liyang:SEND] yes?
+[RECV:liyang]: so we can talk...
+[liyang:SEND] looks like so.
+!! your party has shut down the connection...
+Press any key to continue</pre>
+<h4>The client:</h4><pre lang="text">Name: liyang
+Address: 209.206.17.121
+Name: liyang
+Address: 209.206.17.121
+--------------- Summary of socket settings -------------------
+   Socket Id:     1944
+&nbsp;  port #:        1200
+   debug:         false
+   reuse addr:    false
+   keep alive:    false
+   send buf size: 8192
+   recv bug size: 8192
+   blocking:      true
+   linger on:     true
+   linger seconds: 10
+----------- End of Summary of socket settings ----------------
+connecting to the server [liyang] ...
+[liyang:SEND] hello?
+[RECV:liyang]: yes?
+[liyang:SEND] so we can talk...
+[RECV:liyang]: looks like so.
+[liyang:SEND] bye
+Press any key to continue</pre>
+<h2>Conclusion</h2>
+<p>We presented a light-weighted server/client class in C++ in this
+article, I hope this will be of some use in your development work, and
+certainly there are more things to consider to make this work well. I
+welcome any comments/suggestions.</p>
+
+<!-- Article Ends -->
+
+</div>
+
+<script language="javascript" defer="defer">Highlight(Array());</script>
+<h2>About liyang yu</h2>
+<table border="0" width="100%"><tbody><tr valign="top"><td class="smallText" nowrap="nowrap"><img src="client_server_socket.asp_files/01C7F6F9-A39B-4F68-AAFB-CDF00AC701DD.jpg"><br></td><td class="smallText" width="100%">I love to tell jokes and today, I finally came up with my own joke. here it goes:<br><br>I
+decide to make my first son a medical doctor so later on when I am old
+and sick, I can get medical care any time I need and for free..., in
+fact, better to make my second son a medical doctor too so I can get a
+second opinion.<br><br>here is another version of this joke:<br><br>I
+decide to make my first son a medical doctor so later on when I am old
+and sick, I can get medical care any time I need and for free..., in
+fact, better to make my second son a medical doctor too so I can get a
+second opinion. well, perhaps my third son should be a lawyer - in case
+something is wrong with my medical care, I can sue the first two for
+free.<br><br>if you happen to visit this page and read these two jokes, tell me which one you like...<br><p class="smallText">Click <a href="http://www.codeproject.com/script/profile/whos_who.asp?vt=arts&amp;id=736920">here</a> to view liyang yu's online profile.</p></td></tr></tbody></table><br><table border="0" cellpadding="4" width="100%"><tbody><tr valign="top"><td width="100%"><h2>Other popular  articles:</h2><ul><li><a href="http://www.codeproject.com/internet/MIB_Browser_tool.asp">Tool to traverse MIB tree using SNMP</a><br><span class="smalltext">This is a simple tool to walk MIB tree. It also demonstrates receiving traps along with client side SNMP requests.</span></li><li><a href="http://www.codeproject.com/internet/tswindowclipper.asp">Extending Microsoft's Terminal Services Client To Provide Seamless Windows</a><br><span class="smalltext">An
+article that describes a possible approach to extending Microsoft's
+Terminal Services/Remote Desktop Client to use seamless windows.</span></li><li><a href="http://www.codeproject.com/internet/csntp.asp">CSNTPClient - An SNTP Implementation</a><br><span class="smalltext">A collection of freeware MFC classes to encapsulate the SNTP protocol.</span></li><li><a href="http://www.codeproject.com/internet/casyncsocketex.asp">CAsyncSocketEx - Replacement for CAsyncSocket with proxy and SSL support</a><br><span class="smalltext">CAsyncSocketEx
+is an MFC-less replacement for CAsyncSocket which does also offer a
+flexible layer system. With the layer class CAsyncProxySocketLayer, you
+can connect through proxy servers.</span></li></ul></td><td width="360"><script language="javascript">document.write("<IFRAME src=\"/script/ann/ServeHTML.aspx?C=False&id=786&cb=3645718\" border=0 frameborder=0 scrolling=no width=300 height=250></IFRAME>");</script><iframe src="client_server_socket.asp_files/ServeHTML.htm" border="0" frameborder="0" height="250" scrolling="no" width="300"></iframe></td></tr></tbody></table>
+		<form action="/script/rating/code/app/insert_vote.asp" method="post">
+		<input name="vote_name" value="client_server_socket/internet5/20/2004" type="hidden">
+		<input name="goal" value="/internet/client_server_socket.asp" type="hidden">
+
+<table bgcolor="#ff9900" border="0" cellpadding="1" cellspacing="0" width="100%">
+<tbody><tr><td width="100%">
+<table bgcolor="#fbedbb" border="0" cellpadding="4" cellspacing="0" width="100%"><tbody><tr>
+<td class="smalltext" valign="middle">[<a href="#__top">Top</a>]</td>
+<td align="right" nowrap="nowrap" valign="middle">
+<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp"><b>Sign in</b></a> to vote for this article:&nbsp;&nbsp;&nbsp;&nbsp; <i>Poor</i><input value="1" style="" name="rate" type="radio"><input value="2" style="" name="rate" type="radio"><input value="3" style="" name="rate" type="radio"><input value="4" style="" name="rate" type="radio"><input value="5" style="" name="rate" type="radio"><i>Excellent</i>&nbsp;&nbsp;<input value="Vote" class="FormButton" style="" type="submit">
+</td></tr>
+</tbody></table></td></tr></tbody></table>
+</form>
+<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr valign="top">
+<td valign="top"><center><script language="javascript">document.write("<a href=\"/script/admentor/admentorredir.asp?id=1804&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FGrid%5F120x60%2Egif&C=False&id=1804&cb=3645720\" alt=\"\" border=0 width=120 height=60></a>");</script><a href="http://www.codeproject.com/script/admentor/admentorredir.asp?id=1804&amp;way=ban" target="_blank"><img src="client_server_socket.asp_files/ServeImg.htm" alt="" border="0" height="60" width="120"></a></center><br></td>
+<td align="center" nowrap="nowrap" valign="top"><span id="AdBanner5"><script language="javascript">document.write("<a href=\"/script/admentor/admentorredir.asp?id=1815&way=ban\" target=_blank><img src=\"/script/ann/ServeImg.aspx?File=%2Fscript%2Fadmentor%2Fimages%2FUTB%5F468x60%2Egif&C=False&id=1815&cb=3645712\" alt=\"\" border=0 width=468 height=60></a>");</script><a href="http://www.codeproject.com/script/admentor/admentorredir.asp?id=1815&amp;way=ban" target="_blank"><img src="client_server_socket.asp_files/ServeImg_003.htm" alt="" border="0" height="60" width="468"></a></span></td>
+</tr></tbody></table>
+
+</td></tr></tbody></table>
+
+<a name="__comments"></a>
+
+<script language="JavaScript">
+var Selected = "";
+
+var AdTime = new Date();
+
+
+// Ensures the expanded message appears reasonably close to where 
+// it should appear: on screen, and if possible, under the mouse cursor.
+function SwitchMessage(e)
+{
+   if ( !e ) e = window.event;
+   var target = e.target ? e.target : e.srcElement;
+
+   // is it a post?
+   while ( target && target.id != 'DynMessLink' )
+      target = target.parentNode;
+   if ( !target || target.id != 'DynMessLink' )
+      return;
+
+   if (Selected)
+   {
+      var body = document.getElementById(Selected + "_h1");
+      if (body)
+         body.style.display = 'none';
+      var head = document.getElementById(Selected + "_h0");
+      if (head)
+         head.bgColor = '#FEF9E7';
+   }
+
+   if (Selected == target.name) // just collapse
+      Selected="";
+   else
+   {
+      Selected = target.name;
+      var body = document.getElementById(Selected + "_h1");
+      if (body)
+      {
+         if (body.style.display=='none')
+            body.style.display='';
+         else
+            body.style.display = 'none';
+      }
+      var head = document.getElementById(Selected + "_h0");
+      if (head)
+         head.bgColor = '#99CCFF';
+
+      if ( body && head && body.style.display != 'none' )
+      {
+         // the bit that keeps the post on-screen and under the cursor
+         //var dif = (getRealPos(head, "Top") + head.offsetHeight/2) - (document.body.scrollTop+e.clientY);
+         //document.body.scrollTop += dif;
+         document.body.scrollTop = getRealPos(head, "Top") - document.body.clientHeight/10;
+         EnsureMessageVisible(target.name, true);
+      }
+   }
+
+   if ( e.preventDefault )
+      e.preventDefault();
+   else
+      e.returnValue = false;
+   return false;
+}
+
+// does its best to make a message visible on-screen (vs. scrolled off somewhere).
+function EnsureMessageVisible(msgID, bShowTop) {
+   var msgHeader = document.getElementById(msgID + "_h0");
+   var msgBody = document.getElementById(msgID + "_h1");
+
+   // determine scroll position of top and bottom
+   var scrollContainer = document.body;
+   var top = getRealPos(msgHeader, 'Top');
+   var bottom = getRealPos(msgBody, 'Top') + msgBody.offsetHeight;
+
+   // if not already visible, scroll to make it so
+   if ( scrollContainer.scrollTop > top && !bShowTop)
+      scrollContainer.scrollTop = top - document.body.clientHeight/10;
+   if ( scrollContainer.scrollTop+scrollContainer.clientHeight < bottom )
+      scrollContainer.scrollTop = bottom-scrollContainer.clientHeight;
+   if ( scrollContainer.scrollTop > top && bShowTop)
+      scrollContainer.scrollTop = top - document.body.clientHeight/10;
+}
+
+// utility
+function getRealPos(i,which)
+{
+   iPos = 0
+   while (i!=null)
+   {
+      iPos += i["offset" + which];
+      i = i.offsetParent;
+   }
+   return iPos
+}
+
+
+</script>
+<div id="_MessageBoard" onclick="SwitchMessage(event)"><table bgcolor="#ff9900" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td width="100%"><table id="ForumTable" bgcolor="#ff9900" border="0" cellpadding="0" cellspacing="1" width="100%"><tbody><tr><td class="smallText" bgcolor="#ffcc99"><b class="forum_hilite">Note</b>: You must <a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp"><b>Sign in</b></a> to post to this message board.</td></tr><form action="/script/comments/app/do_filtermessages.asp?main=/internet/client_server_socket.asp&amp;df=100&amp;forumid=49576" method="post"></form><tr><td><table bgcolor="white" border="0" cellpadding="3" cellspacing="0" width="100%"><tbody><tr bgcolor="#fbedbb"><td class="smalltext" nowrap="nowrap"><a href="http://www.codeproject.com/script/comments/faq.asp"><img src="client_server_socket.asp_files/forum_faq.GIF" align="absmiddle" border="0" height="16" width="16"> <b>FAQ</b></a>&nbsp;</td><td class="smalltext" align="right" nowrap="nowrap" valign="top">Noise tolerance <select size="1" name="noise" class="smalltext"><option value="1">Very High</option>
+<option value="2">High</option>
+<option selected="selected" value="3">Medium</option>
+<option value="4">Low</option>
+<option value="5">Very low</option>
+</select>&nbsp;&nbsp;</td><td class="smalltext" colspan="2" align="right" nowrap="nowrap" valign="middle"><a href="http://www.codeproject.com/script/comments/search_comments.asp?forumid=49576"><img src="client_server_socket.asp_files/forum_search.gif" border="0" height="15" width="16"> Search comments</a> &nbsp;</td><td align="right" valign="top"><input value="Set Options" name="submit" class="FormButton" type="submit"></td></tr><tr bgcolor="#ff9900"><td width="100%">&nbsp;</td><td class="smalltext" align="right" nowrap="nowrap" valign="top">View <select size="1" name="expand" class="smalltext"><option value="0">Normal (slow)</option>
+<option value="2">Preview (slow)</option>
+<option selected="selected" value="5">Message View</option>
+<option value="6">Topic View</option>
+<option value="1">Thread View</option>
+<option value="3">Expanded (Supporters only)</option>
+</select>&nbsp;&nbsp;</td><td class="smalltext" nowrap="nowrap" valign="top">Per page <select size="1" name="perpage" class="smalltext"><option value="10">10</option>
+<option selected="selected" value="25">25</option>
+<option value="50">50 (must logon)</option>
+</select></td><td colspan="2">&nbsp;</td></tr></tbody></table>
+</td></tr><tr bgcolor="#fbedbb"><td><a name="xx0xx"></a><table bgcolor="#fbedbb" border="0" cellpadding="2" width="100%"><tbody><tr><td>&nbsp;</td><td class="messagetitle">Msgs 1 to 25 of 77 (Total: 77) (<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576">Refresh</a>)</td><td align="right" nowrap="nowrap"><font class="messagetitle"><span class="HoverLink">First</span> <span class="HoverLink">Prev</span> <a class="HoverLink" name="HoverNL" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;fr=26">Next</a> <span class="HoverLink">&nbsp;&nbsp;&nbsp;&nbsp;</span> </font></td></tr></tbody></table>
+</td></tr><tr bgcolor="white"><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2" bgcolor="#fbedbb" width="70%"><table border="0" cellpadding="2" cellspacing="0" width="100%"><tbody><tr><td class="messagetitle">Subject&nbsp;</td></tr></tbody></table></td><td bgcolor="#fbedbb" width="140"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/t.gif" border="0" height="1" width="1"></td></tr><tr><td class="messagetitle">Author&nbsp;</td></tr><tr><td><img src="client_server_socket.asp_files/t.gif" border="0" height="1" width="1"></td></tr></tbody></table></td><td bgcolor="#fbedbb" width="12%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/t.gif" border="0" height="1" width="1"></td></tr><tr><td class="messagetitle" align="right">Date&nbsp;</td></tr><tr><td><img src="client_server_socket.asp_files/t.gif" border="0" height="1" width="1"></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr id="1552646_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1552646xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1552646" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1552646#xx1552646xx"><b>Threads [modified]</b></a><img src="client_server_socket.asp_files/New.gif" height="12"></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=657447"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>AliTaker</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>9:47 28 Jun '06</b>&nbsp;</font></td></tr>
+<tr id="1552646_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Is this example thread safe? Do you have any advice for making it thread safe?<br><br>Thanx<br><br> -- modified at 9:47 Wednesday 28th June, 2006<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1552646&amp;forumid=49576&amp;select=1552646#xx1552646xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1552646#xx1552646xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="client_server_socket.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1502210_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1502210xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1502210" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1502210#xx1502210xx"><b>one more change</b></a><img src="client_server_socket.asp_files/New.gif" height="12"></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=3037067"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>jmagnotti</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>14:13 24 May '06</b>&nbsp;</font></td></tr>
+<tr id="1502210_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">I also changed myLog.cpp because of<br><code><br>myLog.cpp: In member function `void myLog::openLog(const std::string&amp;, int)':<br>myLog.cpp:60: error: invalid conversion from `int' to `std::_Ios_Openmode'<br>myLog.cpp:60:
+error: initializing argument 2 of `void std::basic_ofstream&lt;_CharT,
+_Traits&gt;::open(const char*, std::_Ios_Openmode) [with _CharT = char,
+_Traits = std::char_traits<char>]'<br></char></code><br>This is the line:<br><code>open(fileName.c_str(),mode);</code><br>I changed it to <br><code>open(fileName.c_str(),ios::app);</code><br>and declared <code>using namespace std;</code> at the top of the file <br><br>jmagnotti<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1502210&amp;forumid=49576&amp;select=1502210#xx1502210xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1502210#xx1502210xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="client_server_socket.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1502138_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1502138xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1502138" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1502138#xx1502138xx"><b>Makefile</b></a><img src="client_server_socket.asp_files/New.gif" height="12"></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=3037067"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>jmagnotti</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>13:09 24 May '06</b>&nbsp;</font></td></tr>
+<tr id="1502138_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">This
+may be of service, so I will post. These are some things I had to do to
+get the source to compile under winXP using eclispe (with the cdt) and
+mingw and msys. The makefile goes in the same directory as the other
+files, and eclipse will automatically use it.<br><br>I removed the ../../ from all the include statements. I also had to change:<br>this:<br>    <code>myHostInfo(<b>string&amp;</b> hostName, hostType type);</code><br>to:<br>    <code>myHostInfo(<b>string</b> hostName, hostType type);</code><br><br>in myHostInfo.cpp and myHostInfo.h<br><br>because of<br>	<code>myHostInfo clientInfo(string(sAddress), ADDRESS);</code><br>which was giving an error related to passing the string address in mySocket.cpp<br><br><br><br>Makefile==<br><code><br>all: clientApp serverApp<br><br>clientApp:	myClient.o mySocket.o myLog.o myException.o myHostInfo.o<br>		g++ -o client myClient.o mySocket.o myLog.o myException.o myHostInfo.o -lws2_32<br><br>serverApp:	winServer.o mySocket.o myLog.o myException.o myHostInfo.o<br>		g++ -o server winServer.o mySocket.o myLog.o myException.o myHostInfo.o -lws2_32<br><br>myClient.o:	myHostInfo.o myClient.cpp<br>		g++ -c myClient.cpp<br><br>mySocket.o:	myHostInfo.o mySocket.cpp<br>		g++ -c mySocket.cpp<br><br>myHostInfo.o:	myLog.o myException.o myHostInfo.cpp<br>		g++ -c myHostInfo.cpp<br><br>myException.o:	myLog.o myException.cpp<br>		g++ -c myException.cpp<br><br>myLog.o:	myLog.cpp myLog.h<br>		g++ -c myLog.cpp<br><br>clean:<br>	rm -rf *.o client server<br><br></code> <br><br>jmagnotti<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1502138&amp;forumid=49576&amp;select=1502138#xx1502138xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1502138#xx1502138xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="client_server_socket.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1493429_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1493429xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1493429" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1493429#xx1493429xx"><b>how to start that source code</b></a><img src="client_server_socket.asp_files/New.gif" height="12"></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=2565513"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>javanull</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>5:23 18 May '06</b>&nbsp;</font></td></tr>
+<tr id="1493429_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Dear all <br>when
+i create one empty package use conso application but when i start to
+rebuilder that code has some error with linking problem which i had
+include Ws2_32.lib already . <br><br>but that problem indicate that some of _main already defined , can some one help me up this please <br>my mail is roger5089@gmail.com<br><br>Linking...<br>myHostInfoTester.obj : error LNK2005: _main already defined in myExceptionTester.obj<br>myHostInfoTester.obj : error LNK2005: "class myLog winLog" (?winLog@@3VmyLog@@A) already defined in myExceptionTester.obj<br>myLogTester.obj : error LNK2005: _main already defined in myExceptionTester.obj<br>myLogTester.obj : error LNK2005: "class myLog winLog" (?winLog@@3VmyLog@@A) already defined in myExceptionTester.obj<br>mySocketTester.obj : error LNK2005: _main already defined in myExceptionTester.obj<br>mySocketTester.obj : error LNK2005: "class myLog winLog" (?winLog@@3VmyLog@@A) already defined in myExceptionTester.obj<br>winServer.obj : error LNK2005: _main already defined in myExceptionTester.obj<br>winServer.obj : error LNK2005: "class myLog winLog" (?winLog@@3VmyLog@@A) already defined in myExceptionTester.obj<br>myClient.obj : error LNK2005: _main already defined in myExceptionTester.obj<br>myClient.obj : error LNK2005: "class myLog winLog" (?winLog@@3VmyLog@@A) already defined in myExceptionTester.obj<br>Debug/Servers.exe : fatal error LNK1169: one or more multiply defined symbols found<br>Error executing link.exe.<br><br>Servers.exe - 11 error(s), 0 warning(s) <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1493429&amp;forumid=49576&amp;select=1493429#xx1493429xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1493429#xx1493429xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1493847_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1493847xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1493847" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1493847#xx1493847xx">Re: how to start that source code</a><img src="client_server_socket.asp_files/New.gif" height="12"></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=736920"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">liyang yu&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">8:44 18 May '06&nbsp;</font></td></tr>
+<tr id="1493847_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">all
+the linking problems are in the xxxTesters: myHostInfoTester,
+myExceptionTester. The problem is main() has been defined in all these
+test drivers, which conflicts with the main() defined in your real
+applications.<br><br>Do not include these test drivers in your real
+application, the conflict will go away. these testers are there just
+for you to test the system. in your real application, they are not
+needed.<br><br>HTH,<br>liyang <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1493429&amp;forumid=49576&amp;select=1493847#xx1493847xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1493847#xx1493847xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 2.0 (1 vote). </td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="client_server_socket.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1448889_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1448889xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1448889" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1448889#xx1448889xx"><b>Link error</b></a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1569163"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>oopprogrammer</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>14:08 13 Apr '06</b>&nbsp;</font></td></tr>
+<tr id="1448889_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">hi <br>when i build this project i recieve the following errors:<br>Linking...<br>myHostInfo.obj : error LNK2001: unresolved external symbol __imp__gethostbyname@4<br>myHostInfo.obj : error LNK2001: unresolved external symbol __imp__gethostname@8<br>myHostInfo.obj : error LNK2001: unresolved external symbol __imp__gethostbyaddr@12<br>myHostInfo.obj : error LNK2001: unresolved external symbol __imp__inet_addr@4<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__inet_addr@4<br>myHostInfo.obj : error LNK2001: unresolved external symbol __imp__WSAGetLastError@0<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__WSAGetLastError@0<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__htons@4<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__htonl@4<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__socket@12<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__setsockopt@20<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__ioctlsocket@12<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__getsockopt@20<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__bind@12<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__connect@12<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__inet_ntoa@4<br>winServer.obj : error LNK2001: unresolved external symbol __imp__inet_ntoa@4<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__accept@12<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__listen@8<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__send@16<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__recv@16<br>mySocket.obj : error LNK2001: unresolved external symbol __imp__closesocket@4<br>winServer.obj : error LNK2001: unresolved external symbol __imp__closesocket@4<br>winServer.obj : error LNK2001: unresolved external symbol __imp__WSACleanup@0<br>winServer.obj : error LNK2001: unresolved external symbol __imp__WSAStartup@8<br>Debug/socket.exe : fatal error LNK1120: 21 unresolved externals<br>Error executing link.exe.<br><br>socket.exe - 26 error(s), 0 warning(s)<br> <br><br>jamal<br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1448889&amp;forumid=49576&amp;select=1448889#xx1448889xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1448889#xx1448889xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1448897_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1448897xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1448897" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1448897#xx1448897xx">Re: Link error</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=736920"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">liyang yu&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">14:16 13 Apr '06&nbsp;</font></td></tr>
+<tr id="1448897_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">you have to add one more lib in your link path. someone else already post the same question here. search for it.<br><br>hth. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1448889&amp;forumid=49576&amp;select=1448897#xx1448897xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1448897#xx1448897xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="client_server_socket.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1425787_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1425787xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1425787" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1425787#xx1425787xx"><b>Need help in configuring c++ client , Server</b></a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=2790067"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>surendraaryal</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>9:23 28 Mar '06</b>&nbsp;</font></td></tr>
+<tr id="1425787_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Hi,<br><br>I
+would be very glad if someone could help me to solve this..i am
+supposed to configure a c++ client and server for MP3 search purpose.
+Server is connected to Mysql database which consists the mp3 database..
+I need to config client and server and communicate between them using
+TCP/IP. <br><br>Can anybody help me how to start?? I would be very thankful...<br><br>~surendra <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1425787&amp;forumid=49576&amp;select=1425787#xx1425787xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1425787#xx1425787xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1425813_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1425813xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1425813" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1425813#xx1425813xx">Re: Need help in configuring c++ client , Server</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=736920"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">liyang yu&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">9:34 28 Mar '06&nbsp;</font></td></tr>
+<tr id="1425813_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">What you have described is a typical ASP.NET project. <br><br>You
+have every access right to the server, so you can write a APS.NET
+application on the server side, exposing a page that one can log on and
+start to search for MP3 stuff.<br><br>On the client side, the user can
+log on to the page your created from any machine (as long as the
+machine is connected to the internet) and start to search. <br><br>Does this make sense to you? <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1425787&amp;forumid=49576&amp;select=1425813#xx1425813xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1425813#xx1425813xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1425875_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1425875xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="36"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1425875" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1425875#xx1425875xx">Re: Need help in configuring c++ client , Server</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=2790067"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">surendraaryal&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">10:13 28 Mar '06&nbsp;</font></td></tr>
+<tr id="1425875_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="36"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">This
+is really appreciated that i got such a prompt response.. now I will
+try to follow your suggestions... let me see where can i reach with
+this helpful suggestion.<br><br>Best Rgds,<br>Surendra <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1425787&amp;forumid=49576&amp;select=1425875#xx1425875xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1425875#xx1425875xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1425908_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1425908xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="36"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1425908" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1425908#xx1425908xx">Re: Need help in configuring c++ client , Server</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=2790067"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">surendraaryal&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">10:31 28 Mar '06&nbsp;</font></td></tr>
+<tr id="1425908_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="36"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Well,
+I try to go through your suggestions. Infact I have to write the source
+code in visual c++. the user interface at the client end need not be
+advance. Just menu item on console is sufficient. I have some header
+files already given..now i need write the source code for the client
+and server and communicate between them using tcp/ip.. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1425787&amp;forumid=49576&amp;select=1425908#xx1425908xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1425908#xx1425908xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1425919_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1425919xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="54"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1425919" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1425919#xx1425919xx">Re: Need help in configuring c++ client , Server</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=736920"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">liyang yu&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">10:40 28 Mar '06&nbsp;</font></td></tr>
+<tr id="1425919_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="54"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Okay, I see. <br><br>First
+of all, it is a little hard for me to understand why not use a Web
+server, using a web server is much easier. and you don't have to use
+ASP.net, but a web server will accept "POST", "GET" etc. to communicate
+with the client.<br><br>For now, what you can do is the following:<br><br>1. create a server (just a C++ application), sitting there, and listening to a socket at some port;<br><br>2.
+client will collect the user input and change the user input into a xml
+string, use the same socket, pass the string to the server;<br><br>3. the server gets the string, parse it using an xml parser and change it into a SQL form so the server can query the database;<br><br>4. once the server gets the result from the database, it will pass it back to the client.<br><br>A. you dont' have to use xml, but it will make your life easier. <br>B. the code in the article should be very useful to you - it has the structure already.<br> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1425787&amp;forumid=49576&amp;select=1425919#xx1425919xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1425919#xx1425919xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1429926_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1429926xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="72"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1429926" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1429926#xx1429926xx">Re: Need help in configuring c++ client , Server</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=2790067"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">surendraaryal&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">13:12 30 Mar '06&nbsp;</font></td></tr>
+<tr id="1429926_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="72"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">I
+have configured the code for the server and client using the code
+available in microsoft MSDN
+http://msdn.microsoft.com/library/default.asp?url=/library/en-us/winsock/winsock/finished_server_and_client_code.asp<br><br>its
+opening in console port, when i run client it says waiting for client
+to be connected.. then i have to do the telnet using the ip of my own
+network card. can you suggest me what modification needed so that i can
+connected automatically without doing the telnet. and what i have to
+add in the client to send some bytes to teh server. <br><br>I am raw in this and I hope you will not feel hectic to help me..<br><br>rgds,<br>surendra <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1425787&amp;forumid=49576&amp;select=1429926#xx1429926xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1429926#xx1429926xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="client_server_socket.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1380917_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1380917xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1380917" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1380917#xx1380917xx"><b>UDP</b></a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=131999"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>stgagnon</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>12:47 22 Feb '06</b>&nbsp;</font></td></tr>
+<tr id="1380917_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Hi:<br>Can you shed some light about what would be required to create a MyUDPSocket class?<br>Thanks <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1380917&amp;forumid=49576&amp;select=1380917#xx1380917xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1380917#xx1380917xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1383883_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1383883xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1383883" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1383883#xx1383883xx">Re: UDP</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=736920"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">liyang yu&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">9:19 24 Feb '06&nbsp;</font></td></tr>
+<tr id="1383883_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">UDP is in fact earsier. I would do the following:<br><br>1. totally understand the classes in this article;<br>2. google the UDP concept and understand the difference;<br>3. change the classes in the article and make the UDP socket.<br><br>It requires some reading and understanding, but should be doable. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1380917&amp;forumid=49576&amp;select=1383883#xx1383883xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1383883#xx1383883xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="client_server_socket.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1361918_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1361918xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1361918" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1361918#xx1361918xx"><b>Small bug -- myTcpSocket::sendMessage</b></a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=2664236"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>MichaelKnight1974</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>3:59 7 Feb '06</b>&nbsp;</font></td></tr>
+<tr id="1361918_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">First
+off, thanks for putting together such a thorough piece of example code.
+I don't have any experience with the Win32 API, and this is only my
+second week with VC++, so it was an ENORMOUS help to have your code and
+working sample apps as a reference while working through the MSDN
+documentation on Winsock. <br><br>I'm sure I'm not the only one on the Web who's benefitted from this useful and carefully coded sample! <br><br>I
+did run into a small problem, though, which I was able to trace to a
+bug in myTcpSocket::sendMessage. The call to Winsock's send function is
+written as:<br>     <code>send(socketId,sendMsg.c_str(),sendMsg.size(),0)</code><br>instead of:<br>     <code>send(socketId,sendMsg.c_str(),(sendMsg.size()+1),0)</code><br><br>The
+former code will fail to transmit the null character terminating the C
+string generated from sendMsg. This may not be a problem for many
+applications, but some clients will not recognize/respond to the
+incoming message without the proper null-termination. <br><br>Macromedia's
+Flash is one good example - ActionScript 2.0 supports an XMLSocket
+class that can be used to send/receive arbitrarily formatted strings...
+but incoming strings MUST be null terminated in order to trigger the
+onData event for the class.<br><br>I hope this helps others working with this excellent code sample! <br><br>Thanks again!! <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1361918&amp;forumid=49576&amp;select=1361918#xx1361918xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1361918#xx1361918xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1362327_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1362327xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1362327" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1362327#xx1362327xx">Re: Small bug -- myTcpSocket::sendMessage</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=736920"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">liyang yu&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">8:52 7 Feb '06&nbsp;</font></td></tr>
+<tr id="1362327_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Thanks Michael!!<br><br>Thank
+you very much for the nice words, and for pointing out the bug in the
+code. I hope others can see this message if they want to use this code.
+I will change my own code for sure. <br><br>Again, thanks for debugging, <img src="client_server_socket.asp_files/smiley_smile.gif" align="absmiddle"><br><br>liyang <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1361918&amp;forumid=49576&amp;select=1362327#xx1362327xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1362327#xx1362327xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="client_server_socket.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1257056_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1257056xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1257056" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1257056#xx1257056xx"><b>Async Comunnication</b></a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1216381"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>_slv_</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>14:35 18 Oct '05</b>&nbsp;</font></td></tr>
+<tr id="1257056_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Hi,<br>could you tell me how to change the classes so it can support asyncronious comunnication? <br>I thought of adding another thread to both server and client which will "listen" to what the other part has to say.<br>Thanx.<b></b> <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1257056&amp;forumid=49576&amp;select=1257056#xx1257056xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1257056#xx1257056xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1361207_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1361207xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1361207" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1361207#xx1361207xx">Re: Async Comunnication</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=736920"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">liyang yu&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">13:13 6 Feb '06&nbsp;</font></td></tr>
+<tr id="1361207_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">the
+code in fact provides the asyncornious(non-blocking) capability
+already, but it is not that easy to show how to use this capability -
+it will take another article to explain the non-blocking thing. so I
+guess you can google the non-blocking idea to understand it and use
+this code to implement it.<br><br>HTH,<br>liyang <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1257056&amp;forumid=49576&amp;select=1361207#xx1361207xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1361207#xx1361207xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="client_server_socket.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1247662_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1247662xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1247662" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1247662#xx1247662xx"><b>how do I run this program under Unix?</b></a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=2245478"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>Benz2005</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>12:04 7 Oct '05</b>&nbsp;</font></td></tr>
+<tr id="1247662_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">I
+want to run the server on the Unix side and the client on Window side.
+I can run the client on Window but failed to run the server on Unix. I
+tried to add the #define UNIX like you said but I don't know which
+header file that I should add it to. I added #define Unix to all the
+header file and it failed, it won't compile. Could you show me how to
+do this?<br>I also like to run both client/server on Unix too. So please show me how to do that too?<br>I
+am new to networking programming and I like to create a multi-platform
+client/server program. Could you point to the right direction where I
+can learn more about these stuff. Are there any books that you could
+recommend me to read? All I need is the starting point. Thanks a lot.<br><br>I
+read your code, and it's pretty advance for me. I like to know how you
+do it? If you could show me where can I learn coding like this, it'll
+be great. Again, thank you so much.<br><br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1247662&amp;forumid=49576&amp;select=1247662#xx1247662xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1247662#xx1247662xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1361215_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1361215xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1361215" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1361215#xx1361215xx">Re: how do I run this program under Unix?</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=736920"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">liyang yu&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">13:17 6 Feb '06&nbsp;</font></td></tr>
+<tr id="1361215_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">I
+see. now you are running into the problem of different platform(unix
+and win) and you see C++ is not that protable. Well, it is not easy for
+me to show exactly how to make the server run on Unix, it takes quite
+some work and by exchanging emails like this, it might be too hard to
+do. A starting point is to google this topic and see what comes up - a
+good tutorial or introduction might help you a lot.<br><br>good luck! <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1247662&amp;forumid=49576&amp;select=1361215#xx1361215xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1361215#xx1361215xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="client_server_socket.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1244810_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1244810xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1244810" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1244810#xx1244810xx"><b>Client/server .... please HELP</b></a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=2329707"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>^^KING^^</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>13:08 4 Oct '05</b>&nbsp;</font></td></tr>
+<tr id="1244810_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">Hi all <img src="client_server_socket.asp_files/smiley_wink.gif" align="absmiddle"><br><br>Article
+"A light-weighted client/server socket class in C++" explains how to
+make a client/server application, but i am a beginner and want to know
+if there are tutorials out there that are simple to use and that
+explains, step by step, how to create the server application and the
+client application.<br>The apps should use sockets and be as simple as
+possible (basically just be able to wait for a request (server) and
+then send an acknowledgement to the client (just a basic text message).
+it should really only illustrate the basic phases: 1) idle(server
+waiting for a connection), (2)connection establishment, (3)data
+transfer, (4)termination.<br><br>I know that you need the ip address as well as well as a port for communication - but that is basically all i know <img src="client_server_socket.asp_files/smiley_cry.gif" align="absmiddle"><br><br>if
+there is anyone who can help by writing a basic program (or tutorial),
+or even refering me to websites (one for beginners, as all the websites
+i find are a bit advanced and confusing for the novice C++ network
+programmer), I would most certainly appreciate it.<br><br>thank you. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1244810&amp;forumid=49576&amp;select=1244810#xx1244810xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1244810#xx1244810xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 1.5 (2 votes). </td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1244956_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1244956xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" style="color: rgb(170, 0, 0);" width="100%"><a class="messagetitle" style="color: rgb(170, 0, 0);" id="DynMessLink" name="1244956" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1244956#xx1244956xx">Re: Client/server .... please HELP</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=736920"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle" style="color: rgb(170, 0, 0);">liyang yu&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle" style="color: rgb(170, 0, 0);">15:32 4 Oct '05&nbsp;</font></td></tr>
+<tr id="1244956_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">i
+think this is already a very basic article, it explains every basic
+steps you need to setup the communication. do you have trouble
+understanding this? can you try to understand it and let me know if you
+have any questions? <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1244810&amp;forumid=49576&amp;select=1244956#xx1244956xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1244956#xx1244956xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 5.0 (1 vote). </td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr><tr height="1"><td colspan="4" bgcolor="#ff9900"><img src="client_server_socket.asp_files/t.gif" height="1" width="1"></td></tr><tr id="1164907_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1164907xx"></a><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1164907" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1164907#xx1164907xx"><b>I need Help</b></a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=1707028"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle"><b>maria jing</b>&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle"><b>4:55 16 Jul '05</b>&nbsp;</font></td></tr>
+<tr id="1164907_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent"><br>It's
+our assignment to write a socket programming in C++. The program should
+process like this... You have to input number1 from the client and the
+server accept that input. Then another number2 should be inputtted and
+accept it by the server again... Then the two number will be added by
+the server and output the result to the client.<br><br>I already tried
+this... but it output an incorrect sum bcoz the number input are string
+data type and it is placed in the file descriptor...<br><br>Thanks in advance.<br><br>maria jing <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1164907&amp;forumid=49576&amp;select=1164907#xx1164907xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1164907#xx1164907xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right">Score: 2.0 (1 vote). </td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="6" width="1"></td></tr><tr id="1230284_h0" bgcolor="#fef9e7"><td width="70%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td bgcolor="white"><a name="xx1230284xx"></a><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle">&nbsp;</td>
+<td class="messagetitle" width="100%"><a class="messagetitle" id="DynMessLink" name="1230284" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;select=1230284#xx1230284xx">Re: I need Help</a></td></tr></tbody></table></td><td valign="bottom"><a href="http://www.codeproject.com/script/profile/whos_who.asp?id=736920"><img src="client_server_socket.asp_files/userinfo.gif" title="Click for User Profile" border="0" height="15" width="14"></a>&nbsp;</td><td nowrap="nowrap" width="140"><font class="messagetitle">liyang yu&nbsp;</font></td><td align="right" nowrap="nowrap" width="12%"><font class="messagetitle">9:52 19 Sep '05&nbsp;</font></td></tr>
+<tr id="1230284_h1" style="display: none;"><td colspan="4" width="100%"><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><img src="client_server_socket.asp_files/ind.gif" height="1" width="18"><img src="client_server_socket.asp_files/news_blank.gif" align="absmiddle">&nbsp;</td><td bgcolor="#d5eaff" width="100%"><table border="0" cellpadding="0" cellspacing="5" width="100%"><tbody><tr><td><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td colspan="2"><font class="messagecontent">I
+am sorry, I do not intend to help on school assignments. plus, once you
+understand this thing well, it is not hard at all to fulfill your
+homework requirement. <br>&nbsp;</font></td></tr><tr valign="top"><td class="messagetitle">[<a href="http://www.codeproject.com/script/profile/logon.asp?ct=%2Finternet%2Fclient%5Fserver%5Fsocket%2Easp">Sign in</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;tid=1164907&amp;forumid=49576&amp;select=1230284#xx1230284xx" title="View only messages within this thread">View Thread</a>][<a href="http://www.codeproject.com/internet/client_server_socket.asp?msg=1230284#xx1230284xx" title="Get the URL for this message">Get Link</a>]</td><td class="messagetitle" align="right"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr>
+<tr><td colspan="4"><img src="client_server_socket.asp_files/t.gif" border="0" height="5" width="1"></td></tr></tbody></table></td></tr><tr bgcolor="#fbedbb"><td><table cellpadding="2" width="100%"><tbody><tr><td class="messagetitle">Last Visit: 22:12 Tuesday 16th May, 2006</td><td align="right" nowrap="nowrap"><font class="messagetitle"><span class="HoverLink">First</span> <span class="HoverLink">Prev</span> <a class="HoverLink" name="HoverNL" href="http://www.codeproject.com/internet/client_server_socket.asp?df=100&amp;forumid=49576&amp;fr=26">Next</a> <span class="HoverLink">&nbsp;&nbsp;&nbsp;&nbsp;</span> </font></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table>
+</div><div style="position: absolute; visibility: visible; background-color: rgb(255, 153, 0); z-index: 101; width: 373px; height: 22px; top: 221px; left: 991px;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 43px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 2px;">Help!</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 58px; height: 16px; padding-left: 2px; padding-top: 2px; left: 48px; top: 2px;">Articles</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 118px; height: 16px; padding-left: 2px; padding-top: 2px; left: 109px; top: 2px;">Message Boards</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 78px; height: 16px; padding-left: 2px; padding-top: 2px; left: 230px; top: 2px;">StoreFront</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 58px; height: 16px; padding-left: 2px; padding-top: 2px; left: 311px; top: 2px;">Lounge</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(255, 153, 0); z-index: 102; width: 194px; height: 98px; top: 0pt; left: 0pt;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 188px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 2px;">What is 'The Code Project'?</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 188px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 21px;">General FAQ</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 188px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 40px;">Post a Question</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 188px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 59px;">Site Directory</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 188px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 78px;">About Us</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(255, 153, 0); z-index: 102; width: 154px; height: 136px; top: 0pt; left: 0pt;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 2px;">Latest</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 21px;">Most Popular</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 40px;">Search</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 59px;">Site Directory</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 78px;">Submit an Article</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 97px;">Update an Article</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 116px;">Article Competition</div></div><div style="position: absolute; visibility: hidden; background-color: rgb(255, 153, 0); z-index: 102; width: 154px; height: 402px; top: 0pt; left: 0pt;"><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 2px;">Visual C++ / MFC</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 21px;">(Managed) C++/CLI</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 40px;">C#</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 59px;">ASP.NET</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 78px;">VB.NET</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 97px;">Web Development</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 116px;">ATL / WTL / STL</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 135px;">COM</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 154px;">.NET Framework</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 173px;">Visual Studio</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 192px;">SQL / ADO / ADO.NET</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 211px;">XML / XSL</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 230px;">OS / SysAdmin</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 249px;">Work Issues</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 268px;">Article Requests</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 287px;">Collaboration</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 306px;">General Discussions</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 325px;">Hardware</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 344px;">Suggestions</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 363px;">Get Togethers</div><div style="overflow: hidden; position: absolute; visibility: inherit; cursor: pointer; background-color: rgb(255, 153, 0); color: Black; font-family: Verdana,Arial,Helvetica,sans-serif; font-size: 11px; font-weight: bold; font-style: normal; text-align: left; width: 148px; height: 16px; padding-left: 2px; padding-top: 2px; left: 2px; top: 382px;">The Soapbox</div></div><p class="smallText"><img src="client_server_socket.asp_files/news_general.gif" align="absmiddle"> General comment &nbsp;&nbsp; <img src="client_server_socket.asp_files/news_info.gif" align="absmiddle"> News / Info &nbsp;&nbsp; <img src="client_server_socket.asp_files/news_question.gif" align="absmiddle"> Question &nbsp;&nbsp; <img src="client_server_socket.asp_files/news_answer.gif" align="absmiddle"> Answer &nbsp;&nbsp; <img src="client_server_socket.asp_files/news_game.gif" align="absmiddle"> Joke / Game &nbsp;&nbsp; <img src="client_server_socket.asp_files/news_sticky.gif" align="absmiddle"> Admin message</p>
+<br>
+
+
+<table cellspacing="5" width="100%">
+<tbody><tr valign="top"><td>
+<font style="font-size: 7pt;" size="1"><a href="http://www.codeproject.com/?cat=1">All Topics</a>, <a href="http://www.codeproject.com/?cat=2">MFC / C++</a> &gt;&gt; <a href="http://www.codeproject.com/internet/">Internet &amp; Network</a> &gt;&gt; <a href="http://www.codeproject.com/internet/#Client%2FServer+Development">Client/Server Development</a>
+<br>Updated: 20 May 2004 0:00
+</font>
+</td><td align="right">
+<font style="font-size: 7pt;" size="1">
+Article content copyright liyang yu, 2004<br>
+everything else Copyright © <a href="mailto:webmaster@codeproject.com">CodeProject</a>, 1999-2006.
+
+<br>
+Web6 |
+<a href="http://www.codeproject.com/info/MediaKit">Advertise on The Code Project</a> | <a href="http://www.codeproject.com/info/privacy.asp">Privacy</a>
+
+</font></td></tr>
+</tbody></table>
+
+<br>
+<center>
+<table border="0" cellpadding="0" cellspacing="0" width="95%">
+<tbody><tr><td bgcolor="#ff9900" height="1"><img src="client_server_socket.asp_files/space.gif" height="1"></td></tr>
+<tr>
+<td align="center"><font size="1">
+
+<a href="http://www.theultimatetoolbox.com/">The Ultimate Toolbox</a> &#8226;
+<a href="http://www.aspalliance.com/">ASP Alliance</a> &#8226;
+<a href="http://www.developerfusion.co.uk/">Developer Fusion</a> &#8226;
+<a href="http://www.developersdex.com/">Developersdex</a> &#8226;
+<a href="http://www.devguru.com/">DevGuru</a> &#8226;
+<a href="http://www.programmersheaven.com/">Programmers Heaven</a> &#8226;
+<a href="http://www.planet-source-code.com/">Planet Source Code</a> &#8226;
+<a href="http://www.tek-tips.com/">Tek-Tips Forums</a> &#8226;
+
+</font>	
+</td>
+</tr>
+</tbody></table>
+</center>
+
+</body></html>

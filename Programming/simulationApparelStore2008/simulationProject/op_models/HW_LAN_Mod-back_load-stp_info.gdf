@@ -1,0 +1,7 @@
+# This file is an output of a discrete event simulation.
+# It contains spanning tree information to be parsed while
+# visualizing the spanning tree using the Protocols->STP menu.
+# Legend: node name, VID, VLAN/tree name, port/node type, link name.
+Washangton_DC.switch,0,Common ST,root,none
+Washangton_DC.switch,0,Common ST,designated_port,Washangton_DC.Router <-> switch
+Washangton_DC.switch,0,Common ST,designated_port,Washangton_DC.FTP <-> switch

@@ -1,0 +1,35 @@
+open( OUT, '>Output/STotalAcuteTotaloutput.txt' );
+for ($k=1;$k<=4;$k++){
+	$inputfilename ="profile.php_00";
+	$inputfilename=$inputfilename.$k;
+	$inputfilename=$inputfilename.".html";
+	open( FILE2, $inputfilename );
+	open( FILE2, $inputfilename );
+	$i=0;
+	$sw=0;
+	while( $line = <FILE2> ) {
+		if ($line=~/<td><b>Total Acute<\/b><\/td>/){
+			$sw=1;	
+		}
+		if ($line=~/<td align="right"><b>([0-9,]*)<\/b><\/td>/ && $sw==2){	
+			$i++;
+		}
+		if ($line=~/<td align="right"><b>&#36;([0-9,]*)<\/b><\/td>/ && $sw==3){	
+		
+		}
+		if ($line=~/<td align="right"><b>([0-9,]*)<\/b><\/td>/ && $sw==4){
+		}
+		if ($line=~/<td align="right"><b>([0-9,]*)<\/b><\/td>/ && $sw==5){	
+		}
+		if ($line=~/<td align="right"><b>([0-9,]*)<\/b><\/td>/ && $sw==6){	
+		}
+		if ($line=~/<td align="right"><b>([0-9,]*)<\/b><\/td>/ && $sw==7){	
+			$i++;
+			if (True){
+				print "$1\n";
+				print OUT "$1\n";	
+			}
+		}
+		$sw++;
+	}
+}

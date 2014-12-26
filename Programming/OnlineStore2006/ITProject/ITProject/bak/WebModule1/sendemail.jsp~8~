@@ -1,0 +1,29 @@
+<%@ page import="sun.net.smtp.SmtpClient, java.io.*" %>
+
+<html><head>
+
+<title>How to send emails within a JSP</title>
+
+</head><body>
+<%
+ String emailTo="info@localhost";
+ try{
+     SmtpClient emailclient = new SmtpClient("localhost");
+     emailclient.from((String)request.getAttribute("sender"));
+     emailclient.to(emailTo);
+     PrintStream msg = emailclient.startMessage();
+     msg.println("Subject:" + request.getParameter("subject")+request.getParameter("firstname")+
+     request.getParameter("lastname"));
+     msg.println("To: " + emailTo);
+     msg.println(request.getParameter("body"));
+     emailclient.closeServer();
+%>
+<p>Your email had been send successfully </p>
+<%
+  }
+  catch (IOException err){
+     System.out.println("Error : "+err);
+  }
+%>
+</body>
+</html>

@@ -1,0 +1,11 @@
+$inputfilename="profile.php_004.html";
+open( FILE2, $inputfilename );
+open( OUT, '>output.txt' );
+$i=0;
+while( $line = <FILE2> ) {
+	if ($line=~/<b>([A-Za-z- 1-90]*)<\/b>/ && $i==0){
+		$i=1;
+		print "$1\n";
+		print OUT "$1\n";	
+	}	
+}

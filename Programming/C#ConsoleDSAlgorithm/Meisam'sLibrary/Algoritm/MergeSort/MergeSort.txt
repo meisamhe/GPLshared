@@ -1,0 +1,109 @@
+sing System;
+
+namespace ConsoleApplication1
+{
+	class MergeSort
+	{
+		private int[] tempArray;
+		private int length;
+
+		public MergeSort( int length )
+		{
+			this.length = length;
+
+			System.Console.WriteLine("Please Insert the number of arrays and after eachone push Enter button");
+			tempArray = new int[length];
+			for( int i = 0; i < length  ; i++)
+			{
+				tempArray[i] = int.Parse(System.Console.ReadLine());
+			}
+		}
+
+		//this function uses in Sort function that makes 
+		//two Arrays of the mainArray then merges them
+		public void Merge( int first, int middel, int end)
+		{
+			int n1 = middel - first + 1;
+			int n2 = end - middel ;
+			
+			//create arrays left[0..n1-1] and right[0..n2-1]
+			int[] left = new int[n1];
+			int[] right = new int[n2];
+			int i = 0;
+			int j = 0;
+			for (i = 0;i < n1 ; i++)
+			{
+				left[i] = tempArray[first + i];
+			}
+			for (j = 0;j < n2 ; j++)
+			{
+				right[j] = tempArray[middel + j + 1];
+			}
+		
+			i = 0;
+			j = 0;
+			int k;
+			for ( k = first; k < end && i < n1 && j < n2;	k++)
+			{
+				if( left[i] <= right[j])
+				{	
+					tempArray[k] = left[i];
+					i++;
+				}
+				else
+				{
+					tempArray[k] = right[j];
+					j++;
+				}
+			}
+			if( j < n2 )
+				for(; j < n2 ; j++ , k++)
+					tempArray[k]= right[j];
+			else
+				if( i < n1 )
+					for(; i < n1 ;i++ , k++)
+						tempArray[k] = left[i];
+						
+		}
+		
+		//main mergeSort function
+		public void Sort(int first,int end)
+		{
+			if(first < end)
+			{
+				int middel =( first + end )/2;
+				Sort(first, middel);
+				Sort(middel+1, end);
+				Merge(first,middel,end);
+			}
+		}
+
+		//this function shows the Array
+		public void Show()
+		{
+			Console.WriteLine("The array is:");
+			Console.Write("{ ");
+			for( int i = 0; i < length - 1 ; i++)
+			{
+				Console.Write("{0}, ",tempArray[i]);
+			}
+			Console.Write("{0} ",tempArray[length - 1]);
+			Console.Write("}");
+		}
+	}
+	class Tester
+	{
+		public static void Main()
+		{
+			Console.WriteLine("This program is for sorting your array with merge sort");
+			Console.WriteLine("Enter length of your array : ");
+			int length = int.Parse(Console.ReadLine());
+			MergeSort temp = new MergeSort( length );
+			temp.Sort(0, length - 1);
+			temp.Show();
+			Console.ReadLine();
+		}
+	}
+}
+
+

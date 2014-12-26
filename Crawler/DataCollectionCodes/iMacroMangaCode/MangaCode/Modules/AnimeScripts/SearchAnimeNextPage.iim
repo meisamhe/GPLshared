@@ -1,0 +1,19 @@
+'============================================
+' Meisam Hjazi Nia
+' Manga Project Crawler Module to search each manga name
+'============================================
+SET !ERRORIGNORE YES
+SET savepath {{currworkDirect}}\DataOfMangaPrj\{{!NOW:ddmmyy}}\{{realizationPath}}\
+' no image to both reduce size and speed up
+FILTER Type=IMAGES STATUS=ON
+
+' search Manga's anime
+URL GOTO=http://www.amazon.com/s/ref=sr_pg_2?rh=n%3A2625373011%2Ck%3A{{mangaName}}&page={{nextPageNum}}
+WAIT SECONDS=1
+
+SAVEAS TYPE=CPL FOLDER={{savepath}} FILE={{mangaNumber}}.{{mangaName}}_SearchedPage_P{{nextPageNum}}_{{!NOW:ddmmyy_hhnnss}}.htm
+WAIT SECONDS=1
+SET  !EXTRACT {{!URLCURRENT}}
+'========================================
+' Termination is inside main page
+'==========================================

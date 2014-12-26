@@ -1,0 +1,149 @@
+#
+# An unexpected error has been detected by HotSpot Virtual Machine:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x6d73a2d4, pid=27184, tid=27204
+#
+# Java VM: Java HotSpot(TM) Client VM (1.5.0_03-b07 mixed mode)
+# Problematic frame:
+# V  [jvm.dll+0x8a2d4]
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00823990):  JavaThread "main" [_thread_in_vm, id=27204]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x00000000
+
+Registers:
+EAX=0x00000000, EBX=0x00835010, ECX=0x0000deab, EDX=0x77c61aa0
+ESP=0x0006f724, EBP=0x0006f730, ESI=0x00823a4c, EDI=0x00000000
+EIP=0x6d73a2d4, EFLAGS=0x00010206
+
+Top of Stack: (sp=0x0006f724)
+0x0006f724:   00823a4c 00835010 00823990 0006f854
+0x0006f734:   6d3e4c4a 00823a4c 00000000 00000000
+0x0006f744:   00823990 06dcdb18 06dcdb18 00000001
+0x0006f754:   000000a9 0006f7f0 008231a8 00000004
+0x0006f764:   ffffffff ffffffff 00000014 6d7cb450
+0x0006f774:   00000008 6d7cb450 fffffff0 0006f7b4
+0x0006f784:   6d6bc314 00000000 0000000e 6d79af0e
+0x0006f794:   ffffffff 0006f7ac 0006f7ac 6d79b189 
+
+Instructions: (pc=0x6d73a2d4)
+0x6d73a2c4:   06 50 89 45 fc e8 3d 63 fb ff 8b 45 0c 83 c4 10
+0x6d73a2d4:   8b 30 8b 5e 08 85 db 75 0a e8 90 ff ff ff 89 45 
+
+
+Stack: [0x00030000,0x00070000),  sp=0x0006f724,  free space=253k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x8a2d4]
+C  [JdbcOdbc.dll+0x4c4a]
+j  sun.jdbc.odbc.JdbcOdbc.driverConnect(J[B[B)V+0
+j  sun.jdbc.odbc.JdbcOdbc.SQLDriverConnect(JLjava/lang/String;)V+93
+j  sun.jdbc.odbc.JdbcOdbcConnection.initialize(Ljava/lang/String;Ljava/util/Properties;I)V+984
+j  sun.jdbc.odbc.JdbcOdbcDriver.connect(Ljava/lang/String;Ljava/util/Properties;)Ljava/sql/Connection;+129
+j  java.sql.DriverManager.getConnection(Ljava/lang/String;Ljava/util/Properties;Ljava/lang/ClassLoader;)Ljava/sql/Connection;+165
+j  java.sql.DriverManager.getConnection(Ljava/lang/String;Ljava/util/Properties;)Ljava/sql/Connection;+7
+j  board.msAccessDB.open()V+23
+j  board.msAccessDB.insert(Ljava/lang/String;Ljava/lang/String;)V+1
+j  board.msAccessDB.main([Ljava/lang/String;)V+21
+v  ~StubRoutines::call_stub
+V  [jvm.dll+0x818b8]
+V  [jvm.dll+0xd431d]
+V  [jvm.dll+0x81789]
+V  [jvm.dll+0x88808]
+C  [javaw.exe+0x14c0]
+C  [javaw.exe+0x313d]
+C  [kernel32.dll+0x16fd7]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  sun.jdbc.odbc.JdbcOdbc.driverConnect(J[B[B)V+0
+j  sun.jdbc.odbc.JdbcOdbc.SQLDriverConnect(JLjava/lang/String;)V+93
+j  sun.jdbc.odbc.JdbcOdbcConnection.initialize(Ljava/lang/String;Ljava/util/Properties;I)V+984
+j  sun.jdbc.odbc.JdbcOdbcDriver.connect(Ljava/lang/String;Ljava/util/Properties;)Ljava/sql/Connection;+129
+j  java.sql.DriverManager.getConnection(Ljava/lang/String;Ljava/util/Properties;Ljava/lang/ClassLoader;)Ljava/sql/Connection;+165
+j  java.sql.DriverManager.getConnection(Ljava/lang/String;Ljava/util/Properties;)Ljava/sql/Connection;+7
+j  board.msAccessDB.open()V+23
+j  board.msAccessDB.insert(Ljava/lang/String;Ljava/lang/String;)V+1
+j  board.msAccessDB.main([Ljava/lang/String;)V+21
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00831e80 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=27340]
+  0x0082f810 JavaThread "CompilerThread0" daemon [_thread_blocked, id=27336]
+  0x0082e640 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=27332]
+  0x0082d9e0 JavaThread "Finalizer" daemon [_thread_blocked, id=26768]
+  0x0082c720 JavaThread "Reference Handler" daemon [_thread_blocked, id=27324]
+=>0x00823990 JavaThread "main" [_thread_in_vm, id=27204]
+
+Other Threads:
+  0x0082b9b0 VMThread [id=27316]
+  0x00833260 WatcherThread [id=27344]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 576K, used 268K [0x02c40000, 0x02ce0000, 0x03120000)
+  eden space 512K,  52% used [0x02c40000, 0x02c83068, 0x02cc0000)
+  from space 64K,   0% used [0x02cc0000, 0x02cc0000, 0x02cd0000)
+  to   space 64K,   0% used [0x02cd0000, 0x02cd0000, 0x02ce0000)
+ tenured generation   total 1408K, used 0K [0x03120000, 0x03280000, 0x06c40000)
+   the space 1408K,   0% used [0x03120000, 0x03120000, 0x03120200, 0x03280000)
+ compacting perm gen  total 8192K, used 1668K [0x06c40000, 0x07440000, 0x0ac40000)
+   the space 8192K,  20% used [0x06c40000, 0x06de11e0, 0x06de1200, 0x07440000)
+No shared spaces configured.
+
+Dynamic libraries:
+0x00400000 - 0x0040c000 	C:\Borland\JBuilder2006\jdk1.5\bin\javaw.exe
+0x7c900000 - 0x7c9b0000 	C:\WINDOWS\system32\ntdll.dll
+0x7c800000 - 0x7c8f4000 	C:\WINDOWS\system32\kernel32.dll
+0x77dd0000 - 0x77e6b000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x77e70000 - 0x77f01000 	C:\WINDOWS\system32\RPCRT4.dll
+0x7e410000 - 0x7e4a0000 	C:\WINDOWS\system32\USER32.dll
+0x77f10000 - 0x77f57000 	C:\WINDOWS\system32\GDI32.dll
+0x77c10000 - 0x77c68000 	C:\WINDOWS\system32\MSVCRT.dll
+0x76390000 - 0x763ad000 	C:\WINDOWS\system32\IMM32.DLL
+0x629c0000 - 0x629c9000 	C:\WINDOWS\system32\LPK.DLL
+0x74d90000 - 0x74dfb000 	C:\WINDOWS\system32\USP10.dll
+0x10000000 - 0x10036000 	C:\WINDOWS\system32\sockspy.dll
+0x6d6b0000 - 0x6d836000 	C:\Borland\JBuilder2006\jdk1.5\jre\bin\client\jvm.dll
+0x76b40000 - 0x76b6d000 	C:\WINDOWS\system32\WINMM.dll
+0x6d2f0000 - 0x6d2f8000 	C:\Borland\JBuilder2006\jdk1.5\jre\bin\hpi.dll
+0x76bf0000 - 0x76bfb000 	C:\WINDOWS\system32\PSAPI.DLL
+0x6d680000 - 0x6d68c000 	C:\Borland\JBuilder2006\jdk1.5\jre\bin\verify.dll
+0x6d370000 - 0x6d38d000 	C:\Borland\JBuilder2006\jdk1.5\jre\bin\java.dll
+0x6d6a0000 - 0x6d6af000 	C:\Borland\JBuilder2006\jdk1.5\jre\bin\zip.dll
+0x6d3e0000 - 0x6d3ed000 	C:\Borland\JBuilder2006\jdk1.5\jre\bin\JdbcOdbc.dll
+0x74320000 - 0x7435d000 	C:\WINDOWS\system32\ODBC32.dll
+0x5d090000 - 0x5d12a000 	C:\WINDOWS\system32\COMCTL32.dll
+0x7c9c0000 - 0x7d1d5000 	C:\WINDOWS\system32\SHELL32.dll
+0x77f60000 - 0x77fd6000 	C:\WINDOWS\system32\SHLWAPI.dll
+0x763b0000 - 0x763f9000 	C:\WINDOWS\system32\comdlg32.dll
+0x773d0000 - 0x774d3000 	C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2982_x-ww_ac3f9c03\comctl32.dll
+0x20000000 - 0x20017000 	C:\WINDOWS\system32\odbcint.dll
+
+VM Arguments:
+java_command: board.msAccessDB
+
+Environment Variables:
+JAVA_HOME=C:\Borland\JBuilder2006\jdk1.5
+PATH=.;C:\Borland\JBuilder2006\bin;C:\Borland\JBuilder2006\jdk1.5\bin;C:\oracle\product\10.1.0\Db_1\bin;C:\oracle\product\10.1.0\Db_1\jre\1.4.2\bin\client;C:\oracle\product\10.1.0\Db_1\jre\1.4.2\bin;C:\PROGRAM FILES\THINKPAD\UTILITIES;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\ATI Technologies\ATI Control Panel;C:\Program Files\ATI Technologies\Fire GL 3D Studio Max;C:\WINDOWS\Downloaded Program Files;C:\IBMTOOLS\Python22;C:\Program Files\PC-Doctor for Windows\services;C:\Program Files\Microsoft SQL Server\80\Tools\BINN;C:\Borland\JBuilder2006\debug\sa;C:\Borland\JBuilder2006\lib
+USERNAME=Meisam
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 13 Stepping 6, GenuineIntel
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows XP Build 2600 Service Pack 2
+
+CPU:total 1 family 6, cmov, cx8, fxsr, mmx, sse, sse2
+
+Memory: 4k page, physical 523184k(86584k free), swap 1365460k(332180k free)
+
+vm_info: Java HotSpot(TM) Client VM (1.5.0_03-b07) for windows-x86, built on Apr 13 2005 02:07:01 by "java_re" with MS VC++ 6.0
+

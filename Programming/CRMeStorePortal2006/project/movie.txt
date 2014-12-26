@@ -1,0 +1,24 @@
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(1,"Scorsizi","Fox",30,"action","the fly");
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(2,"Scorsizi","Fox",30,"action","the Gun");
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(3,"Scorsizi","Fox",30,"Romance","Titanic");
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(4,"Clint Eastwood","Fox",30,"Romance","Milion dollar baby");
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(5,"David Lynch","Fox",30,"Horror","Mullholand Drive");
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(6,"David Lynch","Fox",30,"Horror","Lost Highway");
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(7,"Mel Gibson","Fox",30,"Horror","Lord of the rings");
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(8,"Jim Jarmush","Fox",30,"Horror","Deadman");
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(9,"johnson","Fox",30,"Horror","Scream 1");
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(10,"johnson","Fox",30,"Horror","Scream 2");
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(11,"johnson","Fox",30,"Horror","The ring 1");
+INSERT INTO movie(Movie_id,Movie_director,Movie_Company,Movie_Price,Movie_Genre,Movie_Name)
+Values(12,"johnson","Fox",30,"Horror","The ring 2");

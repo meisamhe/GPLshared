@@ -1,0 +1,29 @@
+1 <My BST> #
+2 <BST XYZ> 20 10 6 5 15 26 22 24 23  #
+2 <> 10 #
+2 <BST X> 20 10 6 5 15 26 22 24 23  #
+8 <BST X> <BST XYZ>#
+3 <BST XYZ> 11 13 2 #
+4 <BST XYZ> 10 22 24 #
+5 <BST XYZ> #
+5 <My BST> #
+5 <BST X> #
+6 <BST XYZ> 7 19  #
+6 <BST XYZ> 1 1000 #
+6 <BST XYZ> 2 24 #
+7 <BST XYZ> 3 #
+2 <BST X> 20 10 6 5 15 26 22 24 23  #
+7 <BIG> 3 #
+2 <BST XYZ> 20 10 6 5 15 26 22 24 23  #
+8 <BST XYZ> <My BST>#
+8 <BST X> <BST XYZ>#
+2 <BST Y> 20 11 6 5 2 15 13 26 23 #
+8 <BST XYZ> <BST Y>#
+9 <BST XYZ>#
+2 <BST XYZ> 20 10 6 5 15 26 22 24 23  #
+#
+
+
+
+
+

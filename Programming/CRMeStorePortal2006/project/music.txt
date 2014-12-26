@@ -1,0 +1,37 @@
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(1,"MegaDeth","Rock",20,"world needs hereo","Disconect");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(2,"MegaDeth","Rock",20,"world needs hereo","promises");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(3,"MegaDeth","Rock",20,"Trust","Trust");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(4,"Pink Floyd","Rock",20,"The wall","Hey you");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(5,"Pink Floyd","Rock",20,"The wall","Another brick in the wall");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(6,"Joe satriani","Rock",20,"Crystal Planet","Rush Hour");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(7,"Beethoven","Classic",20,"","Moon light Sonata");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(8,"Mozart","Classic",20,"","Alla Turka");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(9,"Mozart","Classic",20,"","Queen Oprah");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(10,"Vivaldi","Classic",20,"","Four season");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(11,"Chris de Burgh","pop",20,"","lady in red");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(12,"Celine Dion","pop",20,"wish","Power of love");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(13,"Micheal Jackson","pop",20,"disaster","king");
+INSERT INTO music(Music_id,Music_Singer,Music_Genre,Music_Price,Music_AlbumName,Music_Name)
+Values(14,"James blunt","pop",20,"pretty","Your beautiful");
+
+
+
+
+
+
+
+
+

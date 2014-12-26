@@ -1,0 +1,15 @@
+<?xml-stylesheet type="text/xsl" href="./XQuery Output.xsl"?>
+<rootTag>
+<employee>
+<NAME>MEISAM</NAME>
+<ADDRESS>SHAHRAK GHARB</ADDRESS>
+</employee>
+<employee>
+<NAME>AKBAR</NAME>
+<ADDRESS>SEYEDKHANDAN</ADDRESS>
+</employee>
+<employee>
+<NAME>MOHSEN</NAME>
+<ADDRESS>TEHRAN PARS</ADDRESS>
+</employee>
+</rootTag>

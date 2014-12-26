@@ -1,0 +1,44 @@
+DROP TABLE IF EXISTS "estore"."book";
+CREATE TABLE  "estore"."book" (
+  "book_id" int(10) unsigned NOT NULL auto_increment,
+  "book_Author" varchar(45) NOT NULL default '',
+  "ISDN" int(10) unsigned NOT NULL default '0',
+  "book_Title" varchar(45) NOT NULL default '',
+  "book_price" varchar(45) NOT NULL default '',
+  "translator" varchar(45) NOT NULL default '',
+  "book_Edition" varchar(45) NOT NULL default '',
+  "publication" varchar(45) NOT NULL default '',
+  "book_category" varchar(45) NOT NULL default '',
+  PRIMARY KEY  ("book_id")
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS "estore"."movie";
+CREATE TABLE  "estore"."movie" (
+  "Movie_id" int(10) unsigned NOT NULL auto_increment,
+  "Movie_director" varchar(45) NOT NULL default '',
+  "Movie_Company" varchar(45) NOT NULL default '',
+  "Movie_ReleaseDate" varchar(45) NOT NULL default '',
+  "Movie_Star1" varchar(45) NOT NULL default '',
+  "Movie_Star2" varchar(45) NOT NULL default '',
+  "Movie_Price" varchar(45) NOT NULL default '',
+  "Movie_Genre" varchar(45) NOT NULL default '',
+  "Movie_Name" varchar(45) NOT NULL default '',
+  PRIMARY KEY  ("Movie_id")
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS "estore"."music";
+CREATE TABLE  "estore"."music" (
+  "Music_id" int(10) unsigned NOT NULL auto_increment,
+  "Music_Singer" varchar(45) NOT NULL default '',
+  "Music_Company" varchar(45) NOT NULL default '',
+  "Music_ReleaseDate" datetime NOT NULL default '0000-00-00 00:00:00',
+  "Music_Genre" varchar(45) NOT NULL default '',
+  "Music_Price" float NOT NULL default '0',
+  "Music_AlbumName" varchar(45) NOT NULL default '',
+  "Music_Name" varchar(45) NOT NULL default '',
+  PRIMARY KEY  ("Music_id")
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS "estore"."order_item";
+CREATE TABLE  "estore"."order_item" (
+  "product_id" int(10) unsigned NOT NULL auto_increment,
+  "Quantity" int(10) unsigned NOT NULL default '0',
+  PRIMARY KEY  ("product_id")
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;

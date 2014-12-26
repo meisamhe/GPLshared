@@ -1,0 +1,231 @@
+package board;
+
+/**
+ * <p>Title: </p>
+ *
+ * <p>Description: </p>
+ *
+ * <p>Copyright: Copyright (c) 2007</p>
+ *
+ * <p>Company: </p>
+ *
+ * @author not attributable
+ * @version 1.0
+ */
+public class cell {
+    int x; //set get y has the middle of the cell board x
+    int y; // set get y has the middle of the cell board y
+    int imageNum; //set get imageNum
+    String content;
+    String meaningContent;
+    String content1, content2, content3; //set content
+    boolean place; //whether it is in the true place or not
+    int font; //set content
+    boolean oneFalseDone; //set get oneFalseDon
+    boolean en; //set get en
+    int rowCount; //set content
+    int start1, start2, start3; // set content
+
+    public cell() {
+    }
+
+    public cell(int x, int y, int imageNum, String content,
+                String meaningContent, boolean en) {
+        start1 = 0;
+        start2 = 0;
+        start3 = 0;
+        System.out.println(content + " " + meaningContent);
+        this.setx(x);
+        this.sety(y);
+        this.setEn(en);
+        this.setPlace(false);
+        this.setContent(content);
+        this.setImageNum(imageNum);
+        this.setOneFalseDone(false);
+        this.meaningContent = meaningContent;
+        this.content = content;
+    }
+    public cell(cell l) {
+       start1 = 0;
+       start2 = 0;
+       start3 = 0;
+       System.out.println(l.content + " " + l.meaningContent);
+       this.setx(l.getx());
+       this.sety(l.gety());
+       this.setEn(l.en);
+       this.setPlace(l.place);
+       this.setContent(l.content);
+       this.setImageNum(l.imageNum);
+       this.setOneFalseDone(l.getOneFalseDone());
+       this.meaningContent = l.meaningContent;
+       this.content = l.content;
+   }
+
+
+    boolean getPlace() {
+        return place;
+    }
+
+    void setPlace(boolean place) {
+        this.place = place;
+    }
+
+    int getStart1() {
+        return start1;
+    }
+
+    int getStart2() {
+        return start2;
+    }
+
+    int getStart3() {
+        return start3;
+    }
+
+    int getRowCount() {
+        return rowCount;
+    }
+
+    int getFont() {
+        return font;
+    }
+
+    void setEn(boolean en) {
+        this.en = en;
+    }
+
+    boolean getEn() {
+        return en;
+    }
+
+    void setOneFalseDone(boolean ofd) {
+        this.oneFalseDone = ofd;
+    }
+
+    boolean getOneFalseDone() {
+        return oneFalseDone;
+    }
+
+    void setx(int x) {
+        this.x = x;
+    }
+
+    int getx() {
+        return this.x;
+    }
+
+    void sety(int y) {
+        this.y = y;
+    }
+
+    int gety() {
+        return y;
+    }
+
+    void setImageNum(int imageNum) {
+        this.imageNum = imageNum;
+    }
+
+    int getImageNum() {
+        return imageNum;
+    }
+
+    String getContent1() {
+        return content1;
+    }
+
+    String getContent2() {
+        return content2;
+    }
+
+    String getContent3() {
+        return content3;
+    }
+
+    void setContent(String content) {
+        //   this.sety(70);
+        if (this.en == true) {
+            if (content.length() < 4) {
+                this.rowCount = 1;
+                this.font = 40;
+                this.start1 = 30 ;
+                this.content1 = content;
+            } else if (content.length() < 10) {
+                this.rowCount = 1;
+                this.font = 20;
+                this.start1 = 15 ;
+                this.content1 = content;
+            } else if (content.length() < 12) {
+                this.rowCount = 1;
+                this.font = 15;
+                this.start1 = 10 ;
+                this.content1 = content;
+            } else if (content.length() < 24) {
+                this.rowCount = 3;
+                this.font = 20;
+                this.content1 = content.substring(0, 8);
+                if (content.length() > 16) {
+                    this.content2 = content.substring(8, 16);
+                } else {
+                    this.content2 = content.substring(8, content.length());
+                }
+                if (content.length() > 24) {
+                    this.content3 = content.substring(16, 24);
+                } else if (content.length() > 16) {
+                    this.content3 = content.substring(16, content.length());
+                } else {
+                    this.content3 = " ";
+                }
+
+                setStart();
+            }
+        } else {
+            if (content.length() < 4) {
+                this.rowCount = 1;
+                this.content1 = content;
+                this.font = 30;
+                this.start1 = 30 ;
+            } else if (content.length() < 10) {
+                this.rowCount = 1;
+                this.content1 = content;
+                this.font = 20;
+                this.start1 = 15 ;
+            } else if (content.length() < 12) {
+                this.rowCount = 1;
+                this.content1 = content;
+                this.font = 20;
+                this.start1 = 15 ;
+            } else if (content.length() < 24) {
+                this.rowCount = 3;
+                this.font = 15;
+                this.content1 = content.substring(0, 8);
+                if (content.length() > 16) {
+                    this.content2 = content.substring(8, 16);
+                } else {
+                    this.content2 = content.substring(8, content.length());
+                }
+                if (content.length() > 24) {
+                    this.content3 = content.substring(16, 24);
+                } else if (content.length() > 16) {
+                    this.content3 = content.substring(16, content.length());
+                } else {
+                    this.content3 = " ";
+                }
+                setStart();
+
+            }
+
+        }
+    }
+
+    void setStart() { //this function gives the start for part 2 and 3 of the three part content
+        start1 =  (4 * (content1.length()));
+        start2 =  (4 * (content2.length()));
+        start3 =  (4 * (content3.length()));
+    }
+
+
+    public static void main(String[] args) {
+        cell cell = new cell();
+    }
+}

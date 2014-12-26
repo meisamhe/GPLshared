@@ -1,0 +1,6 @@
+MIDlet-1: Gentle Player, , com.gentlemedia.gp.Main
+MIDlet-Jar-Size: 27680
+MIDlet-Jar-URL: http://midlet.org/repository/gentlemedia/gplayer/gplayer.jar?md=121
+MIDlet-Name: Gentle Player
+MIDlet-Vendor: Gentlemedia
+MIDlet-Version: 1.0

@@ -1,0 +1,74 @@
+<%@page contentType="text/html; charset=windows-1256"%>
+<html>
+  <head>
+    <title>Search</title>
+  </head>
+  <%@page import="java.sql.Connection"%>
+  <%@page import="java.sql.ResultSet"%>
+  <%@page import="java.sql.SQLException"%>
+  <%@page import="java.util.ArrayList"%>
+  <jsp:useBean id="MySqlObj" scope="session" class="jdbcMySql.MySqlConnector"/>
+  <jsp:setProperty name="MySqlObj" property="*"/>
+  <body>
+    <p>
+      <strong>Please insert your query</strong>
+    </p>
+    <form method="get" action="Search.jsp">
+      <input name="searchString" type="text" style="width: 310px"/>
+      <input name="Submit1" type="submit" value="Search"/>
+    </form>
+  <%
+    if (request.getParameter("searchString") != null) {
+      String key;
+      key = (String) request.getParameter("searchString");
+      try {
+        Connection con = MySqlObj.getDbConnection("mani", "mbh", "3306", "localhost", "3m");
+        //Select from Books
+        String sql = "select * from books where name like '%" + key + "%' or writer like '%";
+        sql += key + "%' or publisher like '%" + key + "%' or description like '%" + key + "%'";
+        ResultSet rslt = MySqlObj.runSqlQuery(sql, con);
+        System.out.println(sql);
+        while (rslt.next()) {
+          out.println("<br>" + "Name: " + rslt.getString("NAME") + "<br>");
+          out.println("WRITER: " + rslt.getString("WRITER") + "<br>");
+          out.println("PUBLISHER: " + rslt.getString("PUBLISHER") + "<br>");
+          out.println("EDITION: " + String.valueOf(rslt.getInt("EDITION")) + "<br>");
+          out.println("PRICE: " + String.valueOf(rslt.getDouble("PRICE")) + "<br>");
+          out.println("<a href=\"buyBasket.jsp?StuffTable=books" + "&StuffID=" + rslt.getString("ID") + "\">Add To Basket</a>");
+        }
+        //Select from CDs
+        sql = "select * from cds where name like '%" + key + "%' or title like '%";
+        sql += key + "%' or publisher like '%" + key + "%' or description like '%" + key + "%'";
+        rslt.close();
+        rslt = MySqlObj.runSqlQuery(sql, con);
+        System.out.println(sql);
+        while (rslt.next()) {
+          out.println("<br>" + "TITLE: " + rslt.getString("TITLE") + "<br>");
+          out.println("NAME: " + rslt.getString("NAME") + "<br>");
+          out.println("PUBLISHER: " + rslt.getString("PUBLISHER") + "<br>");
+          out.println("PRICE: " + String.valueOf(rslt.getDouble("PRICE")) + "<br>");
+          out.println("<a href=\"buyBasket.jsp?StuffTable=cds" + "&StuffID=" + rslt.getString("ID") + "\">Add To Basket</a>");
+        }
+        //Select from Stationaries
+        sql = "select * from stationaries where name like '%" + key + "%' or manufactured_by like '%";
+        sql += key + "%' or description like '%" + key + "%'";
+        rslt.close();
+        rslt = MySqlObj.runSqlQuery(sql, con);
+        System.out.println(sql);
+        while (rslt.next()) {
+          out.println("NAME: " + rslt.getString("NAME") + "<br>");
+          out.println("MANUFACTURED_BY: " + rslt.getString("MANUFACTURED_BY") + "<br>");
+          out.println("PRICE: " + String.valueOf(rslt.getDouble("PRICE")) + "<br>");
+          out.println("<a href=\"buyBasket.jsp?StuffTable=stationaries" + "&StuffID=" + rslt.getString("ID") + "\">Add To Basket</a>");
+        }
+        rslt.close();
+      }
+      catch (Exception ex) {
+        System.out.println(ex.getMessage());
+      }
+    }
+    else
+      System.out.println("parameter null");
+  %>
+  </body>
+</html>

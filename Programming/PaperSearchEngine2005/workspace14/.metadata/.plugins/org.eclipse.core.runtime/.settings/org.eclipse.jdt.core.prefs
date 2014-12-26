@@ -1,0 +1,11 @@
+#Sat Aug 13 08:30:41 IRDT 2005
+org.eclipse.jdt.core.classpathVariable.JRE_SRCROOT=
+org.eclipse.jdt.core.classpathContainer.AUT|org.eclipse.jdt.launching.JRE_CONTAINER=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<classpath>\r\n<classpathentry sourcepath\="E\:/Borland/JBuilder2005/jdk1.4/src.zip" kind\="lib" path\="E\:/Borland/JBuilder2005/jdk1.4/jre/lib/rt.jar"/>\r\n<classpathentry sourcepath\="E\:/Borland/JBuilder2005/jdk1.4/src.zip" kind\="lib" path\="E\:/Borland/JBuilder2005/jdk1.4/jre/lib/sunrsasign.jar"/>\r\n<classpathentry sourcepath\="E\:/Borland/JBuilder2005/jdk1.4/src.zip" kind\="lib" path\="E\:/Borland/JBuilder2005/jdk1.4/jre/lib/jsse.jar"/>\r\n<classpathentry sourcepath\="E\:/Borland/JBuilder2005/jdk1.4/src.zip" kind\="lib" path\="E\:/Borland/JBuilder2005/jdk1.4/jre/lib/jce.jar"/>\r\n<classpathentry sourcepath\="E\:/Borland/JBuilder2005/jdk1.4/src.zip" kind\="lib" path\="E\:/Borland/JBuilder2005/jdk1.4/jre/lib/charsets.jar"/>\r\n<classpathentry kind\="lib" path\="E\:/Borland/JBuilder2005/jdk1.4/jre/lib/ext/dnsns.jar"/>\r\n<classpathentry kind\="lib" path\="E\:/Borland/JBuilder2005/jdk1.4/jre/lib/ext/ldapsec.jar"/>\r\n<classpathentry kind\="lib" path\="E\:/Borland/JBuilder2005/jdk1.4/jre/lib/ext/localedata.jar"/>\r\n<classpathentry kind\="lib" path\="E\:/Borland/JBuilder2005/jdk1.4/jre/lib/ext/sunjce_provider.jar"/>\r\n</classpath>\r\n
+org.eclipse.jdt.core.classpathVariable.JRE_LIB=C\:/Program Files/Java/j2re1.4.2_04/lib/rt.jar
+org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
+org.eclipse.jdt.core.classpathVariable.ECLIPSE_HOME=e\:/eclipse
+org.eclipse.jdt.core.builder.resourceCopyExclusionFilter=*.launch
+org.eclipse.jdt.core.classpathVariable.JUNIT_HOME=e\:/eclipse/plugins/org.junit_3.8.1
+eclipse.preferences.version=1
+org.eclipse.jdt.core.compiler.taskTags=TODO,FIXME,MBH
+org.eclipse.jdt.core.classpathVariable.JRE_SRC=

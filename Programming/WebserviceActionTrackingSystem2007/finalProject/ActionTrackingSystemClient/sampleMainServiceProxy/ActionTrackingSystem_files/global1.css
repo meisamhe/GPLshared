@@ -1,0 +1,37 @@
+BODY {
+	FONT-SIZE: 11px; COLOR: #333333; FONT-FAMILY: Arial, Verdana, Lucida,  Helvetica, sans-serif
+}
+
+.MainContent {
+	FONT-SIZE: 11px; COLOR: #333333; WIDTH: 0px;FONT-FAMILY: Arial, Verdana, Lucida,  Helvetica, sans-serif
+}
+FONT {
+	FONT-SIZE: 11px; COLOR: #333333; FONT-FAMILY: Arial, Verdana, Lucida,  Helvetica, sans-serif
+}
+
+BODY {
+	BACKGROUND-COLOR: #29385b
+}
+TD {
+	TEXT-ALIGN: left
+}
+FORM {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+#mainContentBorder {
+	BORDER-RIGHT: #d5ae65 1px solid; BORDER-TOP: #d5ae65 1px solid; MARGIN-TOP: 3px; MARGIN-LEFT: auto; BORDER-LEFT: #d5ae65 1px solid; WIDTH: 450px; MARGIN-RIGHT: auto; BORDER-BOTTOM: #d5ae65 1px solid; BACKGROUND-COLOR: #222e4b
+}
+
+
+.altText {
+	COLOR: #2a3960
+}
+.border {
+	BORDER-RIGHT: #d5ae65 1px solid; BORDER-TOP: #d5ae65 1px solid; BORDER-LEFT: #d5ae65 1px solid; BORDER-BOTTOM: #d5ae65 1px solid
+}
+.bordersas {
+	BORDER-RIGHT: #ffffff 4px solid; BORDER-TOP: #ffffff 4px solid; BORDER-LEFT: #ffffff 4px solid; BORDER-BOTTOM: #ffffff 4px solid
+}
+.outlineBox {
+	BORDER-RIGHT: #b5b5b5 1px solid; PADDING-RIGHT: 15px; BORDER-TOP: #b5b5b5 1px solid; PADDING-LEFT: 15px; PADDING-BOTTOM: 15px; BORDER-LEFT: #b5b5b5 1px solid; PADDING-TOP: 15px; BORDER-BOTTOM: #b5b5b5 1px solid; BACKGROUND-COLOR: #f1f0f0
+}

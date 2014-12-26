@@ -1,0 +1,968 @@
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>AHD.com - Anson General Hospital (450078) - Profile</title>
+        <meta name="description" content="The American Hospital Directory provides operational data, financial information, utilization statistics and other benchmarks for acute care hospitals." />
+        <meta name="keywords" content="hospital, hospitals, hospital data, hospital performance, health care,  quality outcomes, clinical quality measurements, HCFA, CMS, MedPAR, HEDIS, AMA, NCQA, JCAHO, HFMA, DRG, information, statistics, benchmark, benchmarks, benchmarking" />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <meta id="viewport" name="viewport" content="width=1000px" /> 
+        <base id="myBaseId" href="http://www.ahd.com/" />
+        <link href="http://www.ahd.com/favicon.ico" rel="shortcut icon">
+        <link href="/styles/ahd2010.28.css" rel="stylesheet" type="text/css" />
+            <script type="text/javascript" src="/core/js/jquery-1.6.4.min.js"></script>
+            <script type="text/javascript" src="/js/ahd_autosuggest.6.js"></script>
+            <script type="text/javascript" src="/js/jquery.ba-resize.min.js"></script>
+            <script type="text/javascript" src="/js/jquery.fancybox-1.3.3.pack.js"></script>
+            <link href="/styles/jquery.fancybox-1.3.3-2.css" rel="stylesheet" type="text/css" />
+            <script type="text/javascript" src="/js/jScrollTouch.js"></script>
+            <script type="text/javascript" src="/js/ahd_tools.16.js"></script>
+        <script type="text/javascript">
+
+            var ajax_ahd_current_report = '/profile.php';
+            var ajax_ahd_current_report_vars = '';
+            var ajax_ahd_current_report_section = '';
+
+            var defaultlistname = "Unnamed List";
+
+            var qs_options = {
+                script: "http://www.ahd.com/ajax/quicksearch.php?",
+                varname: "input",
+                json: true,
+                maxresults: 101,
+                callback: qs_call,
+                replaceInput: false,
+                shownoresults: false
+            };
+        </script>
+        <script type="text/javascript" src="core/js/jquery.alerts.js"></script>
+        <link type="text/css" href="core/js/jquery.alerts.css" rel="stylesheet" media="screen" />
+        
+    </head>
+    <body id="body" topmargin="0" >
+    <div id="maincontainer">
+        <div id="left_outside">
+            <div id="right_outside">
+                <div id="left_inside">
+                    <div id="right_inside">
+                        <div id="header">
+                            <div id="logo">
+                                <a href="http://www.ahd.com/"><img height="55" border="0" width="220" src="/images/ahdlogo_220.gif" /></a>
+                                <h1 style="font-size: 13px; font-weight: 400; line-height: 15px; margin: 0px; padding: 0px;">Anson General Hospital<br />Anson, TX &nbsp;79501     </h1> 
+                            </div>
+                            <div id="navigation_bar">
+                                
+                                <div id="nav_left">
+                                    &nbsp;
+                                </div>
+                                <div id="nav_wrap">
+                                    <div class="nav_row" style="text-align: right;">
+                                    <span id="navbar_video"><a href="/tutorials/player.php?video=navigation_tools" class="help_ajax" alt="Using Navigation Tools"><img src="/images/Icon_video-blue.gif" border="0" alt="VIDEO" style="vertical-align:middle; padding-top:4px;" /></a></span>
+                                        <ul id="topnav">
+                                            <li><a href="http://www.ahd.com/">Home</a></li> | <li><a href="http://www.ahd.com/faq.html"><acronym title="Frequently Asked Questions">FAQs</acronym></a></li> | <li><a href="http://www.ahd.com/help.html">Help</a></li> | <li><a href="http://www.ahd.com/data_sources.html">Sources</a></li> | <li><a href="http://www.ahd.com/enhancements.html">Updates</a></li> | <li><a href="http://www.ahd.com/myaccount.php">My Account</a></li> | <li><a href="http://www.ahd.com/index.php?LOG_OUT_USER=11186" title="You are logged in as alibakh62">Logout</a></li>
+                                        </ul>
+                                    </div>
+                                    
+
+                                    
+                                        <form id="navsearchform" name="navsearchform" action="/profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&ek=30dc697b17cb0da5c35331046068c3ef" method="post">
+                                        <table id="navbar" width="650" style="margin-top: 5px;">
+                                            <col width="100" />
+                                            <col width="170" />
+                                            <col width="130" />
+                                            <col width="80" />
+                                            <col width="80" />
+                                            <col width="90" />
+                                            <tr id="navbartoprow">
+                                                <td align="right"><label for="quicksearch">Quick Search:</label>
+    <span class="help_box" > <img class="helpicon" border="0" src="/images/Icon_help.gif" width="12" height="12" alt="?" />
+        <div id="hlp_quicksearch" class="helpbox">
+            <h4>Quick Search</h4>
+            <div class="helpboxcontent"><a href="/tutorials/player.php?video=quick_search" class="help_ajax"><img src="/images/Icon_video.gif" border="0" alt="VIDEO" /></a><br />Enter keywords to look up a hospital.  Just a few letters of a keyword may be needed.  For example, to look up The Cleveland Clinic in Cleveland, Ohio simply key in "clev clin" and you will see all hospitals that match. (The list appears after there are fewer than 50 matches so refine your keywords if necessary.) Keywords can pertain to a hospital's name, city, and/or state. Common abbreviations can also be used.  Click on a listed hospital to see its information.  Subscribers may also enter a hospital's CMS Certification Number (CCN) or National Provider Identifier (NPI).</div>
+        </div>
+    </span></td>
+                                                <td align="left"><input accesskey="s" type="text" id="quicksearch" name="quicksearch" value="" /></td>
+                                                <td align="right"><label for="">Advanced Search:</label>
+    <span class="help_box" > <img class="helpicon" border="0" src="/images/Icon_help.gif" width="12" height="12" alt="?" />
+        <div id="hlp_advsearch" class="helpbox">
+            <h4>Advanced Search</h4>
+            <div class="helpboxcontent"><a href="/tutorials/player.php?video=advanced_search" class="help_ajax"><img src="/images/Icon_video.gif" border="0" alt="VIDEO" /></a><br />Click the Search button and you will be shown a form where you can enter criteria identifying the hospital(s) you're interested in. For example, if you enter "cleveland" as the city you will see a list of 21 hospitals in cities named Cleveland. Then just select the one you want.  You can return to the most recent results list by clicking the Results button.  You can perform a new search by clicking the Search button.</div>
+        </div>
+    </span></td>
+                                                <td><div class="navbuttons"><a href="http://www.ahd.com/search.php">Search</a></div></td>
+                                                <td><div class="navbuttons"><a href="http://www.ahd.com/list_cms.php?mstate%5B%5D=TX&amp;listing=1&amp;viewmap=0">Results</a></div></td>
+                                                <td>&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td align="right" style="vertical-align:bottom;"><label for="activelist">Active List:</label>
+    <span class="help_box" > <img class="helpicon" border="0" src="/images/Icon_help.gif" width="12" height="12" alt="?" />
+        <div id="hlp_activelist" class="helpbox">
+            <h4>Active List</h4>
+            <div class="helpboxcontent"><a href="/tutorials/player.php?video=using_lists" class="help_ajax"><img src="/images/Icon_video.gif" border="0" alt="VIDEO" /></a><br />Subscribers can create lists of hospitals and save them for future use.  Hospitals can be added to a list from the Search Results page or from individual hospital reports.  Lists can be edited and saved by clicking the Manage Lists button.  A new list is started each time you log in (Current Session) and is added to the drop down list when it is saved with a name.  Lists can be selected from the drop down and their hospitals can be clicked for reporting.</div>
+        </div>
+    </span></td>
+                                                <td align="left" style="vertical-align: bottom; width: 170px;"><input accesskey="l" type="text" id="activelist" name="activelist" value="Unnamed List" readonly="readonly" />
+                                                <div id="activelistcontent" class="autosuggest">
+                                                    <ul id="as_ul_activelist"><li><a href="javascript:ahd_prompt_listname_unique('createnewlist');"><span class="listfunction">Create New List</span></a></li><li id="managelist"><a href="/managelist.php"><span class="listfunction">Edit / Rename / Copy / Delete Lists</a></span></li><li><a href="/managelist.php?action=loadlist&amp;listid=&amp;referer=profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef"><span class="selected">Unnamed List</span></a></li><li><a href="/managelist.php?action=loadlist&amp;listid=18313&amp;referer=profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef"><span class="selected">Unnamed List</span></a></li><li><a href="/managelist.php?action=loadlist&amp;listid=18314&amp;referer=profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef"><span class="selected">all hosp</span></a></li></ul>
+                                                </div>
+                                                <img class="pulldown" id="activelist_pulldown" src="/images/Icon_PullDown.gif" alt="*" /></td>
+                                                <td align="right" style="vertical-align:bottom;"><label for="apps">Apps:</label>
+    <span class="help_box" > <img class="helpicon" border="0" src="/images/Icon_help.gif" width="12" height="12" alt="?" />
+        <div id="hlp_apps" class="helpbox">
+            <h4>Apps</h4>
+            <div class="helpboxcontent"><a href="/tutorials/player.php?video=apps_general" class="help_ajax"><img src="/images/Icon_video.gif" border="0" alt="VIDEO" /></a><br />Supplemental applications can be purchased to provide reporting and functionality for specialized areas of interest. Purchased apps appear in the drop-down list and can be selected for each hospital (just like the reports selected by blue buttons).  Some apps also provide reporting based on an Active List.  For more information please see the <a href="apps.html">apps page</a>.</div>
+        </div>
+    </span></td>
+                                                <td colspan="2" align="left" style="vertical-align: bottom; width: 170px;"><input accesskey="a" type="text" id="apps" name="apps" value="click to view apps..." readonly="readonly" />                                               
+                                                <div id="applistcontent" class="autosuggest">
+                                                    <ul id="as_ul_apps"><li id="viewallapps"><a href="apps.html"><span class="listfunction">View All Available Apps</span></a></li></ul>
+                                                </div>
+                                                <img class="pulldown" id="apps_pulldown" src="/images/Icon_PullDown.gif" alt="*" />
+
+                                                </td>
+                                                <td align="center" style="vertical-align:bottom;">
+                                                    <a href="/profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef&amp;print=1" target="_blank"><img border="0" src="/images/Icon_Print.gif" alt="Printer friendly Export" width="19" height="20" /></a>
+                                                    <a href="/profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef&amp;pdf=1"><img border="0" src="/images/Icon_PDF.gif" alt="PDF Export" width="21" height="20" /></a>
+                                                    <a href="/profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef&amp;excel=1"><img border="0" src="/images/Icon_Excel.gif" alt="Excel Spreadsheet Export" width="21" height="20" /></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    
+                                    
+                                        <div class="nav_row">
+                                            <div class="navbuttons"><a href="http://www.ahd.com/profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef" rel="nofollow">Profile</a></div>
+<div class="navbuttons"><a href="http://www.ahd.com/departments.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef" rel="nofollow">Depts</a></div>
+<div class="navbuttons"><a href="http://www.ahd.com/financial.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef" rel="nofollow">Financial</a></div>
+<div class="navbuttons"><a href="http://www.ahd.com/indicators.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef" title="Financial Indicators" rel="nofollow">Fin Ind</a></div>
+<div class="navbuttons"><a href="http://www.ahd.com/quality.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef" rel="nofollow">Quality</a></div>
+<div class="navbuttons"><a href="http://www.ahd.com/inpatient.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef" rel="nofollow">Inpatient</a></div>
+<div class="navbuttons"><a href="http://www.ahd.com/outpatient.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef" rel="nofollow">Outpatient</a></div>
+<div class="navbuttons_na">App</div>
+                                        </div>
+                                    
+                                    </form>
+                                </div>
+                                <div id="nav_right">
+                                    &nbsp;
+                                </div>
+                            </div>
+                            
+                            <div style="clear: both; height: 0px;">&nbsp;</div>
+                        </div>
+                        <div id="main" style="text-align:left; position: relative; min-width: 0">
+                            
+<table id="report_wrapper" style="margin-top: 5px;" width="900">
+    <tr>
+        <td valign="top" width="520">
+            <div style="padding-left: 30px;">
+
+<ul class="reportnotes">
+<li>Financial data for hospital cost report period ending 03/31/2012 (HCRIS 8711 - 2010).</li><li>Medicare IPPS claims data are for federal fiscal year ending 09/30/2011 (Final rule MedPAR).</li><li>Medicare OPPS claims data are for calendar year ending 12/31/2011.</li><li>Data from other sources and their effective periods are identified within report headers.</li><li><span class="alert">Errata:</span> Please notify us by <a href="mailto:support@ahd.com">email</a> of any corrections or updates.</li>
+</ul>
+
+            </div>
+        </td>
+        
+        <td valign="top" width="300">
+            <a name="top"><b>Anson General Hospital</b></a><br />
+            Anson, TX &nbsp;79501     <br />
+            <acronym title="CMS Certification Number - Also known as HCFA ID, Medicare Provider ID, or CMS ID">CMS Certification Number:</acronym> 450078<br />
+            <a style="font-size:10px; line-height:17px; vertical-align: middle;" href="javascript:addToActiveList('provid=450078&amp;message=1');"><img id="addtolist_button" style="vertical-align:middle;" src="/images/button_addtolist.gif" alt="+List" border="0" /><span id="foldermsg-450078"> add to active list</span></a>
+        </td>
+        
+    </tr>
+</table>
+
+
+
+                            <table width="900" style="margin-bottom: 15px;" CELLPADDING="0" CELLSPACING="0">
+                            <tr>
+                                <td width="520" valign="top">
+                            
+                                <div>
+                            <h1 id="page_title">Profile</h1>
+                            <div class="video_link_pagetitle"><a href="/tutorials/player.php?video=profile_report" class="help_ajax"><img src="/images/Icon_video-blue.gif" border="0" alt="VIDEO" /> Tutorial video</a></div>
+                            
+                            
+                            <ul class="reportsubnav"><li class="first"><a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#characteristics" onClick="ahd_save_report_section(this);">characteristics</a></li><li><a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#components" onClick="ahd_save_report_section(this);">components</a></li><li><a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#assocnpi" onClick="ahd_save_report_section(this);">assoc npi</a></li><li><a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#gpo" onClick="ahd_save_report_section(this);">gpo</a></li><li><a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#utilizationbypayor" onClick="ahd_save_report_section(this);">utilization by payor</a></li><li><a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#volumes" onClick="ahd_save_report_section(this);">volumes</a></li><li><a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#clinicalservices" onClick="ahd_save_report_section(this);">clinical services</a></li><li><a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#accreditations" onClick="ahd_save_report_section(this);">accreditations</a></li><li><a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#teachingstatus" onClick="ahd_save_report_section(this);">teaching status</a></li></ul>
+                                </div>
+
+                                </td>
+                                <td width="300" valign="top" style="padding-top: 18px;">
+                                    
+                                </td>
+                            </tr>
+                            </table>
+
+                            
+                            
+                            
+<div class="subcontent report">
+<a name="characteristics"><h3>Identification and Characteristics</h3></a>
+<ul class="reportnotes"><li>Last updated 05/28/2013. <a href="definitions/prof_id.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d" onClick="popUpFull('definitions/prof_id.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d'); return false;">Definitions</a></li></ul>
+
+<table class="noborder">
+    <tr>
+        <td width="476">
+            <table>
+                <tr>
+                    <td valign="top" align="right">Name and Address:</td>
+                    <td align="left"><b>Anson General Hospital</b><br />101 Avenue J<br />Anson, TX &nbsp;79501     </td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Telephone number:</td>
+                    <td align="left">(325) 823-3231</td>
+                </tr>
+            
+                <tr>
+                    <td valign="top" align="right" height="23">Hospital Website:</td>
+                    <td align="left" height="23"><a href="http://" target="_blank"></a></td>
+                </tr>
+            
+            
+                <tr>
+                    <td valign="top" align="right" height="23"><acronym title="CMS Certification Number - Also known as HCFA ID, Medicare Provider ID, or CMS ID">CMS Certification Number</acronym>:</td>
+                    <td align="left" height="23">450078</td>
+                </tr>
+            
+                <tr>
+                    <td valign="top" align="right">&nbsp;</td>
+                    <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Type of Facility:</td>
+                    <td align="left">Short Term Acute Care</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Type of Control:</td>
+                    <td align="left">Governmental, City-County</td>
+                </tr>
+            
+
+            
+            
+                            <tr>
+                    <td valign="top" align="right">&nbsp;</td>
+                    <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">General Med/Surg Beds:</td>
+                    <td align="left">21</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Special Care Beds:</td>
+                    <td align="left">0</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">&nbsp;</td>
+                    <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Total Employees:</td>
+                    <td align="left">77</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Total Discharges:</td>
+                    <td align="left">327</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Total Patient Days:</td>
+                    <td align="left">3,159</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Total Patient Revenue:</td>
+                    <td align="left">&#36;7,669,978</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">&nbsp;</td>
+                    <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">County (FIPS code):</td>
+                    <td align="left"><a href="/list_cms.php?fipsstate=TX&fipscounty[]=TX253&listing=1">TX253</a> - <a href="/list_cms.php?fipsstate=TX&fipscounty[]=TX253&listing=1">Jones, TX</a></td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right"><acronym title="Core Based Statistical Area">CBSA</acronym> (formerly <acronym title="Metropolitan Statistical Area">MSA</acronym>):</td>
+                    <td align="left"><a href="/list_cms.php?msa=10180&listing=1">10180</a> - <a href="/list_cms.php?msa=10180&listing=1">Abilene, TX</a></td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Longitude / Latitude:</td>
+                    <td align="left">100&deg; E / 33&deg; N</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">&nbsp;</td>
+                    <td align="left">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Fiscal Intermediary:</td>
+                    <td align="left">TrailBlazer Health Enterprises, LLC</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Urban / Rural Designation:</td>
+                    <td align="left">Rural</td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right">Medicare Certified Beds:</td>
+                    <td align="left">25</td>
+                </tr>
+            </table>
+            <a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>        </td>
+        <td valign="top" align="left">
+              <table class="nopadding">
+                <tr>
+                  <td>
+                    <table id="hospitalnotes" width="100%">
+                      <tr>
+                        <td width="17" height="28" background="/images/bkg_popup_ul.gif">&nbsp;</td>
+                        <td background="/images/bkg_popup_uc.gif">&nbsp;</td>
+                        <td width="17" height="28" background="/images/bkg_popup_ur.gif">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td width="17" background="/images/bkg_popup_ml.gif">&nbsp;</td>
+                        <td bgcolor="#F1F1F1">
+                            <h5>N O T E S</h5>
+                            
+                        </td>
+                        <td width="17" background="/images/bkg_popup_mr.gif">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td width="17" height="28" background="/images/bkg_popup_ll.gif">&nbsp;</td>
+                        <td background="/images/bkg_popup_lc.gif">&nbsp;</td>
+                        <td width="17" height="28" background="/images/bkg_popup_lr.gif">&nbsp;</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td width="300">
+                    <div id="map" style="width: 300px; height: 300px; border:1px solid #C0C0C0;"></div>
+                    <p class="legal">This map is for general reference and should not be used in seeking medical care.</p>
+                  </td>
+                </tr>
+              </table>
+        </td>
+    </tr>
+</table>
+
+<a name="contacts"><h3>Key Contacts</h3></a>
+<ul class="reportnotes">
+    <li>Contact information is copyright SK&amp;A and is not included in downloads of this page.</li>
+    <li>(SK&amp;A contact information last updated 05/17/2012.)</li>
+</ul>
+
+<table class="noborder" width="100%">
+    <tbody>
+        
+        <tr>
+            <td width="250" valign="top" align="right">CEO / President / Administrator: </td>
+            <td align="left"></td>
+            <td align="left" rowspan="6" width="200" valign="top"><a href="mailcontact.html" target="_blank"><img border="0" alt="SK&amp;A - A Cegedim Company" src="/images/logoSKA_100.png" width="100" height="37"></a><br>
+        The Most Comprehensive Lists &amp; Databases of Healthcare Professionals.&nbsp; &lt;<a href="mailcontact.html" target="_blank">more ...</a>&gt;</td>
+        </tr>
+        <tr>
+            <td width="250" valign="top" align="right">CFO / Financial Manager: </td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td width="250" valign="top" align="right">CIO / IT Manager: </td>
+            <td align="left"></td>
+        </tr>
+        <tr>
+            <td width="250" valign="top" align="right">CNO / Director Nursing: </td>
+            <td align="left">Sheila Layne</td>
+        </tr>
+        <tr>
+            <td width="250" valign="top" align="right">CMO / Chief of Staff:</td>
+            <td align="left">Gopichan Kapu</td>
+        </tr>
+        <tr>
+            <td width="250" valign="top" align="right">Purchasing / Materials Manager: </td>
+            <td align="left">Deborah Mc Clure</td>
+        </tr>
+        
+        
+</tbody>
+</table>
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+
+<a name="components"><h3>Components (Medicare Certified)</h3></a>
+<ul class="reportnotes"><li><abbr title="National Provider Identifier">NPI</abbr> information last Updated 12/10/2012 / <a href="definitions/prof_comp.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d" onClick="popUpFull('definitions/prof_comp.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d'); return false;">Definitions</a></li></ul>
+
+<table>
+    <thead>
+        <tr>
+            <td width="26%" valign="top" align="left"><b>Type of Component</b></td>
+            <td align="left"><b>Provider<br>Number</b></td>
+            <td align="left"><b>Medicare<br>Payment System</b></td>
+            <td align="left"><b>Medicaid<br>Payment System</b></td>
+            <td align="left"><b>Certified</b></td>
+            <td align="left"><b><abbr title="National Provider Identifier">NPI</abbr></b></td>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td width="26%" valign="top" align="left">Hospital</td>
+            <td align="left">450078&nbsp;</td>
+            <td align="left">PPS</td>
+            <td align="left">PPS</td>
+            <td align="left">06/06/1966</td>
+            <td align="left"><a href="npi_detail.php?npi=1457393571&amp;ek=15e0a7803736c24c9abd8804bb014b12" onClick="popUpFull('npi_detail.php?npi=1457393571&amp;ek=15e0a7803736c24c9abd8804bb014b12'); return false;" title="View NPI Detail">1457393571</a></td>
+        </tr>
+
+        <tr>
+            <td width="26%" valign="top" align="left">Swing Beds - SNF</td>
+            <td align="left">45U078&nbsp;</td>
+            <td align="left">PPS</td>
+            <td align="left">None</td>
+            <td align="left">10/14/2003</td>
+            <td align="left"><a href="npi_detail.php?npi=1962506568&amp;ek=f0d645aa946a477894d6f87ea9a7860b" onClick="popUpFull('npi_detail.php?npi=1962506568&amp;ek=f0d645aa946a477894d6f87ea9a7860b'); return false;" title="View NPI Detail">1962506568</a></td>
+        </tr>
+
+        <tr>
+            <td width="26%" valign="top" align="left">Hospital-Based HHA</td>
+            <td align="left">677080&nbsp;</td>
+            <td align="left">PPS</td>
+            <td align="left">Other</td>
+            <td align="left">01/10/1987</td>
+            <td align="left"><a href="npi_detail.php?npi=1851361083&amp;ek=7add18390c0763ba90bfeff377636314" onClick="popUpFull('npi_detail.php?npi=1851361083&amp;ek=7add18390c0763ba90bfeff377636314'); return false;" title="View NPI Detail">1851361083</a></td>
+        </tr>
+
+        <tr>
+            <td width="26%" valign="top" align="left">Hospital-Based Health Clinic RHC</td>
+            <td align="left">673989&nbsp;</td>
+            <td align="left">Other</td>
+            <td align="left">Other</td>
+            <td align="left">04/01/1995</td>
+            <td align="left"><a href="npi_detail.php?npi=1891737920&amp;ek=9487c894090d6138d65095fe3fa22bc9" onClick="popUpFull('npi_detail.php?npi=1891737920&amp;ek=9487c894090d6138d65095fe3fa22bc9'); return false;" title="View NPI Detail">1891737920</a></td>
+        </tr>
+
+
+    </tbody>
+</table>
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+
+
+<a name="assocnpi"><h3>Associated <abbr title="National Provider Identifiers">NPIs</abbr></h3></a>
+<ul class="reportnotes"><li><abbr title="National Provider Identifier">NPI</abbr> information last Updated 12/10/2012 / <a href="definitions/prof_associated_npi.html" onClick="popUpFull('definitions/prof_associated_npi.html'); return false;">Definitions</a></li></ul>
+
+<table>
+    <thead>
+        <tr>
+            <th valign="top" align="left"><abbr title="National Provider Identifier">NPI</abbr></th>
+            <th align="left">Name</th>
+            <th align="left">Address</th>
+            <th align="left">Telephone</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td valign="top" align="left"><a href="npi_detail.php?npi=1457393571&amp;ek=15e0a7803736c24c9abd8804bb014b12" onClick="popUpFull('npi_detail.php?npi=1457393571&amp;ek=15e0a7803736c24c9abd8804bb014b12'); return false;" title="View NPI Detail">1457393571</a></td>
+            <td valign="top" align="left">ANSON GENERAL HOSPITAL</td>
+            <td valign="top" align="left">101 AVENUE J<br />ANSON, TX &nbsp;79501-2113</td>
+            <td valign="top" align="left" nowrap="nowrap">(325) 823-3231</td>
+        </tr>
+
+        <tr>
+            <td valign="top" align="left"><a href="npi_detail.php?npi=1841469079&amp;ek=5b481aeb720c92e1fcb0d97073c920f1" onClick="popUpFull('npi_detail.php?npi=1841469079&amp;ek=5b481aeb720c92e1fcb0d97073c920f1'); return false;" title="View NPI Detail">1841469079</a></td>
+            <td valign="top" align="left">ANSON GENERAL HOSPITAL AMBULANCE SERV</td>
+            <td valign="top" align="left">101 AVENUE J<br />ANSON, TX &nbsp;79501-2113</td>
+            <td valign="top" align="left" nowrap="nowrap">(325) 823-3931</td>
+        </tr>
+
+        <tr>
+            <td valign="top" align="left"><a href="npi_detail.php?npi=1851361083&amp;ek=7add18390c0763ba90bfeff377636314" onClick="popUpFull('npi_detail.php?npi=1851361083&amp;ek=7add18390c0763ba90bfeff377636314'); return false;" title="View NPI Detail">1851361083</a></td>
+            <td valign="top" align="left">ANSON GENERAL HOSPITAL HOME HEALTH AGENCY</td>
+            <td valign="top" align="left">110 AVENUE J<br />ANSON, TX &nbsp;79501-2112</td>
+            <td valign="top" align="left" nowrap="nowrap">(325) 823-4110</td>
+        </tr>
+
+        <tr>
+            <td valign="top" align="left"><a href="npi_detail.php?npi=1891737920&amp;ek=9487c894090d6138d65095fe3fa22bc9" onClick="popUpFull('npi_detail.php?npi=1891737920&amp;ek=9487c894090d6138d65095fe3fa22bc9'); return false;" title="View NPI Detail">1891737920</a></td>
+            <td valign="top" align="left">ANSON GENERAL HOSPITAL<br />ANSON FAMILY WELLNESS CLINIC</td>
+            <td valign="top" align="left">215 N AVENUE J<br />ANSON, TX &nbsp;79501-2114</td>
+            <td valign="top" align="left" nowrap="nowrap">(325) 823-3209</td>
+        </tr>
+
+        <tr>
+            <td valign="top" align="left"><a href="npi_detail.php?npi=1962506568&amp;ek=f0d645aa946a477894d6f87ea9a7860b" onClick="popUpFull('npi_detail.php?npi=1962506568&amp;ek=f0d645aa946a477894d6f87ea9a7860b'); return false;" title="View NPI Detail">1962506568</a></td>
+            <td valign="top" align="left">ANSON GENERAL HOSPITAL</td>
+            <td valign="top" align="left">101 AVENUE J<br />ANSON, TX &nbsp;79501-2113</td>
+            <td valign="top" align="left" nowrap="nowrap">(325) 823-3231</td>
+        </tr>
+
+    </tbody>
+</table>
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+
+<a name="gpo"><h3>Group Purchasing Organizations</h3></a>
+<ul class="reportnotes"><li>Last updated 03/15/2013 / <a href="definitions/prof_gpo.html" onClick="popUpFull('definitions/prof_gpo.html'); return false;">Definitions</a></li></ul>
+
+<table border="1" cellpadding="2" cellspacing="0" width="600">
+    <tbody>
+    
+        
+    <tr>
+        <td width="250" valign="top" align="left">Group Purchasing Organization (primary):</td>
+        <td align="left"><a href="/list_cms.php?gpo=13311&listing=1">Premier Inc</a><br />2320 Cascade Pointe Blvd, Charlotte, NC &nbsp;28208<br><a href="http://www.premierinc.com" target="_blank">http://www.premierinc.com</a></td>
+    </tr>
+
+    
+    
+    </tbody>
+</table>
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+
+<a name="utilizationbypayor"><h3>Acute Utilization Statistics by Payor</h3></a>
+<ul class="reportnotes"><li><a href="definitions/prof_util.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d" onClick="popUpFull('definitions/prof_util.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d'); return false;">Definitions</a></li></ul>
+
+<table width="100%">
+    <thead>
+        <tr>
+            <td width="23%" class="noborder nobackground">&nbsp;</td>
+            <th width="6%" align="center">Beds</th>
+            <th width="15%" align="center">Revenue</th>
+            <th width="56%" align="center" colspan="4">Inpatient Days</th>
+        </tr>
+        <tr>
+            <td class="noborder nobackground" width="23%">&nbsp;</td>
+            <td class="noborder nobackground" width="6%">&nbsp;</td>
+            <td class="noborder nobackground" width="15%">&nbsp;</td>
+            <td width="14%" align="right">Medicare</td>
+            <td width="14%" align="right">Medicaid</td>
+            <td width="14%" align="right">Other</td>
+            <td width="14%" align="right">Total</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Routine Services</td>
+            <td align="right">21</td>
+            <td align="right">&#36;893,958</td>
+            <td align="right">1,748</td>
+            <td align="right">133</td>
+            <td align="right">267</td>
+            <td align="right">2,148</td>
+        </tr>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        <tr>
+            <td><b>Total Acute</b></td>
+            <td align="right"><b>21</b></td>
+            <td align="right"><b>&#36;893,958</b></td>
+            <td align="right"><b>1,748</b></td>
+            <td align="right"><b>133</b></td>
+            <td align="right"><b>267</b></td>
+            <td align="right"><b>2,148</b></td>
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%">
+    <thead>
+        <tr>
+            <td class="noborder nobackground" width="23%">&nbsp;</td>
+            <td class="noborder nobackground" width="21%">&nbsp;</td>
+            <th width="56%" align="center" colspan="4">Discharges / <acronym title="Average Length of Stay">ALOS</acronym> / <acronym title="Average Daily Census">ADC</acronym></th>
+        </tr>
+        <tr>
+            <td class="noborder nobackground" width="23%">&nbsp;</td>
+            <td class="noborder nobackground" width="21%">&nbsp;</td>
+            <td width="14%" align="right">Medicare</td>
+            <td width="14%" align="right">Medicaid</td>
+            <td width="14%" align="right">Other</td>
+            <td width="14%" align="right">Total</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">Discharges</td>
+            <td>&nbsp;</td>
+            <td align="right">244</td>
+            <td align="right">22</td>
+            <td align="right">61</td>
+            <td align="right">327</td>
+        </tr>
+        <tr>
+            <td align="left">Average Length of Stay</td>
+            <td>&nbsp;</td>
+            <td align="right">7.2</td>
+            <td align="right">6.0</td>
+            <td align="right">4.4</td>
+            <td align="right">6.6</td>
+        </tr>
+        <tr>
+            <td align="left">Average Daily Census</td>
+            <td>&nbsp;</td>
+            <td align="right">4.8</td>
+            <td align="right">0.4</td>
+            <td align="right">0.7</td>
+            <td align="right">5.9</td>
+        </tr>
+    </tbody>
+</table>
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+
+<h3>Other Utilization Statistics by Payor</h3>
+<table width="100%">
+    <thead>
+        <tr>
+            <td class="noborder nobackground" width="23%">&nbsp;</td>
+            <th align="center" width="6%">Beds</th>
+            <th align="center" width="15%">Revenue</th>
+            <th align="center" colspan="4" width="56%">Inpatient Days</th>
+        </tr>
+        <tr>
+            <td class="noborder nobackground" width="23%">&nbsp;</td>
+            <td class="noborder nobackground" width="6%">&nbsp;</td>
+            <td class="noborder nobackground" width="15%">&nbsp;</td>
+            <td align="right" width="14%">Medicare</td>
+            <td align="right" width="14%">Medicaid</td>
+            <td align="right" width="14%">Other</td>
+            <td align="right" width="14%">Total</td>
+        </tr>
+    </thead>
+    <tbody>
+
+
+
+
+
+        <tr>
+            <td>Swing Beds - SNF</td>
+            <td align="right"><acronym title="Non-Applicable">N/A</acronym></td>
+            <td align="right"><acronym title="Non-Applicable">N/A</acronym></td>
+            <td align="right">993</td>
+            <td align="right">0</td>
+            <td align="right">18</td>
+            <td align="right">1,011</td>
+        </tr>
+
+
+        <tr>
+            <td><b>Total Other</b></td>
+            <td align="right"><b>0</b></td>
+            <td align="right"><b>&#36;0</b></td>
+            <td align="right"><b>993</b></td>
+            <td align="right"><b>0</b></td>
+            <td align="right"><b>18</b></td>
+            <td align="right"><b>1,011</b></td>
+        </tr>
+        <tr>
+            <td><b>Total Complex</b></td>
+            <td align="right"><b>21</b></td>
+            <td align="right"><b>&#36;893,958</b></td>
+            <td align="right"><b>2,741</b></td>
+            <td align="right"><b>133</b></td>
+            <td align="right"><b>285</b></td>
+            <td align="right"><b>3,159</b></td>
+        </tr>
+    </tbody>
+</table>
+
+<table width="100%">
+    <thead>
+        <tr>
+            <td class="noborder nobackground" width="23%">&nbsp;</td>
+            <td class="noborder nobackground" width="21%">&nbsp;</td>
+            <th width="56%" align="center" colspan="4">Gross Patient Revenue</th>
+        </tr>
+        <tr>
+            <td class="noborder nobackground" width="23%">&nbsp;</td>
+            <td class="noborder nobackground" width="21%">&nbsp;</td>
+            <td width="14%" align="right">Medicare</td>
+            <td width="14%" align="right">Medicaid</td>
+            <td width="14%" align="right">Other</td>
+            <td width="14%" align="right">Total</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td align="left">Total Hospital Patient Revenue</td>
+            <td>&nbsp;</td>
+            <td align="right">&#36;3,201,044</td>
+            <td align="right">&#36;268,620</td>
+            <td align="right">&#36;4,200,314</td>
+            <td align="right">&#36;7,669,978</td>
+      </tr>
+    </tbody>
+</table>
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+<a name="volumes"><h3>Estimated Patient Volumes</h3></a>
+<ul class="reportnotes">
+<li><a href="definitions/prof_vols.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d" onClick="popUpFull('definitions/prof_vols.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d'); return false;">Definitions</a></li>
+</ul>
+
+<table class="noborder">
+    <tbody>
+    <tr>
+        <td valign="top" align="left">Inpatient Surgeries:</td>
+        <td align="right" width="100">Less than 100</td>
+    </tr>
+    <tr>
+        <td valign="top" align="left">Outpatient Surgeries:</td>
+        <td align="right" width="100">Less than 100</td>
+    </tr>
+    <tr>
+        <td valign="top" align="left">Births:</td>
+        <td align="right" width="100">0</td>
+    </tr>
+    <tr>
+        <td valign="top" align="left">Outpatient Visits:</td>
+        <td align="right" width="100">1,000</td>
+    </tr>
+    <tr>
+        <td valign="top" align="left">Emergency Room (Not Admitted):</td>
+        <td align="right" width="100">900</td>
+    </tr>
+    <tr>
+        <td valign="top" align="left">Emergency Room (Admitted):</td>
+        <td align="right" width="100">200</td>
+    </tr>
+    </tbody>
+</table>
+
+
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+<a name="clinicalservices"><h3>Clinical Services</h3></a>
+<ul class="reportnotes"><li><a href="definitions/prof_serv.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d" onClick="popUpFull('definitions/prof_serv.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d'); return false;">Definitions</a></li></ul>
+
+
+<table id="clinicalservices" class="noborder nomargin">
+    <tbody>
+    <tr>
+        <td width="40%" valign="top" align="left"><dl><dt>Emergency Services</dt><dd>Emergency Department</dd><dt>Other Services</dt><dd>Home Health</dd></dl></td>
+        <td align="left" width="60%" valign="top"><dl><dt>Radiology / Nuclear Medicine / Imaging</dt><dd>Computed Tomography (<abbr title="Computed Tomography">CT</abbr>)</dd><dt>Subprovider Units</dt><dd>Swing Beds - <abbr title="Skilled Nursing Facility">SNF</abbr></dd></dl></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+<a name="accreditations"></a>
+
+
+
+
+<h3>Accreditation</h3>
+<ul><li>Data are not available.</li></ul>
+
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+<h3>Approved Cancer Program</h3>
+<ul class="reportnotes">
+    <li>Approval status provided by The American College of Surgeons 
+        (<abbr title="American College of Surgeons">ACS</abbr>) Commission on Cancer 
+        (<abbr title="Commission on Cancer">CoC</abbr>) Approvals Program.</li>
+    <li>See <a target="_blank" href="http://www.facs.org/cancer/index.html">ACS/CoC website</a> for more / 
+Last updated 05/18/2012 / <a href="definitions/prof_acscoc.html" onClick="popUpFull('definitions/prof_acscoc.html'); return false;">Definitions</a></li>
+</ul>
+
+
+<ul><li>No data are available.</li></ul>
+
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+<h3>Verified Trauma Program</h3>
+<ul class="reportnotes">
+    <li>Verification status provided by The American College of Surgeons 
+        (<abbr title="American College of Surgeons">ACS</abbr>)
+        Committee on Trauma (<abbr title="Committee on Trauma">COT</abbr>) Verification Program.</li>
+    <li>See <a target="_blank" href="http://www.facs.org/trauma/index.html">ACS/COT website</a> for more / 
+        Last updated 05/20/2012 / 
+        <a href="definitions/prof_acscot.html" onClick="popUpFull('definitions/prof_acscot.html'); return false;">Definitions</a></li>
+</ul>
+
+<ul>
+    <li>Type: No data are available</li>
+</ul>
+
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+<a name="teachingstatus"><h3>Teaching Status</h3></a>
+<ul class="reportnotes">
+    <li>Data are from multiple sources / <a href="definitions/prof_teach.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d" onClick="popUpFull('definitions/prof_teach.html?version=2010&amp;provid=a8a169eb3560c966c41cc89aabba740d'); return false;">Definitions</a></li>
+    <li><abbr title="Accreditation Council for Graduate Medical Education">ACGME</abbr> data are from the Graduate Medical Education Database, Copyright 2011, American Medical Association, Chicago, Illinois.</li>
+    <li>See <a href="http://www.ama-assn.org/go/freida" target="_blank">FREIDA OnLine</a> for more / Last Update 05/22/2012</li>
+    <li>COTH data are from the Association of American Medical Colleges / Division of Health Care Affairs / Council of Teaching Hospitals</li>
+    <li>See <a href="http://www.aamc.org/members/coth" target="_blank">COTH website</a> for more / Last Updated 05/20/2012</li>
+</ul>
+
+<ul>
+    <li>Data are not available</li>
+</ul>
+
+<a href="profile.php?hcfa_id=a8a169eb3560c966c41cc89aabba740d&amp;ek=30dc697b17cb0da5c35331046068c3ef#top" onClick="ahd_save_report_section(this);"><img border="0" src="/images/Icon_BackToTop.gif" alt="Back to Top" width="88" height="18" class="backtotop" /></a>
+</div>
+
+
+                            <div align="center" id="footer">
+                                <table cellpadding="0" cellspacing="0" width="820">
+                                    <tr>
+                                        <td align="left" width="100%">
+                                            <hr color="#D6D6D6" size="1" />
+                                            <a href="http://www.ahd.com/"><img border="0" src="/images/ahdlogoBW_180.gif" align="right" width="180" height="44" alt="ahd.com" /></a>
+                                            <a href="about.html">About the company</a>
+                                            &nbsp;|&nbsp; 
+                                            <a href="sitemap.html">Site Map</a>
+                                            &nbsp;|&nbsp;
+                                            Email:
+                                            <a href="mailto:support@ahd.com">support@ahd.com</a>
+                                            &nbsp;|&nbsp;
+                                            <a href="policy_privacy.html" onClick="popUpFull('policy_privacy.html'); return false;">Privacy Policy</a>
+                                            &nbsp;|&nbsp;
+                                            <a href="media/">Media</a>
+                                            <br>
+                                            Users should read
+                                            <a href="agree.html">notice, disclaimer, and agreement</a>
+                                            &nbsp;| This page last updated 03/18/2013<br>
+                                            Copyright &copy;2000-2013 American Hospital Directory, Inc. All rights 
+                                            reserved.&nbsp; <br />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <script type="text/javascript">
+
+            function loadthemap(){
+                //<![CDATA[
+                var map_options = {
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    noClear: true,
+                    
+                mapTypeControl: true,
+                mapTypeControlOptions: {mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.HYBRID, google.maps.MapTypeId.SATELLITE ]},
+                navigationControl: true,
+                navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL}
+            
+                };
+                var map = new google.maps.Map(document.getElementById("map"), map_options);
+                map.setCenter(new google.maps.LatLng(32.7675,-99.8955));
+                map.setZoom(14);
+
+
+                // Create our "tiny" marker icon
+                var url = "/images/map/mm_20_red.png";
+                var iconShadow = "";
+                var iconSize = new google.maps.Size(12, 20);
+                var iconAnchor = new google.maps.Point(6, 20);
+                var infoWindowAnchor = new google.maps.Point(5, 1);
+                var icon = new google.maps.MarkerImage(
+                    url,
+                    iconSize,
+                    null,
+                    iconAnchor,
+                    null
+                );
+
+                 
+        
+                var bounds = new google.maps.LatLngBounds();
+
+                function createMarker(point, description, color) {
+                    if (color == "error")
+                        alert(description);
+                    var icon_color;
+                    bounds.extend(point);
+                    if (color == "red")
+                        icon_color = icon;
+                    else if (color == "blue")
+                        icon_color =  iconblue;
+                    else if (color == "green")
+                        icon_color = icongreen;
+                    else if (color == "yellow")
+                        icon_color = iconyellow;
+                    else if (color == "white")
+                        icon_color =  iconwhite;
+                    else if (color == "purple")
+                        icon_color = iconpurple;
+                    else if (color == "gray")
+                        icon_color = icongray;
+                    else if (color == "black")
+                        icon_color = iconblack;
+                    else
+                        icon_color = iconorange;
+                    var marker_options = {
+                        "position":point,
+                        "icon": icon_color
+                    }
+                    var marker = new google.maps.Marker(marker_options);
+                    var infoWindow = new google.maps.InfoWindow({
+                        "content" : description
+                    });
+                    google.maps.event.addListener(marker, "click", function() {
+                        if(last_infoWindow) {
+                            last_infoWindow.close();
+                        }
+                        infoWindow.open(map, marker);
+                        last_infoWindow = infoWindow;
+                    });
+                    return marker;
+                }
+                var last_infoWindow; 
+                createMarker(new google.maps.LatLng(32.7675,-99.8955), "<br />Anson General Hospital", "red").setMap(map);
+          //]]>
+          } 
+        </script>
+        <script src="http://maps.google.com/maps/api/js?sensor=false&v=3" type="text/javascript"></script>
+
+        
+                
+    
+    <script type="text/javascript">
+        
+     
+        $(document).ready(function () {
+            autocomplete_init();set_page_scroll();loadthemap();
+        resize_container_height(); 
+
+        $(window).resize(function() {
+            resize_container_height();
+        });
+
+        $('#body').resize(function() {
+            resize_container_height();
+        });
+    
+    $('.help_ajax').fancybox({
+        scrolling: 'none',
+        type: 'ajax',
+        margin: 10,
+        width: 650,
+        onstart: function() { },
+        titleFormat: function() {
+            var alt_name = $(this.orig).parent().attr('alt');
+            if(alt_name != undefined) {
+                return "<table id='fancybox-title-float-wrap'><tbody><tr><td id='fancybox-title-float-left' style='padding-left: 10px;'>&nbsp;</td><td id='fancybox-title-float-main'>" + alt_name + "</td><td id='fancybox-title-float-right'>&nbsp;</td></tr></tbody></table>";
+            } else {
+                return '';
+            }
+        }
+        });
+        });
+    
+    
+    
+        $(window).resize(function() {
+            set_page_scroll();       
+        });
+    
+    </script>
+    
+</body>
+</html>
+

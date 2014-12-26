@@ -1,0 +1,18 @@
+open( OUT, '>Output/SpecCareBedsoutput.txt' );
+for ($k=1;$k<=4;$k++){
+	$inputfilename ="profile.php_00";
+	$inputfilename=$inputfilename.$k;
+	$inputfilename=$inputfilename.".html";
+	open( FILE2, $inputfilename );
+	open( FILE2, $inputfilename );
+	$i=0;
+	while( $line = <FILE2> ) {
+		if ($line=~/<td align="left">([0-9]*)<\/td>/){	
+			$i++;
+			if ($i==2){
+				print "$1\n";
+				print OUT "$1\n";	
+			}
+		}	
+	}
+}

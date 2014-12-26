@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>
+Contactus
+</title>
+</head>
+<body bgcolor="#ffffff">
+<h1>
+JBuilder Generated JSP
+</h1>
+<form method="post" action="Contactus.jsp">
+<br><br>
+<input type="submit" name="Submit" value="Submit">
+<input type="reset" value="Reset">
+</form>
+</body>
+</html>

@@ -1,0 +1,10 @@
+hw13<-read.csv("d:/hw13Disc.csv",header=T) # read whole data
+# Linear Discriminant Analysis with Jacknifed Prediction 
+library(MASS)
+fit <- lda(dleta.i ~  xi, data=hw13, 
+   na.action="na.omit", CV=TRUE)
+fit # show results
+# Quadratic Discriminant Analysis with 3 groups applying 
+# resubstitution prediction and equal prior probabilities. 
+library(MASS)
+fit <- qda(dleta.i ~  xi, data=hw13,prior=c(1,1)/2)

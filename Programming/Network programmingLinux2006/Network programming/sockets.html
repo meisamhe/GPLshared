@@ -1,0 +1,409 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><title>Brief Socket Tutorial</title>
+
+
+
+  
+  <link type="text/css" rel="stylesheet" href="sockets_files/yu.css"></head><body>
+
+<h1>A Brief Socket Tutorial</h1>
+
+<p>
+This page gives some examples and explanation of simple programs
+performing TCP communication using sockets, in
+<a href="#cpp-sockets">C++</a> and
+<a href="#java-sockets">Java</a>.  You may
+copy this code and modify it to your purposes.
+</p>
+
+<h2 id="cpp-sockets">C++</h2>
+
+<p>
+Socket programming in C++ tends to be somewhat system dependent,
+unfortunately.  The examples here work on Whitebox Linux, and would
+probably work on other Linuxes, and maybe even on other Unixes.
+For Windows help, try the <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/winsock/winsock/winsock_reference.asp">
+Winsock Reference</a> page.  For the rest of this section I'll
+assume you're using Unix, but the API in Windows is quite similar so
+this should be helpful for Windows users too.
+</p>
+
+<p>
+Here are sample programs - client/server pairs for TCP and UDP.  In
+these programs, the client prompts the user for a line of text and
+sends it to the server, which converts the line to upper case and
+sends it back.
+</p><ul>
+<li><a href="http://sage.mc.yu.edu/kbeen/teaching/networking/resources/tcp-server.cc">tcp-server.cc</a></li>
+<li><a href="http://sage.mc.yu.edu/kbeen/teaching/networking/resources/tcp-client.cc">tcp-client.cc</a></li>
+</ul>
+<ul>
+<li><a href="http://sage.mc.yu.edu/kbeen/teaching/networking/resources/udp-server.cc">udp-server.cc</a></li>
+<li><a href="http://sage.mc.yu.edu/kbeen/teaching/networking/resources/udp-client.cc">udp-client.cc</a></li>
+</ul>
+Below are descriptions of the steps taken by the TCP programs; the UDP
+programs are similar.
+
+
+<p>
+To compile the TCP server, for example, do
+</p><pre>g++ -o tcp-server tcp-server.cc
+</pre>
+This will put the executable in the file <code>tcp-server</code>. If
+you want to call it something else, use <code>-o foo</code>, or
+whatever, instead of <code>-o tcp-server</code>.
+
+
+<p>
+There are comments in the source that explain a lot of it, in addition
+to the explanations on this page.  Keep in mind that you do not need to
+understand every detail to use this code.  There are some details that
+I still do not understand.  But so long as you get the main idea of
+what is going on, you can just copy the more obscure details as they
+appear in these examples.
+</p>
+
+<h3>Utility Routines</h3>
+
+<p>
+Here is a description of some utility routines that are used a lot in
+the C++ code.
+</p><ul class="spaced">
+<li>
+<code>htonl()</code> and <code>htons()</code>: Convert long integer and
+short integer (respectively) from host byte order (on x86 this is
+Least Significant Byte First) to standard network byte order (Most
+Significant Byte First).
+</li>
+
+<li>
+<code>ntohl()</code> and <code>ntohs()</code>: The opposite of
+<code>htonl()</code> and <code>htons()</code> (see above); i.e., convert
+network byte order to host byte order.
+</li>
+
+<li>
+<code>inet_ntoa()</code>:  Converts an IP address from binary form to
+the <q>numbers and dots</q> notation.
+</li>
+
+<li>
+<code>gethostbyname()</code>:  Takes an IP address in <q>numbers and
+dots</q> notation, and returns a structure with various pieces of
+information.  It's not really necessary to know what that structure is
+all about, just that it's needed when making the socket connection.
+</li>
+
+<li>
+<code>memset()</code> is not specific to sockets, but you might not
+have seen it before.  It is defined in <code>&lt;string.h&gt;</code>,
+and it is just an efficient way to set all elements of an array to a
+given value.
+</li>
+
+</ul>
+
+
+<h3>The TCP Server</h3>
+
+<p>
+The TCP server goes through five (or six) main steps, as regards the socket.
+</p><ol>
+<li>
+<p>
+Create a socket, using the <code>socket()</code> function call:
+</p><pre>  listenSocket = socket(AF_INET, SOCK_STREAM, 0);
+  if (listenSocket &lt; 0) {
+    cerr &lt;&lt; "cannot create listen socket";
+    exit(1);
+  }
+</pre>
+<code>SOCK_STREAM</code> is a constant that indicates this will be a
+TCP (reliable) connection; use <code>SOCK_DGRAM</code> for
+(unreliable) UDP communication.  Don't worry about the other
+parameters; they never change. 
+
+</li>
+
+<li>
+<p>
+Bind the socket to the port that clients will connect to:
+</p><pre>  serverAddress.sin_family = AF_INET;
+  serverAddress.sin_addr.s_addr = htonl(INADDR_ANY);
+  serverAddress.sin_port = htons(listenPort);
+  
+  if (bind(listenSocket,
+           (struct sockaddr *) &amp;serverAddress,
+           sizeof(serverAddress)) &lt; 0) {
+    cerr &lt;&lt; "cannot bind socket";
+    exit(1);
+  }
+</pre>
+Don't worry about understanding all that serverAddress stuff.  Just
+notice that <code>listenPort</code> is a variable with the port
+number.
+
+</li>
+
+<li>
+<p>
+Wait for clients:
+</p><pre>  listen(listenSocket, 5);
+</pre>
+The second parameter is the <q>backlog</q>, or <q>the maximum length
+the queue of pending connections may grow to</q>, according to the
+Linux man page.
+
+</li>
+
+<li>
+<p>
+Establish a connection with a client that requests one, using the
+<code>accept()</code> function call:
+</p><pre>    clientAddressLength = sizeof(clientAddress);
+    connectSocket = accept(listenSocket,
+                           (struct sockaddr *) &amp;clientAddress,
+                           &amp;clientAddressLength);
+    if (connectSocket &lt; 0) {
+      cerr &lt;&lt; "cannot accept connection ";
+      exit(1);
+    }
+</pre>
+This creates a <em>new</em> socket, which is used for this particular
+connection.  The 
+original socket may continue accepting more connections, and
+establishing new sockets for them, while this connection is still
+active.  (But that would probably require the program to be
+multi-threaded....)  Multiple sockets open on the same port will be
+distinguished by being connected to different (ip address, port)
+combinations on the client side.
+
+</li>
+
+<li>
+<p>
+Read and write over the socket using the <code>recv()</code> and
+<code>send()</code> functions, respectively.  Here is the whole
+read/write loop from the sample program:
+</p><pre>    memset(line, 0x0, LINE_ARRAY_SIZE);
+    while (recv(connectSocket, line, MAX_MSG, 0) &gt; 0) {
+      cout &lt;&lt; "  --  " &lt;&lt; line &lt;&lt; "\n";
+
+      // Convert line to upper case.
+      for (i = 0; line[i] != '\0'; i++)
+        line[i] = toupper(line[i]);
+
+      // Send converted line back to client.
+      if (send(connectSocket, line, strlen(line) + 1, 0) &lt; 0)
+        cerr &lt;&lt; "Error: cannot send modified data";
+
+      memset(line, 0x0, LINE_ARRAY_SIZE);  // set line to all zeroes
+    }
+</pre>
+
+</li>
+
+<li>
+<p>
+Close the socket.  Either the client or the server should close the
+socket at the end of communication.  Only one needs to do it, and it
+doesn't matter which.  In this example, the client does it (see
+below).
+</p>
+</li>
+
+</ol>
+
+
+<h3>The TCP Client</h3>
+
+<p>
+The TCP client goes through three (or four) main steps, as regards the socket.
+</p><ol>
+<li>
+<p>
+Create a socket, using the <code>socket()</code> function call:
+</p><pre>  socketDescriptor = socket(AF_INET, SOCK_STREAM, 0);
+  if (socketDescriptor &lt; 0) {
+    cerr &lt;&lt; "cannot create socket\n";
+    exit(1);
+  }
+</pre>
+<code>SOCK_STREAM</code> is a constant that indicates this will be a
+TCP (reliable) connection; use <code>SOCK_DGRAM</code> for
+(unreliable) UDP communication.  Don't worry about the other
+parameters; they never change. 
+
+</li>
+
+<li>
+<p>
+Connect to the server, using the <code>connect()</code> function:
+</p><pre>  serverAddress.sin_family = hostInfo-&gt;h_addrtype;
+  memcpy((char *) &amp;serverAddress.sin_addr.s_addr,
+         hostInfo-&gt;h_addr_list[0], hostInfo-&gt;h_length);
+  serverAddress.sin_port = htons(serverPort);
+				
+  if (connect(socketDescriptor,
+              (struct sockaddr *) &amp;serverAddress,
+              sizeof(serverAddress)) &lt; 0) {
+    cerr &lt;&lt; "cannot connect\n";
+    exit(1);
+  }
+</pre>
+Again, don't worry about most of the details.
+<code>serverPort</code> is the port that the server is listening on.
+The system will assign the client an arbitrary unused port number as
+the <q>return address</q>.
+
+</li>
+
+<li>
+<p>
+Read and write using <code>recv()</code> and <code>send()</code>,
+respectively.  This is essentially the same as for the server; see
+above.
+</p>
+</li>
+
+<li>
+<p>
+Close the socket.
+</p><pre>  close(socketDescriptor);
+</pre>
+As mentioned above, it doesn't matter which of the client or server
+closes the socket.
+
+</li>
+
+</ol>
+
+
+<h2 id="java-sockets">Java</h2>
+
+<p>
+Here is the source code for the Java examples:
+</p><ul>
+<li><a href="http://sage.mc.yu.edu/kbeen/teaching/networking/resources/TCPServer.java">TCPServer.java</a></li>
+<li><a href="http://sage.mc.yu.edu/kbeen/teaching/networking/resources/TCPClient.java">TCPClient.java</a></li>
+</ul>
+
+
+<h3>The Server</h3>
+
+<p>
+Here are the socket related steps on the server side:
+</p><ol>
+<li>
+<p>
+Create a socket for listening for client connection requests on the
+port <code>port</code>:
+</p><pre>      ServerSocket welcomeSocket = new ServerSocket(port);
+</pre>
+
+</li>
+
+<li>
+<p>
+Accept client connection, and create a new socket for handling that
+connection:
+</p><pre>        Socket connectionSocket = welcomeSocket.accept();
+</pre>
+
+</li>
+
+<li>
+<p>
+Read and write the socket.  This one is a little more involved, but it
+is pretty standard Java I/O.  The socket-specific methods are
+<code>getInputStream()</code> and <code>getOutputStream()</code> in
+the <code>Socket</code> class:
+</p><pre>        BufferedReader inFromClient = 
+          new BufferedReader
+            (new InputStreamReader(connectionSocket.getInputStream()));
+        DataOutputStream outToClient =
+          new DataOutputStream(connectionSocket.getOutputStream());
+
+        String clientSentence = inFromClient.readLine();
+        while (clientSentence != null) {
+          System.out.println("  -- " + clientSentence);
+          String capitalizedSentence = clientSentence.toUpperCase() + '\n';
+          outToClient.writeBytes(capitalizedSentence);
+          clientSentence = inFromClient.readLine();
+        }
+</pre>
+Note that the <code>writeBytes()</code> method of the
+<code>DataOutputStream</code> method automatically converts Unicode to
+ASCII by dropping the high eight bits.  And the
+<code>InputStreamReader</code> class handles converting bytes into
+(Unicode) characters.
+
+</li>
+
+<li>
+<p>
+Close the socket.  As with C++, either the client or the server can
+close the socket.  In this example, the client does it.
+</p>
+</li>
+
+</ol>
+
+
+<h3>The Client</h3>
+
+<p>
+Here are the socket related steps on the client side:
+</p><ol>
+<li>
+<p>
+Create socket for connecting to host <code>serverHost</code> and port
+<code>serverPort</code>:
+</p><pre>    Socket clientSocket = new Socket(serverHost, serverPort);
+</pre>
+
+</li>
+
+<li>
+<p>
+Read and write the socket.  This is similar as for the server; see
+discussion above.
+</p><pre></pre>
+
+</li>
+
+<li>
+<p>
+Close the socket:
+</p><pre>    clientSocket.close();
+</pre>
+
+</li>
+
+</ol>
+
+
+<h2>Comparison</h2>
+
+<p>
+In Java the code is much simpler and cleaner, and there are no
+portability problems.  But then, if you are
+going to do the assignments in Java, you have to learn Java.  
+Java documentation can be found
+<a href="http://java.sun.com/j2se/1.4.1/docs/index.html">here</a>.  I
+especially find the
+<a href="http://java.sun.com/j2se/1.4.1/docs/api/index.html">API
+Specification</a> to be useful.
+</p>
+
+<hr>
+
+<span class="modified">
+Last modified:
+<script type="text/javascript">
+  document.write(document.lastModified);
+</script>02/03/2005 16:40:52
+</span>
+
+
+</body></html>

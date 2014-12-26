@@ -1,0 +1,9 @@
+'==============================================
+'test imacro in perl
+'==============================================
+URL GOTO=http://www.yahoo.com 
+WAIT SECONDS=4
+'save page
+SAVEAS TYPE=CPL FOLDER=C:\Users\Administrator\Desktop\mangaprojectdata FILE=yahootest.htm
+URL GOT=http://www.yahoo.com 
+WAIT SECONDS=4

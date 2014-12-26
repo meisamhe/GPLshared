@@ -1,0 +1,103 @@
+namespace LinkedList
+{
+	class Node
+	{
+		private int data;
+		private Node prev, next;
+
+//		public Node() :	 this(null){}
+		public Node( int data) : this(data, null, null) {}
+		public Node( int data, Node prev, Node next) 
+		{
+			this.data = data;
+			this.prev = prev;
+			this.next = next;
+		}
+
+		public Node Prev
+		{
+			set
+			{
+				this.prev = value;
+			}
+			get
+			{
+				return prev;
+			}
+		}
+
+		public Node Next
+		{
+			set
+			{
+				this.next = value;
+			}
+			get
+			{
+				return next;
+			}
+		}
+
+		public int Data
+		{
+			set
+			{
+				this.data = value;
+			}
+			get
+			{
+				return data;
+			}
+		}
+		
+	}
+
+	class LinkedList
+	{
+		Node root;
+
+		public LinkedList()
+		{
+			root = null;
+		}
+
+		public  void Insert(int data)
+		{
+			Node  temp =  new Node(data);
+
+			temp.Next = root;
+			if( root != null )
+			{
+				root.Prev = temp;
+			}
+			root = temp;
+			temp.Prev = null;
+		}
+
+		public Node Search(int data)
+		{
+			Node temp = root;
+			while( temp != null && temp.Data != data)
+			{
+				temp = temp.Next;
+			}
+			return temp;
+		}
+
+		public void Delete(Node x)
+		{
+			if( x.Prev != null )
+			{
+				x.Prev.Next = x.Next;
+			}
+			else 
+			{
+				root = x.Next;
+			}
+			if( x.Next != null )
+			{
+				x.Next.Prev = x.Prev;
+			}
+		}
+	}
+}

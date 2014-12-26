@@ -1,0 +1,190 @@
+<html>
+<head>
+<title>Template 18</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000" link="#003399" vlink="#6699FF" alink="#003399">
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="154">
+      <table width="154" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td><img src="images/logo_top.gif" width="154" height="48"></td>
+        </tr>
+        <tr>
+          <td><p align="center"> <font color="#00CC66" size="5" face="Times New Roman, Times, serif"><strong>Meisam Hejazinia</strong></font></p></td>
+        </tr>
+        <tr>
+          <td><img src="images/logo_bottom.gif" width="154" height="45"></td>
+        </tr>
+      </table>
+    </td>
+    <td height="137" width="596">
+      <table width="596" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td height="48">&nbsp;</td>
+        </tr>
+        <tr>
+          <td height="44"><img src="images/neon_top_nav.gif" width="596" height="19"><a href="index.php
+			">
+            <img src="images/HW1.gif" width="96" height="24"></a><a href="index2.php
+			"><img src="images/HW2_on.gif" width="96" height="24" border="0"></a><a href="index3.php
+			"><img src="images/link3_off.gif" width="96" height="24" border="0"></a><a href="index4.php"><img src="images/link4_off.gif" width="96" height="24" border="0"></a><a href="index5.php"><img src="images/link5_off.gif" width="96" height="24" border="0"></a><a href="index6.php"><img src="images/link6_off.gif" width="96" height="24" border="0"></a>          </td>
+        </tr>
+        <tr>
+          <td height="45">
+            <table width="596" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="65%" align="right"><b><font face="Verdana, Arial, Helvetica, sans-serif" color="#003399">Welcome 
+                  to Meisam hejazinia website</font></b></td>
+                <td>&nbsp;</td>
+              </tr>
+            </table>
+            
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table width="750" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td width="50%"> 
+      <p>&nbsp;</p>
+      <ul>
+        <li type=square><font size="2" face="Verdana, Arial, Helvetica, sans-serif">Second HW:</font>
+        <li><font size="2" face="Verdana, Arial, Helvetica, sans-serif">XML file: <a href="input.xml">input.xml</a></font>
+        <li><font size="2" face="Verdana, Arial, Helvetica, sans-serif">XQuery file: <a href="Query.xql">Query.xql </a></font>
+        <li>Output file: <a href="XQuery Output.xml">XqueryOutput.xml         </a>
+        <li>php Source: <a href="php.txt">php.txt         </a>
+        <li>file that is generated from db : <a href="write.xml">write.xml </a>
+        <li>
+		<?php
+		 // Connect and Select the database
+mysql_connect('192.168.128.4:3306',
+'8331701', 'kom78');
+mysql_select_db('8331701');
+$query = ("select * from users ");
+$result = mysql_query($query);
+//$returnEmployees = mysql_fetch_array($result);
+$employees = array();
+while ($row = mysql_fetch_array($result)) {
+echo "<b>one time done</b>";
+$employees [] = array(
+'NAME' => $row[0],
+'FAMILY' => $row[1],
+'ADDRESS' =>$row[2],
+'DEPARTMENT'=>$row[3],
+'SALARY'=>$row[4],
+'MANAGER'=>$row[5]
+);
+}
+
+$doc = new DOMDocument();
+$doc->formatOutput = true;
+
+$r = $doc->createElement( "employees" );
+$doc->appendChild( $r );
+
+foreach( $employees as $employee )
+{
+$b = $doc->createElement( "employee" );
+
+$NAME = $doc->createElement( "NAME" );
+$NAME->appendChild(
+$doc->createTextNode( $employee['NAME'] )
+);
+$b->appendChild( $NAME );
+
+$FAMILY = $doc->createElement( "FAMILY" );
+$FAMILY->appendChild(
+$doc->createTextNode( $employee['FAMILY'] )
+);
+$b->appendChild( $FAMILY );
+$ADDRESS = $doc->createElement( "ADDRESS" );
+$ADDRESS->appendChild(
+$doc->createTextNode( $employee['ADDRESS'] )
+);
+$b->appendChild( $ADDRESS );
+$DEPARTMENT = $doc->createElement( "DEPARTMENT" );
+$DEPARTMENT->appendChild(
+$doc->createTextNode( $employee['DEPARTMENT'] )
+);
+$b->appendChild( $DEPARTMENT );
+
+$SALARY = $doc->createElement( "SALARY" );
+$SALARY->appendChild(
+$doc->createTextNode( $employee['SALARY'] )
+);
+$b->appendChild( $SALARY );
+
+$MANAGER = $doc->createElement( "MANAGER" );
+$MANAGER->appendChild(
+$doc->createTextNode( $employee['MANAGER'] )
+);
+$b->appendChild( $MANAGER);
+
+
+$r->appendChild( $b );
+}
+
+echo $doc->saveXML();
+$doc->save("write.xml")
+?>
+          <?php
+		  // Connect and Select the database
+mysql_connect('192.168.128.4:3306',
+'8331701', 'kom78');
+mysql_select_db('8331701');
+// Now let’s grab a name
+$doc = new DOMDocument();
+$doc->load( 'Xquery Output.xml' );
+
+$employees = $doc->getElementsByTagName( "employee" );
+foreach( $employees as $employee )
+{
+$names = $employee->getElementsByTagName( "NAME" );
+$name = $names->item(0)->nodeValue;
+$addresses = $employee->getElementsByTagName( "ADDRESS" );
+$address = $addresses->item(0)->nodeValue;
+$query = ("INSERT INTO bestusers (ID, NAME, ADDRESS)
+VALUES(NULL, '$name', '$address')");
+$result = mysql_query($query);
+echo "<b>the following is inserted in database:$name $address\n</b><br>";
+}
+?>
+        </ul>
+    </td>
+    <td align="center" valign="middle"><img src="images/building.gif" width="345" height="230" border="1"></td>
+  </tr>
+  <tr> 
+    <td colspan="2"> 
+      <table width="750" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td>
+            <table width="750" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="154">&nbsp;</td>
+                <td>
+                  <table width="596" border="0" cellspacing="0" cellpadding="0">
+                    <tr> 
+                      <td width="69%" align="right"><font size="2" face="Verdana, Arial, Helvetica, sans-serif"><b><font color="#003399"><a href="index.htm">HW#1</a> - <font color="#000000">HW #2 </font> - <a href="index3.htm">link 
+                        3</a> - <a href="index4.htm">link 4</a> - <a href="index5.htm">link 
+                        5</a> - <a href="index6.htm">link 6</a></font></b></font></td>
+                      <td>&nbsp;</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+</table>
+</body>
+</html>
+

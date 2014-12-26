@@ -1,0 +1,9 @@
+lsMakefile
+form2.ui
+form2.ui.h
+form2.ui.h~
+form2.ui~
+main.cpp
+os2
+os2.pro
+os2.pro

@@ -1,0 +1,19 @@
+open( OUT, '>Output\CountNameoutput.txt' );
+$inputRoot="Input\";
+$inputfilename=$inputRoot."profile (";
+$inputTrailer=").htm";
+for ($k=0;$k<=4;$k++){
+	$inputfilename=$inputfilename.$k;
+	$inputfilename=$inputfilename.inputTrailer;
+	open( FILE2, $inputfilename );
+	$i=0;
+	while( $line = <FILE2> ) {
+		if ($line=~/<a href.*>([A-Za-z0-9]*), ..<\/a>/){	
+			$i++;
+			if (True){
+				print "$1\n";
+				print OUT "$1\n";	
+			}
+		}	
+	}
+}

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean id="jotm" class="org.springframework.transaction.jta.JotmFactoryBean"></bean>
+
+    <bean id="myTransactionManager" class="org.springframework.transaction.jta.JtaTransactionManager">
+           <property name="userTransaction"><ref bean="jotm"></ref></property> 
+     </bean>
+
+
+	<!-- bean id="myDataSource" class="org.enhydra.jdbc.pool.StandardXAPoolDataSource" destroy-method="shutdown">
+	     <property name="dataSource"><bean class="org.enhydra.jdbc.standard.StandardXADataSource" destroy-method="shutdown">
+	   										  <property name="transactionManager" ref="jotm" />
+									          <property name="driverName" value="org.gjt.mm.mysql.Driver" />
+										      <property name="url" value="jdbc:mysql://127.0.0.1/portal?useUnicode=true&amp;characterEncoding=UTF8" />
+								    </bean>
+	   </property>
+	   <property name="user" value="tts"/>
+	   <property name="password" value="tts"/>
+       <property name="maxSize" value="50"/>
+	</bean -->
+
+
+    <!-- JNDI DataSource for J2EE environment. -->
+     <!--bean id="myDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="resourceRef"><value>true</value></property>
+        <property name="jndiName"><value>jdbc/myTTSDB</value></property>
+    </bean-->
+
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	  <property name="driverClassName"><value>org.gjt.mm.mysql.Driver</value></property>
+	  <property name="url"><value>jdbc:mysql://127.0.0.1/portal?useUnicode=true&amp;characterEncoding=UTF8</value></property>
+	  <property name="username"><value>portal</value></property>
+	  <property name="password"><value>portal</value></property>
+	</bean>
+
+
+
+	<bean id="mySessionFactory" class="org.springframework.orm.hibernate.LocalSessionFactoryBean">
+	  <property name="jtaTransactionManager"><ref bean="jotm" /></property>	
+	  <property name="hibernateProperties">
+	    <props>
+	         <prop key="hibernate.dialect">net.sf.hibernate.dialect.MySQLDialect</prop>
+ 		     <prop key="hibernate.show_sql">false</prop>
+			 <prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
+             <prop key="hibernate.transaction.factory_class">net.sf.hibernate.transaction.JTATransactionFactory</prop>
+             <prop key="hibernate.transaction.manager_lookup_class">net.sf.hibernate.transaction.JOTMTransactionManagerLookup</prop>
+             <prop key="jta.UserTransaction">java:comp/UserTransaction</prop>
+		</props>
+	  </property>
+	  <property name="dataSource">
+	    <ref bean="myDataSource"/>
+	  </property>
+	</bean>
+
+  
+    
+    <bean id="txProxyTemplate" abstract="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+        <property name="transactionManager"><ref local="myTransactionManager"/></property>
+        <property name="transactionAttributes">
+            <props>
+                <prop key="find*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="get*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="save*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="remove*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="delete*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="update*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="confirm*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="approve*">PROPAGATION_REQUIRED,-Exception</prop>
+                <prop key="*">PROPAGATION_REQUIRED,readOnly,-Exception</prop>
+            </props>
+        </property>
+    </bean>
+
+
+</beans>

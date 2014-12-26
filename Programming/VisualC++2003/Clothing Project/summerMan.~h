@@ -1,0 +1,35 @@
+#ifndef SUMMERMAN_H
+#define SUMMERMAN_H
+#include "summer.h"
+//---------------------------------------------------
+enum trip {official, sport};
+enum clothKind {shalvar, shalvarak, pirahan, tshirt, kolah, kot};
+//---------------------------------------------------
+class summerMan : public summer
+{
+        private:
+                trip tip;
+                clothKind cKind;
+        public:
+                summerMan (size s, int q, int d, int bp, int sp, color cc, kind ck, int vq,  int sd, cooling cd, lenght l, trip t, clothKind ck): summer ( size s, int q, int d, int p, int c, color cc, kind ck, int vq,  int sd, cooling cd, lenght l)
+                {
+                        long int tempCode;
+                        tempcode=11;
+                        tempcode=tempcode*10+getColor();
+                        tempcode=tempcode*10+getKind();
+                        tempcode=tempcode*10+getSize();
+                        tempcode=tempcode*10+getCooling();
+                        tempcode=tempcode*10+getShortness();
+                        tempcode=tempcode*10+clothKind;
+                        tempcode=tempcode*10+tip;
+                        tempcode=tempcode*10+0;
+                        trip=t;
+                        cKind=ck;
+                        setCode (tempCode);
+                }
+                trip getTip () {return (tip);};
+                clothKind getClothKind () {return (cKind);};
+                ~summerMan();
+};//end class summerMan
+//---------------------------------------------------
+#endif

@@ -1,0 +1,34 @@
+#ifndef WINTERCHILD_H
+#define WINTERCHILD_H
+#include "winter.h"
+//---------------------------------------------------
+enum clothKind {shalvar, Kapshan, pirahan, blouse, kolah, shaal};
+//---------------------------------------------------
+class winterChild : public winter
+{
+        private:
+                bool picture;
+                clothKind cKind;
+        public:
+                winterChild (size s, int q, int d, int bp, int sp, color cc, kind ck, int vq,  int sd, warming cd, lenght l, bool p, clothKind ck): winter ( size s, int q, int d, int bp, int sp, color cc, kind ck, int vq,  int sd, warming cd, lenght l)
+                {
+                        long int tempCode;
+                        tempcode=22;
+                        tempcode=tempcode*10+getColor();
+                        tempcode=tempcode*10+getKind();
+                        tempcode=tempcode*10+getSize();
+                        tempcode=tempcode*10+getWarming();
+                        tempcode=tempcode*10+getLongness();
+                        tempcode=tempcode*10+clothKind;
+                        tempcode=tempcode*10+getPicture();
+                        tempcode=tempcode*10+0;
+                        picture=true;
+                        cKind=ck;
+                        setCode (tempCode);
+                }
+                bool getPicture () {(picture==true) ? return (1) : return (0);};
+                clothKind getClothKind () {return (cKind);};
+                ~summerMan();
+};//end class winterChild
+//---------------------------------------------------
+#endif

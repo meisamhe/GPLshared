@@ -1,0 +1,128 @@
+/*
+ * Created on Jul 14, 2005
+ *
+ * ManiBH To change the template for this generated file go to
+ * Window - Preferences - Java - Code Style - Code Templates
+ */
+package Storage;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Vector;
+
+
+/**@author ManiBH & MeysamH
+ * @version 1.0
+ * this Class will get 3 parameters in it`s constructor, first one is input document
+ * and the second one is the resault of lexical analysis and stemming
+ * and the 3th parameter is document separator that is used in document
+ * file between each document.
+ * @param inFile : Document file.
+ * @param outFile : the resault of lexical analysis and stemming.
+ * @param separator : Document separator in string format like "<p>" or $$
+ */
+public class PreInitialize {
+	private File inFile=null,outFile=null,lexical=null,document=null;
+	private Vector lexVctr=null;
+	private String separator=null;
+	private FileIO io=new FileIO();
+	public PreInitialize(File inFile,File outFile,File lexical,File document,String separator){
+		this.inFile=inFile;
+		this.outFile=outFile;
+		this.lexical=lexical;
+		this.separator=separator;
+		this.document=document;
+		lexVctr=io.readFileAsVector(lexical);
+		initialize();
+	}
+	private void initialize(){
+		BufferedReader in=null;
+		String str="",dummy="";
+//		StringBuffer strBuf=new StringBuffer();
+		String strBuf="";
+		int len=separator.length();
+		boolean flag=false;
+		try {
+			in = new BufferedReader(new FileReader(inFile));
+			while(true){
+				str = in.readLine();
+				if(str==null)
+					break;
+				while(true){
+					if(str.indexOf(separator)!= -1){
+						if(flag){
+							strBuf+=" "+str.substring(0,str.indexOf(separator));
+							io.appendStringToFile(document,strBuf);
+							io.appendStringToFile(outFile,stemming(lexicalAnalysis(new StringBuffer(strBuf.trim()))));
+							strBuf="";
+							flag=false;
+						}
+						str=str.substring(str.indexOf(separator)+len);
+					}
+					if(str.indexOf(separator)!= -1){
+						dummy=str.substring(0,str.indexOf(separator));
+						strBuf+=dummy.trim();
+						io.appendStringToFile(document,strBuf);
+						io.appendStringToFile(outFile,stemming(lexicalAnalysis(new StringBuffer(strBuf.trim()))));
+						strBuf="";
+					}else{
+//						strBuf.append(str);
+						strBuf+=str;
+						flag=true;
+						break;
+					}
+					
+				}//ends inner while
+			}//ends while main
+			in.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	private String stemming(StringBuffer strBuf){
+		String str=strBuf.toString(),buf="";
+		for(int i=0;i<str.length();i++){
+			if(Character.isLetter(str.charAt(i)) || Character.isSpace(str.charAt(i))){
+				if(i!=0 && (!Character.isSpace(buf.charAt(buf.length()-1)) || Character.isLetter(str.charAt(i))))
+					buf+= (new Character(str.charAt(i))).toString();
+				else if(i==0)
+					buf+= (new Character(str.charAt(i))).toString();
+			}
+			else{
+				if(i!=0 && (!Character.isSpace(buf.charAt(buf.length()-1)) || Character.isLetter(str.charAt(i))))
+					buf+= " ";
+			}
+		}
+		return buf.toUpperCase();
+	}
+	private StringBuffer lexicalAnalysis(StringBuffer strBuf){
+		try{
+			String str="",temp="";
+			str=(strBuf.toString()).toUpperCase();
+			strBuf=strBuf.delete(0,strBuf.length());
+			strBuf.append(str);
+			str="";
+			int home=0,len=0,dif=0;
+			for(int i=0;i<lexVctr.size();i++){
+				dif=0;
+//				str.replaceAll((String)lexVctr.get(i),"");
+				str=strBuf.toString();
+				while(str.indexOf(" "+(String)lexVctr.get(i)+" ")!= -1){
+					home = str.indexOf(" "+(String)lexVctr.get(i)+" ");
+					len=(" "+(String)lexVctr.get(i)).length()+home;
+					strBuf.delete(home+dif,len+dif);
+					str=str.substring(len);	
+					dif+=home;
+				}
+			}
+		}catch(ArrayIndexOutOfBoundsException e){
+			System.out.println(e.getMessage());
+		}
+		return strBuf;
+	}
+}

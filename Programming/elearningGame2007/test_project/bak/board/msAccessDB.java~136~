@@ -1,0 +1,430 @@
+package board;
+
+import java.sql.*;
+import java.util.Properties;
+import java.io.*;
+import javax.swing.JOptionPane;
+
+/**
+ * <p>Title: </p>
+ *
+ * <p>Description: </p>
+ *
+ * <p>Copyright: Copyright (c) 2007</p>
+ *
+ * <p>Company: </p>
+ *
+ * @author not attributable
+ * @version 1.0
+ */
+
+public class msAccessDB {
+    java.sql.Connection con;
+    java.sql.PreparedStatement pstmt;
+    java.sql.ResultSet rst;
+
+    public msAccessDB() {
+        try {
+            Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+            // System.out.println("successful");
+        } catch (ClassNotFoundException e) {
+            System.err.println("JdbcOdbc Bridge Driver not found!");
+        }
+
+    }
+
+    void open() {
+        try {
+            String dbUrl = "jdbc:odbc:DRIVER={Microsoft Access Driver (*.mdb)};DBQ=C:/Documents and Settings/Meisam/Desktop/elearningDB/elearning.mdb;";
+            Properties prop = new Properties();
+            prop.put("charSet", "UTF-8");
+            con = DriverManager.getConnection(dbUrl, prop);
+            //        con = DriverManager.getConnection(); //Be careful while using this line. You should copy it exactly
+            System.out.println("Connection Successful ");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Initialize the JdbcOdbc Bridge Driver
+
+    }
+
+    void close() {
+        try {
+            con.close();
+        } catch (SQLException ex1) {
+        }
+    }
+
+
+    void query(String s) {
+        try {
+            pstmt = con.prepareStatement(s);
+            rst = pstmt.executeQuery();
+            for (int i = 0; ; i++) {
+                if (rst.next()) {
+                    System.out.println(rst.getString(2) + " " + rst.getString(3)); //assuming string data is available
+                } else {
+                    break;
+                }
+            }
+        } catch (SQLException ex) {
+        }
+    }
+
+    void fillArray(String result[][]) { // for each time loading the buffer or main board this function will be called
+        int counter = 0; // this is used for choosing 32 entries
+        String s =
+                "SELECT * FROM WordLearning WHERE [Counter]=15 AND [LeitnerLevel]=4 AND [Learned]=0";
+        try {
+            open();
+            pstmt = con.prepareStatement(s);
+            rst = pstmt.executeQuery();
+            for (counter = 0; counter < 32; counter++) { // if there is 32 entry exists
+                if (rst.next()) {
+                    result[counter][0] = rst.getString(2); // loading word
+                    result[counter][1] = rst.getString(3); // loading meaning
+                } else {
+                    if (counter != 0) {
+                        counter--; // for the last entry that is not loaded
+                    }
+                    break;
+                }
+            }
+            if (counter < 32) { // it is not fully occupide
+                s =
+                        "SELECT * FROM WordLearning WHERE [Counter]=7 AND [LeitnerLevel]=3 AND [Learned]=0";
+                pstmt = con.prepareStatement(s);
+                rst = pstmt.executeQuery();
+                for (; counter < 32; counter++) { // if there is 32 entry exists
+                    if (rst.next()) {
+                        result[counter][0] = rst.getString(2); // loading word
+                        result[counter][1] = rst.getString(3); // loading meaning
+                    } else {
+                        if (counter != 0) {
+                            counter--; // for the last entry that is not loaded
+                        }
+                        break;
+                    }
+                }
+
+            }
+            if (counter < 32) { // it is not fully occupide
+                s =
+                        "SELECT * FROM WordLearning WHERE [Counter]=3 AND [LeitnerLevel]=2 AND [Learned]=0";
+                pstmt = con.prepareStatement(s);
+                rst = pstmt.executeQuery();
+                for (; counter < 32; counter++) { // if there is 32 entry exists
+                    if (rst.next()) {
+                        result[counter][0] = rst.getString(2); // loading word
+                        result[counter][1] = rst.getString(3); // loading meaning
+                    } else {
+                        if (counter != 0) {
+                            counter--; // for the last entry that is not loaded
+                        }
+                        break;
+                    }
+                }
+
+            }
+            if (counter < 32) { // it is not fully occupide
+                s =
+                        "SELECT * FROM WordLearning WHERE [Counter]=1 AND [LeitnerLevel]=1 AND [Learned]=0";
+                pstmt = con.prepareStatement(s);
+                rst = pstmt.executeQuery();
+                for (; counter < 32; counter++) { // if there is 32 entry exists
+                    if (rst.next()) {
+                        result[counter][0] = rst.getString(2); // loading word
+                        result[counter][1] = rst.getString(3); // loading meaning
+                    } else {
+                        if (counter != 0) {
+                            counter--; // for the last entry that is not loaded
+                        }
+                        break;
+                    }
+                }
+            }
+            if (counter < 32) { // it is not fully occupide
+                s =
+                        "SELECT * FROM WordLearning WHERE [Counter]=0 AND [LeitnerLevel]=0 AND [Learned]=0";
+                pstmt = con.prepareStatement(s);
+                rst = pstmt.executeQuery();
+                for (; counter < 32; counter++) { // if there is 32 entry exists
+                    if (rst.next()) {
+                        result[counter][0] = rst.getString(2); // loading word
+                        result[counter][1] = rst.getString(3); // loading meaning
+                    } else {
+                        if (counter != 0) {
+                            counter--; // for the last entry that is not loaded
+                        }
+                        break;
+                    }
+                }
+            }
+            close();
+            if (counter < 32) {
+                JOptionPane.showMessageDialog(null,
+                                              "Please first import words.The game is out of new word!\n " +
+                                              "After Improting please reset game!!",
+                                              "Word Shortage Message",
+                                              JOptionPane.ERROR_MESSAGE
+                        );
+            }
+            updateCounter();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+    }
+
+    void updateCounter() { // for each time loading the buffer or main board this function will be called
+        open();
+        String s =
+                "SELECT * FROM WordLearning WHERE  [LeitnerLevel]=4 AND [Learned]=0";
+        String updateStatement;
+        try {
+            Statement stmt = con.createStatement();
+            pstmt = con.prepareStatement(s);
+            rst = pstmt.executeQuery();
+            for (; rst.next(); ) { // for updating Counter
+                int tempCounter = Integer.parseInt(rst.getString(1));
+                if (tempCounter < 15) {
+                    updateStatement = "UPDATE WordLearning SET [Counter] =" +
+                                      (++tempCounter) +
+                                      " WHERE [Word]='" + rst.getString(2) +
+                                      "' AND" +
+                                      " [Meaning]= '" + rst.getString(3) +
+                                      "'";
+
+                    stmt.executeUpdate(updateStatement);
+                }
+            }
+            s =
+                    "SELECT * FROM WordLearning WHERE  [LeitnerLevel]=3 AND [Learned]=0";
+            pstmt = con.prepareStatement(s);
+            rst = pstmt.executeQuery();
+            for (; rst.next(); ) { // for updating Counter
+                int tempCounter = Integer.parseInt(rst.getString(1));
+                if (tempCounter < 7) {
+                    updateStatement = "UPDATE WordLearning SET [Counter] =" +
+                                      (++tempCounter) +
+                                      " WHERE [Word]='" + rst.getString(2) +
+                                      "' AND" +
+                                      " [Meaning]= '" + rst.getString(3) +
+                                      "'";
+
+                    stmt.executeUpdate(updateStatement);
+                }
+            }
+            s =
+                    "SELECT * FROM WordLearning WHERE  [LeitnerLevel]=2 AND [Learned]=0";
+            pstmt = con.prepareStatement(s);
+            rst = pstmt.executeQuery();
+            for (; rst.next(); ) { // for updating Counter
+                int tempCounter = Integer.parseInt(rst.getString(1));
+                if (tempCounter < 3) {
+                    updateStatement = "UPDATE WordLearning SET [Counter] =" +
+                                      (++tempCounter) +
+                                      " WHERE [Word]='" + rst.getString(2) +
+                                      "' AND" +
+                                      " [Meaning]= '" + rst.getString(3) +
+                                      "'";
+
+                    stmt.executeUpdate(updateStatement);
+                }
+            }
+            s =
+                    "SELECT * FROM WordLearning WHERE  [LeitnerLevel]=1 AND [Learned]=0";
+            pstmt = con.prepareStatement(s);
+            rst = pstmt.executeQuery();
+            for (; rst.next(); ) { // for updating Counter
+                int tempCounter = Integer.parseInt(rst.getString(1));
+                System.out.println(tempCounter);
+                if (tempCounter < 1) {
+                    updateStatement = "UPDATE WordLearning SET [Counter] =" +
+                                      (++tempCounter) +
+                                      " WHERE [Word]='" + rst.getString(2) +
+                                      "' AND" +
+                                      " [Meaning]= '" + rst.getString(3) +
+                                      "'";
+
+                    stmt.executeUpdate(updateStatement);
+                }
+            }
+            close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+    }
+
+    void leitnerLevelIncrease(String Word, String Meaning, boolean falseDone) {
+        if (falseDone == true) {
+            open();
+            String s = "UPDATE WordLearning SET Counter =" + 0 +
+                       ", LeitnerLevel=" + 0 + " WHERE " +
+                       " [Word]='" + Word + "' AND" + " [Meaning]= '" +
+                       Meaning +
+                       "'";
+            try {
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate(s);
+            } catch (SQLException ex1) {
+                System.out.println(ex1);
+            }
+            close();
+        } else {
+            open();
+            String s = "SELECT * FROM WordLearning WHERE [Word]='" + Word +
+                       "' AND [Meaning]='" + Meaning + "'";
+            int leitnerLevel = 0;
+            try {
+                pstmt = con.prepareStatement(s);
+                rst = pstmt.executeQuery();
+                if (rst.next()) {
+                    leitnerLevel = Integer.parseInt(rst.getString(5));
+                    System.out.println("FOUND!" + rst.getString(2) + " " +
+                                       rst.getString(3)); //assuming string data is available
+                    if (leitnerLevel == 5) {
+                        s = "UPDATE WordLearning SET Counter =" + 0 +
+                            ", Learned=" +
+                            1 + ", LeitnerLevel=" + 6 + " WHERE " +
+                            " [Word]='" + Word + "' AND" + " [Meaning]= '" +
+                            Meaning +
+                            "'";
+                    } else {
+                        s = "UPDATE WordLearning SET Counter =" + 0 +
+                            ", LeitnerLevel=" + (++leitnerLevel) + " WHERE " +
+                            " [Word]='" + Word + "' AND" + " [Meaning]= '" +
+                            Meaning +
+                            "'";
+                    }
+                    Statement stmt = con.createStatement();
+                    stmt.executeUpdate(s);
+                }
+                close();
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+    }
+
+    boolean exists(String Word, String Meaning) {
+        String s = "SELECT * FROM WordLearning WHERE [Word]='" + Word +
+                   "' AND [Meaning]='" + Meaning + "'";
+        try {
+            pstmt = con.prepareStatement(s);
+            rst = pstmt.executeQuery();
+            if (rst.next()) {
+                System.out.println("FOUND!" + rst.getString(2) + " " +
+                                   rst.getString(3)); //assuming string data is available
+                return true;
+            }
+            System.out.println("NOT FOUND!"); //assuming string data is available
+            return false;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return true;
+    }
+
+    void insert(String Word, String Meaning) {
+        open();
+        if (!exists(Word, Meaning)) {
+            String s = "INSERT INTO WordLearning ( [Counter], Word, Meaning, Learned, LeitnerLevel, LastTime )  VALUES (0" +
+                       ", '" + Word + "', '" + Meaning + "',0,0,0)";
+            try {
+                Statement stmt = con.createStatement();
+                stmt.executeUpdate(s);
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }
+        }
+        close();
+    }
+
+    void updateLastTime(int LastTime, String Word, String Meaning) {
+        open();
+        String s = "UPDATE WordLearning SET LastTime =" + LastTime + " WHERE " +
+                   " [Word]='" + Word + "' AND" + " [Meaning]= '" + Meaning +
+                   "'";
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(s);
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+        close();
+    }
+
+    void updateLeitnerLevel(int LeitnerLevel, String Word, String Meaning) {
+        open();
+        String s = "UPDATE WordLearning SET LeitnerLevel =" + LeitnerLevel +
+                   " WHERE " + " [Word]='" + Word + "' AND" + " [Meaning]= '" +
+                   Meaning + "'";
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(s);
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+        close();
+    }
+
+    void updateLearned(int Learned, String Word, String Meaning) {
+        open();
+        String s = "UPDATE WordLearning SET Learned =" + Learned + " WHERE " +
+                   " [Word]='" + Word + "' AND" + " [Meaning]= '" + Meaning +
+                   "'";
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(s);
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+        close();
+    }
+
+    void updateCounter(int Counter, String Word, String Meaning) {
+        open();
+        String s = "UPDATE WordLearning SET Counter =" + Counter + " WHERE " +
+                   " [Word]='" + Word + "' AND" + " [Meaning]= '" + Meaning +
+                   "'";
+        try {
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(s);
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+
+        close();
+    }
+
+    public static void main(String[] args) {
+        msAccessDB msaccessdb = new msAccessDB();
+        /*    String s = "INSERT INTO WordLearning ( [Counter], Word, Meaning, Learned, LeitnerLevel, LastTime )  VALUES (1, 'MARYAM', 'HEJAZYNIA',0,3,15)";
+            String s1 = "INSERT INTO WordLearning ( [Counter], Word, Meaning, Learned, LeitnerLevel, LastTime )  VALUES (1, 'JAFAR', 'HEJAZYNIA',0,3,15)";
+            Statement stmt;
+           try {
+                System.out.println("enter");
+                msaccessdb.open();
+                stmt = msaccessdb.con.createStatement();
+                stmt.executeUpdate(s);
+                msaccessdb.close();
+                msaccessdb.open();
+                stmt = msaccessdb.con.createStatement();
+                stmt.executeUpdate(s1);
+                System.out.println("done!");
+                msaccessdb.close();
+            } catch (SQLException ex) {
+                System.out.println(ex);
+            }*/
+        /*    msaccessdb.open();
+            msaccessdb.query("select * From WordLearning;");*/
+        //  msaccessdb.open();
+        //  msaccessdb.exists("Meisam","Hejazynia");
+        //      msaccessdb.updateLastTime(13,"MEISAM","HEJAZYNIA");
+    }
+}

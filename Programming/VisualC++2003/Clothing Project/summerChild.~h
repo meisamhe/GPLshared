@@ -1,0 +1,25 @@
+#ifndef SUMMERCHILD_H
+#define SUMMERCHILD_H
+#include "summer.h"
+//---------------------------------------------------
+enum clothKind {shalvar, shalvarak, pirahan, tshirt, kolah};
+//---------------------------------------------------
+class summerChild : public summer
+{
+        private:
+                bool picture;
+                clothKind cKind;
+        public:
+                summerChild (size s, int q, int d, int bp, int sp, color cc, kind ck, int vq,  cooling cd, lenght l, bool p, clothKind ck): summer ( size s, int q, int d, int bp, int sp, color cc, kind ck, int vq,  cooling cd, lenght l)
+                {
+                        picture=true;
+                        cKind=ck;
+                        setCode (12);
+                }
+                bool getPicture () {return (picture);};
+                clothKind getClothKind () {return (cKind);};
+                ~summerMan();
+};//end class summerChild
+//---------------------------------------------------
+#endif
+ 

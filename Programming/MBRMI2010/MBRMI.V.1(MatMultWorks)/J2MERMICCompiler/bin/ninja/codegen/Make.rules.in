@@ -1,0 +1,61 @@
+# Toplevel Java Makefile
+#
+# Define:
+# SRC = list of .java files to compile
+# SRC_JC = list of .jc files to compile
+#
+# SERVIMPL = list of .java files to compile and rmic
+# SERVIMPL_JC = list of .jc files to compile and rmic
+# 
+# PACKAGE = package name for this directory, with a trailing "."
+# SUBDIRS = list of subdirectories to recurse
+
+JCJAVA = $(SRC_JC:.jc=.java) $(SERVIMPL_JC:.jc=.java)
+JAVA = $(SRC) $(JCJAVA) $(SERVIMPL) 
+CLASSES = $(JAVA:.java=.class)
+STUBS = $(SERVIMPL:.java=_Stub.class) $(SERVIMPL_JC:.jc=_Stub.class)
+SKELS = $(SERVIMPL:.java=_Skel.class) $(SERVIMPL_JC:.jc=_Skel.class)
+CONFIGFILES = config.cache config.log config.status
+
+# Want to retain comments in the generated .java files for javadoc
+CPP = @CPP@ -C -I$(ROOT) -undef
+
+%.java: %.jc
+	$(CPP) -P $*.jc $*.java
+
+%.class: %.java
+	javac $<
+
+%_Stub.class: %.class
+	ninjarmic $(PACKAGE)$*
+#	ninjarmic -classpath . $*
+
+all: subdirs-java here subdirs 
+
+ifeq ($(SUBDIRS)_x, _x)
+subdirs-java:
+
+subdirs: here
+
+subdirs-clean: here-clean
+
+else
+subdirs-java:
+	for i in $(SUBDIRS); do $(MAKE) -C $$ here-javai; done
+
+subdirs: here
+	for i in $(SUBDIRS); do $(MAKE) -C $$i; done
+
+subdirs-clean: here-clean
+	for i in $(SUBDIRS); do $(MAKE) -C $$i clean; done
+endif
+
+here: $(JAVA) $(CLASSES) $(STUBS)
+
+here-java: subdirs-java $(JCJAVA)
+
+here-clean: 
+	rm -f $(CLASSES) $(STUBS) $(SKELS) $(JCJAVA) $(CONFIGFILES)
+
+clean: here-clean subdirs-clean
+
