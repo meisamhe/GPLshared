@@ -2062,6 +2062,577 @@ Use I.quad? or I? to learn more.
 
 MPI cont.
 ====================================================
+program test1
+use mpi
+implicit none
+integer :: ierr, numprocs, proc_num,
+call mpi_init(ierr)
+call mpi_comm_size(MPI_COMM_WORLD, numprocs, ierr)
+call mpi_comm_rank(MPI_COMM_WORLD, proc_num, ierr)
+print *, ’Hello from Process ’, proc_num, &
+’ of ’, numprocs, ’ processes’
+call mpi_finalize(ierr)
+end program test1
+Always need to: use mpi,
+Start with mpi_init,
+End with mpi_finalize.
+
+All communication takes place in groups of processes.
+Communication takes place in some context.
+A group and a context are combined in a communicator.
+MPI_COMM_WORLD is a communicator provided by default that
+includes all processors.
+MPI_COMM_SIZE(comm, numprocs, ierr) returns the
+number of processors in communicator comm.
+MPI_COMM_RANK(comm, proc_num, ierr) returns the
+rank of this processor in communicator comm.
+
+The mpi module includes:
+Subroutines such as mpi_init, mpi_comm_size,
+mpi_comm_rank, ...
+Global variables such as
+MPI_COMM_WORLD: a communicator,
+MPI_INTEGER: used to specify the type of data being sent
+MPI_SUM: used to specify a type of reduction
+Remember: Fortran is case insensitive:
+mpi_init is the same as MPI_INIT.
+
+There are 125 MPI functions.
+Can write many program with these 8:
+• MPI_INIT(ierr) Initialize
+• MPI_FINALIZE(ierr) Finalize
+• MPI_COMM_SIZE(...) Number of processors
+• MPI_COMM_RANK(...) Rank of this processor
+• MPI_SEND(...) Send a message
+• MPI_RCV(...) Receive a message
+• MPI_BCAST(...) Broadcast to other processors
+• MPI_REDUCE(...) Reduction operation
+
+Examples: Compute kxk1 = maxi |xi| for a distributed vector:
+(each process has some subset of x elements)
+xnorm_proc = 0.d0
+! set istart and iend for each process
+do i=istart,iend
+xnorm_proc = max(xnorm_proc, abs(x(i)))
+enddo
+call MPI_REDUCE(xnorm_proc, xnorm, 1, &
+MPI_DOUBLE_PRECISION, MPI_MAX, 0, &
+MPI_COMM_WORLD,ierr)
+if (proc_num == 0) print "norm of x = ", xnorm
+Processors do not exit from MPI_REDUCE until all have called
+the subroutine.
+
+! compute xnorm_proc on each process as before...
+call MPI_REDUCE(xnorm_proc, xnorm, 1, &
+MPI_DOUBLE_PRECISION,MPI_MAX, 0, &
+MPI_COMM_WORLD,ierr)
+! only Process 0 has the value of xnorm
+call MPI_BCAST(xnorm, 1, &
+MPI_DOUBLE_PRECISION, 0, &
+MPI_COMM_WORLD,ierr)
+! now every process has the value of xnorm
+do i=istart,iend
+x(i) = x(i) / xnorm
+enddo
+
+To make a reduction available to all processes:
+call MPI_REDUCE(xnorm_proc, xnorm, 1, &
+MPI_DOUBLE_PRECISION,MPI_MAX, 0, &
+MPI_COMM_WORLD,ierr)
+! only Process 0 has the value of xnorm
+call MPI_BCAST(xnorm, 1, &
+MPI_DOUBLE_PRECISION, 0, &
+MPI_COMM_WORLD,ierr)
+One-step alternative: simpler and perhaps more efficient...
+call MPI_ALLREDUCE(xnorm_proc, xnorm, 1, &
+MPI_DOUBLE_PRECISION,MPI_MAX, &
+MPI_COMM_WORLD,ierr)
+
+
+Send value(s) from this Process to Process dest.
+General form:
+call MPI_SEND(start, count, &
+datatype, dest, &
+tag, comm, ierr)
+where:
+• start: starting address (variable, array element)
+• count: number of elements to send
+• datatype: type of each element
+• dest: destination process
+• tag: identifier tag (integer between 0 and 32767)
+• comm: communicator
+
+Receive value(s) from Process source with label tag.
+General form:
+call MPI_RECV(start, count, &
+datatype, source, &
+tag, comm, status, ierr)
+where:
+• source: source process
+• tag: identifier tag (integer between 0 and 32767)
+• comm: communicator
+• status: integer array of length MPI_STATUS_SIZE.
+source could be MPI_ANY_SOURCE to match any source.
+tag could be MPI_ANY_TAG to match any tag.
+
+MPI Send and Receive — simple example
+if (proc_num == 4) then
+i = 55
+call MPI_SEND(i, 1, MPI_INTEGER, 3, 21, &
+MPI_COMM_WORLD, ierr)
+endif
+if (proc_num == 3) then
+call MPI_RECV(j, 1, MPI_INTEGER, 4, 21, &
+MPI_COMM_WORLD, status, ierr)
+print *, "j = ", j
+endif
+Processor 3 will print j = 55
+The tag is 21. (Arbitrary integer between 0 and 32767)
+Blocking Receive: Processor 3 won’t return from MPI_RECV
+until message is received.
+Run-time error if num_procs <= 4 (Procs are 0,1,2,3)
+
+Pass value of i from Processor 0 to 1 to 2 ... to num_procs-1
+if (proc_num == 0) then
+i = 55
+call MPI_SEND(i, 1, MPI_INTEGER, 1, 21, &
+MPI_COMM_WORLD, ierr)
+endif
+else if (proc_num < num_procs - 1) then
+call MPI_RECV(i, 1, MPI_INTEGER, proc_num-1, 21, &
+MPI_COMM_WORLD, status, ierr)
+call MPI_SEND(i, 1, MPI_INTEGER, proc_num+1, 21, &
+MPI_COMM_WORLD, ierr)
+else if (proc_num == num_procs - 1) then
+call MPI_RECV(i, 1, MPI_INTEGER, proc_num-1, 21, &
+MPI_COMM_WORLD, status, ierr)
+print *, "i = ", i
+
+MPI Receive
+Receive value(s) from Process source with label tag.
+General form:
+call MPI_RECV(start, count, &
+datatype, source, &
+tag, comm, status, ierr)
+where:
+• source: source process
+• tag: identifier tag (integer between 0 and 32767)
+• comm: communicator
+• status: integer array of length MPI_STATUS_SIZE.
+source could be MPI_ANY_SOURCE to match any source.
+tag could be MPI_ANY_TAG to match any tag.
+
+MPI Receive — status argument
+call MPI_RECV(start, count, &
+datatype, source, &
+tag, comm, status, ierr)
+Elements of the status array give additional useful information
+about the message received.
+In particular,
+status(MPI_SOURCE) is the source of the message,
+May be needed if source = MPI_ANY_SOURCE.
+status(MPI_TAG) is the tag of the message received,
+May be needed if tag = MPI_ANY_TAG.
+
+Another Send/Receive example
+Master (Processor 0) sends jth column to Worker Processor j,
+gets back 1-norm to store in anorm(j), j = 1, . . . , ncols
+! code for Master (Processor 0):
+if (proc_num == 0) then
+do j=1,ncols
+call MPI_SEND(a(1,j), nrows, MPI_DOUBLE_PRECISION,&
+j, j, MPI_COMM_WORLD, ierr)
+enddo
+do j=1,ncols
+call MPI_RECV(colnorm, 1, MPI_DOUBLE_PRECISION, &
+MPI_ANY_SOURCE, MPI_ANY_TAG, &
+MPI_COMM_WORLD, status, ierr)
+jj = status(MPI_TAG)
+anorm(jj) = colnorm
+enddo
+endif
+Note: Master may receive back in any order!
+MPI_ANY_SOURCE will match first to arrive.
+The tag is used to tell which column’s norm has arrived (jj).
+
+Send and Receive example — worker code
+Master (Processor 0) sends jth column to Worker Processor j,
+gets back 1-norm to store in anorm(j), j = 1, . . . , ncols
+! code for Workers (Processors 1, 2, ...):
+if (proc_num /= 0) then
+call MPI_RECV(colvect, nrows, MPI_DOUBLE_PRECISION,&
+0, MPI_ANY_TAG, &
+MPI_COMM_WORLD, status, ierr)
+j = status(MPI_TAG) ! this is the column number
+! (should agree with proc_num)
+colnorm = 0.d0
+do i=1,nrows
+colnorm = colnorm + abs(colvect(i))
+enddo
+call MPI_SEND(colnorm, 1, MPI_DOUBLE_PRECISION, &
+0, j, MPI_COMM_WORLD, ierr)
+endif
+Note: Sends back to Process 0 with tag j.
+
+Send may be blocking
+if (proc_num == 4) then
+i = 55
+call MPI_SEND(i, 1, MPI_INTEGER, 3, 21, &
+MPI_COMM_WORLD, ierr)
+call MPI_RECV(j, 1, MPI_INTEGER, 3, 22, &
+MPI_COMM_WORLD, status, ierr)
+endif
+if (proc_num == 3) then
+j = 66
+call MPI_SEND(j, 1, MPI_INTEGER, 4, 22, &
+MPI_COMM_WORLD, ierr)
+call MPI_RECV(i, 1, MPI_INTEGER, 4, 21, &
+MPI_COMM_WORLD, status, ierr)
+endif
+Both processors might get stuck in MPI_SEND!
+May depend on size of data and send buffer.
+Blocking send: MPI_SSEND. See documentation
+There are also non-blocking sends and receives:
+MPI_ISEND, MPI_IRECV
+
+Non-blocking receive
+call MPI_IRECV(start, count, datatype, &
+source, tag, comm, request, ierror)
+Additional argument: request.
+Program continues after initiating receive,
+Can later check if it has finished with
+call MPI_TEST(request, flag, status, ierror)
+flag is logical output variable.
+Or can later wait for it to finish with
+call MPI_WAIT(request, status, ierror)
+
+$UWHPSC/codes/mpi/matrix1norm1.f90:
+Same number of processes as columns,
+$UWHPSC/codes/mpi/matrix1norm2.f90:
+
+Master (Processor 0) sends jth column to Worker Processor j,
+gets back 1-norm to store in anorm(j), j = 1, . . . , ncols
+! code for Master (Processor 0):
+if (proc_num == 0) then
+do j=1,ncols
+call MPI_SEND(a(1,j), nrows, MPI_DOUBLE_PRECISION,&
+j, j, MPI_COMM_WORLD, ierr)
+enddo
+do j=1,ncols
+call MPI_RECV(colnorm, 1, MPI_DOUBLE_PRECISION, &
+MPI_ANY_SOURCE, MPI_ANY_TAG, &
+MPI_COMM_WORLD, status, ierr)
+jj = status(MPI_TAG)
+anorm(jj) = colnorm
+enddo
+endif
+Note: Master may receive back in any order!
+MPI_ANY_SOURCE will match first to arrive.
+The tag is used to tell which column’s norm has arrived (jj).
+
+
+Master (Processor 0) sends jth column to Worker Processor j,
+gets back 1-norm to store in anorm(j), j = 1, . . . , ncols
+! code for Workers (Processors 1, 2, ...):
+if (proc_num /= 0) then
+call MPI_RECV(colvect, nrows, MPI_DOUBLE_PRECISION,&
+0, MPI_ANY_TAG, &
+MPI_COMM_WORLD, status, ierr)
+j = status(MPI_TAG) ! this is the column number
+! (should agree with proc_num)
+colnorm = 0.d0
+do i=1,nrows
+colnorm = colnorm + abs(colvect(i))
+enddo
+call MPI_SEND(colnorm, 1, MPI_DOUBLE_PRECISION, &
+0, j, MPI_COMM_WORLD, ierr)
+endif
+Note: Sends back to Process 0 with tag j.
+
+Software sources
+• Netlib: http://www.netlib.org
+• NIST Guide to Available Mathematical Software:
+http://gams.nist.gov/
+• Trilinos: http://trilinos.sandia.gov/
+• DOE ACTS: http://acts.nersc.gov/
+• PETSc nonlinear solvers:
+http://www.mcs.anl.gov/petsc/petsc-as/
+• Many others!
+
+$ sudo apt-get install liblapack-dev
+
+See complete documentation at
+http://www.netlib.org/lapack/
+
+If program.f90 uses BLAS routines...
+$ gfortran -c program.f90
+$ gfortran program.o -lblas
+or can combine as
+$ gfortran program.f90 -lblas
+When linking together .o files, will look for a file called
+libblas.a (probably in /usr/lib).
+This is a archived static library.
+Can specify different library location using
+-L/path/to/library.
+
+Download http://www.netlib.org/blas/blas.tgz.
+Put this in desired location, e.g. $HOME/lapack/blas.tgz
+$ cd $HOME/lapack
+$ tar -zxf blas.tgz # creates BLAS subdirectory
+$ cd BLAS
+$ gfortran -O3 -c *.f
+$ ar cr libblas.a *.o # creates libblas.a
+To use this library:
+$ gfortran program.f90 -lblas \
+-L$HOME/lapack/BLAS
+Note: Non-optimized Fortran 77 versions.
+Better approach would be to use ATLAS.
+
+Can be done from source at
+http://www.netlib.org/lapack/
+but somewhat more difficult.
+Individual routines and dependencies can be obtained from
+netlib, e.g. the double precision versions from:
+http://www.netlib.org/lapack/double
+Download .tgz file and untar into directory where you want to
+use them, or make a library of just these files.
+
+DGESV — Solves a general linear system
+http://www.netlib.org/lapack/double/dgesv.f
+SUBROUTINE DGESV( N, NRHS, A, LDA, IPIV,
+& B, LDB, INFO )
+N = size of system (square N × N)
+A = matrix on input, L,U factors on output,
+dimension(LDA,K) with LDA, K >= N
+LDA = leading dimension of A
+(number of rows in declaration of A)
+Example:
+real(kind=8) dimension(100,500) :: a
+! fill a(1:20, 1:20) with 20x20 matrix
+n = 20
+lda = 100
+DGESV — Solves a general linear system
+Example:
+real(kind=8), dimension(100,500) :: a
+real(kind=8), dimension(200,400) :: b
+integer, dimension(600) :: ipiv
+! fill a(1:20, 1:20) with 20x20 matrix
+! b(1:20, 1:3) with 3 right hand sides
+n = 20; nrhs = 3; lda = 100; ldb = 200
+call dgesv(n, nrhs, a, lda, ipiv, b, ldb, info)
+What is passed to dgesv is start_address, the address of
+first element of a. (Matrix is stored by columns)
+Whenever a(i,j) appears in code, address is:
+address = start_address + (j-1)*lda + (i-1)
+
+DGESV — Solves a general linear system
+SUBROUTINE DGESV( N, NRHS, A, LDA, IPIV,
+& B, LDB, INFO )
+NRHS = number of right hand sides
+B = matrix whose columns are right hand side(s) on input
+solution vector(s) on output.
+LDB = leading dimension of B.
+INFO = integer returning 0 if successful.
+A = matrix on input, L,U factors on output,
+IPIV = Returns pivot vector (permutation of rows)
+integer, dimension(N)
+Row I was interchanged with row IPIV(I).
+
+DGESV — Solves a general linear system
+SUBROUTINE DGESV( N, NRHS, A, LDA, IPIV,
+& B, LDB, INFO )
+NRHS = number of right hand sides
+B = matrix whose columns are right hand side(s) on input
+solution vector(s) on output.
+LDB = leading dimension of B.
+INFO = integer returning 0 if successful.
+A = matrix on input, L,U factors on output,
+IPIV = Returns pivot vector (permutation of rows)
+integer, dimension(N)
+Row I was interchanged with row IPIV(I)
+
+
+Iterative methods – initialization
+-----------------------------------------
+! allocate storage for boundary points too:
+allocate(x(0:n+1), u(0:n+1), f(0:n+1))
+dx = 1.d0 / (n+1.d0)
+!$omp parallel do
+do i=0,n+1
+! grid points:
+x(i) = i*dx
+! source term:
+f(i) = 100.*exp(x(i))
+! initial guess (linear function):
+u(i) = alpha + x(i)*(beta-alpha)
+
+Jacobi iteration in Fortran
+----------------------------------------
+uold = u ! starting values before updating
+do iter=1,maxiter
+dumax = 0.d0
+do i=1,n
+u(i) = 0.5d0*(uold(i-1) + uold(i+1) + dx**2*f(i))
+dumax = max(dumax, abs(u(i)-uold(i)))
+enddo
+! check for convergence:
+if (dumax .lt. tol) exit
+uold = u ! for next iteration
+enddo
+enddo
+
+Jacobi with Open MP
+------------------------------
+uold = u ! starting values before updating
+do iter=1,maxiter
+dumax = 0.d0
+!$omp parallel do reduction(max : dumax)
+do i=1,n
+u(i) = 0.5d0*(uold(i-1) + uold(i+1) + dx**2*f(i))
+dumax = max(dumax, abs(u(i)-uold(i)))
+enddo
+! check for convergence:
+if (dumax .lt. tol) exit
+!$omp parallel do
+do i=1,n
+uold(i) = u(i) ! for next iteration
+enddo
+enddo
+
+
+Jacobi iteration Fortran
+-------------------------
+uold = u ! starting values before updating
+do iter=1,maxiter
+dumax = 0.d0
+do i=1,n
+u(i) = 0.5d0*(uold(i-1) + uold(i+1) + dx**2*f(i))
+dumax = max(dumax, abs(u(i)-uold(i)))
+enddo
+! check for convergence:
+if (dumax .lt. tol) exit
+uold = u ! for next iteration
+enddo
+
+
+Jacobi with MPI
+-------------------------------
+call mpi_comm_rank(MPI_COMM_WORLD, me, ierr)
+...
+do iter = 1, maxiter
+uold = u
+if (me > 0) then
+! Send left endpoint value to "left"
+call mpi_isend(uold(istart), 1, MPI_DOUBLE_PRECISION, &
+me - 1, 1, MPI_COMM_WORLD, req1, ierr)
+end if
+if (me < ntasks-1) then
+! Send right endpoint value to "right"
+call mpi_isend(uold(iend), 1, MPI_DOUBLE_PRECISION, &
+me + 1, 2, MPI_COMM_WORLD, req2, ierr)
+end if
+end do
+
+Note: uold(istart) from me+1 goes into uold(iend+1):
+uold(iend) from me-1 goes into uold(istart-1):
+do iter = 1, maxiter
+! mpi_send’s from previous slide
+if (me < ntasks-1) then
+! Receive right endpoint value
+call mpi_recv(uold(iend+1), 1, MPI_DOUBLE_PRECISION, &
+me + 1, 1, MPI_COMM_WORLD, mpistatus, ierr)
+end if
+if (me > 0) then
+! Receive left endpoint value
+call mpi_recv(uold(istart-1), 1, MPI_DOUBLE_PRECISION, &
+me - 1, 2, MPI_COMM_WORLD, mpistatus, ierr)
+end if
+! Apply Jacobi iteration on my section of array
+do i = istart, iend
+u(i) = 0.5d0*(uold(i-1) + uold(i+1) + dx**2*f(i))
+dumax_task = max(dumax_task, abs(u(i) - uold(i)))
+end do
+end do
+
+Communicator for Cartesian blocks
+---------------------------------------
+integer dims(2)
+logical isperiodic(2), reorder
+ndim = 2 ! 2d grid of processes
+dims(1) = 4 ! for 4x6 grid of processes
+dims(2) = 6
+isperiodic(1) = .false. ! periodic in x?
+isperiodic(2) = .false. ! periodic in y?
+reorder = .true. ! optimize ordering
+call MPI_CART_CREATE(MPI_COMM_WORLD, ndim, &
+dims, isperiodic, reorder, comm2d, ierr)
+
+Gauss-Seidel iteration in Fortran
+------------------------------------
+do iter=1,maxiter
+dumax = 0.d0
+do i=1,n
+uold = u(i)
+u(i) = 0.5d0*(u(i-1) + u(i+1) + dx**2*f(i))
+dumax = max(dumax, abs(u(i)-uold))
+enddo
+! check for convergence:
+if (dumax .lt. tol) exit
+enddo
+
+Red-Black Gauss-Seidel
+--------------------------------------
+do iter=1,maxiter
+dumax = 0.d0
+! UPDATE ODD INDEX POINTS:
+!$omp parallel do reduction(max : dumax) &
+!$omp private(uold)
+do i=1,n,2
+uold = u(i)
+u(i) = 0.5d0*(u(i-1) + u(i+1) + dx**2*f(i))
+dumax = max(dumax, abs(u(i)-uold))
+enddo
+! UPDATE EVEN INDEX POINTS:
+!$omp parallel do reduction(max : dumax) &
+!$omp private(uold)
+do i=2,n,2
+uold = u(i)
+u(i) = 0.5d0*(u(i-1) + u(i+1) + dx**2*f(i))
+dumax = max(dumax, abs(u(i)-uold))
+enddo
+! check for convergence:
+if (dumax .lt. tol) exit
+
+Red-Black SOR in 1D
+---------------------------------
+do iter=1,maxiter
+dumax = 0.d0
+! UPDATE ODD INDEX POINTS:
+!$omp parallel do reduction(max : dumax) &
+!$omp private(uold, ustar)
+do i=1,n,2
+uold = u(i)
+ustar = 0.5d0*(u(i-1) + u(i+1) + dx**2*f(i))
+u(i) = uold + omega*(ustar-uold)
+dumax = max(dumax, abs(u(i)-uold))
+enddo
+! UPDATE EVEN INDEX POINTS:
+!$omp parallel do reduction(max : dumax) &
+!$omp private(uold, ustar)
+do i=2,n,2
+uold = u(i)
+ustar = 0.5d0*(u(i-1) + u(i+1) + dx**2*f(i))
+u(i) = uold + omega*(ustar-uold)
+dumax = max(dumax, abs(u(i)-uold))
+enddo
+! check for convergence...
+enddo
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,1040 @@
+OpenMP¶
+OpenMP is discussed in slides starting with Lecture 13.
+
+Sample codes
+There are a few sample codes in the $UWHPSC/codes/openmp directory. See the README.txt file for instructions on compiling and executing.
+
+Here is a very simple code, that simply evaluates a costly function at many points:
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+! $UWHPSC/codes/openmp/yeval.f90
+
+! If this code gives a Segmentation Fault when compiled and run with -fopenmp 
+! Then you could try:
+!   $ ulimit -s unlimited
+! to increase the allowed stack size.
+! This may not work on all computers.  On a Mac the best you can do is
+!   $ ulimit -s hard
+
+
+program yeval
+   
+   use omp_lib
+   implicit none
+   integer, parameter :: n = 100000000
+   integer :: i, nthreads
+   real(kind=8), dimension(n) :: y
+   real(kind=8) :: dx, x
+
+   ! Specify number of threads to use:
+   !$ print *, "How many threads to use? "
+   !$ read *, nthreads
+   !$ call omp_set_num_threads(nthreads)
+   !$ print "('Using OpenMP with ',i3,' threads')", nthreads
+
+   dx = 1.d0 / (n+1.d0)
+
+   !$omp parallel do private(x) 
+   do i=1,n
+      x = i*dx
+      y(i) = exp(x)*cos(x)*sin(x)*sqrt(5*x+6.d0)
+   enddo
+
+   print *, "Filled vector y of length", n
+
+end program yeval
+Note the following:
+
+Lines starting with !$ are only executed if the code is compiled and run with the flag -fopenmp, otherwise they are comments.
+
+x must be declared a private variable in the omp parallel do loop, so that each thread has its own version. Otherwise another thread might reset x between the time its assigned a value and the time this value is used to set y(i).
+
+The loop iterator i is private by default, but all other varaibles are shared by default.
+
+If you try to run this and get a “segmentation fault”, it is probably because the stack size limit is too small. You can see the limit with:
+
+$ ulimit -s
+On linux you can do:
+
+$ ulimit -s unlimited
+But on a Mac there is a hard limit and the best you can do is:
+
+$ ulimit -s hard
+If you still get a segmentation fault you will have to decrease n for this example.
+
+Other directives
+This example illustrates some directives beyond the parallel do:
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+! $UWHPSC/codes/openmp/demo2
+
+program demo2
+   
+   use omp_lib
+   implicit none
+   integer :: i
+   integer, parameter :: n = 100000
+   real(kind=8), dimension(n) :: x,y,z
+   
+   ! Specify number of threads to use:
+   !$ call omp_set_num_threads(2)
+
+   !$omp parallel  ! spawn two threads
+   !$omp sections  ! split up work between them
+
+     !$omp section
+     x = 1.d0   ! one thread initializes x array
+
+     !$omp section
+     y = 1.d0   ! another thread initializes y array
+
+   !$omp end sections
+   !$omp barrier   ! not needed, implied at end of sections
+
+   !$omp single    ! only want to print once:
+   print *, "Done initializing x and y"
+   !$omp end single nowait  ! ok for other thread to continue
+
+   !$omp do   ! split work between threads:
+   do i=1,n
+       z(i) = x(i) + y(i)
+       enddo
+
+   !$omp end parallel
+   print *, "max value of z is ",maxval(z)
+    
+
+end program demo2
+Notes:
+
+!$omp sections is used to split up work between threads
+There is an implicit barrier after !$omp end sections, so the explicit barrier here is optional.
+The print statement is only done once since it is in !$omp single. The nowait clause indicates that the other thread can proceed without waiting for this print to be executed.
+Fine-grain vs. coarse-grain paralellism
+Consider the problem of normalizing a vector by dividing each element by the 1-norm of the vector, defined by ?x?1=?ni=1|xi|.
+
+We must first loop over all points to compute the norm. Then we must loop over all points and set yi=xi/?x?1. Note that we cannot combine these two loops into a single loop!
+
+Here is an example with fine-grain paralellism, where we use the OpenMP omp parallel do directive or the omp do directive within a omp parallel block.
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+! $UWHPSC/codes/openmp/normalize1.f90
+
+! Example of normalizing a vector using fine-grain parallelism.
+
+program main
+   
+    use omp_lib
+    implicit none
+    integer :: i, thread_num
+    integer, parameter :: n = 1000
+ 
+    real(kind=8), dimension(n) :: x, y
+    real(kind=8) :: norm,ynorm
+ 
+    integer :: nthreads
+    
+    ! Specify number of threads to use:
+    nthreads = 1       ! need this value in serial mode
+    !$ nthreads = 4    
+    !$ call omp_set_num_threads(nthreads)
+    !$ print "('Using OpenMP with ',i3,' threads')", nthreads
+
+    ! Specify number of threads to use:
+    !$ call omp_set_num_threads(4)
+ 
+    ! initialize x:
+    !$omp parallel do 
+    do i=1,n
+        x(i) = dble(i)  ! convert to double float
+    enddo
+
+    norm = 0.d0
+    ynorm = 0.d0
+
+    !$omp parallel private(i)
+
+    !$omp do reduction(+ : norm)
+    do i=1,n
+        norm = norm + abs(x(i))
+        enddo
+
+     !$omp barrier   ! not needed (implicit)
+
+    !$omp do reduction(+ : ynorm)
+    do i=1,n
+        y(i) = x(i) / norm
+        ynorm = ynorm + abs(y(i))
+        enddo
+
+    !$omp end parallel
+
+    print *, "norm of x = ",norm, "  n(n+1)/2 = ",n*(n+1)/2
+    print *, 'ynorm should be 1.0:   ynorm = ', ynorm
+
+end program main
+Note the following:
+
+We initialize xi=i as a test, so ?x?1=n(n+1)/2.
+The compiler decides how to split the loop between threads. The loop starting on line 38 might be split differently than the loop starting on line 45.
+Because of this, all threads must have access to all of memory.
+Next is a version with coarse-grain parallelism, were we decide how to split up the array between threads and then execute the same code on each thread, but each thread will compute its own version of istart and iend for its portion of the array. With this code we are guaranteed that thread 0 always handles x(1), for example, so in principle the data could be distributed. When using OpenMP on a shared memory computer this doesn’t matter, but this version is more easily generalized to MPI.
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+! $UWHPSC/codes/openmp/normalize2.f90
+
+! Example of normalizing a vector using coarse-grain parallelism.
+
+program main
+    
+    use omp_lib
+    implicit none
+    integer, parameter :: n = 1000
+    real(kind=8), dimension(n) :: x,y
+    real(kind=8) :: norm,norm_thread,ynorm,ynorm_thread
+    integer :: nthreads, points_per_thread,thread_num
+    integer :: i,istart,iend
+
+    ! Specify number of threads to use:
+    nthreads = 1       ! need this value in serial mode
+    !$ nthreads = 4    
+    !$ call omp_set_num_threads(nthreads)
+    !$ print "('Using OpenMP with ',i3,' threads')", nthreads
+
+    ! Determine how many points to handle with each thread.
+    ! Note that dividing two integers and assigning to an integer will
+    ! round down if the result is not an integer.  
+    ! This, together with the min(...) in the definition of iend below,
+    ! insures that all points will get distributed to some thread.
+    points_per_thread = (n + nthreads - 1) / nthreads
+    print *, "points_per_thread = ",points_per_thread
+
+    ! initialize x:
+    do i=1,n
+        x(i) = dble(i)  ! convert to double float
+        enddo
+
+    norm = 0.d0
+    ynorm = 0.d0
+
+    !$omp parallel private(i,norm_thread, &
+    !$omp                  istart,iend,thread_num,ynorm_thread) 
+
+    thread_num = 0     ! needed in serial mode
+    !$ thread_num = omp_get_thread_num()    ! unique for each thread
+
+    ! Determine start and end index for the set of points to be 
+    ! handled by this thread:
+    istart = thread_num * points_per_thread + 1
+    iend = min((thread_num+1) * points_per_thread, n)
+
+    !$omp critical
+    print 201, thread_num, istart, iend
+    !$omp end critical
+201 format("Thread ",i2," will take i = ",i6," through i = ",i6)
+
+    norm_thread = 0.d0
+    do i=istart,iend
+        norm_thread = norm_thread + abs(x(i))
+        enddo
+
+    ! update global norm with value from each thread:
+    !$omp critical
+      norm = norm + norm_thread
+      print *, "norm updated to: ",norm
+    !$omp end critical
+
+    ! make sure all have updated norm before proceeding:
+    !$omp barrier
+
+    ynorm_thread = 0.d0
+    do i=istart,iend
+        y(i) = x(i) / norm
+        ynorm_thread = ynorm_thread + abs(y(i))
+        enddo
+
+    ! update global ynorm with value from each thread:
+    !$omp critical
+      ynorm = ynorm + ynorm_thread
+      print *, "ynorm updated to: ",ynorm
+    !$omp end critical
+    !$omp barrier
+
+    !$omp end parallel 
+
+    print *, "norm of x = ",norm, "  n(n+1)/2 = ",n*(n+1)/2
+    print *, 'ynorm should be 1.0:   ynorm = ', ynorm
+
+end program main
+Note the following:
+
+istart and iend, the starting and ending values of i taken by each thread, are explicitly computed in terms of the thread number. We must be careful to handle the case when the number of threads does not evenly divide n.
+Various variables must be declared private in lines 37-38.
+norm must be initialized to 0 before the omp parallel block. Otherwise some thread might set it to 0 after another thread has already updated it by its norm_thread.
+The update to norm on line 60 must be in a omp critical block, so two threads don’t try to update it simultaneously (data race).
+There must be an omp barrier on line 65 between updating norm by each thread and using norm to compute each y(i). We must make sure all threads have updated norm or it won’t have the correct value when we use it.
+For comparison of fine-grain and coarse-grain parallelism on Jacobi iteration, see
+
+Jacobi iteration using OpenMP with parallel do constructs
+Jacobi iteration using OpenMP with coarse-grain parallel block
+Further reading
+OpenMP references in bibliography
+
+Jacobi iteration using OpenMP with parallel do constructs
+The code below implements Jacobi iteration for solving the linear system arising from the steady state heat equation with a simple application of parallel do loops using OpenMP.
+
+Compare to:
+
+Jacobi iteration using OpenMP with coarse-grain parallel block
+Jacobi iteration using MPI
+The code:
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+! $UWHPSC/codes/openmp/jacobi1d_omp1.f90
+!
+! Jacobi iteration illustrating fine grain parallelism with OpenMP.
+!
+! Several omp parallel do loops are used.  Each time threads will be
+! forked and the compiler will decide how to split up the loop.
+
+program jacobi1d_omp1
+    use omp_lib
+    implicit none
+    integer :: n, nthreads
+    real(kind=8), dimension(:), allocatable :: x,u,uold,f
+    real(kind=8) :: alpha, beta, dx, tol, dumax
+    real(kind=8), intrinsic :: exp
+    real(kind=8) :: t1,t2
+    integer :: i,iter,maxiter 
+
+    ! Specify number of threads to use:
+    nthreads = 2
+    !$ call omp_set_num_threads(nthreads)
+    !$ print "('Using OpenMP with ',i3,' threads')", nthreads
+
+    print *, "Input n ... "
+    read *, n
+
+    ! allocate storage for boundary points too:
+    allocate(x(0:n+1), u(0:n+1), uold(0:n+1), f(0:n+1))
+
+    open(unit=20, file="heatsoln.txt", status="unknown")
+
+    call cpu_time(t1)
+
+    ! grid spacing:
+    dx = 1.d0 / (n+1.d0)
+
+    ! boundary conditions:
+    alpha = 20.d0
+    beta = 60.d0
+
+    !$omp parallel do
+    do i=0,n+1
+        ! grid points:
+        x(i) = i*dx
+        ! source term:
+        f(i) = 100.*exp(x(i))
+        ! initial guess:
+        u(i) = alpha + x(i)*(beta-alpha)
+        enddo
+
+    ! tolerance and max number of iterations:
+    tol = 0.1 * dx**2
+    print *, "Convergence tolerance: tol = ",tol
+    maxiter = 100000
+    print *, "Maximum number of iterations: maxiter = ",maxiter
+
+    ! Jacobi iteratation:
+
+    uold = u  ! starting values before updating
+
+    do iter=1,maxiter
+        dumax = 0.d0
+        !$omp parallel do reduction(max : dumax)
+        do i=1,n
+            u(i) = 0.5d0*(uold(i-1) + uold(i+1) + dx**2*f(i))
+            dumax = max(dumax, abs(u(i)-uold(i)))
+            enddo
+        if (mod(iter,10000)==0) then
+            print *, iter, dumax
+            endif
+        ! check for convergence:
+        if (dumax .lt. tol) exit
+
+        !$omp parallel do 
+        do i=1,n
+            uold(i) = u(i)   ! for next iteration
+            enddo
+        enddo
+
+        call cpu_time(t2)
+        print '("CPU time = ",f12.8, " seconds")', t2-t1
+
+        print *, "Total number of iterations: ",iter
+
+    write(20,*) "          x                  u"
+    do i=0,n+1
+        write(20,'(2e20.10)'), x(i), u(i)
+        enddo
+
+    print *, "Solution is in heatsoln.txt"
+
+
+    close(20)
+
+end program jacobi1d_omp1
+
+Jacobi iteration using OpenMP with coarse-grain parallel block
+The code below implements Jacobi iteration for solving the linear system arising from the steady state heat equation with a single parallel block. Work is split up manually between threads.
+
+Compare to:
+
+Jacobi iteration using OpenMP with parallel do constructs
+Jacobi iteration using MPI
+The code:
+
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+! $UWHPSC/codes/openmp/jacobi1d_omp2.f90
+!
+! Domain decomposition version of Jacobi iteration illustrating
+! coarse grain parallelism with OpenMP.
+!
+! The grid points are split up into nthreads disjoint sets and each thread
+! is assigned one set that it updates for all iterations.
+
+program jacobi1d_omp2
+    use omp_lib
+    implicit none
+    real(kind=8), dimension(:), allocatable :: x,u,uold,f
+    real(kind=8) :: alpha, beta, dx, tol, dumax, dumax_thread
+    real(kind=8), intrinsic :: exp
+    real(kind=8) :: t1,t2
+    integer :: n, nthreads, points_per_thread,thread_num
+    integer :: i,iter,maxiter,istart,iend,nprint
+
+    ! Specify number of threads to use:
+    nthreads = 1       ! need this value in serial mode
+    !$ nthreads = 2    
+    !$ call omp_set_num_threads(nthreads)
+    !$ print "('Using OpenMP with ',i3,' threads')", nthreads
+
+    nprint = 10000 ! print dumax every nprint iterations
+
+    print *, "Input n ... "
+    read *, n
+
+    ! allocate storage for boundary points too:
+    allocate(x(0:n+1), u(0:n+1), uold(0:n+1), f(0:n+1))
+
+    open(unit=20, file="heatsoln.txt", status="unknown")
+
+    call cpu_time(t1)
+
+    ! grid spacing:
+    dx = 1.d0 / (n+1.d0)
+
+    ! boundary conditions:
+    alpha = 20.d0
+    beta = 60.d0
+
+    ! tolerance and max number of iterations:
+    tol = 0.1 * dx**2
+    print *, "Convergence tolerance: tol = ",tol
+    maxiter = 100000
+    print *, "Maximum number of iterations: maxiter = ",maxiter
+
+    ! Determine how many points to handle with each thread.
+    ! Note that dividing two integers and assigning to an integer will
+    ! round down if the result is not an integer.  
+    ! This, together with the min(...) in the definition of iend below,
+    ! insures that all points will get distributed to some thread.
+    points_per_thread = (n + nthreads - 1) / nthreads
+    print *, "points_per_thread = ",points_per_thread
+
+
+    ! Start of the parallel block... 
+    ! ------------------------------
+
+    ! This is the only time threads are forked in this program:
+
+    !$omp parallel private(thread_num, iter, istart, iend, i, dumax_thread) 
+
+    thread_num = 0     ! needed in serial mode
+    !$ thread_num = omp_get_thread_num()    ! unique for each thread
+
+    ! Determine start and end index for the set of points to be 
+    ! handled by this thread:
+    istart = thread_num * points_per_thread + 1
+    iend = min((thread_num+1) * points_per_thread, n)
+
+    !$omp critical
+    print '("Thread ",i2," will take i = ",i6," through i = ",i6)', &
+          thread_num, istart, iend
+    !$omp end critical
+
+    ! Initialize:
+    ! -----------
+
+    ! each thread sets part of these arrays:
+    do i=istart, iend
+        ! grid points:
+        x(i) = i*dx
+        ! source term:
+        f(i) = 100.*exp(x(i))
+        ! initial guess:
+        u(i) = alpha + x(i)*(beta-alpha)
+        enddo
+    
+    ! boundary conditions need to be added:
+    u(0) = alpha
+    u(n+1) = beta
+
+    uold = u   ! initialize, including boundary values
+
+
+    ! Jacobi iteratation:
+    ! -------------------
+
+
+    do iter=1,maxiter
+
+        ! initialize uold to u (note each thread does part!)
+        uold(istart:iend) = u(istart:iend) 
+
+        !$omp single
+        dumax = 0.d0     ! global max initialized by one thread
+        !$omp end single
+
+        ! Make sure all of uold is initialized before iterating
+        !$omp barrier
+        ! Make sure uold is consitent in memory:
+        !$omp flush
+
+        dumax_thread = 0.d0   ! max seen by this thread
+        do i=istart,iend
+            u(i) = 0.5d0*(uold(i-1) + uold(i+1) + dx**2*f(i))
+            dumax_thread = max(dumax_thread, abs(u(i)-uold(i)))
+            enddo
+
+        !$omp critical
+        ! update global dumax using value from this thread:
+        dumax = max(dumax, dumax_thread)
+        !$omp end critical
+
+        ! make sure all threads are done with dumax:
+        !$omp barrier
+
+        !$omp single
+        ! only one thread will do this print statement:
+        if (mod(iter,nprint)==0) then
+            print '("After ",i8," iterations, dumax = ",d16.6,/)', iter, dumax
+            endif
+        !$omp end single
+
+        ! check for convergence:
+        ! note that all threads have same value of dumax 
+        ! at this point, so they will all exit on the same iteration.
+        
+        if (dumax .lt. tol) exit
+
+        ! need to synchronize here so no thread resets dumax = 0
+        ! at start of next iteration before all have done the test above.
+        !$omp barrier
+
+        enddo
+
+    print '("Thread number ",i2," finished after ",i9, &
+            " iterations, dumax = ", e16.6)', &
+          thread_num,iter,dumax
+
+    !$omp end parallel
+
+    call cpu_time(t2)
+    print '("CPU time = ",f12.8, " seconds")', t2-t1
+
+
+    ! Write solution to heatsoln.txt:
+    write(20,*) "          x                  u"
+    do i=0,n+1
+        write(20,'(2e20.10)'), x(i), u(i)
+        enddo
+
+    print *, "Solution is in heatsoln.txt"
+
+    close(20)
+
+end program jacobi1d_omp2

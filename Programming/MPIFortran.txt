@@ -1,0 +1,1294 @@
+MPI
+MPI stands for Message Passing Interface and is a standard approach for programming distributed memory machines such as clusters, supercomputers, or heterogeneous networks of computers. It can also be used on a single shared memory computer, although it is often more cumbersome to program in MPI than in OpenMP.
+
+MPI implementations
+A number of different implementations are available (open source and vendor supplied for specific machines). See this list, for example.
+
+MPI on the class VM
+The VM has open-mpi partially installed.
+
+You will need to do the following:
+
+$ sudo apt-get update
+$ sudo apt-get install openmpi-dev
+On other Ubuntu installations you will also have to do:
+
+$ sudo apt-get install openmpi-bin          # Already on the VM
+You should then be able to do the following:
+
+$ cd $UWHPSC/codes/mpi
+$ mpif90 test1.f90
+$ mpiexec -n 4 a.out
+and see output like:
+
+Hello from Process number           1  of            4  processes
+Hello from Process number           3  of            4  processes
+Hello from Process number           0  of            4  processes
+Hello from Process number           2  of            4  processes
+Test code
+The simple test code used above illustrates use of some of the basic MPI subroutines.
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+! $UWHPSC/codes/mpi/test1.f90
+
+program test1
+    use mpi
+    implicit none
+    integer :: ierr, numprocs, proc_num
+
+    call mpi_init(ierr)
+    call mpi_comm_size(MPI_COMM_WORLD, numprocs, ierr)
+    call mpi_comm_rank(MPI_COMM_WORLD, proc_num, ierr)
+
+    print *, 'Hello from Process number', proc_num, &
+             ' of ', numprocs, ' processes'
+
+    call mpi_finalize(ierr)
+
+end program test1
+Reduction example
+The next example uses MPI_REDUCE to add up partial sums computed by independent processes.
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+! $UWHPSC/codes/mpi/pisum1.f90
+
+! Computes pi using MPI.  
+! Compare to $UWHPSC/codes/openmp/pisum2.f90 
+
+program pisum1
+    use mpi
+    implicit none
+    integer :: ierr, numprocs, proc_num, points_per_proc, n, &
+               i, istart, iend
+    real (kind=8) :: x, dx, pisum, pisum_proc, pi
+
+    call mpi_init(ierr)
+    call mpi_comm_size(MPI_COMM_WORLD, numprocs, ierr)
+    call mpi_comm_rank(MPI_COMM_WORLD, proc_num, ierr)
+
+    ! Ask the user for the number of points
+    if (proc_num == 0) then
+        print *, "Using ",numprocs," processors"
+        print *, "Input n ... "
+        read *, n
+    end if
+
+    ! Broadcast to all procs; everybody gets the value of n from proc 0
+    call mpi_bcast(n, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
+
+    dx = 1.d0/n
+
+    ! Determine how many points to handle with each proc
+    points_per_proc = (n + numprocs - 1)/numprocs
+    if (proc_num == 0) then   ! Only one proc should print to avoid clutter
+        print *, "points_per_proc = ", points_per_proc
+    end if
+
+    ! Determine start and end index for this proc's points
+    istart = proc_num * points_per_proc + 1
+    iend = min((proc_num + 1)*points_per_proc, n)
+
+    ! Diagnostic: tell the user which points will be handled by which proc
+    print '("Process ",i2," will take i = ",i6," through i = ",i6)', &
+          proc_num, istart, iend
+
+    pisum_proc = 0.d0
+    do i=istart,iend
+        x = (i-0.5d0)*dx
+        pisum_proc = pisum_proc + 1.d0 / (1.d0 + x**2)
+        enddo
+
+    call MPI_REDUCE(pisum_proc,pisum,1,MPI_DOUBLE_PRECISION,MPI_SUM,0, &
+                        MPI_COMM_WORLD,ierr)
+
+    if (proc_num == 0) then
+        pi = 4.d0 * dx * pisum 
+        print *, "The approximation to pi is ",pi
+        endif
+
+    call mpi_finalize(ierr)
+
+end program pisum1
+Send-Receive example
+In this example, a value is set in Process 0 and then passed to Process 1 and on to Process 2, etc. until it reaches the last process, where it is printed out.
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+! $UWHPSC/codes/mpi/copyvalue.f90
+!
+! Set value in Process 0 and copy this through a chain of processes
+! and finally print result from Process numprocs-1.
+!
+
+program copyvalue
+
+    use mpi
+
+    implicit none
+
+    integer :: i, proc_num, num_procs,ierr
+    integer, dimension(MPI_STATUS_SIZE) :: status
+
+    call MPI_INIT(ierr)
+    call MPI_COMM_SIZE(MPI_COMM_WORLD, num_procs, ierr)
+    call MPI_COMM_RANK(MPI_COMM_WORLD, proc_num, ierr)
+
+    if (num_procs==1) then
+        print *, "Only one process, cannot do anything"
+        call MPI_FINALIZE(ierr)
+        stop
+        endif
+
+
+    if (proc_num==0) then
+        i = 55
+        print '("Process ",i3," setting      i = ",i3)', proc_num, i
+
+        call MPI_SEND(i, 1, MPI_INTEGER, 1, 21, &
+                      MPI_COMM_WORLD, ierr)
+
+      else if (proc_num < num_procs - 1) then
+
+        call MPI_RECV(i, 1, MPI_INTEGER, proc_num-1, 21, &
+                      MPI_COMM_WORLD, status, ierr)
+
+        print '("Process ",i3," receives     i = ",i3)', proc_num, i
+        print '("Process ",i3," sends        i = ",i3)', proc_num, i
+
+        call MPI_SEND(i, 1, MPI_INTEGER, proc_num+1, 21, &
+                      MPI_COMM_WORLD, ierr)
+
+
+      else if (proc_num == num_procs - 1) then
+
+        call MPI_RECV(i, 1, MPI_INTEGER, proc_num-1, 21, &
+                      MPI_COMM_WORLD, status, ierr)
+
+        print '("Process ",i3," ends up with i = ",i3)', proc_num, i
+      endif
+
+    call MPI_FINALIZE(ierr)
+
+end program copyvalue
+Master-worker examples
+The next two examples illustrate using Process 0 as a master process to farm work out to the other processes. In both cases the 1-norm of a matrix is computed, which is the maximum over j of the 1-norm of the `j`th column of the matrix.
+
+In the first case we assume there are the same number of worker processes as columns in the matrix:
+
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+! $UWHPSC/codes/mpi/matrix1norm1.f90
+!
+! Compute 1-norm of a matrix using mpi.
+! Process 0 is the master that sets things up and then sends a column
+! to each worker (Processes 1, 2, ..., num_procs - 1).
+!
+! This version assumes there are at least as many workers as columns.
+
+program matrix1norm1
+
+    use mpi
+
+    implicit none
+
+    integer :: i,j,jj,nrows,ncols,proc_num, num_procs,ierr,nerr
+    integer, dimension(MPI_STATUS_SIZE) :: status
+    real(kind=8) :: colnorm
+    real(kind=8), allocatable, dimension(:,:) :: a
+    real(kind=8), allocatable, dimension(:) :: anorm, colvect
+
+    call MPI_INIT(ierr)
+    call MPI_COMM_SIZE(MPI_COMM_WORLD, num_procs, ierr)
+    call MPI_COMM_RANK(MPI_COMM_WORLD, proc_num, ierr)
+
+    nerr = 0
+    if (proc_num==0) then
+        print *, "Input nrows, ncols"
+        read *, nrows, ncols
+        if (ncols > num_procs-1) then
+            print *, "*** Error, this version requires ncols < num_procs = ",&
+                  num_procs
+            nerr = 1
+            endif
+        allocate(a(nrows,ncols))  ! only master process 0 needs the matrix
+        a = 1.d0  ! initialize to all 1's for this test
+        allocate(anorm(ncols))    ! to hold norm of each column in MPI_RECV
+        endif
+
+    ! if nerr == 1 then all processes must stop:
+    call MPI_BCAST(nerr, 1, MPI_DOUBLE_PRECISION, 0, MPI_COMM_WORLD, ierr)
+
+    if (nerr == 1) then
+        ! Note that error message already printed by Process 0
+        ! All processes must execute the MPI_FINALIZE 
+        ! (Could also just have "go to 99" here.)
+        call MPI_FINALIZE(ierr)
+        stop
+        endif
+        
+    call MPI_BCAST(nrows, 1, MPI_DOUBLE_PRECISION, 0, MPI_COMM_WORLD, ierr)
+    call MPI_BCAST(ncols, 1, MPI_DOUBLE_PRECISION, 0, MPI_COMM_WORLD, ierr)
+
+    if (proc_num > 0) then
+        allocate(colvect(nrows))   ! to hold a column vector sent from master
+        endif 
+
+
+    
+    ! -----------------------------------------
+    ! code for Master (Processor 0):
+    ! -----------------------------------------
+
+    if (proc_num == 0) then
+
+      do j=1,ncols
+        call MPI_SEND(a(1,j), nrows, MPI_DOUBLE_PRECISION,&
+                        j, j, MPI_COMM_WORLD, ierr)
+        enddo
+
+      do j=1,ncols
+        call MPI_RECV(colnorm, 1, MPI_DOUBLE_PRECISION, &
+                        MPI_ANY_SOURCE, MPI_ANY_TAG, &
+                        MPI_COMM_WORLD, status, ierr)
+        jj = status(MPI_TAG)
+        anorm(jj) = colnorm
+        enddo
+
+      print *, "Finished filling anorm with values... "
+      print *, anorm
+      print *, "1-norm of matrix a = ", maxval(anorm)
+      endif
+
+
+    ! -----------------------------------------
+    ! code for Workers (Processors 1, 2, ...):
+    ! -----------------------------------------
+    if (proc_num /= 0) then
+
+        if (proc_num > ncols) go to 99   ! no work expected
+
+        call MPI_RECV(colvect, nrows, MPI_DOUBLE_PRECISION,&
+                      0, MPI_ANY_TAG, &
+                      MPI_COMM_WORLD, status, ierr)
+
+        j = status(MPI_TAG)   ! this is the column number
+                              ! (should agree with proc_num)
+
+        colnorm = sum(abs(colvect))
+
+        call MPI_SEND(colnorm, 1, MPI_DOUBLE_PRECISION, &
+                    0, j, MPI_COMM_WORLD, ierr)
+
+        endif
+
+99  continue   ! might jump to here if finished early
+    call MPI_FINALIZE(ierr)
+
+end program matrix1norm1
+
+
+            
+In the next case we consider the more realistic situation where there may be many more columns in the matrix than worker processes. In this case the master process must do more work to keep track of how which columns have already been handled and farm out work as worker processes become free.
+
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+! $UWHPSC/codes/mpi/matrix1norm1.f90
+!
+! Compute 1-norm of a matrix using mpi.
+! Process 0 is the master that sets things up and then sends a column
+! to each worker (Processes 1, 2, ..., num_procs - 1).
+!
+! This version allows more columns than workers.
+
+program matrix1norm2
+
+    use mpi
+
+    implicit none
+
+    integer :: i,j,jj,nrows,ncols,proc_num, num_procs,ierr,nerr
+    integer :: numsent, sender, nextcol
+    integer, dimension(MPI_STATUS_SIZE) :: status
+    real(kind=8) :: colnorm
+    real(kind=8), allocatable, dimension(:,:) :: a
+    real(kind=8), allocatable, dimension(:) :: anorm, colvect
+
+    logical :: debug
+
+    debug = .true.
+
+    call MPI_INIT(ierr)
+    call MPI_COMM_SIZE(MPI_COMM_WORLD, num_procs, ierr)
+    call MPI_COMM_RANK(MPI_COMM_WORLD, proc_num, ierr)
+
+    if (proc_num==0) then
+        print *, "Input nrows, ncols"
+        read *, nrows, ncols
+        allocate(a(nrows,ncols))  ! only master process 0 needs the matrix
+        a = 1.d0  ! initialize to all 1's for this test
+        allocate(anorm(ncols))    ! to hold norm of each column in MPI_RECV
+        endif
+
+        
+    call MPI_BCAST(nrows, 1, MPI_DOUBLE_PRECISION, 0, MPI_COMM_WORLD, ierr)
+    call MPI_BCAST(ncols, 1, MPI_DOUBLE_PRECISION, 0, MPI_COMM_WORLD, ierr)
+
+    if (proc_num > 0) then
+        allocate(colvect(nrows))   ! to hold a column vector sent from master
+        endif 
+
+
+    
+    ! -----------------------------------------
+    ! code for Master (Processor 0):
+    ! -----------------------------------------
+
+    if (proc_num == 0) then
+
+      numsent = 0 ! keep track of how many columns sent
+
+      ! send the first batch to get all workers working:
+      do j=1,min(num_procs-1, ncols)
+        call MPI_SEND(a(1,j), nrows, MPI_DOUBLE_PRECISION,&
+                        j, j, MPI_COMM_WORLD, ierr)
+        numsent = numsent + 1
+        enddo
+
+      ! as results come back, send out more work...
+      ! the variable sender tells who sent back a result and ready for more
+      do j=1,ncols
+        call MPI_RECV(colnorm, 1, MPI_DOUBLE_PRECISION, &
+                        MPI_ANY_SOURCE, MPI_ANY_TAG, &
+                        MPI_COMM_WORLD, status, ierr)
+        sender = status(MPI_SOURCE)
+        jj = status(MPI_TAG)
+        anorm(jj) = colnorm
+
+        if (numsent < ncols) then
+            ! still more work to do, the next column will be sent and
+            ! this index also used as the tag:
+            nextcol = numsent + 1 
+            call MPI_SEND(a(1,nextcol), nrows, MPI_DOUBLE_PRECISION,&
+                            sender, nextcol, MPI_COMM_WORLD, ierr)
+            numsent = numsent + 1
+          else
+            ! send an empty message with tag=0 to indicate this worker
+            ! is done:
+            call MPI_SEND(MPI_BOTTOM, 0, MPI_DOUBLE_PRECISION,&
+                            sender, 0, MPI_COMM_WORLD, ierr)
+          endif
+            
+        enddo
+
+      print *, "Finished filling anorm with values... "
+      print *, anorm
+      print *, "1-norm of matrix a = ", maxval(anorm)
+      endif
+
+
+    ! -----------------------------------------
+    ! code for Workers (Processors 1, 2, ...):
+    ! -----------------------------------------
+    if (proc_num /= 0) then
+
+        if (proc_num > ncols) go to 99   ! no work expected
+
+        do while (.true.)
+            ! repeat until message with tag==0 received...
+
+            call MPI_RECV(colvect, nrows, MPI_DOUBLE_PRECISION,&
+                          0, MPI_ANY_TAG, &
+                          MPI_COMM_WORLD, status, ierr)
+
+            j = status(MPI_TAG)   ! this is the column number
+                                  ! may not be proc_num in general
+
+            if (debug) then
+                print '("+++ Process ",i4,"  received message with tag ",i6)', &
+                    proc_num, j       
+                endif
+
+            if (j==0) go to 99    ! received "done" message
+
+            colnorm = sum(abs(colvect))
+
+            call MPI_SEND(colnorm, 1, MPI_DOUBLE_PRECISION, &
+                        0, j, MPI_COMM_WORLD, ierr)
+
+            enddo
+        endif
+
+99  continue   ! might jump to here if finished early
+    call MPI_FINALIZE(ierr)
+
+end program matrix1norm2
+
+
+            
+Sample codes
+Some other sample codes can also be found in the $UWHPSC/codes/mpi directory.
+
+Jacobi iteration using MPI
+See also the samples in the list below.
+
+Further reading
+MPI references section of the bibliography lists some books.
+Argonne tutorials
+Tutorial slides by Bill Gropp
+Livermore tutorials
+Open MPI
+The MPI Standard
+Some sample codes
+LAM MPI tutorials
+Google “MPI tutorial” to find more.
+Documentation on MPI subroutines
+
+Jacobi iteration using MPI
+The code below implements Jacobi iteration for solving the linear system arising from the steady state heat equation using MPI. Note that in this code each process, or task, has only a portion of the arrays and must exchange boundary data using message passing.
+
+Compare to:
+
+Jacobi iteration using OpenMP with parallel do constructs
+Jacobi iteration using OpenMP with coarse-grain parallel block
+The code:
+
+  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+! $UWHSPC/codes/mpi/jacobi1d_mpi.f90
+!
+! Domain decomposition version of Jacobi iteration illustrating
+! coarse grain parallelism with MPI.
+!
+! The one-dimensional Poisson problem is solved, u''(x) = -f(x)
+! with u(0) = alpha and u(1) = beta.
+!
+! The grid points are split up into ntasks disjoint sets and each task
+! is assigned one set that it updates for all iterations.  The tasks 
+! correspond to processes.
+!
+! The task (or process) number is called "me" in this code for brevity
+! rather than proc_num.
+!
+! Note that each task allocates only as much storage as needed for its 
+! portion of the arrays.
+!
+! Each iteration, boundary values at the edge of each grid must be
+! exchanged with the neighbors.
+
+
+program jacobi1d_mpi
+    use mpi
+
+    implicit none
+
+    integer, parameter :: maxiter = 100000, nprint = 5000
+    real (kind=8), parameter :: alpha = 20.d0, beta = 60.d0
+
+    integer :: i, iter, istart, iend, points_per_task, itask, n
+    integer :: ierr, ntasks, me, req1, req2
+    integer, dimension(MPI_STATUS_SIZE) :: mpistatus
+    real (kind = 8), dimension(:), allocatable :: f, u, uold
+    real (kind = 8) :: x, dumax_task, dumax_global, dx, tol
+
+    ! Initialize MPI; get total number of tasks and ID of this task
+    call mpi_init(ierr)
+    call mpi_comm_size(MPI_COMM_WORLD, ntasks, ierr)
+    call mpi_comm_rank(MPI_COMM_WORLD, me, ierr)
+
+    ! Ask the user for the number of points
+    if (me == 0) then
+        print *, "Input n ... "
+        read *, n
+    end if
+    ! Broadcast to all tasks; everybody gets the value of n from task 0
+    call mpi_bcast(n, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, ierr)
+
+    dx = 1.d0/real(n+1, kind=8)
+    tol = 0.1d0*dx**2
+
+    ! Determine how many points to handle with each task
+    points_per_task = (n + ntasks - 1)/ntasks
+    if (me == 0) then   ! Only one task should print to avoid clutter
+        print *, "points_per_task = ", points_per_task
+    end if
+
+    ! Determine start and end index for this task's points
+    istart = me * points_per_task + 1
+    iend = min((me + 1)*points_per_task, n)
+
+    ! Diagnostic: tell the user which points will be handled by which task
+    print '("Task ",i2," will take i = ",i6," through i = ",i6)', &
+        me, istart, iend
+
+
+    ! Initialize:
+    ! -----------
+
+    ! This makes the indices run from istart-1 to iend+1
+    ! This is more or less cosmetic, but makes things easier to think about
+    allocate(f(istart-1:iend+1), u(istart-1:iend+1), uold(istart-1:iend+1))
+
+    ! Each task sets its own, independent array
+    do i = istart, iend
+        ! Each task is a single thread with all its variables private
+        ! so re-using the scalar variable x from one loop iteration to
+        ! the next does not produce a race condition.
+        x = dx*real(i, kind=8)
+        f(i) = 100.d0*exp(x)               ! Source term
+        u(i) = alpha + x*(beta - alpha)    ! Initial guess
+    end do
+    
+    ! Set boundary conditions if this task is keeping track of a boundary
+    ! point
+    if (me == 0)        u(istart-1) = alpha
+    if (me == ntasks-1) u(iend+1)   = beta
+
+
+    ! Jacobi iteratation:
+    ! -------------------
+
+    do iter = 1, maxiter
+        uold = u
+
+        ! Send endpoint values to tasks handling neighboring sections
+        ! of the array.  Note that non-blocking sends are used; note
+        ! also that this sends from uold, so the buffer we're sending
+        ! from won't be modified while it's being sent.
+        !
+        ! tag=1 is used for messages sent to the left
+        ! tag=2 is used for messages sent to the right
+
+        if (me > 0) then
+            ! Send left endpoint value to process to the "left"
+            call mpi_isend(uold(istart), 1, MPI_DOUBLE_PRECISION, me - 1, &
+                1, MPI_COMM_WORLD, req1, ierr)
+        end if
+        if (me < ntasks-1) then
+            ! Send right endpoint value to process on the "right"
+            call mpi_isend(uold(iend), 1, MPI_DOUBLE_PRECISION, me + 1, &
+                2, MPI_COMM_WORLD, req2, ierr)
+        end if
+
+        ! Accept incoming endpoint values from other tasks.  Note that
+        ! these are blocking receives, because we can't run the next step
+        ! of the Jacobi iteration until we've received all the
+        ! incoming data.
+
+        if (me < ntasks-1) then
+            ! Receive right endpoint value
+            call mpi_recv(uold(iend+1), 1, MPI_DOUBLE_PRECISION, me + 1, &
+                1, MPI_COMM_WORLD, mpistatus, ierr)
+        end if
+        if (me > 0) then
+            ! Receive left endpoint value
+            call mpi_recv(uold(istart-1), 1, MPI_DOUBLE_PRECISION, me - 1, &
+                2, MPI_COMM_WORLD, mpistatus, ierr)
+        end if
+
+        dumax_task = 0.d0   ! Max seen by this task
+
+        ! Apply Jacobi iteration on this task's section of the array
+        do i = istart, iend
+            u(i) = 0.5d0*(uold(i-1) + uold(i+1) + dx**2*f(i))
+            dumax_task = max(dumax_task, abs(u(i) - uold(i)))
+        end do
+
+        ! Take global maximum of dumax values
+        call mpi_allreduce(dumax_task, dumax_global, 1, MPI_DOUBLE_PRECISION, &
+            MPI_MAX, MPI_COMM_WORLD, ierr)
+        ! Note that this MPI_ALLREDUCE call acts as an implicit barrier,
+        ! since no process can return from it until all processes
+        ! have called it.  Because of this, after this call we know
+        ! that all the send and receive operations initiated at the
+        ! top of the loop have finished -- all the MPI_RECV calls have
+        ! finished in order for each process to get here, and if the
+        ! MPI_RECV calls have finished, the corresponding MPI_ISEND
+        ! calls have also finished.  Thus we can safely modify uold
+        ! again.
+
+        ! Also periodically report progress to the user
+        if (me == 0) then
+            if (mod(iter, nprint)==0) then
+                print '("After ",i8," iterations, dumax = ",d16.6,/)', &
+                    iter, dumax_global
+            end if
+        end if
+
+        ! All tasks now have dumax_global, and can check for convergence
+        if (dumax_global < tol) exit
+    end do
+
+    print '("Task number ",i2," finished after ",i9," iterations, dumax = ",&
+            e16.6)', me, iter, dumax_global
+
+
+    ! Output result:
+    ! --------------
+
+    ! Note: this only works if all processes share a file system
+    ! and can all open and write to the same file!
+
+    ! Synchronize to keep the next part from being non-deterministic
+    call mpi_barrier(MPI_COMM_WORLD, ierr)
+
+    ! Have each task output to a file in sequence, using messages to
+    ! coordinate
+
+    if (me == 0) then    ! Task 0 goes first
+        ! Open file for writing, replacing any previous version:
+        open(unit=20, file="heatsoln.txt", status="replace")
+        write(20,*) "          x                  u"
+        write(20, '(2e20.10)') 0.d0, u(0)    ! Boundary value at left end
+
+        do i = istart, iend
+            write(20, '(2e20.10)') i*dx, u(i)
+        end do
+
+        close(unit=20)
+        ! Closing the file should guarantee that all the ouput 
+        ! will be written to disk.
+        ! If the file isn't closed before the next process starts writing,
+        ! output may be jumbled or missing.
+
+        ! Send go-ahead message to next task
+        ! Only the fact that the message was sent is important, not its contents
+        ! so we send the special address MPI_BOTTOM and length 0.
+        ! tag=4 is used for this message.
+
+        if (ntasks > 1) then
+            call mpi_send(MPI_BOTTOM, 0, MPI_INTEGER, 1, 4, &
+                          MPI_COMM_WORLD, ierr)
+            endif
+
+    else
+        ! Wait for go-ahead message from previous task
+        call mpi_recv(MPI_BOTTOM, 0, MPI_INTEGER, me - 1, 4, &
+                          MPI_COMM_WORLD, mpistatus, ierr)
+        ! Open file for appending; do not destroy previous contents
+        open(unit=20, file="heatsoln.txt", status="old", access="append")
+        do i = istart, iend
+            write(20, '(2e20.10)') i*dx, u(i)
+        end do
+
+        ! Boundary value at right end:
+        if (me == ntasks - 1) write(20, '(2e20.10)') 1.d0, u(iend+1)    
+
+        ! Flush all pending writes to disk
+        close(unit=20)
+
+        if (me < ntasks - 1) then
+            ! Send go-ahead message to next task
+            call mpi_send(MPI_BOTTOM, 0, MPI_INTEGER, me + 1, 4, &
+                          MPI_COMM_WORLD, ierr)
+        end if
+    end if
+
+    ! Notify the user when all tasks have finished writing
+    if (me == ntasks - 1) print *, "Solution is in heatsoln.txt"
+
+    ! Close out MPI
+    call mpi_finalize(ierr)
+
+end program jacobi1d_mpi
