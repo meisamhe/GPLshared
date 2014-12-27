@@ -1,6 +1,14 @@
+General good IDE's:
+==========================
+Eclipse CDT
+Code::Blocks
+NetBeans
+http://stackoverflow.com/questions/24109/c-ide-for-linux
+
+However, better way is to use make and gdb
 
 1.2 Compiling with GCC
-
+================================
 A compiler turns human-readable source code into machine-readable object code that can actually run. The compilers of choice on Linux systems are all part of the GNU Compiler Collection, usually known as GCC. [3] GCC also include compilers for C, C++, Java, Objective-C, Fortran, and Chill. This book focuses mostly on C and C++ programming.
 
 [3] For more information about GCC, visit http://gcc.gnu.org.
