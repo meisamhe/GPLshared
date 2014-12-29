@@ -1,3 +1,4 @@
+^L to clear the screen
 Install.packages (“DEoptim”)
 # r automatically kills the clusters if not used for a long time
 # for i7  --> NEHALEM (use Rblas for speeding up)
