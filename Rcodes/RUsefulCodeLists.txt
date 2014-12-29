@@ -985,3 +985,43 @@ Yhat.predict(“pollutant”,df)
 Curl –X Post –H “content-type: application/json” –user meisam….@gmail.com:90d2…. –data ‘{“lon”:-76.61, ….}’ http://sandbox.yhathq.com/....
 
 
+#=========================================================
+# using JIT in R to compile the code and make it quicker
+#===========================================================
+#=======================================================================
+# JIT: compile the functions to speed up
+#========================================================================
+require(compiler)
+library(compiler)
+enableJIT(3)
+
+slow_func_compiled <- cmpfun(StateSpaceJoshiVanDenBulte12282014func)
+
+##### Functions #####
+
+is.compile <- function(func)
+{
+  # this function lets us know if a function has been byte-coded or not
+  #If you have a better idea for how to do this - please let me know...
+  if(class(func) != "function") stop("You need to enter a function")
+  last_2_lines <- tail(capture.output(func),2)
+  any(grepl("bytecode:", last_2_lines)) # returns TRUE if it finds the text "bytecode:" in any of the last two lines of the function's print
+}
+
+is.compile(slow_func_compiled)
+resultOfFiltering = slow_func_compiled(logfilename,categoryDiffData,CategoryHBData)
+
+library(compiler)
+Byte Code Compiler
+Description: These functions provide an interface to a byte code compiler for R.
+Usage:
+cmpfun(f, options = NULL)
+compile(e, env = .GlobalEnv, options = NULL)
+cmpfile(infile, outfile, ascii = FALSE, env = .GlobalEnv,
+        verbose = FALSE, options = NULL)
+loadcmp(file, envir = .GlobalEnv, chdir = FALSE)
+disassemble(code)
+enableJIT(level)
+compilePKGS(enable)
+getCompilerOption(name, options)
+setCompilerOptions(...)
