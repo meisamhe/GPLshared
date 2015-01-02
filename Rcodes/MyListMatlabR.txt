@@ -1,0 +1,22 @@
+#==============================================================
+# Doc: conversion between R and MATLAB code
+# List created by Meisam Hejazi Nia
+# Date: 12/30/2014
+#===============================================================
+MATLAB,					R
+===========================
+gammaln(),				lgamma				
+repmat(x,p,1),			t(matrix(t(rep(x,p)),ncol=p))
+repmat([1:p]',1,K),		matrix(rep(c(1:p),K),ncol=K)
+sum(gammaln_val,1),		colSums(gammaln_val)
+return,					return(val)
+psi,					psigamma
+permute,				aperm
+gammaln,				lngamma
+find((Nc>threshold_for_N)), 		which((Nc>threshold_for_N)!=0,arr.ind = T)
+sort(hp_posterior[["Nc"]], 2, 'descend'),		
+			sortOutput = apply(hp_posterior[["Nc"]],sort(method = "qu", index.return = TRUE, decreasing=TRUE));      dummy=sortOutput$x;      I = sortOutput$ix
+[free_energy, c] = min(new_free_energy),			
+							  free_energy = min(new_free_energy);   c = which.min(new_free_energy)
+fliplr,					rev
+~ isfield(opts, 'collapsed_means'),		(!("collapsed_means" %in% opts))
