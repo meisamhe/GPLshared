@@ -1,0 +1,101 @@
+g++ myprogram.cc
+c++ myprogram.cc
+
+example% cat meisamTest.cc
+#include <iostream>
+int main()  {
+    std::cout << "Real programmers write C++!" << std::endl;
+    return 0;
+}
+
+
+c++ meisamTest.cc
+greeting.exe
+c++ -o meisam.exe meisamTest.cc
+
+Compliling and linking
+============================
+example% C++ file1.cc file2.cc file3.cc -o prgrm
+
+
+Create an object file
+========================================
+c++ -c meisamTest.cc
+
+Linking and making executable file from object files
+=====================================================
+c++ -o prgrm file1.o file2.o file3.o
+
+Fortran
+=========================================
+gfortran myfile.f
+
+gfortran myfile.f -o program.exe
+
+gfortran -c aux.f
+gfortran -c diag.f
+gfortran flow.f aux.o diag.o -o flow.exe
+
+gfortran -std=f95 mycode.f
+
+Make File Format
+=============================================
+all: hello
+
+hello: main.o factorial.o hello.o
+	g++ main.o factorial.o hello.o -o hello
+
+main.o: main.cpp
+	g++ -c main.cpp
+
+factorial.o: factorial.cpp
+	g++ -c factorial.cpp
+
+hello.o: hello.cpp
+	g++ -c hello.cpp
+
+clean:
+	rm -rf *o hello
+
+Make file with defining variables
+==================================================
+# I am a comment, and I want to say that the variable CC will be
+# the compiler to use.
+CC=g++
+# Hey!, I am comment number 2. I want to say that CFLAGS will be the
+# options I'll pass to the compiler.
+CFLAGS=-c -Wall
+
+all: hello
+
+hello: main.o factorial.o hello.o
+	$(CC) main.o factorial.o hello.o -o hello
+
+main.o: main.cpp
+	$(CC) $(CFLAGS) main.cpp
+
+factorial.o: factorial.cpp
+	$(CC) $(CFLAGS) factorial.cpp
+
+hello.o: hello.cpp
+	$(CC) $(CFLAGS) hello.cpp
+
+clean:
+	rm -rf *o hello
+
+Make file with definining variables
+===============================================
+CC=g++
+CFLAGS=-c -Wall
+LDFLAGS=
+SOURCES=main.cpp hello.cpp factorial.cpp
+OBJECTS=$(SOURCES:.cpp=.o)
+EXECUTABLE=hello
+
+all: $(SOURCES) $(EXECUTABLE)
+	
+$(EXECUTABLE): $(OBJECTS) 
+	$(CC) $(LDFLAGS) $(OBJECTS) -o $@
+
+.cpp.o:
+	$(CC) $(CFLAGS) $< -o $@
