@@ -13,6 +13,16 @@ C:\Users\username\introcs\hello>javac HelloWorld.java
 C:\Users\username\introcs>javac-introcs TestIntroCS.java
 java HelloWorld 
 
+compile from the root path and both dependent file simultaneously, with the classpath the inside one: 
+
+i.e. javac -cp . GSim/Matrix.java GSIM/LUDecomposition.java
+
+then in running drop .class or .java postfix and just run the name of the class that has a static void main function:
+
+java -cp . GSim/Unscented...
+
+Make sure you create a folder structure as the package defined in the root and put the .class files in it before execuation
+
 #setting the PATH
 ===================================
 C:\Users\username> echo %PATH%
