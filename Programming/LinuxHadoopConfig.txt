@@ -843,12 +843,18 @@ hive -e 'select books from table' > /home/lvermeer/temp.tsv
 Starting Mahout's Spark shell
 #=================================
 #Goto the directory where you unpacked Spark and type sbin/start-all.sh to locally start Spark
+# if not work go to the folder and run ./start-all.sh
 #Open a browser, point it to http://localhost:8080/ to check whether Spark successfully started. Copy the url of the spark master at the top of the page (it starts with spark://)
 #Define the following environment variables:
 export MAHOUT_HOME=[directory into which you checked out Mahout]
 export SPARK_HOME=[directory where you unpacked Spark]
 export MASTER=[url of the Spark master]
 #Finally, change to the directory where you unpacked Mahout and type bin/mahout spark-shell, you should see the shell starting and get the prompt mahout>. Check FAQ for further troubleshooting.
+bin/mahout spark-shell
+# make sure JAVA_HOME is set
+# also if permission denied 
+chmod u+x ./bin/mahout
+#if problem of java... spark => download new version of spark
 
 #user based Recommender in 5 minutes; https://mahout.apache.org/users/recommender/userbased-5-minutes.html
 #===========================================================================
