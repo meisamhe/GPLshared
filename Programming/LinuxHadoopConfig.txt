@@ -1,0 +1,3650 @@
+Hadoop Single node installation and other required lib installation on linux
+========================================
+By: Meisam Hejazi Nia 
+Date: 01/09/2015
+==================================
+
+#======================================
+# stting up environment
+#======================================
+sudo apt-get install jockey-gtk
+sudo apt-get install fdm
+sudo apt-get install ipython
+sudo apt-get install ipython-notebook
+sudo apt-get install python-numpy
+sudo apt-get install numpy-scipy
+sudo apt-get install python-scipy
+sudo apt-get install python-matplotlib
+sudo apt-get install python-dev
+sudo apt-get install git
+sudo apt-get install python-sphynx
+sudo apt-get install python-sphinx
+sudo apt-get install gfortran
+sudo apt-get install openmpi-bin
+sudo apt-get install open-mpibin
+sudo apt-get install openmpi-bin
+sudo apt-get install gtk-jockey
+sudo apt-get install gtk-jokey
+sudo apt-get install jockey-gtk
+sudo apt-get install liblapack-dev
+jockey-gtk
+sudo apt-get install leafpad
+jockey-gtk
+sudo jockey-gtk
+sudo shutdown -r now
+install xfce4
+sudo apt-get install xfce4
+startxfce4
+sudo apt-get install xfce4-terminal
+sudo apt-get install virtualbox-guest-dkms
+sudo apt-get install virtualbox-guest-utils
+sudo apt-get install virtualbox-guest-xll
+sudo apt-get install xdm
+xdm
+sudo xdm
+sudo shutdown -r now
+rm -f /etc/unde/rules.d/70-persistent-net.rules
+cd /home
+ls
+cd uwhpsc/
+ls
+cd Desktop/
+gksudo
+ls
+sudo mv uwhpscvm-shutdown /user/local/bin/uwhpscvm-shutdown
+sudo apt-get install xfsm-shutdown
+sudo apt-get install xfsm
+cd /etc/X11/
+ls
+cd xdm
+ls
+vi xdm.options
+ls
+vi Xstartup
+vi Xaccess
+man xdm
+ls
+vi Xresources
+ls
+vi Xsetup
+vi xdm-config
+grep -r "Ubuntu" *
+leafpad Xresource
+sudo leafpad Xresources
+sudo apt-get install gksudo
+cd /usr/local/bin/
+ls
+sudo uwhpscvm-shutdown
+sudo ./uwhpscvm-shutdown
+ls
+sudo chmod -x
+sudo chmod +x uwhpsc-shutdown
+ls
+sudo uwhpscvm-shutdown
+cd /usr/local/bin/
+ls
+vi uwhpscvm-shutdown
+sudo leafpad uwhpscvm-shutdown
+sudo /usr/local/bin/uwhpscvm-shutdown
+gksudo /usr/local/bin/uwhpscvm-shutdown
+sudo apt-get install gksu
+sudo apt-get install firefox
+cd /etc/
+cd xdm/
+ls
+grep -r "uwhpsc" *
+vi Xresources
+chmod +X /user/local/bin/uwhpsc-shutdown
+sudo apt-get install open-mpibin
+sudo apt-get install openmpi-bin
+which python
+sudo apt-get install gitk
+sudo apt-get install xxdiff
+sudo apt-get install python-sympy
+sudo apt-get install imagematick
+sudo apt-get install python-setuptools
+sudo easy_install nose
+sudo easy_install StarCluster
+
+#===================================================
+# Some useful commands
+#===================================================
+git clone https://bitbucket.org/rjleveque/uwhpsc.git
+cd uwhpsc
+git checkout coursera
+export UWHPSC=$PWD
+cd $UWHPSC/lectures/lecture1
+make plots
+firefox *.png
+python
+sudo apt-get install openjdk-7-jdk
+cd $UWHPSC
+cd codes
+git branch
+vi debugdemo2q.py
+sudo apt-get install gitk
+sudo apt-get install xxdiff
+sudo apt-get install imagemagick
+sudo easy_install nose
+sudo easy_install StarCluster
+cd uwhpsc
+mk java
+md java
+sudo mkdir /java
+sudo rmdir java
+
+#====================================================
+# Java: JDK and JRE installation
+#===================================================
+sudo mv Downloads/jare-8u25-linux-x64.tar.gz java/
+cd java
+tar zxvf jre-8u25-linux-x64.tar.gz
+sudo apt-get zxvf
+sudo zxdf jre-8u25-linux-x64.tar.gz
+tar -zxvf jre-8u25-linux-x64.tar.gz
+sudo tar -zxvf jre-8u25-linux-x64.tar.gz
+sudo apt-get install ssh
+sudo apt-get install rsync
+sudo mkdir hadoop
+sudo mv Downloads/hadoop-1.2.1-bin.tar.gz hadoop/
+cd hadoop
+sudo tar -zxvf hadoop-1.2.1-bin.tar.gz
+cd hadoop-1.2.1/
+ls
+cd config
+ls
+cd conf
+ls
+vi hadoop-env.sh
+cd home
+cd /home/uwhopsc/java/jdk1.8.0_25/
+cd hadoop
+cd hadoop-1.2.1/
+sudo cp conf/*.xml input
+bin/hadoop jar hadoop-examples-*.jar grep input output 'dfs[a-z.]+'
+export JAVA_HOME=/home/$USER/java/jdk1.8.0_25
+echo $JAVA_HOME
+echo $USER
+export $JAVA_HOME =home/$USER/java/jdk1.8.0_25/
+sudo apt-get install java-1.6.0-openjdk
+sudo apt-get install openjdk-7-jdk
+which java
+sudo mv Downloads/jdk-8u25-linux-x64.tar.gz java/
+cd java
+sudo tar -zxvf jdk-8u25-linux-x64.tar.gz
+cd hadoop/
+cd conf/
+sudo rm hadoop-env.sh
+sudo mv Downloads/hadoop-env.sh hadoop/hadoop-1.2.1/conf/
+cd hadoop/hadoop-1.2.1/conf/
+bin/hadoop
+mikdir input
+sudo mkdir input
+sudo cp conf/*xml input
+sudo cp conf/*xml input
+sudo bin/hadoop jar hadoop-examples-*.jar grep input output 'dfs[a-z']+'
+sudo apt-get openjdk-7-jdk
+java -version
+sudo -i
+rdir input
+rm *.xml
+tar -zxvf jdk-8u25-linux-x64.tar.gz
+mv Downloads/jre-8u25-linux-i586.tar.gz java/
+tar -zxvf jdk-8u25-linux-i586.tar.gz
+sudo ssh localhost
+clear
+# to forecefully remove the directory
+rm -rf lampp
+
+#========================================
+# To install hadoop (single node hadoop setup: hadoop.apache.org/docs/stable/single_node_setup.html)
+# (1) install Java 1.6.x 
+# (2) install ssh: 
+# sudo apt-get install ssh
+#  sudo apt-get install rsync
+# try this in folder of hadoop to make sure it is already set up: bin/hadoop
+# download hadoop distribution
+# Note: in hadoop/hadoop-1.2.1/conf/hadoop-env.sh
+# remove # mark, and put export JAVA_HOmE=/home/uwhpsc/java/jdk1.8.0_25
+# to run simple rx application: distribuited mode as a single java process
+# copies unpacked conf directory to use as input then
+# finds an displays every match of a given regular expression
+# output written in the output directory
+# grep is a command line tool that allows you to find a string in a file stream, it can be used with regular expression
+# grep 'String' filename
+# cat concatenates files an prints the output
+mkdir input
+cp conf/*.xml input
+bin/hadoop jar hadoop jar hadoop-exmaples-*.jar grep input output 'dfs[a-z].+'
+cat output/*
+#=========================================
+Run on a single node in a pseudo-distributed mode: normally I create on desktop then move them and replace them after removing old ones
+#========================================
+cof/core-site.xml
+<configurastion>
+	<property>
+		<name> fs.default.name</name>
+		<value>hdfs://localhost:9000</value>
+	</property>
+</configuration>
+
+conf/hdfs-site.xml
+<configuration>
+	<property>
+		<name> dfs.replication</name>
+		<value>1</value>
+	<property>
+</configuration>
+
+conf/mapred-site.xml
+<configuration>
+	<property>
+		<name>mpred.job.tracker</name>
+		<value>localhost:9001</value>
+	</property>
+</configuration>
+
+mv Desktop/*.xml hadoop/hadoop-21.2.1/conf/
+
+#====================================
+# Setup Passphraseless ssh
+#=================================
+# if 'ssh localhost' asks for pass phrase run the following:
+ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa
+cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+
+#===================================
+# Format a new distributed-filesystem
+#===================================
+# in the folder of hadoop/hadoop-1.2.1
+bin/hadoop namenode -format
+
+#===========================
+# Start the hadoop daemons
+#===========================
+bin/start-all.sh
+export HADOOP_HOME=/home/$USER/hadoop/hadoop-1.2.1
+
+# the haddoop daemon log file is written to $HADOOP_LOG_DIR or $HADOOP_HOME/logs
+export HADOOP_LOG_DIR=$HADOOP_HOME/logs
+
+#brows the Name node and JOB Tracker by:
+
+NameNode: http://localhost:50070/
+JobTracker: http://localhost:50030/
+
+#================================================
+# Running simple hadoop app on the distributed system
+#================================================
+# first place the input files into the distributed file system
+bin/hadoop fs -put conf input
+
+# running an example
+bin/hadoop jar hadoop-examples-*.jar grep input output 'dfs[a-z.]+'
+
+#copy the output file from the distributed system to local file system and examine them
+bin/hadoop fs -get output output
+cat output/*
+
+#another way to do this:
+bin/hadoop fs -cat output/*
+
+#=============================
+# stopping hadoop
+#=============================
+bin/stop-all.sh
+
+#============================
+# Basic format of command file for creating jar file
+# package file typiecally used to aggregate many class files
+# associated metadata and resources into a file to distribute application software or libraries on the java platform
+#Fundamental archive files
+#manifest needs to be first
+# Manifest file in: META-INF/MANIFEST.MF
+# Manifest specifies the entry point class with 
+#Manifest-Version: 1.0
+#Main-Class: myprogram.MyClassName
+#Name: myCompany/myPackage/
+#Sealed: true
+#manifest must end with a new line or a carriage return
+# shoul have public static void main(String[] args)
+#============================
+jar cf jar-file input-file(s)
+
+#to include manifest information from an existing manifest file
+jar cmf existing-manifest jar-file input-file(s)
+
+#unzipping jar file: first install by: "apt-get install unzip" then
+unzip file.jar
+jar -xvf file.jar
+
+#typical invocation of a jar file:
+java -jar foo.jar
+
+#an example: TicTactTo Applet with folders of TicTacToe.class, Audio and Image (including subdirectories in the jar file as well)
+# v for verbose
+
+jar cvf TicTacToe.jar TicTacToe.class audio images
+
+#turn of compression feature by:
+jar cvf0 TicTacToe.jar TicTacToe.class audio images
+
+# wild card * as long as there was no unwanted file in the TicTacToe directory
+jar cvf TicTacToe.jar *
+
+#automatically adds manifest to the JAR archie with path META-INF/MANIFEST.MF
+
+#======================================
+# Apache Ant
+# replacement for the unix make build tool
+# Similar to make, but implemented using Java
+# Ant uses XML
+#build.xml
+#advantage is portability
+
+<?xml version="1.0"?>
+<project name="Hello" default="compile">
+    <target name="clean" description="remove intermediate files">
+        <delete dir="classes"/>
+    </target>
+    <target name="clobber" depends="clean" description="remove all artifact files">
+        <delete file="hello.jar"/>
+    </target>
+    <target name="compile" description="compile the Java source code to class files">
+        <mkdir dir="classes"/>
+        <javac srcdir="." destdir="classes"/>
+    </target>
+    <target name="jar" depends="compile" description="create a Jar file for the application">
+        <jar destfile="hello.jar">
+            <fileset dir="classes" includes="**/*.class"/>
+            <manifest>
+                <attribute name="Main-Class" value="HelloProgram"/>
+            </manifest>
+        </jar>
+    </target>
+</project>
+
+#in the make file context it means
+rm -rf classes/
+rmdir /S /Q classes #<delte dir="classes"/>
+
+#========================================
+# an example of ant
+#========================================
+md src
+
+package oata;
+
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}
+
+md build\classes
+javac -sourcepath src -d build\classes src\oata\HelloWorld.java
+java -cp build\classes oata.HelloWorld
+
+echo Main-Class: oata.HelloWorld>myManifest
+md build\jar
+jar cfm build\jar\HelloWorld.jar myManifest -C build\classes
+java -jar build\jar\HelloWorld.jar
+
+<project>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes"/>
+    </target>
+
+    <target name="jar">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/HelloWorld.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="oata.HelloWorld"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="build/jar/HelloWorld.jar" fork="true"/>
+    </target>
+
+</project>
+
+ant compile
+ant jar
+ant run
+
+#shorter format
+ant compile jar run
+
+
+#======================================
+# Enhance build file
+#=====================================-=
+project name="HelloWorld" basedir="." default="main">
+
+    <property name="src.dir"     value="src"/>
+
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir"     value="${build.dir}/jar"/>
+
+    <property name="main-class"  value="oata.HelloWorld"/>
+
+
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true"/>
+    </target>
+
+    <target name="clean-build" depends="clean,jar"/>
+
+    <target name="main" depends="clean,run"/>
+
+</project>
+
+#==========================================================
+# Extenral Libraries and Ant
+#==========================================================
+package oata;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.BasicConfigurator;
+
+public class HelloWorld {
+    static Logger logger = Logger.getLogger(HelloWorld.class);
+
+    public static void main(String[] args) {
+        BasicConfigurator.configure();
+        logger.info("Hello World");          // the old SysO-statement
+    }
+}
+
+<project name="HelloWorld" basedir="." default="main">
+    ...
+    <property name="lib.dir"     value="lib"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    ...
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+    </target>
+
+    <target name="run" depends="jar">
+        <java fork="true" classname="${main-class}">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${jar.dir}/${ant.project.name}.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    ...
+
+</project>
+
+#======================================================================
+# Hadoop components
+#======================================================================
+Sqoop (bulk data transfer): command-line interface application for transferring data between relational databases and Hadoop. A tool for efficiently moving data between relational databses and HDFS.
+Flume (log aggregator)
+Zookeeper (Coordination): a distributed, highly available coordination service. Zookeeper provides primitives such as distributed locks that can be used for building distrib uted applications
+HDFS (Hadoop Distributed File System): A distributed file system that runs on large clusters of commodity machines
+MAP Reduce
+YARN (MAP Reduce 2)
+Oozie (workflow scheduler)
+Hue(report)
+Pig (Scripting): runtime environment for processing data sets, a data flow language and execution environment for exploring very large data sets. Pig runs on HDFS and MapReduce clusters
+Spark (Analytics framework): Advanced DAG execution engine that supports cyclic data flow and in-memory computing; fast and general engine for large-scale data processing
+Mahout (Machine Learning)
+Hive (SQL-like query): Distributed data warehouse. Warehouse queries, allows SQL developers to write Hive Query Language (HQL) that are similar to standard SQL. HQL statements are broken down by the Hive service  into MapReduce jobs and executed across a Hadoop cluster
+HBase (Big Table Storage): a distributed, column-oriented databased management system that runs on top of HDFS. HBase uses HDFS for its undelrying storage, and supports both batch-style computations using MapReduce and point queries (random reads)
+Impala/Tez/BigSQL/HAWQ (Low latency query eng.)
+HBase (Columnar store)
+WebHDFS: an HTTP Rest server bundle
+Cloudera Impala: open source (MPP) SQL query engine for data stored in hadoop
+Big SQL: IBM's SQL interface to its hadoop-based platform, InfoSphere BigInsights (requires GPU)
+Avro: data serialization, a serialization system for efficient, cross-language RPC, and persistent data storage
+MapReduce: A distributed data processing model and execution environment that runs on large clusters of commodity machines
+Permission, Privilage report, Authentication, Authorization, Access Control List, Role based Control
+Common: A set of compoents and interfaces for distributed files systems and general I/O (serialization, Java RPC., persistent data structure)
+
+Management Consoles (Big Insight Console, Hrtonworks Ambari, Cloudera Navigator)
+Pivotal -HAWQ (SQL-compliant)
+Yarn: Yet another resource negotiator
+Tez- high speed data processing app on Yarn, application framework built on Hadoop YARN that can execute complex directed acyclic graphs of general data processing
+
+Current stable version: 2.4
+GPU needed to support YARN
+IBM InfoSphere Gaurdium 
+
+HDFS: Java-based file system that spans all the nodes in a Hadoop cluster. Links together the file systems of many local nodes
+
+Simple Map reduce: 
+each keyword in the document is key and count within each doc
+map(String key, String Value):
+//key document name
+// value: document contents
+for each word w in value:
+	EmitIntermediate(w,"1")
+reduce just summ up based on keys
+reduce(String key,Iterator Values):
+// key: a word
+// values: a list of counts
+int result = 0;
+for each v in values:
+	results += ParseInt(v);
+Emit(AsString(result));
+
+#=============================================
+# Hadoop commands
+#=============================================
+Hadoop fs -mkdir /user/data/sundari
+hadoop fs -put customer.data /user/svoruga/input
+hadoop fs -ls /user/svoruga/input
+# first place the input files into the distributed file system
+bin/hadoop fs -put conf input
+
+#hadoop jar./wordcount.jar wordCount/user/svoruga/input /user/svoroga/output-june14
+
+# running an example
+bin/hadoop jar hadoop-examples-*.jar grep input output 'dfs[a-z.]+'
+
+#copy the output file from the distributed system to local file system and examine them
+bin/hadoop fs -get output output
+cat output/*
+
+#another way to do this:
+bin/hadoop fs -cat output/*
+
+#Usage a java code that has implemented both Map and Reduce classes
+mkdir wordcount_classes
+javac -classpath ${HADOOP_HOME}/hadoop-${HADOOP_VERSION}-core.jar -d wordcount_classesWordCount.java
+jar -cvf /usr/joe/wodcount.jar -C wordcount_classes/
+
+#creating input in the directory assumed to be /usr/joe/wordcount/input and .../output directory in HDFS
+bin/hadoop dfs ls /user/joed/wordcount/input               # to check what are in the folder
+
+bin/hadoop dfs -cat /usr/joe/wordcount/input/file01       # to check the content
+
+#run the app written in java
+bin/hadoop jar /usr/joe/wordcount.jar org.myorg.WordCount /usr/joe/wordcount/input /usr/joe/wordcount/output
+
+#check the output
+bin/hadoop dfs -cat /usr/joe/wordcount/output/part-00000
+
+#Yarn Example
+hadoop jar hadoop-mapreduce-examples-2.4.0.2.1.1.0-237.jar wordcount /user/HWtest/Input /user/HWtest/wc1
+
+#create an HBase table with two column families
+create 'Blog', {Name => 'info'}, {Name => 'content'}
+#add value
+put 'Blog', 'Matt-001', 'content:post', 'Do elephents like monkeys?'
+# Retrieve data
+get 'Blog', 'Michelle-004'
+get 'Blog', 'Matt-001'
+select * from credit_card #HQL
+
+#Pig
+A= LOAD 'ssn.txt' USING pigStorage() AS (id:int, name:chararray, SSN: chararray); --loading
+B = FOREACH A GENERATE SSN; -- transforming
+DUMP B; --retrieving
+
+#Sqoop
+sqoop importa --connect
+"jdbc:sqlserver://9.70.148.102:1433;database=sample; username=sa; password=Gaurdium123" --table CC_CALL_LOG  --hive-import
+
+#Hadoop Read Activity
+hadoop fs -cat /user/svoruga/input/customer.data
+
+#Hadoop Write Activity
+hadoop fs -put ssn.txt /user/svoruga/input
+hadoop fs -mkdir /user/svorouga/new_docs
+
+#mapreduce on Yarn
+hadoop jar hadoop-mapreduce-examples-2.4.0.2.1.1.0-237.jar wordcount /user/HWtest/input /user/HWtest/wc1
+
+#prepare enviornment to run Tez
+hive>set hive.execution.engine = tez
+hiave>slect h.*, b.country, b.hvacproduct, b.buildingage, b.buildingmgr
+> from building b joint hvac h
+> on b.buildingid = h.buildingid
+
+#Spark
+SPARK_JAR=/opt/clouldera/parcel/CDH-5.0.0-1.cdh5.0.0.p0.47/lib/spark/assembly/lib/spark-assembly_2.10-0.9.0-cdh5.0.0-hadoop2.3.0-ch5.0.0.jar \
+/opt/cloudera/parcels/CDH-5.0.0-1.cdh5.0.0.p0.47/lib/spark/bin/spark-class org.apache.spark.deploy.yarn.Client \
+--jar /opt/cloudera/parcels/CDH-5.0.0-1.cdh5.0.0.p0.47/lib/spark/examples/lib/spark-examples_2.10-0.9.0-cdh5.0.0.jar \
+--class org.apache.spark.examples.SparkPi \
+--args yarn-standaline \
+--num-workers 3
+
+#HDFS
+#====
+#copying a file from the local filesystem to HDFS:
+hadoop fs -copyFromLocal input/docs/quangle.txt hdfs://localhost/user/tom/
+	quangle.txt
+hadoop fs -copyFromLocal input/docs/quangle.txt /user/tom/quangle.txt
+
+#copy to home
+hadoop fs -copyFromLocal input/docs/quangle.txt quangle.txt
+
+hadoop fs -mkdir books
+hadoop fs -ls
+
+#command line
+hadoop distcp -update hdfs://namenode1/foo hdfs://namenode2/bar/foo
+hadoop distcp hftp://namenode1:50070/foo hdfs://namenode2/bar
+hadoop fs -lsr /my/files
+hadoop fs -ls /my
+hadoop fs -ls /my/files.har
+hadoop fs -lsr har:///my/files.har
+
+hadoop fs -lsr har:///my/files.har/my/files/dir
+hadoop fs -lsr har://hdfs-localhost:8020/my/files.har/my/files/dir
+hadoop fs -rmr /my/files.har
+
+#======================================================================================================================
+#Installation of Hive
+#======================================================================================================================
+#Requirements: Java 1.7 (preferred), Java 1.6., Hadoop  2.x (preferred), 1.x.
+# first download stable release and move to the folder you copied it to
+tar -xzvf hive-x.y.z.tar.gz
+# set the environment variable HIVE_HOME, pwd may not work so replace it with the current path you moved to
+cd hive-x.y.z
+export HIVE_HOME={{pwd}}
+# also bin folder should be in the path
+export PATH=$HIVE_HOME/bin:$PATH
+#Make sure Hadoop Home is set, chmode changes  the permission on the directory
+$HADOOP_HOME/bin/hadoop fs -mkdir       /tmp
+$HADOOP_HOME/bin/hadoop fs -mkdir       /user/hive/warehouse
+$HADOOP_HOME/bin/hadoop fs -chmod g+w   /tmp
+$HADOOP_HOME/bin/hadoop fs -chmod g+w   /user/hive/warehouse
+$HADOOP_HOME/bin/hadoop fs -chmod 777   /tmp
+$HADOOP_HOME/bin/hadoop fs -chmod 777   /user/hive/warehouse
+# To use the Hive command line interface (CLI) from the shell:
+$HIVE_HOME/bin/hive
+
+# Creating tables
+hive> CREATE TABLE pokes (foo INT, bar STRING);
+hive> CREATE TABLE invites (foo INT, bar STRING) PARTITIONED BY (ds STRING);
+ 
+#Browsing tables
+hive> SHOW TABLES;
+hive> SHOW TABLES '.*s'; #list of all the tables 
+hive> DESCRIBE invites;
+
+#Altering and Dropping Tables
+hive> ALTER TABLE events RENAME TO 3koobecaf;
+hive> ALTER TABLE pokes ADD COLUMNS (new_col INT);
+hive> ALTER TABLE invites ADD COLUMNS (new_col2 INT COMMENT 'a comment');
+hive> ALTER TABLE invites REPLACE COLUMNS (foo INT, bar STRING, baz INT COMMENT 'baz replaces new_col2');
+hive> ALTER TABLE invites REPLACE COLUMNS (foo INT COMMENT 'only keep the first column');
+hive> DROP TABLE pokes; 
+ 
+#DML (Data Manipulation Language) Operations 
+#Loading data from flat files into Hive:
+hive> LOAD DATA LOCAL INPATH './examples/files/kv1.txt' OVERWRITE INTO TABLE pokes; 
+#Loads a file that contains two columns separated by ctrl-a into pokes table. 'LOCAL' signifies that the input file is on the local file system. If 'LOCAL' is omitted then it looks for the file in HDFS.
+#The keyword 'OVERWRITE' signifies that existing data in the table is deleted.  otherwise append
+
+hive> LOAD DATA LOCAL INPATH './examples/files/kv2.txt' OVERWRITE INTO TABLE invites PARTITION (ds='2008-08-15');
+hive> LOAD DATA LOCAL INPATH './examples/files/kv3.txt' OVERWRITE INTO TABLE invites PARTITION (ds='2008-08-08');
+#partitioned by the key ds for this to succeed.
+hive> LOAD DATA INPATH '/user/myname/kv2.txt' OVERWRITE INTO TABLE invites PARTITION (ds='2008-08-15');
+
+#SQL Operations
+hive> SELECT a.foo FROM invites a WHERE a.ds='2008-08-15';
+hive> INSERT OVERWRITE DIRECTORY '/tmp/hdfs_out' SELECT a.* FROM invites a WHERE a.ds='2008-08-15';
+hive> INSERT OVERWRITE LOCAL DIRECTORY '/tmp/local_out' SELECT a.* FROM pokes a;
+
+#selects all rows from pokes table into a local directory.
+hive> INSERT OVERWRITE TABLE events SELECT a.* FROM profiles a;
+hive> INSERT OVERWRITE TABLE events SELECT a.* FROM profiles a WHERE a.key < 100;
+hive> INSERT OVERWRITE LOCAL DIRECTORY '/tmp/reg_3' SELECT a.* FROM events a;
+hive> INSERT OVERWRITE DIRECTORY '/tmp/reg_4' select a.invites, a.pokes FROM profiles a;
+hive> INSERT OVERWRITE DIRECTORY '/tmp/reg_5' SELECT COUNT(*) FROM invites a WHERE a.ds='2008-08-15';
+hive> INSERT OVERWRITE DIRECTORY '/tmp/reg_5' SELECT a.foo, a.bar FROM invites a;
+hive> INSERT OVERWRITE LOCAL DIRECTORY '/tmp/sum' SELECT SUM(a.pc) FROM pc1 a;
+
+#group by
+hive> FROM invites a INSERT OVERWRITE TABLE events SELECT a.bar, count(*) WHERE a.foo > 0 GROUP BY a.bar;
+hive> INSERT OVERWRITE TABLE events SELECT a.bar, count(*) FROM invites a WHERE a.foo > 0 GROUP BY a.bar;  
+
+#Join
+hive> FROM pokes t1 JOIN invites t2 ON (t1.bar = t2.bar) INSERT OVERWRITE TABLE events SELECT t1.bar, t1.foo, t2.foo;
+
+#MULTITABLE INSERT
+FROM src
+INSERT OVERWRITE TABLE dest1 SELECT src.* WHERE src.key < 100
+INSERT OVERWRITE TABLE dest2 SELECT src.key, src.value WHERE src.key >= 100 and src.key < 200
+INSERT OVERWRITE TABLE dest3 PARTITION(ds='2008-04-08', hr='12') SELECT src.key WHERE src.key >= 200 and src.key < 300
+INSERT OVERWRITE LOCAL DIRECTORY '/tmp/dest4.out' SELECT src.value WHERE src.key >= 300;
+  
+#Streaming
+hive> FROM invites a INSERT OVERWRITE TABLE events SELECT TRANSFORM(a.foo, a.bar) AS (oof, rab) USING '/bin/cat' WHERE a.ds > '2008-08-09';
+
+#MovieLens User Ratings example
+CREATE TABLE u_data (
+  userid INT,
+  movieid INT,
+  rating INT,
+  unixtime STRING)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t'
+STORED AS TEXTFILE;
+wget http://files.grouplens.org/datasets/movielens/ml-100k.zip
+curl --remote-name http://files.grouplens.org/datasets/movielens/ml-100k.zip
+unzip ml-100k.zip
+
+LOAD DATA LOCAL INPATH '<path>/u.data'
+OVERWRITE INTO TABLE u_data;
+
+SELECT COUNT(*) FROM u_data;
+
+# some more complex data analysis: Python
+Create weekday_mapper.py:
+import sys
+import datetime
+
+for line in sys.stdin:
+  line = line.strip()
+  userid, movieid, rating, unixtime = line.split('\t')
+  weekday = datetime.datetime.fromtimestamp(float(unixtime)).isoweekday()
+  print '\t'.join([userid, movieid, rating, str(weekday)])
+
+#Use the Python mapper in the HQL
+#==============================
+CREATE TABLE u_data_new (
+  userid INT,
+  movieid INT,
+  rating INT,
+  weekday INT)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY '\t';
+
+add FILE weekday_mapper.py;
+
+INSERT OVERWRITE TABLE u_data_new
+SELECT
+  TRANSFORM (userid, movieid, rating, unixtime)
+  USING 'python weekday_mapper.py'
+  AS (userid, movieid, rating, weekday)
+FROM u_data;
+
+SELECT weekday, COUNT(*)
+FROM u_data_new
+GROUP BY weekday;
+
+#Apache Weblog Data
+#================================
+CREATE TABLE apachelog (
+  host STRING,
+  identity STRING,
+  user STRING,
+  time STRING,
+  request STRING,
+  status STRING,
+  size STRING,
+  referer STRING,
+  agent STRING)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.serde2.RegexSerDe'
+WITH SERDEPROPERTIES (
+  "input.regex" = "([^]*) ([^]*) ([^]*) (-|\\[^\\]*\\]) ([^ \"]*|\"[^\"]*\") (-|[0-9]*) (-|[0-9]*)(?: ([^ \"]*|\".*\") ([^ \"]*|\".*\"))?"
+)
+STORED AS TEXTFILE;
+
+#Saving into local directory, and general saving information
+#=============================================================
+Data written to the filesystem is serialized as text with columns separated by ^A and rows separated by newlines. If any of the columns are not of primitive type, then those columns are serialized to JSON format.
+A slight modification (adding the LOCAL keyword) will store the data in a local directory.
+INSERT OVERWRITE LOCAL DIRECTORY '/home/lvermeer/temp' select books from table;
+Personally, I usually run my query directly through Hive on the command line for this kind of thing, and pipe it into the local file like so:
+hive -e 'select books from table' > /home/lvermeer/temp.tsv
+#That gives me a tab-separated file that I can use. 
+
+#======================================================================================================================================
+#installing spark and Mahout
+#======================================================================================================================================
+#Download Apache Spark 0.9.1 and unpack the archive file
+#Change to the directory where you unpacked Spark and type sbt/sbt assembly to build it
+#Create a directory for Mahout somewhere on your machine, change to there and checkout the master branch of Apache Mahout from GitHub git clone https://github.com/apache/mahout mahout
+#Install package maven
+#Change to the mahout directory and build mahout using mvn -DskipTests clean install
+
+Starting Mahout's Spark shell
+#=================================
+#Goto the directory where you unpacked Spark and type sbin/start-all.sh to locally start Spark
+#Open a browser, point it to http://localhost:8080/ to check whether Spark successfully started. Copy the url of the spark master at the top of the page (it starts with spark://)
+#Define the following environment variables:
+export MAHOUT_HOME=[directory into which you checked out Mahout]
+export SPARK_HOME=[directory where you unpacked Spark]
+export MASTER=[url of the Spark master]
+#Finally, change to the directory where you unpacked Mahout and type bin/mahout spark-shell, you should see the shell starting and get the prompt mahout>. Check FAQ for further troubleshooting.
+
+#user based Recommender in 5 minutes; https://mahout.apache.org/users/recommender/userbased-5-minutes.html
+#===========================================================================
+DataModel model = new FileDataModel(new File("/path/to/dataset.csv"));
+# look for users with similar preference: compare interactions: correlation coefficient
+UserSimilarity similarity = new PearsonCorrelationSimilarity(model);
+# for those with similarity greater than 0.1
+UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, model);
+# build the recommender system
+UserBasedRecommender recommender = new GenericUserBasedRecommender(model, neighborhood, similarity);
+# ask the system for recommendations
+List recommendations = recommender.recommend(2, 3);
+for (RecommendedItem recommendation : recommendations) {
+  System.out.println(recommendation);
+}
+#hold out test, set up our user recommender
+UserSimilarity similarity = new PearsonCorrelationSimilarity(dataModel);
+UserNeighborhood neighborhood = new ThresholdUserNeighborhood(0.1, similarity, dataModel);
+return new GenericUserBasedRecommender(dataModel, neighborhood, similarity);
+# test: how much missed the real interaction length on average: AverageAbsoluteDifferenceRecommenderEvaluator
+# hold out test
+DataModel model = new FileDataModel(new File("/path/to/dataset.csv"));
+RecommenderEvaluator evaluator = new AverageAbsoluteDifferenceRecommenderEvaluator();
+RecommenderBuilder builder = new MyRecommenderBuilder();
+double result = evaluator.evaluate(builder, null, model, 0.9, 1.0);
+System.out.println(result);
+ 
+#Distributed Row Matrix (DRM) in Mahout, dense dense in memory matrix: Distributed Linear Regression
+==============
+val drmData = drmParallelize(dense(
+  (2, 2, 10.5, 10, 29.509541),  // Apple Cinnamon Cheerios
+  (1, 2, 12,   12, 18.042851),  // Cap'n'Crunch
+  (1, 1, 12,   13, 22.736446),  // Cocoa Puffs
+  (2, 1, 11,   13, 32.207582),  // Froot Loops
+  (1, 2, 12,   11, 21.871292),  // Honey Graham Ohs
+  (2, 1, 16,   8,  36.187559),  // Wheaties Honey Gold
+  (6, 2, 17,   1,  50.764999),  // Cheerios
+  (3, 2, 13,   7,  40.400208),  // Clusters
+  (3, 3, 13,   4,  45.811716)), // Great Grains Pecan
+  numPartitions = 2);
+# Mahout's DSL automatically optimizes and parallelizes all operations on DRMs and runs them on Apache Spark.
+#The goal of Mahout's linear algebra DSL is to abstract away the ugliness of programming a distributed system as much as possible
+val drmX = drmData(::, 0 until 4)
+val y = drmData.collect(::, 4)
+val drmXtX = drmX.t %*% drmX
+val drmXty = drmX.t %*% y
+val XtX = drmXtX.collect
+val Xty = drmXty.collect(::, 0)
+val beta = solve(XtX, Xty)
+# check how well the model predicts
+# calculate the error
+val yFitted = (drmX %*% beta).collect(::, 0)
+(y - yFitted).norm(2)
+#Mahout's shell allows people to interactively and incrementally write algorithms
+#refactor to create an easy to use function in scala syntax
+def ols(drmX: DrmLike[Int], y: Vector) = 
+  solve(drmX.t %*% drmX, drmX.t %*% y)(::, 0)
+#DSL declares implicit collect if coersion rules require an in-core argument, so we can skip explicit collect
+#goodness of fit function
+def goodnessOfFit(drmX: DrmLike[Int], beta: Vector, y: Vector) = {
+  val fittedY = (drmX %*% beta).collect(::, 0)
+  (y - fittedY).norm(2)
+}
+# bias term of regression
+#mapBlock() method for custom modifications of a DRM. 
+#invoke mapBlock with ncol = drmX.ncol + 1 to let the system know that change the number of columns of the matrix. 
+#In order to add a column, we first create a new block with an additional column, then copy the data from the current block into the new block and finally set the last column to ones and return the new block.
+val drmXwithBiasColumn = drmX.mapBlock(ncol = drmX.ncol + 1) {
+  case(keys, block) =>
+    // create a new block with an additional column
+    val blockWithBiasColumn = block.like(block.nrow, block.ncol + 1)
+    // copy data from current block into the new block
+    blockWithBiasColumn(::, 0 until block.ncol) := block
+    // last column consists of ones
+    blockWithBiasColumn(::, block.ncol) := 1
+
+    keys -> blockWithBiasColumn
+}
+# give the newly created DRM drmXwithBiasColumn to our model fitting method ols 
+val betaWithBiasTerm = ols(drmXwithBiasColumn, y)
+goodnessOfFit(drmXwithBiasColumn, betaWithBiasTerm, y)
+#We use drmXwithBiasColumn repeatedly as input to a computation, so it might be beneficial to cache it in memory
+val cachedDrmX = drmXwithBiasColumn.checkpoint()
+
+val betaWithBiasTerm = ols(cachedDrmX, y)
+val goodness = goodnessOfFit(cachedDrmX, betaWithBiasTerm, y)
+cachedDrmX.uncache()
+goodness
+ 
+#======================================================================================================================================================
+# Bash example
+#=======================================================================================================================================================
+#!/user/bin/env bash
+for year in all/*
+do 
+	echo -ne 'basename $year .gz' "\t"
+	gunzip -c $year | \
+		awk '{ temp = substr($0,88,5) + 0;
+			q = substr($0,o3,1);
+			if (temp !=9999 & q ~/[01459]/ && temp > max) max = temp}
+			END{ print max}'
+done
+
+#==============================================
+# word count java app
+#==============================================
+package org.myorg;
+
+import java.io.IOException;
+import java.util.*;
+
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.conf.*;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapred.*;
+import org.apache.hadoop.util.*;
+
+public class WordCount{
+	public static class Map extends MapReduceBase implements Mapper<LongWritable,Text,Text,IntWritable>{
+		private final static IntWritable one = new IntWritable(1);
+		private Text word = new Text();
+
+		public void map(LongWritable key, Text value, OutCollector<Text, IntWritable> output, Reporter reporter) throus IOException{
+			String line = value.toString();
+			StringTokenizer tokenizer = new StringTokenizer(line);
+			while (tokenizer.hasMoreTokens()){
+				word.set(tokenizer.nextToken());
+				output.collect(word,one);
+			}
+		}
+	}
+	public static class Reduce extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable>{
+		public void reduce (Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter) throws
+		IOException{
+			int sum = 0;
+			while (value.hasNext()){
+				sum+= values.next().get();
+			}
+			output.collect(key, new IntWritable(sum));
+			}
+		}
+	public static void main(String[] args) throuse Exception{
+		JobConf conf = new JobConf(WordCount.class);
+		conf.setJobName("wordcount");
+
+		conf.setOutputKeyClass(Text.class);
+		conf.setOutputValueClass(IntWritable.class);
+
+		conf.setMapperClass(Map.class);
+		conf.setCombinerClass(Reduce.class);
+		conf.setReducerClass(Reduce.class);
+
+		conf.setInputFormat(TextInputFormat.class);
+		conf.setOutputFormat(TextOutputFormat.class);
+		
+		FileInputFormat.setInputPaths(conf, new Path(args[0]));
+		FileOuputFormat.setOutputPath(conf, new Path(args[1]));
+
+		JobClient.runJob(conf);
+	}
+}
+
+#==================================
+# Mapper example in Java
+#==================================
+import java.io.IOException;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.LongWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapred.MapReduceBase;
+import org.apache.hadoop.mapred.Mapper;
+import org.apache.hadoop.mapred.OutputCollector;
+import org.apache.hadoop.mapred.Reporter;
+public class MaxTemperatureMapper extends MapReduceBase
+	implements Mapper<LongWritable, Text, Text, IntWritable> {
+	private static final int MISSING = 9999;
+	public void map(LongWritable key, Text value,
+		OutputCollector<Text, IntWritable> output, Reporter reporter)
+		throws IOException {
+		String line = value.toString();
+		String year = line.substring(15, 19);
+		int airTemperature;
+		if (line.charAt(87) == '+') { // parseInt doesn't like leading plus signs
+			airTemperature = Integer.parseInt(line.substring(88, 92));
+		} else {
+			airTemperature = Integer.parseInt(line.substring(87, 92));
+		}
+		String quality = line.substring(92, 93);
+		if (airTemperature != MISSING && quality.matches("[01459]")) {
+			output.collect(new Text(year), new IntWritable(airTemperature));
+		}
+	}
+}
+#==================================
+# Reducer example in Java
+#==================================
+import java.io.IOException;
+import java.util.Iterator;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapred.MapReduceBase;
+import org.apache.hadoop.mapred.OutputCollector;
+import org.apache.hadoop.mapred.Reducer;
+import org.apache.hadoop.mapred.Reporter;
+public class MaxTemperatureReducer extends MapReduceBase
+	implements Reducer<Text, IntWritable, Text, IntWritable> {
+	public void reduce(Text key, Iterator<IntWritable> values,
+		OutputCollector<Text, IntWritable> output, Reporter reporter)
+		throws IOException {
+		int maxValue = Integer.MIN_VALUE;
+		while (values.hasNext()) {
+			maxValue = Math.max(maxValue, values.next().get());
+		}
+			output.collect(key, new IntWritable(maxValue));
+	}
+}
+#==================================
+# Application of Map Reduce example in Java
+#==================================
+import java.io.IOException;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapred.FileInputFormat;
+import org.apache.hadoop.mapred.FileOutputFormat;
+import org.apache.hadoop.mapred.JobClient;
+import org.apache.hadoop.mapred.JobConf;
+public class MaxTemperature {
+	public static void main(String[] args) throws IOException {
+		if (args.length != 2) {
+			System.err.println("Usage: MaxTemperature <input path> <output path>");
+			System.exit(-1);
+		}
+		JobConf conf = new JobConf(MaxTemperature.class);
+		conf.setJobName("Max temperature");
+		FileInputFormat.addInputPath(conf, new Path(args[0]));
+		FileOutputFormat.setOutputPath(conf, new Path(args[1]));
+		conf.setMapperClass(MaxTemperatureMapper.class);
+		conf.setReducerClass(MaxTemperatureReducer.class);
+		conf.setOutputKeyClass(Text.class);
+		conf.setOutputValueClass(IntWritable.class);
+		JobClient.runJob(conf);
+	}
+}
+
+public class NewMaxTemperature {
+	static class NewMaxTemperatureMapper
+	extends Mapper<LongWritable, Text, Text, IntWritable> {
+	private static final int MISSING = 9999;
+	public void map(LongWritable key, Text value, Context context)
+	throws IOException, InterruptedException {
+			String line = value.toString();
+			String year = line.substring(15, 19);
+			int airTemperature;
+			if (line.charAt(87) == '+') { // parseInt doesn't like leading plus signs
+				airTemperature = Integer.parseInt(line.substring(88, 92));
+			} else {
+				airTemperature = Integer.parseInt(line.substring(87, 92));
+			}
+			String quality = line.substring(92, 93);
+			if (airTemperature != MISSING && quality.matches("[01459]")) {
+				context.write(new Text(year), new IntWritable(airTemperature));
+			}
+		}
+	}
+	static class NewMaxTemperatureReducer
+		extends Reducer<Text, IntWritable, Text, IntWritable> {
+		public void reduce(Text key, Iterable<IntWritable> values,
+		Context context)
+		throws IOException, InterruptedException {
+			int maxValue = Integer.MIN_VALUE;
+			for (IntWritable value : values) {
+				maxValue = Math.max(maxValue, value.get());
+			}
+			context.write(key, new IntWritable(maxValue));
+		}
+	}
+	public static void main(String[] args) throws Exception {
+		if (args.length != 2) {
+			System.err.println("Usage: NewMaxTemperature <input path> <output path>");
+			System.exit(-1);
+		}
+		Job job = new Job();
+		job.setJarByClass(NewMaxTemperature.class);
+		FileInputFormat.addInputPath(job, new Path(args[0]));
+		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+		job.setMapperClass(NewMaxTemperatureMapper.class);
+		job.setReducerClass(NewMaxTemperatureReducer.class);
+		job.setOutputKeyClass(Text.class);
+		job.setOutputValueClass(IntWritable.class);
+		System.exit(job.waitForCompletion(true) ? 0 : 1);
+	}
+}
+#===================
+Application to find the maximum temperature, using a combiner function for efficiency
+#===================
+public class MaxTemperatureWithCombiner {
+	public static void main(String[] args) throws IOException {
+		if (args.length != 2) {
+			System.err.println("Usage: MaxTemperatureWithCombiner <input path> " +
+			"<output path>");
+			System.exit(-1);
+		}
+		JobConf conf = new JobConf(MaxTemperatureWithCombiner.class);
+		conf.setJobName("Max temperature");
+		FileInputFormat.addInputPath(conf, new Path(args[0]));
+		FileOutputFormat.setOutputPath(conf, new Path(args[1]));
+		conf.setMapperClass(MaxTemperatureMapper.class);
+		conf.setCombinerClass(MaxTemperatureReducer.class);
+		conf.setReducerClass(MaxTemperatureReducer.class);
+		conf.setOutputKeyClass(Text.class);
+		conf.setOutputValueClass(IntWritable.class);
+		JobClient.runJob(conf);
+	}
+}
+
+#=========================
+# Ruby programming language: Ruby was influenced by Perl, Smalltalk, Eiffel, Ada, and Lisp (1990)
+#==========================
+#Map function for maximum temperature in Ruby
+#!/usr/bin/env ruby
+STDIN.each_line do |line|
+	val = line
+	year, temp, q = val[15,4], val[87,5], val[92,1]
+	puts "#{year}\t#{temp}" if (temp != "+9999" && q =~ /[01459]/)
+end
+
+#Reduce function for maximum temperature in Ruby
+#!/usr/bin/env ruby
+last_key, max_val = nil, 0
+STDIN.each_line do |line|
+	key, val = line.split("\t")
+	if last_key && last_key != key
+		puts "#{last_key}\t#{max_val}"
+		last_key, max_val = key, val.to_i
+	else
+		last_key, max_val = key, [max_val, val.to_i].max
+	end
+end
+puts "#{last_key}\t#{max_val}" if last_key
+
+#command line
+cat input/ncdc/sample.txt | ch02/src/main/ruby/max_temperature_map.rb | \
+sort | ch02/src/main/ruby/max_temperature_reduce.rb
+
+hadoop jar $HADOOP_INSTALL/contrib/streaming/hadoop-*-streaming.jar \
+-input input/ncdc/sample.txt \
+-output output \
+-mapper ch02/src/main/ruby/max_temperature_map.rb \
+-reducer ch02/src/main/ruby/max_temperature_reduce.rb
+
+hadoop jar $HADOOP_INSTALL/contrib/streaming/hadoop-*-streaming.jar \
+-input input/ncdc/all \
+-output output \
+-mapper "ch02/src/main/ruby/max_temperature_map.rb | sort |
+ch02/src/main/ruby/max_temperature_reduce.rb" \
+-reducer ch02/src/main/ruby/max_temperature_reduce.rb \
+-file ch02/src/main/ruby/max_temperature_map.rb \
+-file ch02/src/main/ruby/max_temperature_reduce.rb
+
+#=========================================
+# Python
+#=========================================
+#Map function for maximum temperature in Python
+import re
+import sys
+for line in sys.stdin:
+	val = line.strip()
+	(year, temp, q) = (val[15:19], val[87:92], val[92:93])
+	if (temp != "+9999" and re.match("[01459]", q)):
+		print "%s\t%s" % (year, temp)
+
+#Reduce function for maximum temperature in Python
+#!/usr/bin/env python
+import sys
+(last_key, max_val) = (None, 0)
+for line in sys.stdin:
+	(key, val) = line.strip().split("\t")
+	if last_key and last_key != key:
+		print "%s\t%s" % (last_key, max_val)
+		(last_key, max_val) = (key, int(val))
+	else:
+		(last_key, max_val) = (key, max(max_val, int(val)))
+if last_key:
+	print "%s\t%s" % (last_key, max_val)
+
+#command line
+cat input/ncdc/sample.txt | ch02/src/main/python/max_temperature_map.py | \
+sort | ch02/src/main/python/max_temperature_reduce.py
+
+hadoop jar $HADOOP_INSTALL/contrib/streaming/hadoop-*-streaming.jar \
+-input input/ncdc/sample.txt \
+-output output \
+-mapper ch02/src/main/python/max_temperature_map.py \
+-reducer ch02/src/main/python/max_temperature_reduce.py
+
+#========================================
+# map reduce Hadoop Python: Word Count
+#========================================
+#mapper.py
+#!/usr/bin/env python
+
+import sys
+
+# input comes from STDIN (standard input)
+for line in sys.stdin:
+    # remove leading and trailing whitespace
+    line = line.strip()
+    # split the line into words
+    words = line.split()
+    # increase counters
+    for word in words:
+        # write the results to STDOUT (standard output);
+        # what we output here will be the input for the
+        # Reduce step, i.e. the input for reducer.py
+        #
+        # tab-delimited; the trivial word count is 1
+        print '%s\t%s' % (word, 1)
+
+#reducer.py
+#!/usr/bin/env python
+
+from operator import itemgetter
+import sys
+
+current_word = None
+current_count = 0
+word = None
+
+# input comes from STDIN
+for line in sys.stdin:
+    # remove leading and trailing whitespace
+    line = line.strip()
+
+    # parse the input we got from mapper.py
+    word, count = line.split('\t', 1)
+
+    # convert count (currently a string) to int
+    try:
+        count = int(count)
+    except ValueError:
+        # count was not a number, so silently
+        # ignore/discard this line
+        continue
+
+    # this IF-switch only works because Hadoop sorts map output
+    # by key (here: word) before it is passed to the reducer
+    if current_word == word:
+        current_count += count
+    else:
+        if current_word:
+            # write result to STDOUT
+            print '%s\t%s' % (current_word, current_count)
+        current_count = count
+        current_word = word
+
+# do not forget to output the last word if needed!
+if current_word == word:
+    print '%s\t%s' % (current_word, current_count)
+	
+#test the code in command line:
+echo "foo foo quux labs foo bar quux" | /home/hduser/mapper.py
+echo "foo foo quux labs foo bar quux" | /home/hduser/mapper.py | sort -k1,1 | /home/hduser/reducer.py
+cat /tmp/gutenberg/20417-8.txt | /home/hduser/mapper.py
+
+#copy local examples to HDFS
+bin/hadoop dfs -copyFromLocal /tmp/gutenberg /user/hduser/gutenberg
+bin/hadoop dfs -ls
+bin/hadoop dfs -ls /user/hduser/gutenberg
+
+#run map reduce task
+bin/hadoop jar contrib/streaming/hadoop-*streaming*.jar \
+-file /home/hduser/mapper.py    -mapper /home/hduser/mapper.py \
+-file /home/hduser/reducer.py   -reducer /home/hduser/reducer.py \
+-input /user/hduser/gutenberg/* -output /user/hduser/gutenberg-output
+
+#to increase the number of reducers
+bin/hadoop jar contrib/streaming/hadoop-*streaming*.jar -D mapred.reduce.tasks=16 ...
+
+#inspect the contents of the file with the dfs -cat command:
+bin/hadoop dfs -cat /user/hduser/gutenberg-output/part-00000
+
+#=========================================
+# Improvement on the Map Reduce in Python, srce: http://www.michael-noll.com/tutorials/writing-an-hadoop-mapreduce-program-in-python/
+#=========================================
+#mapper.py
+#!/usr/bin/env python
+"""A more advanced Mapper, using Python iterators and generators."""
+
+import sys
+
+def read_input(file):
+    for line in file:
+        # split the line into words
+        yield line.split()
+
+def main(separator='\t'):
+    # input comes from STDIN (standard input)
+    data = read_input(sys.stdin)
+    for words in data:
+        # write the results to STDOUT (standard output);
+        # what we output here will be the input for the
+        # Reduce step, i.e. the input for reducer.py
+        #
+        # tab-delimited; the trivial word count is 1
+        for word in words:
+            print '%s%s%d' % (word, separator, 1)
+
+if __name__ == "__main__":
+    main()
+	
+#reducer.py
+#!/usr/bin/env python
+"""A more advanced Reducer, using Python iterators and generators."""
+
+from itertools import groupby
+from operator import itemgetter
+import sys
+
+def read_mapper_output(file, separator='\t'):
+    for line in file:
+        yield line.rstrip().split(separator, 1)
+
+def main(separator='\t'):
+    # input comes from STDIN (standard input)
+    data = read_mapper_output(sys.stdin, separator=separator)
+    # groupby groups multiple word-count pairs by word,
+    # and creates an iterator that returns consecutive keys and their group:
+    #   current_word - string containing a word (the key)
+    #   group - iterator yielding all ["&lt;current_word&gt;", "&lt;count&gt;"] items
+    for current_word, group in groupby(data, itemgetter(0)):
+        try:
+            total_count = sum(int(count) for current_word, count in group)
+            print "%s%s%d" % (current_word, separator, total_count)
+        except ValueError:
+            # count was not a number, so silently discard this item
+            pass
+
+if __name__ == "__main__":
+    main()
+	
+# src: http://www.slideshare.net/JeffPatti/map-reducebeyondwordcount
+# word count
+#===================
+def mapper(self,key,line):
+	for word in line.split():
+		yeild word, 1
+def reducer(self, word, occurences):
+	yeild word, sum(occurences)
+
+#Collate user activity
+#===================
+def mapper (self, key, line):
+	timestamp, user_id = line.split()
+	yeild user_id, timestamp
+def reducer(self, uid, timestamp)
+	yeild uid, sorted(timestamps)
+
+#segments into sessions
+#===================
+MAX_SESSION_INACTIVITY = 60*5
+...
+def reducer(self, uid, timestamps):
+	timestamps=sorted(timestamps)
+	start_index=0
+	for index, timestamps in enumerate(timestamps):
+		if index>0
+			if timestamp-timestamp[index-1]>MAX_SESSION_INACTIVITY:
+				yield uid, timestamps[start_index:index]
+				start_index = index
+	yeild uid, timestamps[start_index]
+
+#coincident Purchase Frequency
+#===================
+def mapper (self, key, line):
+	purchase = set(line.split(','))
+	for p1, p2 in permutations(purchase, 2):
+		yeild (p1,p2), 1
+def reducer(self, pair, occurences):
+	p1, p2 = pair
+	yeild p1, (p2, sum(occurences))
+
+#Top Recommendations
+#===================
+def reducer (self, purchase_pair, occurences):
+	p1, p2 = purchase_pair
+	yeild p1, (sum(occurences), p2)
+
+def reducer_find_best_recos(self, p1, p2_occurences):
+	top_products = sorted (p2_occurences, reverse = True) [: 5]
+	top_products = [p2 for occurences, p2 in top_products]
+	yeild p1, top_products
+
+def steps(self):
+	return [self.mr(mapper=self.mapper, reducer = self.reducer),
+		self.mr(reducer=self.reducer_find_bestrecos)]
+
+#Top recommendations Multi Account
+#===================
+def mapper(self, key, line):
+	account_id, purchases = line.split()
+	purchases = set(purchases.split(','))
+	for p1, p2 in permutations(purchases, 2):
+		yeild (account_id, p1, p2), 1
+
+def reducer(self, purchase_pair, occurences):
+	account_id, p1 , p2 = purchase_pair
+	yeild (account_id, p1), (sum(occurences), p2)
+
+# mrlib.statistics
+# Libraries for implement basic statistical computations
+#
+# Author:   Benjamin Bengfort <ben@cobrain.com>
+# Created:  Tue Nov 12 07:17:30 2013 -0500
+#
+# Copyright (C) 2013 Cobrain Company
+# For license information, see LICENSE.txt
+#
+# ID: statistics.py [] ben@cobrain.com $
+
+"""
+Dumbo provides a few mappers and reducers for statistical computations
+implemented as functions. These mappers and reducers are implemented here
+as classes so that they can be subclassed and customized.
+The classes Specified here are:
+* SumReducer: compute sum for each key (can be used as combiner)
+* SumsReducer: compute sums for multiple values for each key (can be used as combiner)
+* NLargestReducer and NLargestCombiner:  compute n-largest items for key (max)
+* NSmallestReducer and NSmallestCombiner: compute n-smallest items for key (min)
+* MeanReducer and MeanCombiner: compute the arithmetic mean for each key
+"""
+
+##########################################################################
+## Imports
+##########################################################################
+
+import heapq
+
+from math import sqrt
+from itertools import imap, izip, chain
+
+##########################################################################
+## Reducers and Combiners
+##########################################################################
+
+class SumReducer(object):
+    """
+    Sums the values for the particular key.
+    Example Input:  key, (1, 3, 7, 15)
+    Example Output: key, 26
+    Can also be used as a combiner.
+    """
+
+    def __call__(self, key, values):
+        yield (key, sum(values))
+
+class SumsReducer(object):
+    """
+    Sums each record in each tuple of the values
+    Example Input:  key, ((1,2), (1, 3), (1, 4))
+    Example Output: key, (3, 9)
+    Can also be used as a combiner.
+    """
+
+    def __call__(self, key, values):
+        yield key(, tuple(imap(sum, izip(*values))))
+
+class NLargestReducer(object):
+    """
+    Yields the n-largest values for the key. You can also specify a key
+    function to the class that is used to extract a comparison key from
+    each element in the iterable (e.g. str.lower)
+        NLargestReducer(10, key=str.lower) is equivalent to:
+        sorted(values, key=str.lower, reverse=True)[:n]
+    For n=3
+    Example Input:  key, ((10, 3, 5), (1, 11, 2), (4,))
+    Example Output: key, (11, 10, 5)
+    Use this class for MaxReducer (n=1), or top-ten filter (n-10), etc.
+    NOTE: MUST BE USED WITH THE NLargestCombiner
+    """
+
+    def __init__(self, n, key=None):
+        self.n   = n
+        self.key = key
+
+    def __call__(self, key, values):
+        yield (key, heapq.nlargest(self.n, chain(*values), key=self.key))
+
+class NLargestCombiner(NLargestReducer):
+    """
+    The NLargestReducer uses chain to treat consecutive iterables in the
+    values as a single iterable passed to heapq. This is to ensure that
+    when this combiner is used, the tuple of values that is output from
+    each combiner will be correctly computed with the n-largest
+    computation.
+    When not using this combiner, you can simply use this class as the
+    reducer, but it is still recommended to use the NLargestReducer with
+    this NLargestCombiner.
+    For n=3
+    Example Input:  key, (10, 8, 3, 7, 3, 11)
+    Example Output: key, (11, 10, 8)
+    """
+
+    def __call__(self, key, values):
+        yield (key, heapq.nlargest(self.n, values, key=self.key))
+
+class NSmallestReducer(object):
+    """
+    The opposite of the NLargestReducer - yields the n smallest values in
+    the dataset specified by the values iterator. You can specify a key
+    function that is used to extract a comparison key from each element in
+    the iterable (e.g. str.lower).
+        NSmallestReducer(10, key=str.lower) is equivalent to:
+        sorted(values, key=str.lower, reverse=False)[:n]
+    For n=3
+    Example Input:  key, ((10, 3, 5), (1, 11, 2), (4,))
+    Example Output: key, (1, 2, 3)
+    Use this class for MinReducer (n=1), or bottom-ten filter (n-10), etc.
+    NOTE: MUST BE USED WITH THE NSmallestCombiner
+    """
+
+    def __init__(self, n, key=None):
+        self.n   = n
+        self.key = key
+
+    def __call__(self, key, values):
+        yield (key, heapq.nsmallest(self.n, chain(*values), key=self.key))
+
+class NSmallestCombiner(NSmallestReducer):
+    """
+    The NSmallestReducer uses chain to treat consecutive iterables in the
+    values as a single iterable passed to heapq. This is to ensure that
+    when this combiner is used, the tuple of values that is output from
+    each combiner will be correctly computed with the n-smallest
+    computation.
+    When not using this combiner, you can simply use this class as the
+    reducer, but it is still recommended to use the NSmallestReducer with
+    this NSmallestCombiner.
+    For n=3
+    Example Input:  key, (10, 8, 3, 7, 3, 11)
+    Example Output: key, (3, 7, 8)
+    """
+
+    def __call__(self, key, values):
+        yield (key, heapq.nsmallest(self.n, values, key=self.key))
+
+class MeanReducer(object):
+    """
+    Computes the arithmetic mean for a set of values that was output from
+    the MeanCombiner, e.g. (sum, count) pairs.
+    Example Input:  key ((1.2, 3), (2.3, 2), (4.2, 4), (6.8, 1))
+    Example Output: key, 1.45
+    NOTE: MUST BE USED WITH THE MeanCombiner
+    """
+
+    def __call__(self, key, values):
+        total, count = imap(sum, izip(*values))
+        mean = total / float(count) # Ensure float result by casting count
+        yield (key, mean)
+
+class MeanCombiner(object):
+    """
+    Combines the sums and counts of a Mapper to yield to the MeanReducer,
+    the combiner does not compute an intermediary mean, which would lead
+    to loss in precision, but does handle some of the interim summations.
+    Example Input:  key, (1.2, 2.3, 4.8, 4.6, 1.2)
+    Example Output: key, (14.1, 5)
+    """
+
+    def __call__(self, key, values):
+        yield (key, (sum(values), len(values)))
+
+class StatsReducer(object):
+    """
+    Computes a total statistics package for a given data set including the
+    sample size, the sum, the mean, the standard deviation, and the min
+    and max values. This is a handy shortcut for statistically evaluating
+    a data set on a per key basis with ease.
+    Example Input:  key, ((count, sum, sum**2, min, max), ...)
+    Example Output: key, (n, mean, stddev, minimum, maximum)
+    NOTE: MUST BE USED WITH THE StatsCombiner
+    """
+
+    def __call__(self, key, values):
+        columns = izip(*values)
+        s0 = sum(columns.next()) # n
+        s1 = sum(columns.next()) # sum(x)
+        s2 = sum(columns.next()) # sum(x**2)
+        minimum = min(columns.next())
+        maximum = max(columns.next())
+        mean    = float(s1) / s0
+        stddev  = 0
+        if s0 > 1:
+            stddev = sqrt((s2-s1**2/float(s0))/(s0-1)) # sample standard deviation
+        yield (key, (s0, mean, stddev, minimum, maximum))
+
+class StatsCombiner(object):
+    """
+    Combines the count, sum, sum**2, and minimum and maximium values for a
+    set of values from the Mapper. This output is intended to be sent to
+    the StatsReducer to compute the overall statistical set for the data.
+    Example Input:  key, (4, 9, 2, 3, 4, 1, 0, 3)
+    Example Output: key, (8, 26, 136, 0, 9)
+    """
+
+    def __call__(self, key, values):
+        columns = izip(*((1, value, value**2, value, value) for value in values))
+        s0 = sum(columns.next()) # n
+        s1 = sum(columns.next()) # sum(x)
+        s2 = sum(columns.next()) # sum(x**2)
+        minimum = min(columns.next())
+        maximum = max(columns.next())
+        yield (key, (s0, s1, s2, minimum, maximum))
+
+## {{{ http://code.activestate.com/recipes/577676/ (r9)
+
+from collections import namedtuple
+from math import fsum
+
+def map_reduce(data, mapper, reducer=None):
+    '''Simple map/reduce for data analysis.
+    Each data element is passed to a *mapper* function.
+    The mapper returns key/value pairs
+    or None for data elements to be skipped.
+    Returns a dict with the data grouped into lists.
+    If a *reducer* is specified, it aggregates each list.
+    >>> def even_odd(elem):                     # sample mapper
+    ...     if 10 <= elem <= 20:                # skip elems outside the range
+    ...         key = elem % 2                  # group into evens and odds
+    ...         return key, elem
+    >>> map_reduce(range(30), even_odd)         # show group members
+    {0: [10, 12, 14, 16, 18, 20], 1: [11, 13, 15, 17, 19]}
+    >>> map_reduce(range(30), even_odd, sum)    # sum each group
+    {0: 90, 1: 75}
+    '''
+    d = {}
+    for elem in data:
+        r = mapper(elem)
+        if r is not None:
+            key, value = r
+            if key in d:
+                d[key].append(value)
+            else:
+                d[key] = [value]
+    if reducer is not None:
+        for key, group in d.items():
+            d[key] = reducer(group)
+    return d
+
+Summary = namedtuple('Summary', ['n', 'lo', 'mean', 'hi', 'std_dev'])
+
+def describe(data):
+    'Simple reducer for descriptive statistics'
+    n = len(data)
+    lo = min(data)
+    hi = max(data)
+    mean = fsum(data) / n
+    std_dev = (fsum((x - mean) ** 2 for x in data) / n) ** 0.5
+    return Summary(n, lo, mean, hi, std_dev)
+
+
+from pprint import pprint
+import doctest
+
+Person = namedtuple('Person', ['name', 'gender', 'age', 'height'])
+
+persons = [
+    Person('mary', 'fem', 21, 60.2),
+    Person('suzy', 'fem', 32, 70.1),
+    Person('jane', 'fem', 27, 58.1),
+    Person('jill', 'fem', 24, 69.1),
+    Person('bess', 'fem', 43, 66.6),
+    Person('john', 'mal', 25, 70.8),
+    Person('jack', 'mal', 40, 59.1),
+    Person('mike', 'mal', 42, 60.3),
+    Person('zack', 'mal', 45, 63.7),
+    Person('alma', 'fem', 34, 67.0),
+    Person('bill', 'mal', 20, 62.1),
+]
+
+def height_by_gender_and_agegroup(p):
+    key = p.gender, p.age //10
+    val = p.height
+    return key, val
+
+# grouped people
+people = map_reduce(persons, lambda p: ((p.gender, p.age//10), p))
+# grouped heights
+heights = map_reduce(persons, height_by_gender_and_agegroup, None)
+# size of each group
+size = map_reduce(persons, height_by_gender_and_agegroup, len)
+# describe each group
+description = map_reduce(persons, height_by_gender_and_agegroup, describe)
+
+result = [people,
+          heights,
+          size,
+          description]    
+
+## end of http://code.activestate.com/recipes/577676/ }}}
+
+
+#========================================================
+# Kmean mapreduce
+#=======================================================
+#!/usr/bin/env python
+import sys, math, random
+import os
+import shutil
+import time
+
+def main(args):
+        # maximum delta is set to 2.
+        maxDelta = 3
+        oldCentroid = ''
+        currentCentroid = ''
+
+        # To test intially with 7 iterations
+        num_iter = 1
+        statistics =''
+
+        # copies the  generated datapoints file and seed centroid file from local folder to hdfs and starts mapReduce
+        os.system('bin/hadoop dfs -put ~/hadoop/datapoints.txt datapoints.txt')
+        # initialize starttime to calculate the total time taken to converge.
+        start = time.time()
+
+        while maxDelta >2:
+          #print num_iter
+          # check for delta
+          cfile = open("centroidinput.txt", "r")
+          currentCentroid = cfile.readline()
+          cfile.close()
+          if oldCentroid != '':
+                maxDelta = 0
+                #   remove leading and trailing whitespace
+                oldCentroid = oldCentroid.strip()
+                # split the centroid into centroids
+                oldCentroids = oldCentroid.split()
+                #   remove leading and trailing whitespace
+                currentCentroid = currentCentroid.strip()
+                # split the centroid into centroids
+                currentCentroids = currentCentroid.split()
+                # centroids are not in the same order in each iteration. So each centroid is checked against all other centroids for distance.
+                for value in currentCentroids:
+                        dist = 0
+                        minDist = 9999
+                        oSplit = value.split(',')
+
+                        for c in oldCentroids:
+
+                                # split each co-ordinate of the oldCentroid and the currentCentroid
+                                cSplit = c.split(',')
+
+                                # To handle non-numeric value in old or new centroids
+                                try:
+                                        #dist = abs(int(cSplit[0]) - int(vSplit[0]))
+                                        dist = (((int(cSplit[0]) - int(oSplit[0]))**2) + ((int(cSplit[1]) - int(oSplit[1]))**2))**.5
+
+                                        if dist < minDist:
+                                                minDist = dist
+                                        #print minDist, value, c
+
+                                except ValueError:
+                                        pass
+                        if minDist > maxDelta:
+                                maxDelta = minDist
+          else:
+                statistics += '\n seed centroid: ' +`currentCentroid`
+          statistics += '\n num_iteration: ' +`num_iter`+';  Delta: '+`maxDelta`
+          print maxDelta
+          print num_iter
+          print "$$$$$$$$$$$$    next iteration  $$$$$$$$$$$$$$$"
+          #checks the new delta value to avoid additional mapreduce iteration
+          if maxDelta > 2:
+            os.system('bin/hadoop dfs -put ~/hadoop/centroidinput.txt centroidinput.txt')
+
+            os.system('bin/hadoop jar ~/hadoop/mapred/contrib/streaming/hadoop-0.21.0-streaming.jar -file ~/hadoop/mapper1.py -mapper ~/hadoop/mapper1.py -file ~/hadoop/reducer1.py -reducer ~/hadoop/reducer1.py -input datapoints.txt -file centroidinput.txt -file mapoutput1.txt -file ~/hadoop/defdict.py -output data-output')
+
+            #old_centroid is filled in for future delta calculation
+            cfile = open("centroidinput.txt", "r")
+            oldCentroid = cfile.readline()
+            cfile.close()
+            # output is copied to local files for later lookup and the hdfs version is deleted for next iteration.
+            os.system('bin/hadoop dfs -copyToLocal /user/grace/data-output ~/hadoop/output')
+            os.rename("output/part-00000", "centroidinput.txt")
+            shutil.rmtree('output')
+
+            num_iter += 1
+            os.system('bin/hadoop dfs -rmr data-output')
+            os.system('bin/hadoop dfs -rmr centroidinput.txt')
+        end = time.time()
+        elapsed = end -start
+        print "elapsed time ", elapsed, "seconds"
+        statistics += '\n  Time_elapsed: '+ `elapsed`
+        statistics += '\n New Centroids: '+ `currentCentroid`
+
+
+        # final clustering of the datapoints
+        os.system('bin/hadoop dfs -put ~/hadoop/centroidinput.txt centroidinput.txt')
+
+        os.system('bin/hadoop jar ~/hadoop/mapred/contrib/streaming/hadoop-0.21.0-streaming.jar -file ~/hadoop/mapper1.py -mapper ~/hadoop/mapper1.py -file ~/hadoop/reducerfinal.py -reducer ~/hadoop/reducerfinal.py -input datapoints.txt -file centroidinput.txt -file mapoutput1.txt -file ~/hadoop/defdict.py -output data-output')
+
+        # output is copied to local files for later lookup and the hdfs version is deleted for next iteration.
+        os.system('bin/hadoop dfs -copyToLocal /user/grace/data-output ~/hadoop/output')
+        os.rename("output/part-00000", "finalcluster.txt")
+        cfile = open("finalcluster.txt", "r")
+        currentCluster = cfile.readline()
+        cfile.close()
+        statistics += '\n New Cluster: ' + `currentCluster`
+        STAT = open("statistics.txt","w")
+        # Write all the lines for statistics at once:
+        STAT.writelines(statistics)
+        STAT.close()
+        shutil.rmtree('output')
+        os.system('bin/hadoop dfs -rmr data-output')
+        os.system('bin/hadoop dfs -rmr centroidinput.txt')
+        os.system('bin/hadoop dfs -rmr datapoints.txt')
+
+if __name__ == "__main__": main(sys.argv)
+
+#====================================================
+# Logistic Regression Map Reduce
+#====================================================
+#train_mapper.py
+#!/usr/bin/env python
+
+import collections, math, sys, json, os
+
+def main():
+    mu = float(os.environ['MU']) if os.environ.has_key('MU') else 0.002
+    eta = float(os.environ['ETA']) if os.environ.has_key('ETA') else 0.5
+    T = int(os.environ['T']) if os.environ.has_key('T') else 1
+    split = float(os.environ['SPLIT']) if os.environ.has_key('SPLIT') else 0.3
+    n_models_key = os.environ['N_MODELS_KEY'] if os.environ.has_key('N_MODELS_KEY') else 'MODEL'
+    k = 0
+    W = collections.defaultdict(float)
+    A = collections.defaultdict(int)
+    lines = [ line for line in sys.stdin ]
+    for t in range(1, T+1):
+        for line in lines:
+            x = json.loads(line)
+            if x.has_key('class') and x["random_key"] > split:
+                sigma = sum([W[j] * x["features"][j] for j in x["features"].keys()])
+                p = 1. / (1. + math.exp(-sigma)) if -100. < sigma else sys.float_info.min
+                k += 1
+                lambd4 = eta / float(pow(t, 2))
+                penalty = 1. - (2. * lambd4 * mu)
+                for j in x["features"].keys():
+                    W[j] *= math.pow(penalty, k - A[j])
+                    W[j] += lambd4 * (float(x["class"]) - p) * x["features"][j]
+                    A[j] = k
+    lambd4 = eta / float(pow(T, 2))
+    penalty = 1. - (2. * lambd4 * mu)
+    print "%s\t%17.16f" % (n_models_key, 1.)
+    for j in W.keys():
+        W[j] *= math.pow(penalty, k - A[j])
+        print "%s\t%17.16f" % (j, W[j])
+    
+if __name__ == '__main__':
+    main()
+
+#training reduce
+#!/usr/bin/env python
+ 
+from itertools import groupby
+from operator import itemgetter
+import sys, json, datetime, uuid, os
+ 
+def read_mapper_output(file, separator='\t'):
+    for line in file:
+        yield line.rstrip().split(separator, 1)
+ 
+def main(separator='\t'):
+    data = read_mapper_output(sys.stdin, separator=separator)
+    for feature, group in groupby(data, itemgetter(0)):
+        print "%s\t%17.16f" % (feature, sum([ float(weight) for feature, weight in group ]))
+ 
+if __name__ == "__main__":
+    main()
+
+#=======================================================================
+# Extendable map reduce linear regression
+#=======================================================================
+import sys
+import numpy as np
+import logging
+import time
+  
+logging.basicConfig()
+logger = logging.getLogger('LargeRegression')
+logger.setLevel(logging.INFO)
+  
+class NumpyShapeError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return repr(self.value)
+  
+def regression_gradient_descent(Y, X, B = None, w = None, alpha = None,
+                                convergence_threshold = 0.0001,
+                                min_iters = 0, max_iters = 150, penalty = 0,
+                                intercept = False, update_only = False,
+                                XTX = None, XTY = None, verbose = True):
+    """
+    Computes the coefficient matrix for the linear regression problem using
+    OLS and/or L2 normalization
+  
+    Uses batch gradient descent in order to iteratively determine the
+    coefficient matrix.  This technique can be scaled with map reduce very easily
+    as update steps are only computed using the error terms and the (fixed)
+    design matrix.  This implies that each compute node only need a horizontal
+    block of the response matrix and design matrix, and a vertical block of
+    the coefficient matrix.
+  
+    For very large regressions, OLS regression estimates have high variance
+    in predicted values and can be partially corrected for by using L2
+    normalization.  Another approach is to use L1 normalization, but this
+    cannot be implemented using batch gradient descent.  Another python
+    module may or may not be developed for L1 normalization.
+  
+    Parameters
+    ----------
+    Y: 2d np.array
+        A matrix representing the response variables of the linear regression
+    X: 2d np.array
+        A matrix representing the features of the observations.  This should
+        not include the ones vector, which traditionally represents the
+        intercept term
+    B: 2d np.array
+        A matrix representing an initial guess of what the coefficient matrix
+        would be.  If intercept = True, this matrix should have px+1 rows 
+        where px is the number of features found in X, and py columns where py
+        is the number of different response variables found in Y.  If no
+        intercept is included, then B should have px rows
+    w: 1d np.array
+        A 1d array of weights to be used for weighted linear regression.  If
+        None, then this function defaults to the standard OLS problem.  The
+        weighted least squares problem minimizes the sum of squared weighted
+        residuals, as in sum ((w_i error_i)^2)
+    alpha: float
+        The learning rate.  When gradient descent moves B in the direction of
+        the gradient, the step is scaled by alpha.  The default value of alpha
+        is 1 / sqrt(Y.shape[0]).  This was found by experimentation,
+        there is no proper evidence that it needs to be this rate.
+    convergence_threshold: float
+        This value determines when the iterative process should end.  A matrix
+        B_new is created each update containing the coefficients after taking
+        1 step in the direction of the gradient.  If the square of the
+        Frobenius norm of (B_new - B) is less than convergence_threshold, then
+        the algorithm terminates
+    min_iters: int
+        The minimum number of iterations this process must take before it is
+        allowed to converge
+    max_iters: int
+        The maximum number of iterations used before this process terminates
+        and reports that it could not converge
+    penalty: float or 2d np.array
+        The penalty added onto the RSS objective function for L2 normalization.
+        The objective function then becomes ||Y-XB||_2^2 + penalty * ||B||_2.
+        Note that penalty = 0 represents the traditional OLS.
+        penalty may also be a 2d np.array, in which case a different penalty
+        is applied to each value of B.  This allows us to weigh the features
+        differently for each smaller, univariate regression
+    intercept: boolean
+        If True, append the intercept column in the design matrix
+    update_only: boolean
+        If True, return the update step in the direction of the gradient.
+        If False, return the new coefficient matrix after taking 1 update step
+    XTX: 2d np.array
+        An optional argument.  The precomputed value of X.T * X, where X is the
+        design matrix of the regression.  For X with many columns, X.T * X
+        might NOT fit in memory
+    XTY: 2d np.array
+        An optional argument.  The precomputed value of X.T * Y, where X is the
+        design matrix and Y is the response matrix of the regression
+    verbose: boolean
+        If True, print the status of the algorithm on the screen
+  
+    Returns
+    -------
+    out: 2d np.array
+        The coefficient matrix minimizing the linear regression objective
+        function
+  
+    Examples
+    --------
+    Y = np.random.randn(1000,10)
+    X = np.random.randn(1000,20)
+    B = np.random.randn(20,10)
+    regression_gradient_descent(Y,X,B)
+    np.linalg.lstsq(X,Y)[0]
+  
+    weights = range(Y.shape[0])
+    regression_gradient_descent(Y,X,B,w=weights)
+  
+    penalty = np.random.randn(20,10)
+    regression_gradient_descent(Y,X,penalty=penalty)
+    """
+  
+    if Y.ndim != 2:
+        raise NumpyShapeError("Y must be a 2d np.array")
+    if X.ndim != 2:
+        raise NumpyShapeError("X must be a 2d np.array")
+    if Y.shape[0] != X.shape[0]:
+        raise NumpyShapeError("Y and X must have the same amount of rows")
+    if B is not None:
+        if B.ndim != 2:
+            raise NumpyShapeError("B should be a 2d np.array")
+        if B.shape[1] != Y.shape[1]:
+            raise NumpyShapeError("B should have the same number of columns as Y")
+    if w is not None:
+        if w.ndim != 1:
+            raise NumpyShapeError("w should be a 1d np.array")
+        if len(w) != Y.shape[0]:
+            raise NumpyShapeError("w should have exactly 1 element for %s" % (
+                                  "each row of Y"))
+    if max_iters < min_iters:
+        raise NameError("max_iters must be greater than min_iters")
+    if penalty is None:
+        penalty = 0
+    n, xp = X.shape
+    yp = Y.shape[1]
+  
+    if alpha is None:
+        alpha = 1. / np.sqrt(n)
+    if B is None:
+        if intercept:
+            B = np.zeros((xp + 1, yp))
+        else:
+            B = np.zeros((xp, yp))
+    if intercept:
+        intercept_vec = np.ones((n,1))
+        design = np.hstack((intercept_vec, X))
+    else:
+        design = X
+  
+    if update_only:
+        XB = np.dot(design, B)
+        if w is None:
+            return (alpha * (np.dot(design.T, Y - XB) + penalty * B))
+        else:
+            return (alpha * (np.dot(design.T * (W**2), Y - XB) + penalty * B))
+  
+    #Precomputed values used for optimization
+    if XTY is None:
+        if w is None:
+            XTY = np.dot(design.T, Y)
+        else:
+            XTY = np.dot(design.T * (w**2), Y)
+    if XTX is None:
+        if w is None:
+            XTX = np.dot(design.T, X)
+        else:
+            XTX = np.dot(design.T * (w**2), X)
+  
+    converged = False
+    for i in xrange(max_iters):
+        error = np.dot(XTX,B) - XTY
+        gradient = error + penalty*B
+        step_size = alpha / (np.linalg.norm(gradient, 'fro'))
+        B_new = B - step_size * gradient
+        if np.sum(np.isnan(B_new)) > 0:
+            logger.warn("Warning, nan found in iteration %s" % (i))
+        if (((np.linalg.norm(B_new-B, 'fro')**2) < convergence_threshold * yp) &
+            (i > min_iters)):
+            if verbose:
+                logger.debug("Converged on iteration " + str(i))
+            B = B_new
+            converged = True
+            break
+        else:
+            if verbose:
+                logger.debug("End iteration " + str(i))
+            B = B_new
+    if converged == False & verbose:
+        logger.warn("Gradient descent did not converge")
+    return (B)
+  
+def main():
+    n = 1000
+    p = 20
+    numY = 10
+  
+    X = np.random.randn(n,p)
+    Btrue = np.random.randn(p,numY)
+    Y = np.dot(X, Btrue)
+    B = np.random.randn(p, numY)
+  
+    #Time gradient descent
+    start_time = time.time()
+    test = regression_gradient_descent(Y, X, B, intercept=False, min_iters=100, alpha=1)
+    end_time = time.time()
+    elapsed = end_time - start_time
+  
+    #Time numpy's least squares
+    start_time_np = time.time()
+    test2 = np.linalg.lstsq(X,Y)
+    end_time_np = time.time()
+    elapsed_np = end_time_np - start_time_np
+  
+    print("True values of B:")
+    print(Btrue)
+    print("Estimated values from gradient descent:")
+    print(test)
+    print("Estimated values from numpy:")
+    print(test2[0])
+    print("gradient descent took " + str(elapsed) + " seconds")
+    print("numpy took " + str(elapsed_np) + " seconds")
+  
+    return 0
+  
+if __name__ == "__main__":
+    sys.exit(main())
+
+# Spark Linear Regression
+#======================
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+from numpy import array, dot
+from pyspark import SparkContext
+from pyspark.mllib._common import \
+    _get_unmangled_rdd, _get_unmangled_double_vector_rdd, \
+    _serialize_double_matrix, _deserialize_double_matrix, \
+    _serialize_double_vector, _deserialize_double_vector, \
+    _get_initial_weights, _serialize_rating, _regression_train_wrapper, \
+    _linear_predictor_typecheck
+
+class LinearModel(object):
+    """Something that has a vector of coefficients and an intercept."""
+    def __init__(self, coeff, intercept):
+        self._coeff = coeff
+        self._intercept = intercept
+
+class LinearRegressionModelBase(LinearModel):
+    """A linear regression model.
+    >>> lrmb = LinearRegressionModelBase(array([1.0, 2.0]), 0.1)
+    >>> abs(lrmb.predict(array([-1.03, 7.777])) - 14.624) < 1e-6
+    True
+    """
+    def predict(self, x):
+        """Predict the value of the dependent variable given a vector x"""
+        """containing values for the independent variables."""
+        _linear_predictor_typecheck(x, self._coeff)
+        return dot(self._coeff, x) + self._intercept
+
+class LinearRegressionModel(LinearRegressionModelBase):
+    """A linear regression model derived from a least-squares fit.
+    >>> data = array([0.0, 0.0, 1.0, 1.0, 3.0, 2.0, 2.0, 3.0]).reshape(4,2)
+    >>> lrm = LinearRegressionWithSGD.train(sc.parallelize(data), initialWeights=array([1.0]))
+    """
+
+class LinearRegressionWithSGD(object):
+    @classmethod
+    def train(cls, data, iterations=100, step=1.0,
+              miniBatchFraction=1.0, initialWeights=None):
+        """Train a linear regression model on the given data."""
+        sc = data.context
+        return _regression_train_wrapper(sc, lambda d, i:
+                sc._jvm.PythonMLLibAPI().trainLinearRegressionModelWithSGD(
+                        d._jrdd, iterations, step, miniBatchFraction, i),
+                LinearRegressionModel, data, initialWeights)
+
+class LassoModel(LinearRegressionModelBase):
+    """A linear regression model derived from a least-squares fit with an
+    l_1 penalty term.
+    >>> data = array([0.0, 0.0, 1.0, 1.0, 3.0, 2.0, 2.0, 3.0]).reshape(4,2)
+    >>> lrm = LassoWithSGD.train(sc.parallelize(data), initialWeights=array([1.0]))
+    """
+
+class LassoWithSGD(object):
+    @classmethod
+    def train(cls, data, iterations=100, step=1.0, regParam=1.0,
+              miniBatchFraction=1.0, initialWeights=None):
+        """Train a Lasso regression model on the given data."""
+        sc = data.context
+        return _regression_train_wrapper(sc, lambda d, i:
+                sc._jvm.PythonMLLibAPI().trainLassoModelWithSGD(d._jrdd,
+                        iterations, step, regParam, miniBatchFraction, i),
+                LassoModel, data, initialWeights)
+
+class RidgeRegressionModel(LinearRegressionModelBase):
+    """A linear regression model derived from a least-squares fit with an
+    l_2 penalty term.
+    >>> data = array([0.0, 0.0, 1.0, 1.0, 3.0, 2.0, 2.0, 3.0]).reshape(4,2)
+    >>> lrm = RidgeRegressionWithSGD.train(sc.parallelize(data), initialWeights=array([1.0]))
+    """
+
+class RidgeRegressionWithSGD(object):
+    @classmethod
+    def train(cls, data, iterations=100, step=1.0, regParam=1.0,
+              miniBatchFraction=1.0, initialWeights=None):
+        """Train a ridge regression model on the given data."""
+        sc = data.context
+        return _regression_train_wrapper(sc, lambda d, i:
+                sc._jvm.PythonMLLibAPI().trainRidgeModelWithSGD(d._jrdd,
+                        iterations, step, regParam, miniBatchFraction, i),
+                RidgeRegressionModel, data, initialWeights)
+
+def _test():
+    import doctest
+    globs = globals().copy()
+    globs['sc'] = SparkContext('local[4]', 'PythonTest', batchSize=2)
+    (failure_count, test_count) = doctest.testmod(globs=globs,
+            optionflags=doctest.ELLIPSIS)
+    globs['sc'].stop()
+    if failure_count:
+        exit(-1)
+
+if __name__ == "__main__":
+    _test()
+		
+#=========================================
+# Hadoop Pipes: C++
+#=========================================
+//Maximum temperature in C++
+#include <algorithm>
+#include <limits>
+#include <stdint.h>
+#include <string>
+#include "hadoop/Pipes.hh"
+#include "hadoop/TemplateFactory.hh"
+#include "hadoop/StringUtils.hh"
+class MaxTemperatureMapper : public HadoopPipes::Mapper {
+	public:
+		MaxTemperatureMapper(HadoopPipes::TaskContext& context) {
+		}
+		void map(HadoopPipes::MapContext& context) {
+		std::string line = context.getInputValue();
+		std::string year = line.substr(15, 4);
+		std::string airTemperature = line.substr(87, 5);
+		std::string q = line.substr(92, 1);
+		if (airTemperature != "+9999" &&
+			(q == "0" || q == "1" || q == "4" || q == "5" || q == "9")) {
+			context.emit(year, airTemperature);
+		}
+	}
+};
+class MapTemperatureReducer : public HadoopPipes::Reducer {
+	public:
+	MapTemperatureReducer(HadoopPipes::TaskContext& context) {
+	}
+	void reduce(HadoopPipes::ReduceContext& context) {
+		int maxValue = INT_MIN;
+		while (context.nextValue()) {
+			maxValue = std::max(maxValue, HadoopUtils::toInt(context.getInputValue()));
+		}
+		context.emit(context.getInputKey(), HadoopUtils::toString(maxValue));
+	}
+};
+int main(int argc, char *argv[]) {
+	return HadoopPipes::runTask(HadoopPipes::TemplateFactory<MaxTemperatureMapper,
+	MapTemperatureReducer>());
+}
+
+#Makefile for C++ MapReduce program
+CC = g++
+CPPFLAGS = -m32 -I$(HADOOP_INSTALL)/c++/$(PLATFORM)/include
+max_temperature: max_temperature.cpp
+	$(CC) $(CPPFLAGS) $< -Wall -L$(HADOOP_INSTALL)/c++/$(PLATFORM)/lib -lhadooppipes \
+	-lhadooputils -lpthread -g -O2 -o $@
+
+#command line execution of C++
+export PLATFORM=Linux-i386-32
+make
+hadoop fs -put max_temperature bin/max_temperature
+hadoop pipes \
+-D hadoop.pipes.java.recordreader=true \
+-D hadoop.pipes.java.recordwriter=true \
+-input sample.txt \
+-output output \
+-program bin/max_temperature
+	
+	
+#========================================
+# Python Just in Time
+#========================================
+#option1: PyPy
+# option 2: Numba, with a few annotation
+from numba import jit
+from numpy import arange
+
+# jit decorator tells Numba to compile this function.
+# The argument types will be inferred by Numba when function is called.
+@jit
+def sum2d(arr):
+    M, N = arr.shape
+    result = 0.0
+    for i in range(M):
+        for j in range(N):
+            result += arr[i,j]
+    return result
+
+a = arange(9).reshape(3,3)
+print(sum2d(a))
+
+#command line installation
+git clone git://github.com/numba/numba.git
+#download and install http://continuum.io/downloads.html
+conda install numba
+# or
+conda update numba 
+
+#==========================================
+# Reading data from Hadoop
+#==========================================
+#Java
+#========
+InputStream in = null;
+try {
+	in = new URL("hdfs://host/path").openStream();
+	// process in
+} finally {
+	IOUtils.closeStream(in);
+}
+#Displaying files from a Hadoop filesystem on standard output using a
+URLStreamHandler
+public class URLCat {
+	static {
+		URL.setURLStreamHandlerFactory(new FsUrlStreamHandlerFactory());
+	}
+	public static void main(String[] args) throws Exception {
+		InputStream in = null;
+		try {
+			in = new URL(args[0]).openStream();
+			IOUtils.copyBytes(in, System.out, 4096, false);
+		} finally {
+			IOUtils.closeStream(in);
+		}
+	}
+}
+
+#command line run run
+hadoop URLCat hdfs://localhost/user/tom/quangle.txt
+
+public static FileSystem get(Configuration conf) throws IOException
+public static FileSystem get(URI uri, Configuration conf) throws IOException
+public FSDataInputStream open(Path f) throws IOException
+public abstract FSDataInputStream open(Path f, int bufferSize) throws IOException
+
+Displaying files from a Hadoop filesystem on standard output by using the FileSystem
+directly
+public class FileSystemCat {
+	public static void main(String[] args) throws Exception {
+		String uri = args[0];
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(URI.create(uri), conf);
+		InputStream in = null;
+		try {
+			in = fs.open(new Path(uri));
+			IOUtils.copyBytes(in, System.out, 4096, false);
+		} finally {
+			IOUtils.closeStream(in);
+		}
+	}
+}
+
+#command line run
+hadoop FileSystemCat hdfs://localhost/user/tom/quangle.txt
+
+package org.apache.hadoop.fs;
+public class FSDataInputStream extends DataInputStream
+implements Seekable, PositionedReadable {
+	// implementation elided
+}
+public interface Seekable {
+	void seek(long pos) throws IOException;
+	long getPos() throws IOException;
+}
+
+#Displaying files from a Hadoop filesystem on standard output twice, by using seek
+public class FileSystemDoubleCat {
+	public static void main(String[] args) throws Exception {
+		String uri = args[0];
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(URI.create(uri), conf);
+		FSDataInputStream in = null;
+		try {
+			in = fs.open(new Path(uri));
+			IOUtils.copyBytes(in, System.out, 4096, false);
+			in.seek(0); // go back to the start of the file
+			IOUtils.copyBytes(in, System.out, 4096, false);
+		} finally {
+			IOUtils.closeStream(in);
+		}
+	}
+}
+
+hadoop FileSystemDoubleCat hdfs://localhost/user/tom/quangle.txt
+
+public interface PositionedReadable {
+	public int read(long position, byte[] buffer, int offset, int length)
+	throws IOException;
+	public void readFully(long position, byte[] buffer, int offset, int length)
+	throws IOException;
+	public void readFully(long position, byte[] buffer) throws IOException;
+}
+
+long oldPos = getPos();
+try {
+	seek(position);
+	// read data
+} finally {
+	seek(oldPos);
+}
+
+package org.apache.hadoop.util;
+public interface Progressable {
+	public void progress();
+}
+
+public class FileCopyWithProgress {
+	public static void main(String[] args) throws Exception {
+	String localSrc = args[0];
+	String dst = args[1];
+	InputStream in = new BufferedInputStream(new FileInputStream(localSrc));
+	Configuration conf = new Configuration();
+	FileSystem fs = FileSystem.get(URI.create(dst), conf);
+	OutputStream out = fs.create(new Path(dst), new Progressable() {
+		public void progress() {
+			System.out.print(".");
+		}
+	});
+		IOUtils.copyBytes(in, out, 4096, true);
+	}
+}
+
+#command line
+hadoop FileCopyWithProgress input/docs/1400-8.txt hdfs://localhost/user/tom/1400-8.txt
+
+package org.apache.hadoop.fs;
+public class FSDataOutputStream extends DataOutputStream implements Syncable {
+	public long getPos() throws IOException {
+	// implementation elided
+	}
+	// implementation elided
+}
+
+public boolean mkdirs(Path f) throws IOException
+
+Demonstrating file status information
+public class ShowFileStatusTest {
+	private MiniDFSCluster cluster; // use an in-process HDFS cluster for testing
+	private FileSystem fs;
+	@Before
+	public void setUp() throws IOException {
+		Configuration conf = new Configuration();
+		if (System.getProperty("test.build.data") == null) {
+			System.setProperty("test.build.data", "/tmp");
+		}
+		cluster = new MiniDFSCluster(conf, 1, true, null);
+		fs = cluster.getFileSystem();
+		OutputStream out = fs.create(new Path("/dir/file"));
+		out.write("content".getBytes("UTF-8"));
+		out.close();
+	}
+	@After
+	public void tearDown() throws IOException {
+		if (fs != null) { fs.close(); }
+		if (cluster != null) { cluster.shutdown(); }
+	}
+	@Test(expected = FileNotFoundException.class)
+	public void throwsFileNotFoundForNonExistentFile() throws IOException {
+	fs.getFileStatus(new Path("no-such-file"));
+	}
+	@Test
+	public void fileStatusForFile() throws IOException {
+		Path file = new Path("/dir/file");
+		FileStatus stat = fs.getFileStatus(file);
+		assertThat(stat.getPath().toUri().getPath(), is("/dir/file"));
+		assertThat(stat.isDir(), is(false));
+		assertThat(stat.getLen(), is(7L));
+		assertThat(stat.getModificationTime(),
+		is(lessThanOrEqualTo(System.currentTimeMillis())));
+		assertThat(stat.getReplication(), is((short) 1));
+		assertThat(stat.getBlockSize(), is(64 * 1024 * 1024L));
+		assertThat(stat.getOwner(), is("tom"));
+		assertThat(stat.getGroup(), is("supergroup"));
+		assertThat(stat.getPermission().toString(), is("rw-r--r--"));
+	}
+	@Test
+	public void fileStatusForDirectory() throws IOException {
+		Path dir = new Path("/dir");
+		FileStatus stat = fs.getFileStatus(dir);
+		assertThat(stat.getPath().toUri().getPath(), is("/dir"));
+		assertThat(stat.isDir(), is(true));
+		assertThat(stat.getLen(), is(0L));
+		assertThat(stat.getModificationTime(),
+		is(lessThanOrEqualTo(System.currentTimeMillis())));
+		assertThat(stat.getBlockSize(), is(0L));
+		assertThat(stat.getOwner(), is("tom"));
+		assertThat(stat.getGroup(), is("supergroup"));
+		assertThat(stat.getPermission().toString(), is("rwxr-xr-x"));
+	}
+}
+
+public FileStatus[] listStatus(Path f) throws IOException
+public FileStatus[] listStatus(Path f, PathFilter filter) throws IOException
+public FileStatus[] listStatus(Path[] files) throws IOException
+public FileStatus[] listStatus(Path[] files, PathFilter filter) throws IOException
+
+Showing the file statuses for a collection of paths in a Hadoop filesystem
+	public class ListStatus {
+	public static void main(String[] args) throws Exception {
+		String uri = args[0];
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(URI.create(uri), conf);
+		Path[] paths = new Path[args.length];
+		for (int i = 0; i < paths.length; i++) {
+			paths[i] = new Path(args[i]);
+		}
+		FileStatus[] status = fs.listStatus(paths);
+		Path[] listedPaths = FileUtil.stat2Paths(status);
+		for (Path p : listedPaths) {
+			System.out.println(p);
+		}
+	}
+}
+
+#command line
+hadoop ListStatus hdfs://localhost/ hdfs://localhost/user/tom
+
+public FileStatus[] globStatus(Path pathPattern) throws IOException
+public FileStatus[] globStatus(Path pathPattern, PathFilter filter) throws
+	IOException
+	
+#path filter
+package org.apache.hadoop.fs;
+public interface PathFilter {
+	boolean accept(Path path);
+}
+public class RegexExcludePathFilter implements PathFilter {
+	private final String regex;
+	public RegexExcludePathFilter(String regex) {
+		this.regex = regex;
+	}
+	public boolean accept(Path path) {
+		return !path.toString().matches(regex);
+	}
+}
+
+Path p = new Path("p");
+fs.create(p);
+assertThat(fs.exists(p), is(true));
+
+Path p = new Path("p");
+OutputStream out = fs.create(p);
+out.write("content".getBytes("UTF-8"));
+out.flush();
+assertThat(fs.getFileStatus(p).getLen(), is(0L));
+
+Path p = new Path("p");
+FSDataOutputStream out = fs.create(p);
+out.write("content".getBytes("UTF-8"));
+out.flush();
+out.sync();
+assertThat(fs.getFileStatus(p).getLen(), is(((long) "content".length())));
+
+FileOutputStream out = new FileOutputStream(localFile);
+out.write("content".getBytes("UTF-8"));
+out.flush(); // flush to operating system
+out.getFD().sync(); // sync to disk
+assertThat(localFile.length(), is(((long) "content".length())));
+
+Path p = new Path("p");
+OutputStream out = fs.create(p);
+out.write("content".getBytes("UTF-8"));
+out.close();
+assertThat(fs.getFileStatus(p).getLen(), is(((long) "content".length())));
+
+#A program to compress data read from standard input and write it to standard output
+	public class StreamCompressor {
+	public static void main(String[] args) throws Exception {
+		String codecClassname = args[0];
+		Class<?> codecClass = Class.forName(codecClassname);
+		Configuration conf = new Configuration();
+		CompressionCodec codec = (CompressionCodec)
+		ReflectionUtils.newInstance(codecClass, conf);
+		CompressionOutputStream out = codec.createOutputStream(System.out);
+		IOUtils.copyBytes(System.in, out, 4096, false);
+		out.finish();
+	}
+}
+
+#command line
+echo "Text" | hadoop StreamCompressor org.apache.hadoop.io.compress.GzipCodec \
+| gunzip -
+
+#program to decompress a compressed file using a codec inferred from the file’s extension
+public class FileDecompressor {
+	public static void main(String[] args) throws Exception {
+		String uri = args[0];
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(URI.create(uri), conf);
+		Path inputPath = new Path(uri);
+		CompressionCodecFactory factory = new CompressionCodecFactory(conf);
+		CompressionCodec codec = factory.getCodec(inputPath);
+		if (codec == null) {
+			System.err.println("No codec found for " + uri);
+			System.exit(1);
+		}
+		String outputUri =
+		CompressionCodecFactory.removeSuffix(uri, codec.getDefaultExtension());
+		InputStream in = null;
+		OutputStream out = null;
+		try {
+			in = codec.createInputStream(fs.open(inputPath));
+			out = fs.create(new Path(outputUri));
+			IOUtils.copyBytes(in, out, conf);
+			} finally {
+			IOUtils.closeStream(in);
+			IOUtils.closeStream(out);
+		}
+	}
+}
+
+#A program to compress data read from standard input and write it to standard output
+using a pooled compressor
+public class PooledStreamCompressor {
+	public static void main(String[] args) throws Exception {
+		String codecClassname = args[0];
+		Class<?> codecClass = Class.forName(codecClassname);
+		Configuration conf = new Configuration();
+		CompressionCodec codec = (CompressionCodec)
+		ReflectionUtils.newInstance(codecClass, conf);
+		Compressor compressor = null;
+		try {
+			compressor = CodecPool.getCompressor(codec);
+			CompressionOutputStream out =
+			codec.createOutputStream(System.out, compressor);
+			IOUtils.copyBytes(System.in, out, 4096, false);
+			out.finish();
+		} finally {
+			CodecPool.returnCompressor(compressor);
+		}
+	}
+}
+
+#Application to run the maximum temperature job producing compressed output
+public class MaxTemperatureWithCompression {
+	public static void main(String[] args) throws IOException {
+		if (args.length != 2) {
+			System.err.println("Usage: MaxTemperatureWithCompression <input path> " +
+			"<output path>");
+			System.exit(-1);
+		}
+		JobConf conf = new JobConf(MaxTemperatureWithCompression.class);
+		conf.setJobName("Max temperature with output compression");
+		FileInputFormat.addInputPath(conf, new Path(args[0]));
+		FileOutputFormat.setOutputPath(conf, new Path(args[1]));
+		conf.setOutputKeyClass(Text.class);
+		conf.setOutputValueClass(IntWritable.class);
+		conf.setBoolean("mapred.output.compress", true);
+		conf.setClass("mapred.output.compression.codec", GzipCodec.class,
+		CompressionCodec.class);
+		conf.setMapperClass(MaxTemperatureMapper.class);
+		conf.setCombinerClass(MaxTemperatureReducer.class);
+		conf.setReducerClass(MaxTemperatureReducer.class);
+		JobClient.runJob(conf);
+	}
+}
+
+#command line
+hadoop MaxTemperatureWithCompression input/ncdc/sample.txt.gz output
+gunzip -c output/part-00000.gz
+
+conf.setCompressMapOutput(true);
+conf.setMapOutputCompressorClass(GzipCodec.class);
+
+#writable interface
+package org.apache.hadoop.io;
+import java.io.DataOutput;
+import java.io.DataInput;
+import java.io.IOException;
+public interface Writable {
+	void write(DataOutput out) throws IOException;
+	void readFields(DataInput in) throws IOException;
+}
+
+IntWritable writable = new IntWritable();
+writable.set(163);
+
+IntWritable writable = new IntWritable(163);
+public static byte[] serialize(Writable writable) throws IOException {
+	ByteArrayOutputStream out = new ByteArrayOutputStream();
+	DataOutputStream dataOut = new DataOutputStream(out);
+	writable.write(dataOut);
+	dataOut.close();
+	return out.toByteArray();
+}
+
+byte[] bytes = serialize(writable);
+assertThat(bytes.length, is(4));
+assertThat(StringUtils.byteToHexString(bytes), is("000000a3"));
+
+public static byte[] deserialize(Writable writable, byte[] bytes)
+throws IOException {
+	ByteArrayInputStream in = new ByteArrayInputStream(bytes);
+	DataInputStream dataIn = new DataInputStream(in);
+	writable.readFields(dataIn);
+	dataIn.close();
+	return bytes;
+}
+
+IntWritable newWritable = new IntWritable();
+deserialize(newWritable, bytes);
+assertThat(newWritable.get(), is(163));
+
+package org.apache.hadoop.io;
+public interface WritableComparable<T> extends Writable, Comparable<T> {
+}
+
+package org.apache.hadoop.io;
+import java.util.Comparator;
+public interface RawComparator<T> extends Comparator<T> {
+public int compare(byte[] b1, int s1, int l1, byte[] b2, int s2, int l2);
+}
+
+IntWritable w1 = new IntWritable(163);
+IntWritable w2 = new IntWritable(67);
+assertThat(comparator.compare(w1, w2), greaterThan(0));
+
+byte[] b1 = serialize(w1);
+byte[] b2 = serialize(w2);
+assertThat(comparator.compare(b1, 0, b1.length, b2, 0, b2.length),
+	greaterThan(0));
+
+#indexing
+Text t = new Text("hadoop");
+assertThat(t.getLength(), is(6));
+assertThat(t.getBytes().length, is(6));
+assertThat(t.charAt(2), is((int) 'd'));
+assertThat("Out of bounds", t.charAt(100), is(-1));
+Text t = new Text("hadoop");
+assertThat("Find a substring", t.find("do"), is(2));
+assertThat("Finds first 'o'", t.find("o"), is(3));
+assertThat("Finds 'o' from position 4 or later", t.find("o", 4), is(4));
+assertThat("No match", t.find("pig"), is(-1));
+
+#Tests showing the differences between the String and Text classes
+public class StringTextComparisonTest {
+	@Test
+	public void string() throws UnsupportedEncodingException {
+		String s = "\u0041\u00DF\u6771\uD801\uDC00";
+		assertThat(s.length(), is(5));
+		assertThat(s.getBytes("UTF-8").length, is(10));
+		assertThat(s.indexOf("\u0041"), is(0));
+		assertThat(s.indexOf("\u00DF"), is(1));
+		assertThat(s.indexOf("\u6771"), is(2));
+		assertThat(s.indexOf("\uD801\uDC00"), is(3));
+		assertThat(s.charAt(0), is('\u0041'));
+		assertThat(s.charAt(1), is('\u00DF'));
+		assertThat(s.charAt(2), is('\u6771'));
+		assertThat(s.charAt(3), is('\uD801'));
+		assertThat(s.charAt(4), is('\uDC00'));
+		assertThat(s.codePointAt(0), is(0x0041));
+		assertThat(s.codePointAt(1), is(0x00DF));
+		assertThat(s.codePointAt(2), is(0x6771));
+		assertThat(s.codePointAt(3), is(0x10400));
+	}
+	@Test
+	public void text() {
+		Text t = new Text("\u0041\u00DF\u6771\uD801\uDC00");
+		assertThat(t.getLength(), is(10));
+		assertThat(t.find("\u0041"), is(0));
+		assertThat(t.find("\u00DF"), is(1));
+		assertThat(t.find("\u6771"), is(3));
+		assertThat(t.find("\uD801\uDC00"), is(6));
+		assertThat(t.charAt(0), is(0x0041));
+		assertThat(t.charAt(1), is(0x00DF));
+		assertThat(t.charAt(3), is(0x6771));
+		assertThat(t.charAt(6), is(0x10400));
+	}
+}
+
+#Iterating over the characters in a Text object
+public class TextIterator {
+	public static void main(String[] args) {
+		Text t = new Text("\u0041\u00DF\u6771\uD801\uDC00");
+		ByteBuffer buf = ByteBuffer.wrap(t.getBytes(), 0, t.getLength());
+		int cp;
+		while (buf.hasRemaining() && (cp = Text.bytesToCodePoint(buf)) != -1) {
+			System.out.println(Integer.toHexString(cp));
+		}
+	}
+}
+
+#command line
+hadoop TextIterator
+Text t = new Text("hadoop");
+t.set("pig");
+assertThat(t.getLength(), is(3));
+assertThat(t.getBytes().length, is(3));
+Text t = new Text("hadoop");
+t.set(new Text("pig"));
+assertThat(t.getLength(), is(3));
+assertThat("Byte length not shortened", t.getBytes().length,
+	is(6));
+BytesWritable b = new BytesWritable(new byte[] { 3, 5 });
+byte[] bytes = serialize(b);
+assertThat(StringUtils.byteToHexString(bytes), is("000000020305"));
+b.setCapacity(11);
+assertThat(b.getLength(), is(2));
+assertThat(b.getBytes().length, is(11));
+
+#writable collectible
+ArrayWritable writable = new ArrayWritable(Text.class);
+public class TextArrayWritable extends ArrayWritable {
+	public TextArrayWritable() {
+		super(Text.class);
+	}
+}
+
+MapWritable src = new MapWritable();
+src.put(new IntWritable(1), new Text("cat"));
+src.put(new VIntWritable(2), new LongWritable(163));
+MapWritable dest = new MapWritable();
+WritableUtils.cloneInto(dest, src);
+assertThat((Text) dest.get(new IntWritable(1)), is(new Text("cat")));
+assertThat((LongWritable) dest.get(new VIntWritable(2)), is(new
+	LongWritable(163)));
+
+Writable implementation that stores a pair of Text objects
+import java.io.*;
+import org.apache.hadoop.io.*;
+public class TextPair implements WritableComparable<TextPair> {
+	private Text first;
+	private Text second;
+	public TextPair() {
+		set(new Text(), new Text());
+	}
+	public TextPair(String first, String second) {
+		set(new Text(first), new Text(second));
+	}
+	public TextPair(Text first, Text second) {
+		set(first, second);
+	}
+	public void set(Text first, Text second) {
+		this.first = first;
+		this.second = second;
+	}
+	public Text getFirst() {
+		return first;
+	}
+	public Text getSecond() {
+		return second;
+	}
+	@Override
+	public void write(DataOutput out) throws IOException {
+		first.write(out);
+		second.write(out);
+	}
+	@Override
+	public void readFields(DataInput in) throws IOException {
+		first.readFields(in);
+		second.readFields(in);
+	}
+	@Override
+	public int hashCode() {
+	return first.hashCode() * 163 + second.hashCode();
+	}
+	@Override
+	public boolean equals(Object o) {
+		if (o instanceof TextPair) {
+			TextPair tp = (TextPair) o;
+			return first.equals(tp.first) && second.equals(tp.second);
+		}
+		return false;
+	}
+	@Override
+		public String toString() {
+		return first + "\t" + second;
+	}
+	@Override
+	public int compareTo(TextPair tp) {
+		int cmp = first.compareTo(tp.first);
+		if (cmp != 0) {
+		return cmp;
+		}
+		return second.compareTo(tp.second);
+	}
+}
+
+#RawComparator for comparing TextPair byte representations
+public static class Comparator extends WritableComparator {
+	private static final Text.Comparator TEXT_COMPARATOR = new Text.Comparator();
+	public Comparator() {
+	super(TextPair.class);
+	}
+	@Override
+	public int compare(byte[] b1, int s1, int l1,
+	byte[] b2, int s2, int l2) {
+		try {
+			int firstL1 = WritableUtils.decodeVIntSize(b1[s1]) + readVInt(b1, s1);
+			int firstL2 = WritableUtils.decodeVIntSize(b2[s2]) + readVInt(b2, s2);
+			int cmp = TEXT_COMPARATOR.compare(b1, s1, firstL1, b2, s2, firstL2);
+			if (cmp != 0) {
+				return cmp;
+			}	
+			return TEXT_COMPARATOR.compare(b1, s1 + firstL1, l1 - firstL1,
+			b2, s2 + firstL2, l2 - firstL2);
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+}
+static {
+	WritableComparator.define(TextPair.class, new Comparator());
+}	
+
+#A custom RawComparator for comparing the first field of TextPair byte representations
+public static class FirstComparator extends WritableComparator {
+	private static final Text.Comparator TEXT_COMPARATOR = new Text.Comparator();
+	public FirstComparator() {
+		super(TextPair.class);
+	}
+	@Override
+	public int compare(byte[] b1, int s1, int l1,
+	byte[] b2, int s2, int l2) {
+		try {
+			int firstL1 = WritableUtils.decodeVIntSize(b1[s1]) + readVInt(b1, s1);
+			int firstL2 = WritableUtils.decodeVIntSize(b2[s2]) + readVInt(b2, s2);
+			return TEXT_COMPARATOR.compare(b1, s1, firstL1, b2, s2, firstL2);
+		} catch (IOException e) {
+			throw new IllegalArgumentException(e);
+		}
+	}
+	@Override
+	public int compare(WritableComparable a, WritableComparable b) {
+		if (a instanceof TextPair && b instanceof TextPair) {
+			return ((TextPair) a).first.compareTo(((TextPair) b).first);
+		}
+		return super.compare(a, b);
+	}
+}
+
+#In memory serialization and deserialization
+{
+	"type": "record",
+	"name": "Pair",
+	"doc": "A pair of strings.",
+	"fields": [
+		{"name": "left", "type": "string"},
+		{"name": "right", "type": "string"}
+	]
+}
+
+Schema schema = Schema.parse(getClass().getResourceAsStream("Pair.avsc"));
+GenericRecord datum = new GenericData.Record(schema);
+datum.put("left", new Utf8("L"));
+datum.put("right", new Utf8("R"));
+ByteArrayOutputStream out = new ByteArrayOutputStream();
+DatumWriter<GenericRecord> writer = new GenericDatumWriter<GenericRecord>(schema);
+Encoder encoder = new BinaryEncoder(out);
+writer.write(datum, encoder);
+encoder.flush();
+out.close();
+
+DatumReader<GenericRecord> reader = new GenericDatumReader<GenericRecord>(schema);
+Decoder decoder = DecoderFactory.defaultFactory()
+.createBinaryDecoder(out.toByteArray(), null);
+GenericRecord result = reader.read(null, decoder);
+assertThat(result.get("left").toString(), is("L"));
+assertThat(result.get("right").toString(), is("R"));
+
+#============================
+# AVRO: serialization
+#===============================
+#command line
+java -jar $AVRO_HOME/avro-tools-*.jar compile schema \
+> avro/src/main/resources/Pair.avsc avro/src/main/java
+
+Pair datum = new Pair();
+datum.left = new Utf8("L");
+datum.right = new Utf8("R");
+
+DatumWriter<Pair> writer = new SpecificDatumWriter<Pair>(Pair.class);
+Encoder encoder = new BinaryEncoder(out);
+writer.write(datum, encoder);
+encoder.flush();
+out.close();
+DatumReader<Pair> reader = new SpecificDatumReader<Pair>(Pair.class);
+Decoder decoder = DecoderFactory.defaultFactory()
+.createBinaryDecoder(out.toByteArray(), null);
+Pair result = reader.read(null, decoder);
+assertThat(result.left.toString(), is("L"));
+assertThat(result.right.toString(), is("R"));
+GenericRecord record = null;
+while (dataFileReader.hasNext()) {
+	record = dataFileReader.next(record);
+	// process record
+}
+for (GenericRecord record : dataFileReader) {
+	// process record
+}
+
+
+#=============================================================
+ A Python program for writing Avro record pairs to a data file
+#=============================================================
+import os
+import string
+import sys
+from avro import schema
+from avro import io
+from avro import datafile
+if __name__ == '__main__':
+	if len(sys.argv) != 2:
+		sys.exit('Usage: %s <data_file>' % sys.argv[0])
+	avro_file = sys.argv[1]
+	writer = open(avro_file, 'wb')
+	datum_writer = io.DatumWriter()
+	schema_object = schema.parse("""\
+{ "type": "record",
+	"name": "Pair",
+	"doc": "A pair of strings.",
+	"fields": [
+		{"name": "left", "type": "string"},
+		{"name": "right", "type": "string"}
+	]
+}""")
+	dfw = datafile.DataFileWriter(writer, datum_writer, schema_object)
+	for line in sys.stdin.readlines():
+		(left, right) = string.split(line.strip(), ',')
+		dfw.append({'left':left, 'right':right});
+dfw.close()
+
+#command line
+easy_install avro
+python avro/src/main/py/write_pairs.py pairs.avro
+
+#=======================================================
+C program for reading Avro record pairs from a data file
+#=======================================================
+#include <avro.h>
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]) {
+	if (argc != 2) {
+		fprintf(stderr, "Usage: dump_pairs <data_file>\n");
+		exit(EXIT_FAILURE);
+	}
+	const char *avrofile = argv[1];
+	avro_schema_error_t error;
+	avro_file_reader_t filereader;
+	avro_datum_t pair;
+	avro_datum_t left;
+	avro_datum_t right;
+	int rval;
+	char *p;
+	avro_file_reader(avrofile, &filereader);
+	while (1) {
+		rval = avro_file_reader_read(filereader, NULL, &pair);
+		if (rval) break;
+		if (avro_record_get(pair, "left", &left) == 0) {
+			avro_string_get(left, &p);
+			fprintf(stdout, "%s,", p);
+		}
+		if (avro_record_get(pair, "right", &right) == 0) {
+			avro_string_get(right, &p);
+			fprintf(stdout, "%s\n", p);
+		}
+	}
+	avro_file_reader_close(filereader);
+	return 0;
+}
+
+#command line
+./dump_pairs pairs.avro
+
+{
+	"type": "record",
+	"name": "Pair",
+	"doc": "A pair of strings with an added field.",
+	"fields": [
+		{"name": "left", "type": "string"},
+		{"name": "right", "type": "string"},
+		{"name": "description", "type": "string", "default": ""}
+	]
+}
+
+DatumReader<GenericRecord> reader =
+	new GenericDatumReader<GenericRecord>(schema, newSchema);
+Decoder decoder = DecoderFactory.defaultFactory()
+	.createBinaryDecoder(out.toByteArray(), null);
+GenericRecord result = reader.read(null, decoder);
+assertThat(result.get("left").toString(), is("L"));
+assertThat(result.get("right").toString(), is("R"));
+assertThat(result.get("description").toString(), is(""));
+
+{
+	"type": "record",
+	"name": "Pair",
+	"doc": "The right field of a pair of strings.",
+	"fields": [
+		{"name": "right", "type": "string"}
+	]
+}
+
+{
+	"type": "record",
+	"name": "Pair",
+	"doc": "A pair of strings, sorted by right field descending.",
+	"fields": [
+		{"name": "left", "type": "string", "order": "ignore"},
+		{"name": "right", "type": "string", "order": "descending"}
+	]
+}
+
+{
+	"type": "record",
+	"name": "Pair",
+	"doc": "A pair of strings, sorted by right then left.",
+	"fields": [
+		{"name": "right", "type": "string"},
+		{"name": "left", "type": "string"}
+	]
+}
+
+#Writing a SequenceFile
+public class SequenceFileWriteDemo {
+	private static final String[] DATA = {
+	"One, two, buckle my shoe",
+	"Three, four, shut the door",
+	"Five, six, pick up sticks",
+	"Seven, eight, lay them straight",
+	"Nine, ten, a big fat hen"
+	};
+	public static void main(String[] args) throws IOException {
+		String uri = args[0];
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(URI.create(uri), conf);
+		Path path = new Path(uri);
+		IntWritable key = new IntWritable();
+		Text value = new Text();
+		SequenceFile.Writer writer = null;
+		try {
+			writer = SequenceFile.createWriter(fs, conf, path,
+			key.getClass(), value.getClass());
+			for (int i = 0; i < 100; i++) {
+				key.set(100 - i);
+				value.set(DATA[i % DATA.length]);
+				System.out.printf("[%s]\t%s\t%s\n", writer.getLength(), key, value);
+				writer.append(key, value);
+			}
+		} finally {
+			IOUtils.closeStream(writer);
+		}
+	}
+}
+
+#command line
+hadoop SequenceFileWriteDemo numbers.seq
+
+public Object next(Object key) throws IOException
+public Object getCurrentValue(Object val) throws IOException
+
+#Reading a SequenceFile
+public class SequenceFileReadDemo {
+	public static void main(String[] args) throws IOException {
+		String uri = args[0];
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(URI.create(uri), conf);
+		Path path = new Path(uri);
+		SequenceFile.Reader reader = null;
+		try {
+			reader = new SequenceFile.Reader(fs, path, conf);
+			Writable key = (Writable)
+			ReflectionUtils.newInstance(reader.getKeyClass(), conf);
+			Writable value = (Writable)
+			ReflectionUtils.newInstance(reader.getValueClass(), conf);
+			long position = reader.getPosition();
+			while (reader.next(key, value)) {
+				String syncSeen = reader.syncSeen() ? "*" : "";
+				System.out.printf("[%s%s]\t%s\t%s\n", position, syncSeen, key, value);
+				position = reader.getPosition(); // beginning of next record
+			}
+		} finally {
+			IOUtils.closeStream(reader);
+		}
+	}
+}
+
+#command line
+hadoop SequenceFileReadDemo numbers.seq
+
+reader.seek(359);
+assertThat(reader.next(key, value), is(true));
+assertThat(((IntWritable) key).get(), is(95));
+
+reader.sync(360);
+assertThat(reader.getPosition(), is(2021L));
+assertThat(reader.next(key, value), is(true));
+assertThat(((IntWritable) key).get(), is(59));
+
+hadoop fs -text numbers.seq | head
+
+hadoop jar $HADOOP_INSTALL/hadoop-*-examples.jar sort -r 1 \
+	-inFormat org.apache.hadoop.mapred.SequenceFileInputFormat \
+	-outFormat org.apache.hadoop.mapred.SequenceFileOutputFormat \
+	-outKey org.apache.hadoop.io.IntWritable \
+	-outValue org.apache.hadoop.io.Text \
+	numbers.seq sorted
+hadoop fs -text sorted/part-00000 | head
+
+#Writing a MapFile
+public class MapFileWriteDemo {
+	private static final String[] DATA = {
+		"One, two, buckle my shoe",
+		"Three, four, shut the door",
+		"Five, six, pick up sticks",
+		"Seven, eight, lay them straight",
+		"Nine, ten, a big fat hen"
+	};
+	public static void main(String[] args) throws IOException {
+		String uri = args[0];
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(URI.create(uri), conf);
+		IntWritable key = new IntWritable();
+		Text value = new Text();
+		MapFile.Writer writer = null;
+		try {
+			writer = new MapFile.Writer(conf, fs, uri,
+			key.getClass(), value.getClass());
+			for (int i = 0; i < 1024; i++) {
+				key.set(i + 1);
+				value.set(DATA[i % DATA.length]);
+				writer.append(key, value);
+			}
+		} finally {
+			IOUtils.closeStream(writer);
+		}
+	}
+}
+
+#command line
+hadoop MapFileWriteDemo numbers.map
+ls -l numbers.map
+hadoop fs -text numbers.map/data | head
+hadoop fs -text numbers.map/index
+
+#Reading a map file
+public boolean next(WritableComparable key, Writable val) throws IOException
+public Writable get(WritableComparable key, Writable val) throws IOException
+Text value = new Text();
+reader.get(new IntWritable(496), value);
+assertThat(value.toString(), is("One, two, buckle my shoe"));
+
+#Re-creating the index for a MapFile
+public class MapFileFixer {
+	public static void main(String[] args) throws Exception {
+		String mapUri = args[0];
+		Configuration conf = new Configuration();
+		FileSystem fs = FileSystem.get(URI.create(mapUri), conf);
+		Path map = new Path(mapUri);
+		Path mapData = new Path(map, MapFile.DATA_FILE_NAME);
+		// Get key and value types from data sequence file
+		SequenceFile.Reader reader = new SequenceFile.Reader(fs, mapData, conf);
+		Class keyClass = reader.getKeyClass();
+		Class valueClass = reader.getValueClass();
+		reader.close();
+		// Create the map file index file
+		long entries = MapFile.fix(fs, map, keyClass, valueClass, false, conf);
+		System.out.printf("Created MapFile %s with %d entries\n", map, entries);
+	}
+}
+
+#command line
+hadoop jar $HADOOP_INSTALL/hadoop-*-examples.jar sort -r 1 \
+-inFormat org.apache.hadoop.mapred.SequenceFileInputFormat \
+-outFormat org.apache.hadoop.mapred.SequenceFileOutputFormat \
+-outKey org.apache.hadoop.io.IntWritable \
+-outValue org.apache.hadoop.io.Text \
+numbers.seq numbers.map
+
+hadoop fs -mv numbers.map/part-00000 numbers.map/data
+hadoop MapFileFixer numbers.map
+
+#A simple configuration file, configuration-1.xml
+<?xml version="1.0"?>
+<configuration>
+	<property>
+		<name>color</name>
+		<value>yellow</value>
+		<description>Color</description>
+	</property>
+	<property>
+		<name>size</name>
+		<value>10</value>
+		<description>Size</description>
+	</property>
+	<property>
+		<name>weight</name>
+		<value>heavy</value>
+		<final>true</final>
+		<description>Weight</description>
+	</property>
+	<property>
+		<name>size-weight</name>
+		<value>${size},${weight}</value>
+		<description>Size and weight</description>
+	</property>
+</configuration>
+
+Configuration conf = new Configuration();
+conf.addResource("configuration-1.xml");
+assertThat(conf.get("color"), is("yellow"));
+assertThat(conf.getInt("size", 0), is(10));
+assertThat(conf.get("breadth", "wide"), is("wide"));
+
+#commbining resources
+<?xml version="1.0"?>
+<configuration>
+	<property>
+		<name>size</name>
+		<value>12</value>
+	</property>
+	<property>
+		<name>weight</name>
+		<value>light</value>
+	</property>
+</configuration>
+
+Configuration conf = new Configuration();
+conf.addResource("configuration-1.xml");
+conf.addResource("configuration-2.xml");
+
+assertThat(conf.getInt("size", 0), is(12));
+assertThat(conf.get("weight"), is("heavy"));
+assertThat(conf.get("size-weight"), is("12,heavy"));
+
+System.setProperty("size", "14");
+assertThat(conf.get("size-weight"), is("14,heavy"));
+
+System.setProperty("length", "2");
+assertThat(conf.get("length"), is((String) null));
+
+<?xml version="1.0"?>
+<configuration>
+<property>
+	<name>fs.default.name</name>
+	<value>file:///</value>
+</property>
+<property>
+	<name>mapred.job.tracker</name>
+	<value>local</value>
+</property>
+</configuration>
+
+<?xml version="1.0"?>
+<configuration>
+	<property>
+		<name>fs.default.name</name>
+		<value>hdfs://localhost/</value>
+	</property>
+	<property>
+		<name>mapred.job.tracker</name>
+		<value>localhost:8021</value>
+	</property>
+</configuration>
+
+<configuration>
+	<property>
+		<name>fs.default.name</name>
+		<value>hdfs://namenode/</value>
+	</property>
+	<property>
+		<name>mapred.job.tracker</name>
+		<value>jobtracker:8021</value>
+	</property>
+</configuration>
+
+hadoop fs -conf conf/hadoop-localhost.xml -ls .
+
+#An example Tool implementation for printing the properties in a Configuration
+public class ConfigurationPrinter extends Configured implements Tool {
+	static {
+		Configuration.addDefaultResource("hdfs-default.xml");
+		Configuration.addDefaultResource("hdfs-site.xml");
+		Configuration.addDefaultResource("mapred-default.xml");
+		Configuration.addDefaultResource("mapred-site.xml");
+	}
+	@Override
+	public int run(String[] args) throws Exception {
+		Configuration conf = getConf();
+		for (Entry<String, String> entry: conf) {
+			System.out.printf("%s=%s\n", entry.getKey(), entry.getValue());
+		}
+		return 0;
+	}
+	public static void main(String[] args) throws Exception {
+		int exitCode = ToolRunner.run(new ConfigurationPrinter(), args);
+		System.exit(exitCode);
+	}
+}
+
+#command line
+hadoop ConfigurationPrinter -conf conf/hadoop-localhost.xml \
+| grep mapred.job.tracker=
+
+#Unit test for MaxTemperatureMapper
+import static org.mockito.Mockito.*;
+import java.io.IOException;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapred.OutputCollector;
+import org.junit.*;
+public class MaxTemperatureMapperTest {
+	@Test
+	public void processesValidRecord() throws IOException {
+		MaxTemperatureMapper mapper = new MaxTemperatureMapper();
+		Text value = new Text("0043011990999991950051518004+68750+023550FM-12+0382" +
+		// Year ^^^^
+		"99999V0203201N00261220001CN9999999N9-00111+99999999999");
+		// Temperature ^^^^^
+		OutputCollector<Text, IntWritable> output = mock(OutputCollector.class);
+		mapper.map(null, value, output, null);
+		verify(output).collect(new Text("1950"), new IntWritable(-11));
+	}
+}
+
+#First version of a Mapper that passes MaxTemperatureMapperTest
+public class MaxTemperatureMapper extends MapReduceBase
+implements Mapper<LongWritable, Text, Text, IntWritable> {
+public void map(LongWritable key, Text value,
+	OutputCollector<Text, IntWritable> output, Reporter reporter)
+	throws IOException {
+		String line = value.toString();
+		String year = line.substring(15, 19);
+		int airTemperature = Integer.parseInt(line.substring(87, 92));
+		output.collect(new Text(year), new IntWritable(airTemperature));
+	}
+}
+
+public void ignoresMissingTemperatureRecord() throws IOException {
+	MaxTemperatureMapper mapper = new MaxTemperatureMapper();
+	Text value = new Text("0043011990999991950051518004+68750+023550FM-12+0382" +
+	// Year ^^^^
+	"99999V0203201N00261220001CN9999999N9+99991+99999999999");
+	// Temperature ^^^^^
+	OutputCollector<Text, IntWritable> output = mock(OutputCollector.class);
+	mapper.map(null, value, output, null);
+	verify(output, never()).collect(any(Text.class), any(IntWritable.class));
+}
+
+public void map(LongWritable key, Text value,
+OutputCollector<Text, IntWritable> output, Reporter reporter)
+throws IOException {
+	String line = value.toString();
+	String year = line.substring(15, 19);
+	String temp = line.substring(87, 92);
+	if (!missing(temp)) {
+		int airTemperature = Integer.parseInt(temp);
+		output.collect(new Text(year), new IntWritable(airTemperature));
+	}
+}
+private boolean missing(String temp) {
+	return temp.equals("+9999");
+}
+
+#reducer
+@Test
+public void returnsMaximumIntegerInValues() throws IOException {
+	MaxTemperatureReducer reducer = new MaxTemperatureReducer();
+	Text key = new Text("1950");
+	Iterator<IntWritable> values = Arrays.asList(
+	new IntWritable(10), new IntWritable(5)).iterator();
+	OutputCollector<Text, IntWritable> output = mock(OutputCollector.class);
+	reducer.reduce(key, values, output, null);
+	verify(output).collect(key, new IntWritable(10));
+}
+
+public class MaxTemperatureReducer extends MapReduceBase
+implements Reducer<Text, IntWritable, Text, IntWritable> {
+public void reduce(Text key, Iterator<IntWritable> values,
+	OutputCollector<Text, IntWritable> output, Reporter reporter)
+	throws IOException {
+	int maxValue = Integer.MIN_VALUE;
+	while (values.hasNext()) {
+		maxValue = Math.max(maxValue, values.next().get());
+	}
+		output.collect(key, new IntWritable(maxValue));
+	}
+}
+
+#running a job in a local runner
+
+Application to find the maximum temperature
+public class MaxTemperatureDriver extends Configured implements Tool {
+	@Override
+	public int run(String[] args) throws Exception {
+		if (args.length != 2) {
+			System.err.printf("Usage: %s [generic options] <input> <output>\n",
+			getClass().getSimpleName());
+			ToolRunner.printGenericCommandUsage(System.err);
+			return -1;
+		}
+		JobConf conf = new JobConf(getConf(), getClass());
+		conf.setJobName("Max temperature");
+		FileInputFormat.addInputPath(conf, new Path(args[0]));
+		FileOutputFormat.setOutputPath(conf, new Path(args[1]));
+		conf.setOutputKeyClass(Text.class);
+		conf.setOutputValueClass(IntWritable.class);
+		conf.setMapperClass(MaxTemperatureMapper.class);
+		conf.setCombinerClass(MaxTemperatureReducer.class);
+		conf.setReducerClass(MaxTemperatureReducer.class);
+		JobClient.runJob(conf);
+	return 0;
+	}
+	public static void main(String[] args) throws Exception {
+		int exitCode = ToolRunner.run(new MaxTemperatureDriver(), args);
+		System.exit(exitCode);
+	}
+}
+
+#command line
+hadoop v2.MaxTemperatureDriver -conf conf/hadoop-local.xml \
+input/ncdc/micro max-temp
+hadoop v2.MaxTemperatureDriver -fs file:/// -jt local input/ncdc/micro max-temp
+
+java.lang.NumberFormatException: For input string: "+0000"
+
+A class for parsing weather records in NCDC format
+public class NcdcRecordParser {
+	private static final int MISSING_TEMPERATURE = 9999;
+	private String year;
+	private int airTemperature;
+	private String quality;
+	public void parse(String record) {
+	year = record.substring(15, 19);
+	String airTemperatureString;
+	// Remove leading plus sign as parseInt doesn't like them
+	if (record.charAt(87) == '+') {
+		airTemperatureString = record.substring(88, 92);
+	} else {
+		airTemperatureString = record.substring(87, 92);
+	}
+	airTemperature = Integer.parseInt(airTemperatureString);
+		quality = record.substring(92, 93);
+	}
+	public void parse(Text record) {
+		parse(record.toString());
+	}
+	public boolean isValidTemperature() {
+		return airTemperature != MISSING_TEMPERATURE && quality.matches("[01459]");
+	}
+	public String getYear() {
+		return year;
+	}
+	public int getAirTemperature() {
+		return airTemperature;
+	}
+}
+
+#A Mapper that uses a utility class to parse records
+public class MaxTemperatureMapper extends MapReduceBase
+	implements Mapper<LongWritable, Text, Text, IntWritable> {
+	private NcdcRecordParser parser = new NcdcRecordParser();
+	public void map(LongWritable key, Text value,
+	OutputCollector<Text, IntWritable> output, Reporter reporter)
+	throws IOException {
+		parser.parse(value);
+		if (parser.isValidTemperature()) {
+			output.collect(new Text(parser.getYear()),
+			new IntWritable(parser.getAirTemperature()));
+		}
+	}
+}
+
+A test for MaxTemperatureDriver that uses a local, in-process job runner
+@Test
+public void test() throws Exception {
+	JobConf conf = new JobConf();
+	conf.set("fs.default.name", "file:///");
+	conf.set("mapred.job.tracker", "local");
+	Path input = new Path("input/ncdc/micro");
+	Path output = new Path("output");
+	FileSystem fs = FileSystem.getLocal(conf);
+	fs.delete(output, true); // delete old output
+	MaxTemperatureDriver driver = new MaxTemperatureDriver();
+	driver.setConf(conf);
+	int exitCode = driver.run(new String[] {
+	input.toString(), output.toString() });
+	assertThat(exitCode, is(0));
+	checkOutput(conf, output);
+}
