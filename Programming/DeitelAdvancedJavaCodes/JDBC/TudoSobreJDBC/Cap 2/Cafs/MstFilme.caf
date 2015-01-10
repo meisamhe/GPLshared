@@ -1,0 +1,20 @@
+JAN:269:122:322:239:0
+Mostra Filme
+MstFilme
+
+LIS:44:36:210:140:0
+lbFoto
+lbFoto
+
+BUT:5:253:30:100:4
+Anterior
+btAnterior
+
+BUT:124:253:30:100:4
+Proximo
+btProximo
+
+LAB:13:14:13:200:0
+[Nome Filme]
+lbNomFilme
+

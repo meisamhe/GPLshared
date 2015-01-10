@@ -1,0 +1,32 @@
+JAN:221:224:197:264:0
+Entrada do Sistema
+JanSenha
+
+LAB:48:28:13:57:0
+Usuário
+JLabel1
+
+LAB:52:56:13:57:0
+Senha
+JLabel2
+
+TXF:110:24:21:100:0
+
+edUsuario
+
+PWD:110:53:21:100:0
+
+edSenha
+
+BUT:6:97:30:100:0
+OK
+btOK
+
+BUT:146:97:30:100:0
+Cancelar
+btCancelar
+
+LAB:27:147:13:200:0
+Informe o Usuário e a Senha
+lbStatus
+

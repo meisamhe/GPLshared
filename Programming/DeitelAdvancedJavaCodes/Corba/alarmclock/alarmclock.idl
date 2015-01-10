@@ -1,0 +1,19 @@
+// alarmclock.idl
+// The IDL for the AlarmClock example
+
+module alarm {
+   interface AlarmListener {
+      void updateTime( in long long newTime );
+   };
+
+   interface AlarmClock {
+      const string NAME = "AlarmClock";
+
+      oneway void addAlarmListener( in string listenerName,
+         in AlarmListener listener );
+
+      void setAlarm( in string listenerName,
+         in long long seconds );
+   };
+};
+

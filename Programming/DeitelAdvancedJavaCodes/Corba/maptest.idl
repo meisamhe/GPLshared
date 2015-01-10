@@ -1,0 +1,52 @@
+/*
+ * Todos comentários colocados fora do modulo (module) são ignorados
+ * pelo compilador IDL.  Portanto, este comentário não aparecerá nos 
+ * arquivos gerados pelo idlj.
+ */
+
+
+module maptest {
+
+   // Este comentário aparecerá nos arquivos gerados para StructMap
+   struct StructMap {
+
+      // Este comentário aparecerá no inicio das declarações de tipo
+      boolean boolValue;
+      char charValue;
+      wchar wCharValue;
+      octet octetValue;
+      string stringValue;
+      wstring wStringValue;
+      short shortValue;
+      unsigned short uShortValue;
+      long longValue;
+      unsigned long uLongValue;
+      long long longLongValue;
+      unsigned long long uLongLongValue;
+      float floatValue;
+      double doubleValue;
+   };
+
+   typedef sequence <StructMap> StructMapSeq;
+   typedef sequence <StructMap, 5> BoundStructMapSeq;
+
+   // typedef StructMap BoundStructMapSeq[5];
+   typedef long IntArray[ 5 ];
+
+   // Este comentário aparecerá acima da 
+   // declaração de interface para interfaceName
+   interface interfaceName {
+
+      // comentário acima do atributo leitura-escrita
+      attribute long anAttribute;
+      readonly attribute long roAttribute;
+      const long constantValue = 42;
+
+      // comentário acima dos métodos
+      void seqMethod( in StructMapSeq seq );
+      void boundSeqMethod( in BoundStructMapSeq seq );
+      void arrayMethod( in IntArray array );
+      void intOutMethod( inout long intValue );
+   };
+
+}; // fim módulo

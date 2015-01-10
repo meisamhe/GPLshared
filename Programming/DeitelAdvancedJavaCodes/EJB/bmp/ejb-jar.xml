@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN"
+"http://java.sun.com/dtd/ejb-jar_2_0.dtd">
+
+
+<ejb-jar>
+  <description>Your first EJB application </description>
+  <display-name>Products Application</display-name>
+  <enterprise-beans>
+    <entity>
+      <ejb-name>BMPProduct</ejb-name>
+      <home>bmp.ProductHome</home>
+      <remote>bmp.Product</remote>
+      <ejb-class>bmp.ProductBean</ejb-class>
+      <persistence-type>Bean</persistence-type>
+      <prim-key-class>bmp.ProductPK</prim-key-class>
+      <reentrant>false</reentrant>
+      <env-entry>
+        <env-entry-name>dbUrl</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>jdbc:mysql://localhost/MyDB</env-entry-value>
+      </env-entry>
+      <env-entry>
+        <env-entry-name>dbUserName</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>root</env-entry-value>
+      </env-entry>
+      <env-entry>
+        <env-entry-name>dbPassword</env-entry-name>
+        <env-entry-type>java.lang.String</env-entry-type>
+        <env-entry-value>supersenha</env-entry-value>
+      </env-entry>
+    </entity>
+  </enterprise-beans>
+</ejb-jar>

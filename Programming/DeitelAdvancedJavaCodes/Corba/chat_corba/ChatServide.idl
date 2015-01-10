@@ -1,0 +1,29 @@
+module chat {
+   struct Mensagem {
+       string origem;    
+       string mensagem;
+   };
+
+   typedef sequence<string> ListaClientes;
+
+   module cliente {
+       interface ClientListener {
+           void addApelido (in string apelido);
+           void delApelido (in string apelido);
+           void recebeMensagem (in Mensagem msg);
+       };
+   }; //cliente
+
+   module servidor {
+       interface ChatService {
+           ListaClientes conectar (in string apelido, 
+                                   in cliente::ClientListener listener);
+           void desconectar (in string apelido,
+                             in cliente::ClientListener listener);
+           void enviaMensagem (in string apelido, in Mensagem msg); 
+             
+       }; 
+   }; //servidor 
+
+};
+

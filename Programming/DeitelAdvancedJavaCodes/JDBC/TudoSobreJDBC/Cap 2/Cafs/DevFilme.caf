@@ -1,0 +1,24 @@
+JAN:212:72:316:292:0
+Devolução de Filmes
+devFilme
+
+LAB:9:21:13:57:0
+Cliente:
+JLabel1
+
+LAB:17:58:13:100:0
+Filmes Alugados
+JLabel2
+
+CBX:75:16:21:200:4
+cbCliente
+cbCliente
+
+LIS:15:78:160:260:0
+lsFilme
+lsFilme
+
+BUT:175:247:30:100:4
+Devolver
+btDevolver
+
