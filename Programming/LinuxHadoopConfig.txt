@@ -672,6 +672,203 @@ hadoop fs -lsr har:///my/files.har/my/files/dir
 hadoop fs -lsr har://hdfs-localhost:8020/my/files.har/my/files/dir
 hadoop fs -rmr /my/files.har
 
+#trash
+hadoop fs -expunge
+
+#account creation
+hadoop fs -mkdir /user/username
+hadoop fs -chown username:username /user/username
+hadoop dfsadmin -setSpaceQuota 1t /user/username
+
+#copy a local file to HDFS
+hadoop fs -put quangle.txt
+
+#authenticating KDC
+kinit
+hadoop fs -put quangle.txt .
+hadoop fs -stat %n quangle.txt
+
+#hadoop benchmarks
+hadoop jar $HADOOP_INSTALL/hadoop-*-test.jar
+hadoop jar $HADOOP_INSTALL/hadoop-*-test.jar TestDFSIO
+
+#benchmarking HDFS with TestDFSIO
+hadoop jar $HADOOP_INSTALL/hadoop-*-test.jar TestDFSIO -write -nrFiles 10
+	-fileSize 1000
+cat TestDFSIO_results.log
+hadoop jar $HADOOP_INSTALL/hadoop-*-test.jar TestDFSIO -read -nrFiles 10
+	-fileSize 1000
+
+#benchmarking map-reduce with sort
+hadoop jar $HADOOP_INSTALL/hadoop-*-examples.jar randomwriter random-data
+hadoop jar $HADOOP_INSTALL/hadoop-*-examples.jar sort random-data sorted-data
+hadoop jar $HADOOP_INSTALL/hadoop-*-test.jar testmapredsort -sortInput random-data \
+	-sortOutput sorted-data
+
+#launching a cluster
+hadoop-ec2 launch-cluster test-hadoop-cluster 5
+eval 'hadoop-ec2 proxy test-hadoop-cluster'
+
+#running a map reduce job
+export HADOOP_CONF_DIR=~/.hadoop-cloud/test-hadoop-cluster
+hadoop distcp s3n://hadoopbook/ncdc/all input/ncdc/all
+hadoop jar job.jar MaxTemperatureWithCombiner input/ncdc/all output
+hadoop jar job.jar MaxTemperatureWithCombiner s3n://hadoopbook/ncdc/all output
+
+#Terminating a cluster
+hadoop-ec2 terminate-cluster test-hadoop-cluster
+kill $HADOOP_CLOUD_PROXY_PID
+
+#entering and leaving safe mode
+hadoop dfsadmin -safemode get
+hadoop dfsadmin -safemode wait
+hadoop dfsadmin -safemode enter
+hadoop dfsadmin -safemode leave
+
+#setting log levels
+hadoop daemonlog -setlevel jobtracker-host:50030 \
+	org.apache.hadoop.mapred.JobTracker DEBUG
+
+#start the upgrade
+$NEW_HADOOP_INSTALL/bin/start-dfs.sh -upgrade
+
+#wait until the upgrade is complete
+$NEW_HADOOP_INSTALL/bin/hadoop dfsadmin -upgradeProgress status
+
+#Roll back the upgrade
+$NEW_HADOOP_INSTALL/bin/stop-dfs.sh
+
+#start the old version with Roll back
+$OLD_HADOOP_INSTALL/bin/start-dfs.sh -rollback
+
+#finalizing the upgrade
+$NEW_HADOOP_INSTALL/bin/hadoop dfsadmin -finalizeUpgrade
+$NEW_HADOOP_INSTALL/bin/hadoop dfsadmin -upgradeProgress status	
+
+#======================================================================================================================
+#Installation of Pig
+#======================================================================================================================
+tar xzf pig-x.y.z.tar.gz
+export PIG_INSTALL=/home/tom/pig-x.y.z
+export PATH=$PATH:$PIG_INSTALL/bin
+
+#local mode
+pig -x local
+
+#map reduce mode
+export PIG_HADOOP_VERSION=18
+export PIG_CLASSPATH=$HADOOP_INSTALL/conf/
+pig
+
+a = foreach b ge
+a = foreach b generate
+records = LOAD 'input/ncdc/micro-tab/sample.txt'
+	AS (year:chararray, temperature:int, quality:int);
+
+DUMP records;
+DESCRIBE records;
+
+filtered_records = FILTER records BY temperature != 9999 AND
+	(quality == 0 OR quality == 1 OR quality == 4 OR quality == 5 OR quality == 9);
+DUMP filtered_records;
+
+grouped_records = GROUP filtered_records BY year;
+DUMP grouped_records;
+DESCRIBE grouped_records;
+max_temp = FOREACH grouped_records GENERATE group,
+	MAX(filtered_records.temperature);
+DUMP max_temp;
+
+ILLUSTRATE max_temp;
+grouped_records = GROUP records BY year;
+
+records = LOAD 'input/ncdc/micro-tab/sample.txt'
+	AS (year:chararray, temperature:int, quality:int);
+	
+-- My program
+DUMP A; -- What's in A?
+
+/*
+* Description of my program spanning
+* multiple lines.
+*/
+A = LOAD 'input/pig/join/A';
+B = LOAD 'input/pig/join/B';
+C = JOIN A BY $0, /* ignored */ B BY $1;
+DUMP C;
+
+-- max_temp.pig: Finds the maximum temperature by year
+records = LOAD 'input/ncdc/micro-tab/sample.txt'
+AS (year:chararray, temperature:int, quality:int);
+filtered_records = FILTER records BY temperature != 9999 AND
+(quality == 0 OR quality == 1 OR quality == 4 OR quality == 5 OR quality == 9);
+grouped_records = GROUP filtered_records BY year;
+max_temp = FOREACH grouped_records GENERATE group,
+MAX(filtered_records.temperature);
+DUMP max_temp;
+
+#Multi query execution
+A = LOAD 'input/pig/multiquery/A';
+B = FILTER A BY $1 == 'banana';
+C = FILTER A BY $1 != 'banana';
+STORE B INTO 'output/b';
+STORE C INTO 'output/c';
+
+set debug on
+records = LOAD 'input/ncdc/micro-tab/sample.txt'
+	AS (year:int, temperature:int, quality:int);
+DESCRIBE records;
+
+records = LOAD 'input/ncdc/micro-tab/sample.txt'
+	AS (year, temperature, quality);
+DESCRIBE records;
+
+records = LOAD 'input/ncdc/micro-tab/sample.txt'
+	AS (year, temperature:int, quality:int);
+DESCRIBE records;
+
+records = LOAD 'input/ncdc/micro-tab/sample.txt';
+DESCRIBE records;
+
+projected_records = FOREACH records GENERATE $0, $1, $2;
+DUMP projected_records;
+DESCRIBE projected_records;
+
+records = LOAD 'input/ncdc/micro-tab/sample_corrupt.txt'
+	AS (year:chararray, temperature:int, quality:int);
+DUMP records;
+
+corrupt_records = FILTER records BY temperature is null;
+DUMP corrupt_records;
+
+grouped = GROUP corrupt_records ALL;
+all_grouped = FOREACH grouped GENERATE group, COUNT(corrupt_records);
+DUMP all_grouped;
+
+SPLIT records INTO good_records IF temperature is not null,
+	bad_records IF temperature is null;
+DUMP good_records;
+
+DEFINE isGood com.hadoopbook.pig.IsGoodQuality();
+filtered_records = FILTER records BY temperature != 9999 AND isGood(quality);
+
+STORE A INTO 'out' USING PigStorage(':');
+cat out
+
+C = JOIN A BY $0, B BY $1;
+DUMP C;
+
+C = JOIN A BY $0 LEFT OUTER, B BY $1;
+D = COGROUP A BY $0, B BY $1;
+E = COGROUP A BY $0 INNER, B BY $1;
+F = FOREACH E GENERATE FLATTEN(A), B.$0;
+I = CROSS A, B;
+B = ORDER A BY $0, $1 DESC;
+
+#parallelization
+grouped_records = GROUP records BY year PARALLEL 30;	
+
+	
 #======================================================================================================================
 #Installation of Hive
 #======================================================================================================================
@@ -693,6 +890,38 @@ $HADOOP_HOME/bin/hadoop fs -chmod 777   /user/hive/warehouse
 # To use the Hive command line interface (CLI) from the shell:
 $HIVE_HOME/bin/hive
 
+hive -f script.q
+hive -e 'SELECT * FROM dummy'
+echo 'X' > /tmp/dummy.txt
+hive -e "CREATE TABLE dummy (value STRING); \
+	LOAD DATA LOCAL INPATH '/tmp/dummy.txt' \
+	OVERWRITE INTO TABLE dummy"
+hive -S -e 'SELECT * FROM dummy'
+
+hive> SELECT year, MAX(temperature)
+> FROM records
+> WHERE temperature != 9999
+> AND (quality = 0 OR quality = 1 OR quality = 4 OR quality = 5 OR quality = 9)
+> GROUP BY year;
+
+CREATE TABLE logs (ts BIGINT, line STRING)
+	PARTITIONED BY (dt STRING, country STRING);
+	
+SHOW PARTITIONS logs;
+
+CREATE TABLE bucketed_users (id INT, name STRING)
+CLUSTERED BY (id) INTO 4 BUCKETS;
+
+hive> SELECT * FROM bucketed_users
+	> TABLESAMPLE(BUCKET 1 OUT OF 4 ON id);
+
+#Regx
+CREATE TABLE stations (usaf STRING, wban STRING, name STRING)
+ROW FORMAT SERDE 'org.apache.hadoop.hive.contrib.serde2.RegexSerDe'
+WITH SERDEPROPERTIES (
+	"input.regex" = "(\\d{6}) (\\d{5}) (.{29}) .*"
+);	
+	
 # Creating tables
 hive> CREATE TABLE pokes (foo INT, bar STRING);
 hive> CREATE TABLE invites (foo INT, bar STRING) PARTITIONED BY (ds STRING);
@@ -832,6 +1061,39 @@ hive -e 'select books from table' > /home/lvermeer/temp.tsv
 #That gives me a tab-separated file that I can use. 
 
 #======================================================================================================================================
+#installing HBase
+#======================================================================================================================================
+% tar xzf hbase-x.y.z.tar.gz
+% export HBASE_HOME=/home/hbase/hbase-x.y.z
+% export PATH=$PATH:$HBASE_HOME/bin
+% hbase
+% start-hbase.sh
+% hbase shell
+
+hbase(main):007:0> create 'test', 'data'
+list
+
+hbase(main):021:0> put 'test', 'row1', 'data:1', 'value1'
+hbase(main):022:0> put 'test', 'row2', 'data:2', 'value2'
+scan 'test'
+
+disable 'test'
+drop 'test'
+
+% stop-hbase.sh
+
+#Avro
+#==========
+% hbase-daemon.sh start rest
+% hbase-daemon.sh stop rest
+% hbase-daemon.sh start thrift
+% hbase-daemon.sh stop thrift
+
+hbase(main):036:0> create 'stations', {NAME => 'info', VERSIONS => 1}
+hbase(main):037:0> create 'observations', {NAME => 'data', VERSIONS => 1}
+
+
+#======================================================================================================================================
 #installing spark and Mahout
 #======================================================================================================================================
 #Download Apache Spark 0.9.1 and unpack the archive file
@@ -943,7 +1205,211 @@ val betaWithBiasTerm = ols(cachedDrmX, y)
 val goodness = goodnessOfFit(cachedDrmX, betaWithBiasTerm, y)
 cachedDrmX.uncache()
 goodness
- 
+
+
+#==============================================================
+# ZOO Keeper
+#==============================================================
+% tar xzf zookeeper-x.y.z.tar.gz
+% export ZOOKEEPER_INSTALL=/home/tom/zookeeper-x.y.z
+% export PATH=$PATH:$ZOOKEEPER_INSTALL/bin
+
+% zkServer.sh start
+
+% echo ruok | nc localhost 2181
+
+% export CLASSPATH=build/classes:$ZOOKEEPER_INSTALL/*:$ZOOKEEPER_INSTALL/lib/*:\
+	$ZOOKEEPER_INSTALL/conf
+% java CreateGroup localhost zoo
+
+% java ListGroup localhost zoo
+
+% java JoinGroup localhost zoo duck &
+% java JoinGroup localhost zoo cow &
+% java JoinGroup localhost zoo goat &
+% goat_pid=$!
+
+% java ListGroup localhost zoo
+
+%
+kill $goat_pid
+
+% java ListGroup localhost zoo
+
+% zkCli.sh localhost ls /zoo
+
+% java DeleteGroup localhost zoo
+% java ListGroup localhost zoo
+
+% java ConfigUpdater localhost
+% java ConfigWatcher localhost
+
+#=================================================================
+# Sqoop
+#=================================================================
+% sqoop
+% sqoop help
+% sqoop help import
+% mysql -u root -p
+mysql> CREATE DATABASE hadoopguide;
+mysql> GRANT ALL PRIVILEGES ON hadoopguide.* TO '%'@'localhost';
+mysql> GRANT ALL PRIVILEGES ON hadoopguide.* TO ''@'localhost';
+mysql> quit;
+
+% mysql hadoopguide
+
+mysql> CREATE TABLE widgets(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+-> widget_name VARCHAR(64) NOT NULL,
+-> price DECIMAL(10,2),
+-> design_date DATE,
+-> version INT,
+-> design_comment VARCHAR(100));
+
+mysql> INSERT INTO widgets VALUES (NULL, 'sprocket', 0.25, '2010-02-10',
+-> 1, 'Connects two gizmos');
+
+mysql> INSERT INTO widgets VALUES (NULL, 'gizmo', 4.00, '2009-11-30', 4,
+-> NULL);
+
+mysql> INSERT INTO widgets VALUES (NULL, 'gadget', 99.99, '1983-08-13',
+-> 13, 'Our flagship product');
+
+mysql> quit;
+
+% sqoop import --connect jdbc:mysql://localhost/hadoopguide \
+> --table widgets -m 1
+
+% hadoop fs -cat widgets/part-m-00000
+
+% sqoop codegen --connect jdbc:mysql://localhost/hadoopguide \
+> --table widgets --class-name Widget
+
+% jar cvvf widgets.jar *.class
+% HADOOP_CLASSPATH=/usr/lib/sqoop/sqoop-version.jar hadoop jar \
+> widgets.jar MaxWidgetId -libjars /usr/lib/sqoop/sqoop-version.jar
+
+hive> CREATE TABLE sales(widget_id INT, qty INT,
+> street STRING, city STRING, state STRING,
+> zip INT, sale_date STRING)
+> ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+
+% sqoop create-hive-table --connect jdbc:mysql://localhost/hadoopguide \
+> --table widgets --fields-terminated-by ','
+
+% hive
+hive> LOAD DATA INPATH "widgets" INTO TABLE widgets;
+
+% sqoop import --connect jdbc:mysql://localhost/hadoopguide \
+> --table widgets -m 1 --hive-import
+
+hive> CREATE TABLE zip_profits (sales_vol DOUBLE, zip INT);
+
+hive> INSERT OVERWRITE TABLE zip_profits
+> SELECT SUM(w.price * s.qty) AS sales_vol, s.zip FROM SALES s
+> JOIN widgets w ON (s.widget_id = w.id) GROUP BY s.zip;
+
+hive> SELECT * FROM zip_profits ORDER BY sales_vol DESC;
+
+% mysql hadoopguide
+mysql> CREATE TABLE sales_by_zip (volume DECIMAL(8,2), zip INTEGER);
+
+% sqoop export --connect jdbc:mysql://localhost/hadoopguide -m 1 \
+> --table sales_by_zip --export-dir /user/hive/warehouse/zip_profits \
+> --input-fields-terminated-by '\0001'
+
+% mysql hadoopguide -e 'SELECT * FROM sales_by_zip'
+
+% sqoop import --connect jdbc:mysql://localhost/hadoopguide \
+> --table widgets -m 1 --class-name WidgetHolder --as-sequencefile \
+> --target-dir widget_sequence_files --bindir .
+
+% mysql hadoopguide
+mysql> CREATE TABLE widgets2(id INT, widget_name VARCHAR(100),
+-> price DOUBLE, designed DATE, version INT, notes VARCHAR(200));
+
+% sqoop export --connect jdbc:mysql://localhost/hadoopguide \
+> --table widgets2 -m 1 --class-name WidgetHolder \
+> --jar-file widgets.jar --export-dir widget_sequence_files
+
+
+#=========================================================
+# Yarn
+#=========================================================
+$ yarn jar $PLAY_AREA/Exercises.jar \
+	mapRed.workflows.CountDistinctTokens \
+	/training/data/hamlet.txt \
+	/training/playArea/firstJob
+
+#Hbase
+$ cd <hbase_home>/bin
+$ ./start-hbase.sh
+$ hbase shell
+$ hadoop fs -ls /hbase
+hbase> status
+hbase> status 'detailed'
+hbase> count 'Blog', {INTERVAL=>2}
+hbase> count 'Blog', {INTERVAL=>1}
+hbase> get 'Blog', 'unknownRowId'
+
+hbase> get 'Blog', 'Michelle-004',
+	{COLUMN=>['info:author','content:post']}
+	
+hbase> get 'Blog', 'Michelle-004',
+	{COLUMN=>['info:author','content:post'],
+	TIMESTAMP=>1326061625690}
+
+get 'Blog', 'Michelle-004',
+	{COLUMN=>'info:date', VERSIONS=>2}
+
+get 'Blog', 'Michelle-004',
+	{COLUMN=>'info:date'}
+
+hbase> scan 'table_name'
+hbase> scan 'table_name', {LIMIT=>1}
+hbase> scan 'Blog', {STARTROW=>'startRow',
+	STOPROW=>'stopRow'}
+
+hbase> scan 'table', {COLUMNS=>['col1', 'col2']}
+hbase> scan 'table', {TIMERANGE => [1303, 13036]}
+hbase> scan 'Blog', {FILTER =>
+	org.apache.hadoop.hbase.filter.ColumnPaginationFilter.n
+	ew(1, 0)}
+hbase(main):014:0> scan 'Blog'
+hbase> scan 'Blog', {STOPROW=>'John'}
+hbase> scan 'Blog', {COLUMNS=>'info:title',
+STARTROW=>'John', STOPROW=>'Michelle'}
+
+hbase> put 'Blog', 'Michelle-004', 'info:date', '1990.07.06'
+hbase> put 'Blog', 'Michelle-004', 'info:date', '1990.07.07'
+hbase> put 'Blog', 'Michelle-004', 'info:date', '1990.07.08'
+
+hbase> get 'Blog', 'Michelle-004',
+	{COLUMN=>'info:date', VERSIONS=>3}
+
+hbase> get 'Blog', 'Michelle-004',
+	{COLUMN=>'info:date', VERSIONS=>2}	
+
+hbase> get 'Blog', 'Michelle-004',
+	{COLUMN=>'info:date'}
+
+hbase> get 'Blog', 'Bob-003', 'info:date'
+hbase> delete 'Blog', 'Bob-003', 'info:date'
+hbase> get 'Blog', 'Bob-003', 'info:date'
+
+hbase> get 'Blog', 'Michelle-004',
+	{COLUMN=>'info:date', VERSIONS=>3}
+hbase> delete 'Blog', 'Michelle-004', 'info:date', 1326254739791
+hbase> get 'Blog', 'Michelle-004',
+	{COLUMN=>'info:date', VERSIONS=>3}
+hbase> disable 'table_name'
+hbase> drop 'table_name'
+
+hbase> list
+hbase> disable 'Blog'
+hbase> drop 'Blog'
+hbase> list
+
+	
 #======================================================================================================================================================
 # Bash example
 #=======================================================================================================================================================
@@ -1395,6 +1861,34 @@ def main(separator='\t'):
 
 if __name__ == "__main__":
     main()
+	
+#Map function for secondary sort in Python
+#==========================================
+#!/usr/bin/env python
+import re
+import sys
+for line in sys.stdin:
+val = line.strip()
+(year, temp, q) = (val[15:19], int(val[87:92]), val[92:93])
+if temp == 9999:
+sys.stderr.write("reporter:counter:Temperature,Missing,1\n")
+elif re.match("[01459]", q):
+print "%s\t%s" % (year, temp)
+However, we don’t want to partition
+
+#Reducer function for secondary sort in Python
+#!/usr/bin/env python
+import sys
+last_group = None
+for line in sys.stdin:
+val = line.strip()
+(year, temp) = val.split("\t")
+group = year
+if last_group != group:
+print val
+last_group = group
+
+
 	
 # src: http://www.slideshare.net/JeffPatti/map-reducebeyondwordcount
 # word count
@@ -3654,3 +4148,113 @@ public void test() throws Exception {
 	assertThat(exitCode, is(0));
 	checkOutput(conf, output);
 }
+
+#packaging
+<jar destfile="job.jar" basedir="${classes.dir}"/>
+
+#launching job
+hadoop jar job.jar v3.MaxTemperatureDriver -conf conf/hadoop-cluster.xml \
+input/ncdc/all max-temp
+
+#command line
+hadoop fs -getmerge max-temp max-temp-local
+sort max-temp-local | tail
+
+hadoop fs -cat max-temp/*
+
+public class MaxTemperatureMapper extends MapReduceBase
+implements Mapper<LongWritable, Text, Text, IntWritable> {
+	enum Temperature {
+	OVER_100
+	}
+	private NcdcRecordParser parser = new NcdcRecordParser();
+	public void map(LongWritable key, Text value,
+	OutputCollector<Text, IntWritable> output, Reporter reporter)
+	throws IOException {
+		parser.parse(value);
+		if (parser.isValidTemperature()) {
+			int airTemperature = parser.getAirTemperature();
+			if (airTemperature > 1000) {
+			System.err.println("Temperature over 100 degrees for input: " + value);
+			reporter.setStatus("Detected possibly corrupt record: see logs.");
+			reporter.incrCounter(Temperature.OVER_100, 1);
+		}
+			output.collect(new Text(parser.getYear()), new IntWritable(airTemperature));
+		}
+	}
+}
+
+#command line
+hadoop job -counter job_200904110811_0003 'v4.MaxTemperatureMapper$Temperature' \
+OVER_100
+
+#handling malformed data
+@Test
+public void parsesMalformedTemperature() throws IOException {
+	MaxTemperatureMapper mapper = new MaxTemperatureMapper();
+	Text value = new Text("0335999999433181957042302005+37950+139117SAO +0004" +
+	// Year ^^^^
+	"RJSN V02011359003150070356999999433201957010100005+353");
+	// Temperature ^^^^^
+	OutputCollector<Text, IntWritable> output = mock(OutputCollector.class);
+	Reporter reporter = mock(Reporter.class);
+	mapper.map(null, value, output, reporter);
+	verify(output, never()).collect(any(Text.class), any(IntWritable.class));
+	verify(reporter).incrCounter(MaxTemperatureMapper.Temperature.MALFORMED, 1);
+}
+
+Mapper for maximum temperature example
+public class MaxTemperatureMapper extends MapReduceBase
+implements Mapper<LongWritable, Text, Text, IntWritable> {
+	enum Temperature {
+		MALFORMED
+	}
+	private NcdcRecordParser parser = new NcdcRecordParser();
+	public void map(LongWritable key, Text value,
+	OutputCollector<Text, IntWritable> output, Reporter reporter)
+	throws IOException {
+	parser.parse(value);
+	if (parser.isValidTemperature()) {
+		int airTemperature = parser.getAirTemperature();
+		output.collect(new Text(parser.getYear()), new IntWritable(airTemperature));
+	} else if (parser.isMalformedTemperature()) {
+		System.err.println("Ignoring possibly corrupt input: " + value);
+		reporter.incrCounter(Temperature.MALFORMED, 1);
+	}
+	}
+}
+
+#using remote debugger
+export HADOOP_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,\
+address=8000"
+
+hadoop org.apache.hadoop.mapred.IsolationRunner ../job.xml
+
+Reusing the Text and IntWritable output objects
+public class MaxTemperatureMapper extends MapReduceBase
+implements Mapper<LongWritable, Text, Text, IntWritable> {
+	enum Temperature {
+		MALFORMED
+	}
+	private NcdcRecordParser parser = new NcdcRecordParser();
+	private Text year = new Text();
+	private IntWritable temp = new IntWritable();
+	public void map(LongWritable key, Text value,
+	OutputCollector<Text, IntWritable> output, Reporter reporter)
+	throws IOException {
+		parser.parse(value);
+		if (parser.isValidTemperature()) {
+		year.set(parser.getYear());
+		temp.set(parser.getAirTemperature());
+		output.collect(year, temp);
+		} else if (parser.isMalformedTemperature()) {
+			System.err.println("Ignoring possibly corrupt input: " + value);
+			reporter.incrCounter(Temperature.MALFORMED, 1);
+		}
+	}
+}
+
+# running dependant jobs
+JobClient.runJob(conf1);
+JobClient.runJob(conf2);
+
