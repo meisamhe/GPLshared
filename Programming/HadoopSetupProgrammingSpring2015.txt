@@ -1,0 +1,257 @@
+#===================================================================================
+Title: Command summary of Hadoop set up and programming with Horton works
+Meisam Hejazi Nia 
+Doctoral Candidate in Management Science (Marketing Analytics)
+Naveen Jindal School of Management, The University of Texas at Dallas
+800 W Campbell rd | School of Management |Richardson, TX, 75080
+Cell: 469.999.2798 
+Email: meisam.hejazinia@utdallas.edu 
+View my complete profile: http://www.hejazinia.com/
+#===================================================================================
+
+
+#==========================================================
+# Step 1: Download and install virtualbox.
+#==========================================================
+For windows users : 
+#====================
+http://download.virtualbox.org/virtualbox/4.3.20/VirtualBox-4.3.20-96997-Win.exe
+
+an alternative way is to use vmware:
+#=====================================
+Some people are having problems with virtualbox on windows 7, this is due to a problem with windows 7 update.
+
+
+If you have this issue you can use vmwareplayer instead of virtualbox:
+
+
+Please Download vmplayer for windows at this link
+
+https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/7_0
+
+
+Please Download hortonworks for vmwareplayer at this link
+
+http://hortonassets.s3.amazonaws.com/2.2/Sandbox_HDP_2.2_VMware.ova
+
+
+Please follow the steps in this document.
+https://hortonworks.com/wp-content/uploads/2013/03/InstallingHortonworksSandboxonWindowsUsingVMwarePlayerv2.pdf
+
+
+However, at step 7 use NAT instead of host only
+
+
+
+#=======================
+For ubuntu users: copy and paste this command to your terminal.
+#=======================
+sudo sh -c "echo 'deb
+http://download.virtualbox.org/virtualbox/debian '$
+(lsb_release -cs)' contrib non-free' >
+/etc/apt/sources.list.d/virtualbox.list" && wget -q
+http://download.virtualbox.org/virtualbox/debian/oracle_vbo
+x.asc -O- | sudo apt-key add - && sudo apt-get update &&
+sudo apt-get install virtualbox-4.3 dkms
+
+use this to install virtualbox on ubuntu
+#========================================
+
+
+sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian '$(lsb_release -cs)' contrib non-free' > /etc/apt/sources.list.d/virtualbox.list" && wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add - && sudo apt-get update && sudo apt-get install virtualbox-4.3 dkms
+
+
+
+
+
+Use this to download hadoop to the VM
+
+
+wget http://mirror.tcpdiag.net/apache/hadoop/common/hadoop-2.6.0/hadoop-2.6.0.tar.gz
+
+use 
+
+this to run hadoop example
+
+
+hadoop jar hadoop-2.6.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar wordcount input output2
+
+Step 2: Download Hortonworks sandbox image.
+#==========================================
+Use the url below to download Hortonworks sandbox for virtualbox.
+http://hortonassets.s3.amazonaws.com/2.2/Sandbox_HDP_2.2_VirtualBox.ova
+
+Step 3: Install Hortonworks sandbox virtual appliance.
+#=============================================
+1. Start virtualbox application.
+2. Go to file ? import appliance
+3. Click on the folder icon at the right to navigate to where you downloaded the hortonworks sandbox appliance file.
+4. Select the Sandbox file and Click open.
+5. Click next
+6. You can double click on the RAM size to increase or reduce as the case may be. You may hae to reduce if you do not have a lot of RAM. Note(Virtualbox mostly does not use more that 1/2 of your physical ram if you have 6GB, reduce the RAM entry to 3000MB.) Use as much RAM your system can allow
+7. You can also scroll down to set the location of where you want the disk image installed.
+8. Double click on the virtualdisk image value and change to your preffered location.
+9. Click on import.
+10. Wait for the import to finish.
+11. Go to file ? preferences
+12. Click Input ? Uncheck Auto capture keyboard and click OK.
+13. Uncheck Auto capture keyboard and click OK.
+
+Step 4: Configure the Hortonworks Sandbox with HDP 2.2 VM
+#===========================================================
+1. Click on the Hortonworks Sandbox with HDP 2.2 VM as shown below on the left panel.
+2. Click on the setting button at the left tab.
+3. Click on the network
+4. Click on Adapter 1 tab.
+5. Attached to: Change to bridged adapter.
+6. Name: use the name of the network device on your machine. In my case wlan0. Click OK
+7. Note: if you set NAT the ip will be 127.0.0.1
+8. Note: you may also be able to use other options such as virtual box wlan and so on to have different ip address
+9. To get the name of the network device on your machine
+	? go to terminal and type 'ifconfig' (over mac or linux, but for windows ipconfig works)
+	? Identify your connection.See connection to the internet is with wlan0, in this example.
+
+Step 4: start Hortonworks 
+#===========================================================
+1. Click on start to launch the hortonworks sandbox vm as shown above.
+2. Press Alt + F5 to login to the VM. Please disregard the IP address shown below,
+3. Next step shows how to get the real IP address of this VM.
+4. 	Username : root
+	password : hadoop
+	You can also login as hue.
+	Username : hue
+	password : hadoop
+	For this tutorial use the User as hue
+5. Login as hue, password is hadoop.
+6. Determine the ip address of the vm
+7. run the command ifconfig in the vm terminal prompt as shown below
+8. Note the inet address of the eth0 interface which is 192.168.1.109 in the above snapshot.
+9. This is the ip address of your vm. You can use ssh to access the VM from your host machine and run hadoop commands.
+10. E.g you can login using ssh or putty (on putty the port is 22)
+	ssh hue@192.168.1.109 -p 2222
+
+# Possible errors:
+#============================================
+1. Error = ” This kernel requires an x86-64 CPU, but only detected an i686 CPU.
+	Unable to boot – please use kernel appropriate for your CPU. ”
+
+	pc = Phenon X4
+	6 g memory
+	1 g Video ATI RADEON
+	750gg HD
+
+Solution: In virtual Box , check your VM settings. Linux version must be pointed to 64 bit OS, like Red Hat 64 (to modify go to properties and make it 64 bit)
+
+2. Failed to open a session for the virtual machine learn-puppet-centos-6.4-pe-3.1.0.
+	VT-x is disabled in the BIOS. (VERR_VMX_MSR_VMXON_DISABLED).
+	Result Code: E_FAIL (0x80004005)
+	Component: Console
+	Interface: IConsole {8ab7c520-2442-4b66-8d74-4ff1e195d2b6}
+
+Solution:go to your BIOS setting... (F2 after starting the system)
+	inside the virtualization tab enable the virtualiation techniuqe
+
+More detailed Solution:
+  Potential gotchas:
+    You haven't enabled VT-x in VirtualBox and it's required for the VM.
+        To enable: open vbox, click the VM, click Settings..., System->Acceleration->VT-x check box.
+    You haven't enabled VT-x in BIOS and it's required.
+        Check your motherboard manual but you basically want to enter your BIOS just after the machine turns on (usually DEL key, F2, F12 etc) and find something in the CPU area/menu about "Virtualization" and enable it.
+    Your processor doesn't support VT-x (eg a Core i3).
+        In this case your BIOS and VirtualBox shouldn't allow you to try and enable VT-x (but if they do, you'll likely get a crash in the VM).
+    Your trying to install or boot a 64 bit guest OS.
+        I think 64 bit OS requires true CPU pass-through which requires VT-x. (A VM expert can comment on this point).
+    You are trying to allocate >3GB of RAM to the VM.
+        Similar to the previous point, this requires: (a) a 64 bit host system; and (b) true hardware pass-through ie VT-x.
+
+	So for my little mess around machine that I'm resurrecting that has 8GB RAM but only a ye-olde Core i3, I'm having success if I install: 32 bit version of linux, allocating 2.5GB RAM.
+
+
+Step 5: Run hadoop commands
+#=========================================
+1. To test hadoop, run the following command to check hadoop version as shown below.
+	hadoop version
+
+Step 6: Run hadoop wordcount program.
+#=================================================
+1. An example jar is in the hadoop distribution from apache but not in the hortonworks vm.
+2. We will need to download hadoop distribution from apache
+3. At the VM terminal ? type
+	wget http://mirror.tcpdiag.net/apache/hadoop/common/hadoop-2.6.0/hadoop-2.6.0.tar.gz
+4. untar the compressed file with
+	tar xvzf hadoop-2.6.0.tar.gz.
+	(Note: we only need the example jar in this download.)
+5. Use the following command to create a input folder in hdfs.
+	hdfs dfs -mkdir input
+6. Copy any txt file to the input folder, in this case 'Makefile' is the file used in this
+	hdfs dfs -put Makefile input
+7. Run the hadoop example jar
+	hadoop jar hadoop-2.6.0/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.0.jar wordcount input output2
+	(note your output2 folder must not exist).
+8. Show the output of the hadoop job use
+	hdfs dfs -cat output2/*
+9. To rerun the hadoop job please remove 'output2' directory from hdfs using the command below
+	hdfs dfs -rm -r -f output2
+10. To list the files in hdfs type
+	hdfs dfs -ls /user/hue
+11. You can browse hortonworks web UI using
+	http:// 192.168.1.109: 8000 in your host browser.
+
+
+Step 7: compile a map-reduce program on eclipse and run on Hortonworks
+#=================================================
+1. Install eclipse
+2. Make sure you have JAVA_HOME set, and the java command is in the path (install jdk or jre)
+3. Start eclipse > new java project
+4. >New java class
+5. Copy the word count example from internet (hadoop has its own data type of LongWritable, IntWritable, FloatWritable, Text)
+6. the first two arguments are for input, and the last two are for output
+7. To import the libraries> download hadoop then:
+	right click on the java project folder
+	> properties> java build path> push add external jar button, folders: share/hadoop/{common,hdfs,mapreduce}
+8. add the following files from the related folder:
+	>hadoop>share>hadoop>mapreduce>.....core.java
+	>hadoop>common>hadoop..jar
+9. more particularly:
+	$HADOOP_HOME/share/hadoop/common/hadoop-common-2.2.0.jar
+	$HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-client-core-2.2.0.jar
+10. click right on the java project folder > build the project
+	we have the class files after we build the project
+11. Right click > export > jar files
+12. Download Winscp to copy the created jar file into the hadoop server (on windows the port is 22)
+	http://winscp.net/eng/download.php#download2
+	in linux: scp -p 2222 wordcount.jar hue@127.0.0.1 (where 127.0.0.1 is the ip address of the hortonworks sandbox)
+13.
+
+Possible Problems
+#===================================
+1. Make sure you check the version of java on the hadoop version by "java -version" and you compile with the same jre on the eclipse side
+2. Problem of org.apache.hadoop.mapred.FileAlready Exists:
+	either it makes mistake your input folder for out: in which case you should replace arg[0], arg[1] in your program with arg[1] and arg[2]
+	or your output folder exists, so yous "hadoop dfs -rm -r -f <directory-name>" to remove your output folder
+	generally the output folder should not exist in running hadoop
+3. problem of class not found: 
+	either you don't have the full package name when you call, so include it completely:
+		hadoop jar wordcount.jar com.something.WordCount /home/temp/input /home/temp/output
+	or it does not find your mapper and reducer, in which case you should add the following two lines to your code:
+		Job job = new Job(conf, "wordcount");
+		job.setJarByClass(WordCount.class);
+
+
+HDFS commands
+#======================================
+1. check the content of a folder (the name of a folder is at the last column, unlike normal practice)
+	hdfs dfs  -ls
+2. remove folder with its content forecfully
+	hdfs dfs -rm -r -f <directory-name>
+3. move data from local machine to hadoop:
+	hdfs -put Makefile myinput
+4. create a folder on hadoop file system:
+	hdfs dfs -mkdir myinput
+5. To concatenate all files within the output folder and show them:
+	hdfs dfs -cat output200/*
+6. Check content of a folder
+	hdfs dfs -ls output200
+# good practice is to put different types of files in the different folders
+7. remove file:
+	hdfs dfs -rm
