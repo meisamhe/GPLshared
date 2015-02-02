@@ -236,7 +236,11 @@ Possible Problems
 	or it does not find your mapper and reducer, in which case you should add the following two lines to your code:
 		Job job = new Job(conf, "wordcount");
 		job.setJarByClass(WordCount.class);
-
+4. A more clean work is to take the class name from input, wo the following code may work:
+    String className = args[0];
+    if (className.equals("WordCount")){
+        job.setJarByClass(WordCount.class);
+    }
 
 HDFS commands
 #======================================
@@ -245,7 +249,7 @@ HDFS commands
 2. remove folder with its content forecfully
 	hdfs dfs -rm -r -f <directory-name>
 3. move data from local machine to hadoop:
-	hdfs -put Makefile myinput
+	hdfs dfs -put Makefile myinput
 4. create a folder on hadoop file system:
 	hdfs dfs -mkdir myinput
 5. To concatenate all files within the output folder and show them:
@@ -255,3 +259,102 @@ HDFS commands
 # good practice is to put different types of files in the different folders
 7. remove file:
 	hdfs dfs -rm
+8. remove a directory forcefully, with its contents:
+	hdfs dfs -rmr outHW1Users
+
+HW1 commands
+#===============================================
+
+#==================
+Q1
+#==================
+clear
+# put files of input for users into the hdfs
+hdfs dfs -put HW1Users HW1Users
+
+# remove the output of previous run
+hdfs dfs -rmr outHW1Users
+
+# run the map-reduce program and check the results
+hadoop jar HW1Q1.jar HW1Q1 HW1Users outHW1Users
+hdfs dfs -cat outHW1Users/*
+
+#==================
+Q2
+#==================
+clear
+# put files of input for users into the hdfs
+hdfs dfs -put HW1Users HW1Users
+
+# remove the output of previous run
+hdfs dfs -rmr outHW1Q2MFAge
+
+# run the map-reduce program and check the results
+hadoop jar HW1Q2.jar HW1Q2 HW1Users outHW1Q2MFAge
+hdfs dfs -cat outHW1Q2MFAge/*
+
+#==================
+Q3
+#==================
+clear
+# put files of input for movies into the hdfs
+hdfs dfs -put HW1Movies HW1Movies
+
+# remove the output of previous run
+hdfs dfs -rmr outHW1Q3TTlGnre
+
+# run the map-reduce program and check the results
+hadoop jar HW1Q3.jar HW1Q3 HW1Movies outHW1Q3TTlGnre Fantasy
+hdfs dfs -cat outHW1Q3TTlGnre/*
+
+
+#==============================
+Single File of Q1, Q2, and Q3
+#==============================
+clear
+# put files of input which are in folders of HW1Users and HW1 Movies into the hdfs
+hdfs dfs -put HW1Users HW1Users
+hdfs dfs -put HW1Movies HW1Movies
+
+# remove the output of previous run
+hdfs dfs -rmr outHW1Users
+hdfs dfs -rmr outHW1Q2MFAge
+hdfs dfs -rmr outHW1Q3TTlGnre
+
+# run the map-reduce program and check the results
+
+#Q1
+clear
+hadoop jar HW1Q1Q2Q3.jar HW1Q1 HW1Users outHW1Users
+hdfs dfs -cat outHW1Users/*
+
+#Q2
+clear
+hadoop jar HW1Q1Q2Q3.jar HW1Q2 HW1Users outHW1Q2MFAge
+hdfs dfs -cat outHW1Q2MFAge/*
+
+#Q3
+clear
+hadoop jar HW1Q1Q2Q3.jar HW1Q3 HW1Movies outHW1Q3TTlGnre Fantasy
+hdfs dfs -cat outHW1Q3TTlGnre/*
+
+
+
+#============================
+Programming tip: To use global variable in map reduce
+#===============================
+//Add the following function to both map and reduce
+@Override
+    protected void setup(Context context) throws IOException,
+            InterruptedException {
+        Configuration conf = context.getConfiguration();
+
+        genre = conf.get("genre");
+    }
+
+//Also inside the void static main function of class of your map reduce set the configuration:
+	// Use configuration file to send the type of the Genre
+        Configuration confTemp = job.getConfiguration();
+        // as input: Fantasy
+        String genreInput = args[3];
+        confTemp.set("genre", genreInput);
