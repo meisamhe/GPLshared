@@ -1,0 +1,1435 @@
+https://github.com/careercup/ctci
+https://github.com/adnanaziz/publicadnan/tree/master/JavaExpts/EPI/java/src/main/java/com/epi
+http://elementsofprogramminginterviews.com/solutions/
+https://github.com/Hawstein/cracking-the-coding-interview
+https://quizlet.com/191975071/java-flash-cards/
+
+Solutions
+
+Bootcamp: Primitive Types
+
+C++: count_bits.cc
+Java: CountBits.java
+Python: count_bits.py
+Computing the parity of a word
+
+C++: parity1.h
+Java: Parity1.java
+Python: parity1.py
+C++: parity2.h
+Java: Parity2.java
+Python: parity2.py
+C++: parity3.h
+Java: Parity3.java
+Python: parity3.py
+C++: parity4.h
+Java: Parity4.java
+Python: parity4.py
+Swap bits
+
+C++: swap_bits.h
+Java: SwapBits.java
+Python: swap_bits.py
+Reverse bits
+
+C++: reverse_bits.cc
+Java: ReverseBits.java
+Python: reverse_bits.py
+Find a closest integer with the same weight
+
+C++: closest_int_same_bits.cc
+Java: ClosestIntSameBits.java
+Python: closest_int_same_bits.py
+Compute x * y without arithmetical operators
+
+C++: multiply_shift_add.cc
+Java: MultiplyShiftAdd.java
+Python: multiply_shift_add.py
+Compute x/y
+
+C++: division.cc
+Java: Division.java
+Python: division.py
+Compute x^y
+
+C++: power_x_y.cc
+Java: PowerXY.java
+Python: power_x_y.py
+Reverse digits
+
+C++: reverse_integer.cc
+Java: ReverseInteger.java
+Python: reverse_integer.py
+Check if a decimal integer is a palindrome
+
+C++: palindrome_number.cc
+Java: PalindromeNumber.java
+Python: palindrome_number.py
+Generate uniform random numbers
+
+C++: uniform_random_number_generation.cc
+Java: UniformRandomNumberGeneration.java
+Python: uniform_random_number_generation.py
+Rectangle intersection
+
+C++: intersect_rectangle.cc
+Java: IntersectRectangle.java
+Python: intersect_rectangle.py
+Bootcamp: Arrays
+
+C++: even_odd_array.cc
+Java: EvenOddArray.java
+Python: even_odd_array.py
+The Dutch national flag problem
+
+C++: dutch_national_flag_slow_inplace.cc
+Java: DutchNationalFlagSlowInplace.java
+Python: dutch_national_flag_slow_inplace.py
+C++: dutch_national_flag_two_passes.cc
+Java: DutchNationalFlagTwoPasses.java
+Python: dutch_national_flag_two_passes.py
+C++: dutch_national_flag.cc
+Java: DutchNationalFlag.java
+Python: dutch_national_flag.py
+Increment an arbitrary-precision integer
+
+C++: plus_one.cc
+Java: PlusOne.java
+Python: plus_one.py
+Multiply two arbitrary-precision integers
+
+C++: bignumber_multiplication.cc
+Java: BigNumberMultiplication.java
+Python: bignumber_multiplication.py
+Advancing through an array
+
+C++: jump_game.cc
+Java: JumpGame.java
+Python: jump_game.py
+Delete duplicates from a sorted array
+
+C++: remove_duplicates_from_sorted_array.cc
+Java: RemoveDuplicatesFromSortedArray.java
+Python: remove_duplicates_from_sorted_array.py
+Buy and sell a stock once
+
+C++: buy_and_sell_stock.cc
+Java: BuyAndSellStock.java
+Python: buy_and_sell_stock.py
+Buy and sell a stock twice
+
+C++: buy_and_sell_stock_twice.cc
+Java: BuyAndSellStockTwice.java
+Python: buy_and_sell_stock_twice.py
+Computing an alternation
+
+C++: rearrange.cc
+Java: Rearrange.java
+Python: rearrange.py
+Enumerate all primes to n
+
+C++: prime_sieve_basic.cc
+Java: PrimeSieveBasic.java
+Python: prime_sieve_basic.py
+C++: prime_sieve.cc
+Java: PrimeSieve.java
+Python: prime_sieve.py
+Permute the elements of an array
+
+C++: permutation_array1.h
+Java: PermutationArray1.java
+Python: permutation_array1.py
+C++: permutation_array2.h
+Java: PermutationArray2.java
+Python: permutation_array2.py
+Compute the next permutation
+
+C++: next_permutation.cc
+Java: NextPermutation.java
+Python: next_permutation.py
+Sample offline data
+
+C++: offline_sampling.h
+Java: OfflineSampling.java
+Python: offline_sampling.py
+Sample online data
+
+C++: reservoir_sampling.cc
+Java: ReservoirSampling.java
+Python: reservoir_sampling.py
+Compute a random permutation
+
+C++: compute_random_permutation.cc
+Java: ComputeRandomPermutation.java
+Python: compute_random_permutation.py
+Compute a random subset
+
+C++: online_sampling.cc
+Java: OnlineSampling.java
+Python: online_sampling.py
+Generate nonuniform random numbers
+
+C++: nonuniform_random_number_generation.cc
+Java: NonUniformRandomNumberGeneration.java
+Python: nonuniform_random_number_generation.py
+The Sudoku checker problem
+
+C++: sudoku_check.cc
+Java: SudokuCheck.java
+Python: sudoku_check.py
+Compute the spiral ordering of a 2D array
+
+C++: spiral_matrix_clockwise.cc
+Java: SpiralMatrixClockwise.java
+Python: spiral_matrix_clockwise.py
+C++: spiral_matrix.cc
+Java: SpiralMatrix.java
+Python: spiral_matrix.py
+Rotate a 2D array
+
+C++: matrix_rotation_naive.cc
+Java: MatrixRotationNaive.java
+Python: matrix_rotation_naive.py
+C++: matrix_rotation_constant.cc
+Java: MatrixRotationConstant.java
+Python: matrix_rotation_constant.py
+Compute rows in Pascal’s Triangle
+
+C++: pascal_triangle_1.cc
+Java: PascalTriangle1.java
+Python: pascal_triangle_1.py
+Bootcamp: Strings
+
+C++: is_palindromic.cc
+Java: IsPalindromic.java
+Python: is_palindromic.py
+Interconvert strings and integers
+
+C++: interconverting_string_integer.cc
+Java: InterconvertingStringInteger.java
+Python: interconverting_string_integer.py
+Base conversion
+
+C++: convert_base.cc
+Java: ConvertBase.java
+Python: convert_base.py
+Compute the spreadsheet column encoding
+
+C++: spreadsheet_encoding.cc
+Java: SpreadsheetEncoding.java
+Python: spreadsheet_encoding.py
+Replace and remove
+
+C++: replace_and_remove.cc
+Java: ReplaceAndRemove.java
+Python: replace_and_remove.py
+Test palindromicity
+
+C++: valid_palindrome.cc
+Java: ValidPalindrome.java
+Python: valid_palindrome.py
+Reverse all the words in a sentence
+
+C++: reverse_words.cc
+Java: ReverseWords.java
+Python: reverse_words.py
+Compute all mnemonics for a phone number
+
+C++: phone_mnemonic.cc
+Java: PhoneMnemonic.java
+Python: phone_mnemonic.py
+The look-and-say problem
+
+C++: look_and_say.cc
+Java: LookAndSay.java
+Python: look_and_say.py
+Convert from Roman to decimal
+
+C++: roman_to_integer.cc
+Java: RomanToInteger.java
+Python: roman_to_integer.py
+Compute all valid IP addresses
+
+C++: valid_ip_address.cc
+Java: ValidIPAddress.java
+Python: valid_ip_address.py
+Write a string sinusoidally
+
+C++: snake_string.cc
+Java: SnakeString.java
+Python: snake_string.py
+Implement run-length encoding
+
+C++: run_length_compression.cc
+Java: RunLengthCompression.java
+Python: run_length_compression.py
+Find the first occurrence of a substring
+
+C++: rabin_karp.cc
+Java: RabinKarp.java
+Python: rabin_karp.py
+Bootcamp: Linked Lists
+
+C++: linked_list_prototype.h
+Java: ListNode.java
+Python: linked_list_prototype.py
+C++: search_list.cc
+Java: SearchList.java
+Python: search_list.py
+C++: insert_list.cc
+Java: InsertList.java
+Python: insert_list.py
+C++: delete_list.cc
+Java: DeleteList.java
+Python: delete_list.py
+Merge two sorted lists
+
+C++: merge_sorted_lists.h
+Java: MergeSortedLists.java
+Python: merge_sorted_lists.py
+Reverse a single sublist
+
+C++: reverse_linked_list_from_s_to_f.cc
+Java: ReverseLinkedListFromSToF.java
+Python: reverse_linked_list_from_s_to_f.py
+Test for cyclicity
+
+C++: checking_cycle.h
+Java: CheckingCycle.java
+Python: checking_cycle.py
+C++: checking_cycle_alternative.cc
+Java: CheckingCycleAlternative.java
+Python: checking_cycle_alternative.py
+Test for overlapping lists - lists are cycle-free
+
+C++: overlapping_lists_no_cycle.h
+Java: OverlappingListsNoCycle.java
+Python: overlapping_lists_no_cycle.py
+Test for overlapping lists - lists may have cycles
+
+C++: overlapping_lists.cc
+Java: OverlappingLists.java
+Python: overlapping_lists.py
+Delete a node from a singly linked list
+
+C++: deletion_list.cc
+Java: DeletionList.java
+Python: deletion_list.py
+Remove the kth last element from a list
+
+C++: remove_kth_last_list.cc
+Java: RemoveKthLastList.java
+Python: remove_kth_last_list.py
+Remove duplicates from a sorted list
+
+C++: remove_duplicates_sorted_list.cc
+Java: RemoveDuplicatesSortedList.java
+Python: remove_duplicates_sorted_list.py
+Implement cyclic right shift for singly linked lists
+
+C++: cyclic_right_shift.cc
+Java: CyclicRightShift.java
+Python: cyclic_right_shift.py
+Implement even-odd merge
+
+C++: even_odd_merge_linked_list.cc
+Java: EvenOddMergeLinkedList.java
+Python: even_odd_merge_linked_list.py
+Test whether a singly linked list is palindromic
+
+C++: palindrome_linked_list.cc
+Java: PalindromeLinkedList.java
+Python: palindrome_linked_list.py
+Implement list pivoting
+
+C++: list_pivoting.cc
+Java: ListPivoting.java
+Python: list_pivoting.py
+Add list-based integers
+
+C++: add_two_number_list.cc
+Java: AddTwoNumberList.java
+Python: add_two_number_list.py
+Bootcamp: Stacks and Queues
+
+C++: print_linked_list_reverse_order.cc
+Java: PrintLinkedListReverseOrder.java
+Python: print_linked_list_reverse_order.py
+Implement a stack with max API
+
+C++: stack_with_max.h
+Java: StackWithMax.java
+Python: stack_with_max.py
+C++: stack_with_max_improved.cc
+Java: StackWithMaxImproved.java
+Python: stack_with_max_improved.py
+Evaluate RPN expressions
+
+C++: rpn.cc
+Java: RPN.java
+Python: rpn.py
+Test a string over ‘’{,},(,),[,]’’ for well-formedness
+
+C++: valid_parentheses.cc
+Java: ValidParentheses.java
+Python: valid_parentheses.py
+Normalize pathnames
+
+C++: normalized_pathnames.cc
+Java: NormalizedPathnames.java
+Python: normalized_pathnames.py
+Search a postings list
+
+C++: search_postings_list_recursive.cc
+Java: SearchPostingsListRecursive.java
+Python: search_postings_list_recursive.py
+C++: search_postings_list_iterative.cc
+Java: SearchPostingsListIterative.java
+Python: search_postings_list_iterative.py
+Compute buildings with a sunset view
+
+C++: view_sunset.cc
+Java: ViewSunset.java
+Python: view_sunset.py
+C++: queue_with_max_intro.cc
+Java: QueueWithMaxIntro.java
+Python: queue_with_max_intro.py
+Compute binary tree nodes in order of increasing depth
+
+C++: binary_tree_level_order.cc
+Java: BinaryTreeLevelOrder.java
+Python: binary_tree_level_order.py
+Implement a circular queue
+
+C++: circular_queue.cc
+Java: CircularQueue.java
+Python: circular_queue.py
+Implement a queue using stacks
+
+C++: queue_from_stacks.cc
+Java: QueueFromStacks.java
+Python: queue_from_stacks.py
+Implement a queue with max API
+
+C++: queue_with_max_alternative.h
+Java: QueueWithMaxAlternative.java
+Python: queue_with_max_alternative.py
+C++: queue_with_max.cc
+Java: QueueWithMax.java
+Python: queue_with_max.py
+Bootcamp: Binary Trees
+
+C++: binary_tree_prototype.h
+Java: BinaryTreeNode.java
+Python: binary_tree_prototype.py
+C++: tree_traversal.cc
+Java: TreeTraversal.java
+Python: tree_traversal.py
+Test if a binary tree is height-balanced
+
+C++: balanced_binary_tree.cc
+Java: BalancedBinaryTree.java
+Python: balanced_binary_tree.py
+Test if a binary tree is symmetric
+
+C++: symmetric_binary_tree.cc
+Java: SymmetricBinaryTree.java
+Python: symmetric_binary_tree.py
+Compute the lowest common ancestor in a binary tree
+
+C++: lowest_common_ancestor_no_parent.cc
+Java: LowestCommonAncestorNoParent.java
+Python: lowest_common_ancestor_no_parent.py
+Compute the LCA when nodes have parent pointers
+
+C++: lowest_common_ancestor.cc
+Java: LowestCommonAncestor.java
+Python: lowest_common_ancestor.py
+Sum the root-to-leaf paths in a binary tree
+
+C++: sum_root_to_leaf_binary_tree.cc
+Java: SumRootToLeafBinaryTree.java
+Python: sum_root_to_leaf_binary_tree.py
+Find a root to leaf path with specified sum
+
+C++: path_sum_binary_tree.cc
+Java: PathSumBinaryTree.java
+Python: path_sum_binary_tree.py
+Implement an inorder traversal without recursion
+
+C++: bst_sorted_order.cc
+Java: BSTSortedOrder.java
+Python: bst_sorted_order.py
+Implement a preorder traversal without recursion
+
+C++: binary_tree_preorder_traversal_iterative.cc
+Java: BinaryTreePreorderTraversalIterative.java
+Python: binary_tree_preorder_traversal_iterative.py
+Compute the kth node in an inorder traversal
+
+C++: k_th_node_binary_tree.cc
+Java: KThNodeBinaryTree.java
+Python: k_th_node_binary_tree.py
+Compute the successor
+
+C++: successor.cc
+Java: Successor.java
+Python: successor.py
+Implement an inorder traversal with O(1) space
+
+C++: inorder_traversal_with_parent.cc
+Java: InorderTraversalWithParent.java
+Python: inorder_traversal_with_parent.py
+Reconstruct a binary tree from traversal data
+
+C++: reconstruct_binary_tree_pre_in_orders.cc
+Java: ReconstructBinaryTreePreInorders.java
+Python: reconstruct_binary_tree_pre_in_orders.py
+Reconstruct a binary tree from a preorder traversal with markers
+
+C++: reconstruct_preorder_with_null.h
+Java: ReconstructPreorderWithNull.java
+Python: reconstruct_preorder_with_null.py
+Form a linked list from the leaves of a binary tree
+
+C++: connect_leaves_binary_tree.cc
+Java: ConnectLeavesBinaryTree.java
+Python: connect_leaves_binary_tree.py
+Compute the exterior of a binary tree
+
+C++: exterior_binary_tree.cc
+Java: ExteriorBinaryTree.java
+Python: exterior_binary_tree.py
+Compute the right sibling tree
+
+C++: populating_next_right_pointers.cc
+Java: PopulatingNextRightPointers.java
+Python: populating_next_right_pointers.py
+Implement locking in a binary tree
+
+C++: binary_tree_lock.cc
+Java: BinaryTreeLock.java
+Python: binary_tree_lock.py
+Bootcamp: Heaps
+
+C++: top_k.cc
+Java: TopK.java
+Python: top_k.py
+Merge sorted files
+
+C++: merge_sorted_arrays.h
+Java: MergeSortedArrays.java
+Python: merge_sorted_arrays.py
+Sort an increasing-decreasing array
+
+C++: sort_k_increasing_decreasing_array.cc
+Java: SortKIncreasingDecreasingArray.java
+Python: sort_k_increasing_decreasing_array.py
+Sort an almost-sorted array
+
+C++: approximate_sort.cc
+Java: ApproximateSort.java
+Python: approximate_sort.py
+Compute the k closest stars
+
+C++: closest_stars.cc
+Java: ClosestStars.java
+Python: closest_stars.py
+Compute the median of online data
+
+C++: online_median.cc
+Java: OnlineMedian.java
+Python: online_median.py
+Compute the k largest elements in a max-heap
+
+C++: k_largest_elements_binary_heap.cc
+Java: KLargestElementsBinaryHeap.java
+Python: k_largest_elements_binary_heap.py
+Implement a stack API using a heap
+
+C++: stack_queue_using_heap.cc
+Java: StackQueueUsingHeap.java
+Python: stack_queue_using_heap.py
+Bootcamp: Searching
+
+C++: bentleybsearch.cc
+Java: BentleyBsearch.java
+Python: bentley_bsearch.py
+C++: student_search.cc
+Java: StudentSearch.java
+Python: student_search.py
+Search a sorted array for first occurrence of k
+
+C++: binary_search_first_k.cc
+Java: BinarySearchFirstK.java
+Python: binary_search_first_k.py
+Search a sorted array for entry equal to its index
+
+C++: binary_search_ai=i.cc
+Java: BinarySearchAiEqI.java
+Python: binary_search_ai=i.py
+Search a cyclically sorted array
+
+C++: binary_search_circular_array.cc
+Java: BinarySearchCircularArray.java
+Python: binary_search_circular_array.py
+Compute the integer square root
+
+C++: square_root_int.cc
+Java: SquareRootInt.java
+Python: square_root_int.py
+Compute the real square root
+
+C++: square_root.cc
+Java: SquareRoot.java
+Python: square_root.py
+Search in a 2D sorted array
+
+C++: matrix_search.cc
+Java: MatrixSearch.java
+Python: matrix_search.py
+Find the min and max simultaneously
+
+C++: finding_min_max.cc
+Java: FindingMinMax.java
+Python: finding_min_max.py
+Find the kth largest element
+
+C++: order_statistic.cc
+Java: OrderStatistic.java
+Python: order_statistic.py
+Find the missing IP address
+
+C++: missing_element.cc
+Java: MissingElement.java
+Python: missing_element.py
+Find the duplicate and missing elements
+
+C++: find_missing_and_duplicate_xor.cc
+Java: FindMissingAndDuplicateXOR.java
+Python: find_missing_and_duplicate_xor.py
+Bootcamp: Hash Tables
+
+C++: hash_dictionary.cc
+Java: HashDictionary.java
+Python: hash_dictionary.py
+C++: anagrams.cc
+Java: Anagrams.java
+Python: anagrams.py
+C++: merge_contacts.cc
+Java: MergeContacts.java
+Python: merge_contacts.py
+Python: counter_example.py
+Test for palindromic permutations
+
+C++: can_string_be_palindrome_hash.h
+Java: CanStringBePalindromeHash.java
+Python: can_string_be_palindrome_hash.py
+Is an anonymous letter constructible?
+
+C++: anonymous_letter.cc
+Java: AnonymousLetter.java
+Python: anonymous_letter.py
+Implement an ISBN cache
+
+C++: lrucache.cc
+Java: LRUCache.java
+Python: lrucache.py
+Compute the LCA, optimizing for close ancestors
+
+C++: lowest_common_ancestor_hash.cc
+Java: LowestCommonAncestorHash.java
+Python: lowest_common_ancestor_hash.py
+Find the nearest repeated entries in an array
+
+C++: nearest_repetition.cc
+Java: NearestRepetition.java
+Python: nearest_repetition.py
+Find the smallest subarray covering all values
+
+C++: smallest_subarray_covering_set.h
+Java: SmallestSubarrayCoveringSet.java
+Python: smallest_subarray_covering_set.py
+C++: smallest_subarray_covering_set_stream.h
+Java: SmallestSubarrayCoveringSetStream.java
+Python: smallest_subarray_covering_set_stream.py
+Find smallest subarray sequentially covering all values
+
+C++: subseq_cover.cc
+Java: SubseqCover.java
+Python: subseq_cover.py
+Find the longest subarray with distinct entries
+
+C++: longest_subarray_with_distinct_entries.cc
+Java: LongestSubarrayWithDistinctEntries.java
+Python: longest_subarray_with_distinct_entries.py
+Find the length of a longest contained interval
+
+C++: longest_contained_range.cc
+Java: LongestContainedRange.java
+Python: longest_contained_range.py
+Find the student with the top three scores
+
+C++: average_top_3_scores.cc
+Java: AverageTop3Scores.java
+Python: average_top_3_scores.py
+Compute all string decompositions
+
+C++: substring_with_concatenation_of_all_words.cc
+Java: SubstringWithConcatenationOfAllWords.java
+Python: substring_with_concatenation_of_all_words.py
+Test the Collatz conjecture
+
+C++: collatz_conjecture.cc
+Java: CollatzConjecture.java
+Python: collatz_conjecture.py
+Bootcamp: Sorting
+
+C++: student_sort.cc
+Java: StudentSort.java
+Python: student_sort.py
+Compute the intersection of two sorted arrays
+
+C++: intersect_sorted_arrays1.h
+Java: IntersectSortedArrays1.java
+Python: intersect_sorted_arrays1.py
+C++: intersect_sorted_arrays2.h
+Java: IntersectSortedArrays2.java
+Python: intersect_sorted_arrays2.py
+C++: intersect_sorted_arrays3.h
+Java: IntersectSortedArrays3.java
+Python: intersect_sorted_arrays3.py
+Merge two sorted arrays
+
+C++: merge_two_sorted_arrays_in_place.cc
+Java: MergeTwoSortedArraysInPlace.java
+Python: merge_two_sorted_arrays_in_place.py
+Remove first-name duplicates
+
+C++: eliminate_duplicate.cc
+Java: EliminateDuplicate.java
+Python: eliminate_duplicate.py
+Smallest nonconstructible value
+
+C++: nonconstructible_change.cc
+Java: NonconstructibleChange.java
+Python: nonconstructible_change.py
+Render a calendar
+
+C++: rendering_calendar.cc
+Java: RenderingCalendar.java
+Python: rendering_calendar.py
+Merging intervals
+
+C++: insert_interval.cc
+Java: InsertInterval.java
+Python: insert_interval.py
+Compute the union of intervals
+
+C++: union_intervals.cc
+Java: UnionIntervals.java
+Python: union_intervals.py
+Partitioning and sorting an array with many repeated entries
+
+C++: partition_array.cc
+Java: PartitionArray.java
+Python: partition_array.py
+Team photo day - 1
+
+C++: team_photo_1.cc
+Java: TeamPhoto1.java
+Python: team_photo_1.py
+Implement a fast sorting algorithm for lists
+
+C++: insertion_sort_list.cc
+Java: InsertionSortList.java
+Python: insertion_sort_list.py
+C++: sort_list.cc
+Java: SortList.java
+Python: sort_list.py
+Compute a salary threshold
+
+C++: completion_search.cc
+Java: CompletionSearch.java
+Python: completion_search.py
+Bootcamp: Binary Search Trees
+
+C++: bst_prototype.h
+Java: BinarySearchTreePrototypeTemplate.java
+Python: bst_prototype.py
+C++: search_bst.cc
+Java: SearchBST.java
+Python: search_bst.py
+Python: bintrees_example.py
+Test if a binary tree satisfies the BST property
+
+C++: is_binary_tree_a_bst.cc
+Java: IsBinaryTreeABST.java
+Python: is_binary_tree_a_bst.py
+C++: is_binary_tree_a_bst_bfs.cc
+Java: IsBinaryTreeABSTBFS.java
+Python: is_binary_tree_a_bst_bfs.py
+Find the first key greater than a given value in a BST
+
+C++: search_bst_first_larger_k.cc
+Java: SearchBSTFirstLargerK.java
+Python: search_bst_first_larger_k.py
+Find the k largest elements in a BST
+
+C++: find_k_largest_bst.cc
+Java: FindKLargestBST.java
+Python: find_k_largest_bst.py
+Compute the LCA in a BST
+
+C++: bst_lowest_common_ancestor.cc
+Java: BSTLowestCommonAncestor.java
+Python: bst_lowest_common_ancestor.py
+Reconstruct a BST from traversal data
+
+C++: rebuild_bst_preorder.cc
+Java: RebuildBSTPreorder.java
+Python: rebuild_bst_preorder.py
+C++: rebuild_bst_preorder_better.cc
+Java: RebuildBSTPreorderBetter.java
+Python: rebuild_bst_preorder_better.py
+Find the closest entries in three sorted arrays
+
+C++: minimum_distance_3_sorted_arrays.cc
+Java: MinimumDistance3SortedArrays.java
+Python: minimum_distance_3_sorted_arrays.py
+Enumerate numbers of the form a + b sqrt(2)
+
+C++: generating_a_b_sqrt2.h
+Java: GeneratingABSqrt2.java
+Python: generating_a_b_sqrt2.py
+C++: generating_a_b_sqrt2_improved.h
+Java: GeneratingABSqrt2Improved.java
+Python: generating_a_b_sqrt2_improved.py
+Build a minimum height BST from a sorted array
+
+C++: build_bst_from_sorted_array.cc
+Java: BuildBSTFromSortedArray.java
+Python: build_bst_from_sorted_array.py
+Insertion and deletion in a BST
+
+C++: insertion_deletion_bst.cc
+Java: InsertionDeletionBST.java
+Python: insertion_deletion_bst.py
+Test if three BST nodes are totally ordered
+
+C++: descendant_and_ancestor.cc
+Java: DescendantAndAncestor.java
+Python: descendant_and_ancestor.py
+The range lookup problem
+
+C++: range_lookup_bst.cc
+Java: RangeLookupBST.java
+Python: range_lookup_bst.py
+Add credits
+
+C++: adding_credits.cc
+Java: AddingCredits.java
+Python: addingcredits.py
+Bootcamp: Recursion
+
+C++: gcd2.h
+Java: GCD2.java
+Python: gcd2.py
+The Towers of Hanoi problem
+
+C++: tower_hanoi.cc
+Java: TowerHanoi.java
+Python: tower_hanoi.py
+Generate all nonattacking placements of n-Queens
+
+C++: n_queens.cc
+Java: NQueens.java
+Python: n_queens.py
+Generate permutations
+
+C++: permutations_alternative.cc
+Java: PermutationsAlternative.java
+Python: permutations_alternative.py
+C++: permutations.cc
+Java: Permutations.java
+Python: permutations.py
+Generate the power set
+
+C++: power_set_alternative.cc
+Java: PowerSetAlternative.java
+Python: power_set_alternative.py
+C++: power_set.cc
+Java: PowerSet.java
+Python: power_set.py
+Generate all subsets of size k
+
+C++: combinations.cc
+Java: Combinations.java
+Python: combinations.py
+Generate strings of matched parens
+
+C++: generate_parentheses.cc
+Java: GenerateParentheses.java
+Python: generate_parentheses.py
+Generate palindromic decompositions
+
+C++: palindrome_partitioning.cc
+Java: PalindromePartitioning.java
+Python: palindrome_partitioning.py
+Generate binary trees
+
+C++: unique_binary_trees_all.cc
+Java: UniqueBinaryTreesAll.java
+Python: unique_binary_trees_all.py
+Implement a Sudoku solver
+
+C++: sudoku_solve.cc
+Java: SudokuSolve.java
+Python: sudoku_solve.py
+Compute a Gray code
+
+C++: gray_code_backtrack.cc
+Java: GrayCodeBacktrack.java
+Python: gray_code_backtrack.py
+C++: gray_code.cc
+Java: GrayCode.java
+Python: gray_code.py
+Compute the diameter of a tree
+
+C++: tree_diameter.cc
+Java: TreeDiameter.java
+Python: tree_diameter.py
+Bootcamp: Dynamic Programming
+
+C++: fibonacci.cc
+Java: Fibonacci.java
+Python: fibonacci.py
+C++: fibonacci_iterative.cc
+Java: FibonacciIterative.java
+Python: fibonacci_iterative.py
+C++: max_sum_subarray.cc
+Java: MaxSumSubarray.java
+Python: max_sum_subarray.py
+Count the number of score combinations
+
+C++: score_combination.cc
+Java: ScoreCombination.java
+Python: score_combination.py
+Compute the Levenshtein distance
+
+C++: levenshtein_distance.cc
+Java: LevenshteinDistance.java
+Python: levenshtein_distance.py
+Count the number of ways to traverse a 2D array
+
+C++: number_ways.cc
+Java: NumberWays.java
+Python: number_ways.py
+Compute the binomial coefficients
+
+C++: computing_binomial_coefficients.cc
+Java: ComputingBinomialCoefficients.java
+Python: computing_binomial_coefficients.py
+Search for a sequence in a 2D array
+
+C++: string_in_matrix.cc
+Java: StringInMatrix.java
+Python: string_in_matrix.py
+The knapsack problem
+
+C++: 0_1_knapsack.cc
+Java: ZeroOneKnapsack.java
+Python: 0_1_knapsack.py
+The bedbathandbeyond.com problem
+
+C++: word_breaking.cc
+Java: WordBreaking.java
+Python: word_breaking.py
+Find the minimum weight path in a triangle
+
+C++: triangle.cc
+Java: Triangle.java
+Python: triangle.py
+Pick up coins for maximum gain
+
+C++: picking_up_coins.cc
+Java: PickingUpCoins.java
+Python: picking_up_coins.py
+Count the number of moves to climb stairs
+
+C++: number_steps.cc
+Java: NumberSteps.java
+Python: number_steps.py
+The pretty printing problem
+
+C++: pretty_printing.cc
+Java: PrettyPrinting.java
+Python: pretty_printing.py
+Find the longest nondecreasing subsequence
+
+C++: longest_nondecreasing_subsequence_n2.h
+Java: LongestNondecreasingSubsequenceN2.java
+Python: longest_nondecreasing_subsequence_n2.py
+Bootcamp: Greedy Algorithms and Invariants
+
+C++: coin_change.cc
+Java: CoinChange.java
+Python: coin_change.py
+Compute an optimum assignment of tasks
+
+C++: task_assignment.cc
+Java: TaskAssignment.java
+Python: task_assignment.py
+Schedule to minimize waiting time
+
+C++: minimum_waiting_time.cc
+Java: MinimumWaitingTime.java
+Python: minimum_waiting_time.py
+The interval covering problem
+
+C++: points_covering_intervals_sorting.cc
+Java: PointsCoveringIntervalsSorting.java
+Python: points_covering_intervals_sorting.py
+C++: 2_sum.h
+Java: TwoSum.java
+Python: two_sum.py
+The 3-sum problem
+
+C++: 3_sum.cc
+Java: ThreeSum.java
+Python: 3_sum.py
+Find the majority element
+
+C++: search_majority.cc
+Java: SearchMajority.java
+Python: search_majority.py
+The gasup problem
+
+C++: gassing_up.cc
+Java: GassingUp.java
+Python: gassing_up.py
+Compute the maximum water trapped by a pair of vertical lines
+
+C++: container_with_most_water.cc
+Java: ContainerWithMostWater.java
+Python: container_with_most_water.py
+Compute the largest rectangle under the skyline
+
+C++: largest_rectangle_under_skyline.h
+Java: LargestRectangleUnderSkyline.java
+Python: largest_rectangle_under_skyline.py
+Bootcamp: Graphs
+
+C++: team_reachability.cc
+Java: TeamReachability.java
+Python: team_reachability.py
+Search a maze
+
+C++: search_maze.cc
+Java: SearchMaze.java
+Python: search_maze.py
+Paint a Boolean matrix
+
+C++: painting_iterative.cc
+Java: PaintingIterative.java
+Python: painting_iterative.py
+C++: painting_recursive.cc
+Java: PaintingRecursive.java
+Python: painting_recursive.py
+Compute enclosed regions
+
+C++: surrounded_regions.cc
+Java: SurroundedRegions.java
+Python: surrounded_regions.py
+Deadlock detection
+
+C++: 2_exists.cc
+Java: TwoExists.java
+Python: 2_exists.py
+Clone a graph
+
+C++: clone_graph.cc
+Java: CloneGraph.java
+Python: clone_graph.py
+Making wired connections
+
+C++: wiring_circuit_board.cc
+Java: WiringCircuitBoard.java
+Python: wiring_circuit_board.py
+Transform one string to another
+
+C++: transform_string_to_other.cc
+Java: TransformStringToOther.java
+Python: transform_string_to_other.py
+Team photo day - 2
+
+C++: team_photo_2.cc
+Java: TeamPhoto2.java
+Python: team_photo_2.py
+Compute a shortest path with fewest edges
+
+C++: shortest_path_fewest_edges.cc
+Java: ShortestPathFewestEdges.java
+Python: shortest_path_fewest_edges.py
+Bootcamp: Parallel Computing
+
+C++: semaphore.cc
+Java: Semaphore.java
+Python: semaphore.py
+Implement caching for a multithreaded dictionary
+
+C++: s1.cc
+Java: S1Alternative.java
+Python: s1.py
+C++: s2.cc
+Java: S2Alternative.java
+Python: s2.py
+Analyze two unsynchronized interleaved threads
+
+C++: two_thread_increment.cc
+Java: TwoThreadIncrement.java
+Python: two_thread_increment.py
+Implement synchronization for two interleaving threads
+
+C++: odd_even.cc
+Java: OddEven.java
+Python: odd_even.py
+Implement a thread pool
+
+C++: simple_web_server.cc
+Java: SimpleWebServer.java
+Python: simple_web_server.py
+C++: thread_per_task_webserver.cc
+Java: ThreadPerTaskWebserver.java
+Python: thread_per_task_webserver.py
+C++: task_execution_web_server.cc
+Java: TaskExecutionWebServer.java
+Python: task_execution_web_server.py
+Deadlock
+
+C++: lock_ordering_bug.cc
+Java: LockOrderingBug.java
+Python: lock_ordering_bug.py
+C++: lock_ordering_works.cc
+Java: LockOrderingWorks.java
+Python: lock_ordering_works.py
+The readers-writers problem
+
+C++: rw.cc
+Java: RW.java
+Python: rw.py
+Test the Collatz conjecture in parallel
+
+C++: collatz.cc
+Java: Collatz.java
+Python: collatz.py
+Pass-by-reference vs.~pass-by-value
+
+C++: polymorphismproblems.cc
+C++: polymorphismproblemsfixed.cc
+Smart pointers
+
+C++: smartpointers.cc
+Default methods
+
+C++: passbyvaluebug.cc
+Updating a map
+
+C++: mapupdate1.cc
+C++: mapupdate2.cc
+C++: mapupdate3.cc
+C++: mapupdate4.cc
+C++: mapupdate5.cc
+Fast function calls
+
+C++: badmacro.cc
+C++: inlineexample.cc
+Template functions
+
+C++: minmaxtemplate.cc
+C++: minmaxtemplatemove.cc
+Run-time type identification
+
+C++: badrtti.cc
+C++: badrtti2.cc
+C++: goodrtti.cc
+List, ArrayList, and LinkedList
+
+Java: BadArrayStore.java
+Java: BadArrayListStore.java
+String vs.~StringBuilder
+
+Java: StringConcatenation.java
+Java: StringConcatenationStringBuilder.java
+Static initialization
+
+Java: BasicStaticInitializer.java
+Java: StaticInitializer.java
+Closure
+
+Python: closure.py
+Python: closure_works.py
+Iterators and Generators
+
+Python: simple_iterator.py
+Python: simple_generator.py
+@decorator
+
+Python: function_timer.py
+Python: function_timer_sugar.py
+List vs tuple
+
+Python: bad_set_insert.py
+args and kwargs
+
+Python: args.py
+Python: kwargs.py
+Python code
+
+Python: nonpythonic.py
+Python: pythonic.py
+Exception Handling
+
+Python: no_exception_handling.py
+Python: try_finally.py
+Python: try_except.py
+Python: try_except_finally.py
+Python: exception_handling.py
+Scoping
+
+Python: scoping.py
+Function arguments
+
+Python: default_args.py
+Python: basic_args.py
+Python: basic_args_calls.py
+Python: default_values.py
+Creational Patterns
+
+C++: maze_game.h
+Java: MazeGame.java
+Python: maze_game.py
+C++: ordinary_maze_game.h
+Java: OrdinaryMazeGame.java
+C++: magic_maze_game.h
+Java: MagicMazeGame.java
+Python: magic_maze_game.py
+C++: maze_game_main.cc
+Java: MazeGameMain.java
+Python: maze_game_main.py
+Compute the greatest common divisor
+
+C++: gcd1.h
+Java: GCD1.java
+Python: gcd1.py
+Find the first missing positive entry
+
+C++: first_missing_positive.cc
+Java: FirstMissingPositive.java
+Python: first_missing_positive.py
+Buy and sell a stock k times
+
+C++: max_difference_k_pairs.cc
+Java: MaxDifferenceKPairs.java
+Python: max_difference_k_pairs.py
+Compute the maximum product of all entries but one
+
+C++: biggest_product_n_1.cc
+Java: BiggestProductNMinus1.java
+Python: biggest_product_n_1.py
+C++: biggest_product_n_1_math.cc
+Java: BiggestProductNMinus1Math.java
+Python: biggest_product_n_1_math.py
+Compute the longest contiguous increasing subarray
+
+C++: longest_increasing_subarray.cc
+Java: LongestIncreasingSubarray.java
+Python: longest_increasing_subarray.py
+Rotate an array
+
+C++: rotate_array_permutation.h
+Java: RotateArrayPermutation.java
+Python: rotate_array_permutation.py
+C++: rotate_array.h
+Java: RotateArray.java
+Python: rotate_array.py
+Identify positions attacked by rooks
+
+C++: rook_attack.cc
+Java: RookAttack.java
+Python: rook_attack.py
+Justify text
+
+C++: justify_text.cc
+Java: JustifyText.java
+Python: justify_text.py
+Implement list zipping
+
+C++: zipping_list.cc
+Java: ZippingList.java
+Python: zipping_list.py
+Copy a postings list
+
+C++: copying_postings_list.cc
+Java: CopyingPostingsList.java
+Python: copying_postings_list.py
+Compute the longest substring with matching parens
+
+C++: longest_valid_parentheses.cc
+Java: LongestValidParentheses.java
+Python: longest_valid_parentheses.py
+Compute the maximum of a sliding window
+
+C++: sliding_window.cc
+Java: SlidingWindow.java
+Python: sliding_window.py
+Implement a postorder traversal without recursion
+
+C++: binary_tree_postorder_traversal_iterative_alternative.cc
+Java: BinaryTreePostorderTraversalIterativeAlternative.java
+Python: binary_tree_postorder_traversal_iterative_alternative.py
+C++: binary_tree_postorder_traversal_iterative.cc
+Java: BinaryTreePostorderTraversalIterative.java
+Python: binary_tree_postorder_traversal_iterative.py
+Compute fair bonuses
+
+C++: bonus.cc
+Java: Bonus.java
+Python: bonus.py
+C++: bonus_improved.cc
+Java: BonusImproved.java
+Python: bonus_improved.py
+Search a sorted array of unknown length
+
+C++: binary_search_unknown_length.cc
+Java: BinarySearchUnknownLength.java
+Python: binary_search_unknown_length.py
+Search in two sorted arrays
+
+C++: find_kth_element_in_two_sorted_arrays.cc
+Java: FindKthElementInTwoSortedArrays.java
+Python: find_kth_element_in_two_sorted_arrays.py
+Find the kth largest element - large n, small k
+
+C++: k_th_largest_element_large_n.cc
+Java: KthLargestElementLargeN.java
+Python: k_th_largest_element_large_n.py
+Find an element that appears only once
+
+C++: find_element_appears_once.cc
+Java: FindElementAppearsOnce.java
+Python: find_element_appears_once.py
+Find the line through the most points
+
+C++: line_most_points.cc
+Java: LineMostPoints.java
+Python: line_most_points.py
+Find the shortest unique prefix
+
+C++: shortest_unique_prefix.cc
+Java: ShortestUniquePrefix.java
+Python: shortest_unique_prefix.py
+Convert a sorted doubly linked list into a BST
+
+C++: sorted_list_to_bst.cc
+Java: SortedListToBST.java
+Python: sorted_list_to_bst.py
+Convert a BST to a sorted doubly linked list
+
+C++: bst_to_sorted_doubly_list.cc
+Java: BSTToSortedDoublyList.java
+Python: bst_to_sorted_doubly_list.py
+Merge two BSTs
+
+C++: merge_two_bsts.cc
+Java: MergeTwoBSTs.java
+Python: merge_two_bsts.py
+The view from above
+
+C++: view_from_above.cc
+Java: ViewFromAbove.java
+Python: view_from_above.py
+Implement regular expression matching
+
+C++: regular_expression.cc
+Java: RegularExpression.java
+Python: regular_expression.py
+Synthesize an expression
+
+C++: add_operators_in_string.cc
+Java: AddOperatorsInString.java
+Python: add_operators_in_string.py
+Count inversions
+
+C++: count_inversions.cc
+Java: CountInversions.java
+Python: count_inversions.py
+Draw the skyline
+
+C++: drawing_skylines_alternative.cc
+Java: DrawingSkylinesAlternative.java
+Python: drawing_skylines_alternative.py
+Measure with defective jugs
+
+C++: three_jugs.cc
+Java: ThreeJugs.java
+Python: three_jugs.py
+Compute the maximum subarray sum in a circular array
+
+C++: maximum_subarray_in_circular_array.cc
+Java: MaximumSubarrayInCircularArray.java
+Python: maximum_subarray_in_circular_array.py
+C++: maximum_subarray_in_circular_array_constant_space.cc
+Java: MaximumSubarrayInCircularArrayConstantSpace.java
+Python: maximum_subarray_in_circular_array_constant_space.py
+Determine the critical height
+
+C++: height_determination.cc
+Java: HeightDetermination.java
+Python: height_determination.py
+Find the maximum 2D subarray
+
+C++: max_submatrix_rectangle.cc
+Java: MaxSubmatrixRectangle.java
+Python: max_submatrix_rectangle.py
+C++: max_submatrix_square.cc
+Java: MaxSubmatrixSquare.java
+Python: max_submatrix_square.py
+C++: max_submatrix_rectangle_improved.cc
+Java: MaxSubmatrixRectangleImproved.java
+Python: max_submatrix_rectangle_improved.py
+Implement Huffman coding
+
+C++: huffman_encoding.cc
+Java: HuffmanEncoding.java
+Python: huffman_encoding.py
+Trapping water
+
+C++: trapping_rain_water.cc
+Java: TrappingRainWater.java
+Python: trapping_rain_water.py
+Search for a pair-sum in an abs-sorted array
+
+C++: search_a_pair_sorted_array.cc
+Java: SearchAPairSortedArray.java
+Python: search_a_pair_sorted_array.py
+The heavy hitter problem
+
+C++: search_frequent_items.cc
+Java: SearchFrequentItems.java
+Python: search_frequent_items.py
+Find the longest subarray whose sum <= k
+
+C++: longest_subarray_k_improved.cc
+Java: LongestSubarrayKImproved.java
+Python: longest_subarray_k_improved.py
+Road network
+
+C++: road_network.cc
+Java: RoadNetwork.java
+Python: road_network.py
+Test if arbitrage is possible
+
+C++: arbitrage.cc
+Java: Arbitrage.java
+Python: arbitrage.py
