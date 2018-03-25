@@ -24,7 +24,7 @@ install.packages("rCharts.tar.gz", repos = NULL, type = "source")
 
 # Example codes for R-chart
 #========================================================
-setwd("C:\\Users\\sg0224373\\Desktop\\SabreTasks\\HotelProject\\RCode\\rChartSample")
+setwd("xxx")
 require(rCharts)
 haireye=as.data.frame(HairEyeColor)
 n1 <- nPlot(Freq ~ Hair, group= 'Eye', type= 'multiBarChart', data=subset(haireye, 
