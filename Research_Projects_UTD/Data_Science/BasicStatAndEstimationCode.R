@@ -1,10 +1,10 @@
 #==========================================
 # Code written by: Meisam Hejazi Nia
 # on 05/08/2016
-# For Correlation One Interview challange
+# For C1 challane
 #==========================================
 library(data.table)
-setwd("C:/Users/Meisam/Desktop/CorrelationOne/data/")
+setwd("C:/Users/Meisam/Desktop/C1/data/")
 
 
 # Response Data

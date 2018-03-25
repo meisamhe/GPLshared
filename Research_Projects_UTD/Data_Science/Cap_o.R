@@ -1,17 +1,17 @@
-#' ![](http://www.flyreagan.com/sites/default/files/capital_one_core_ng_rgb_r.png)
+#' ![](http://www.flyreagan.com/sites/default/files/c_one_core_ng_rgb_r.png)
 #-----------------------------------------------------
-# Capital One Challange
+# c One Challange
 # Meisam Hejazi Nia
 # 07/24/2016
 #-----------------------------------------------------
 
 #' ---
-#' title: "Capital One Data Science Challange"
+#' title: "c One Data Science Challange"
 #' output:
 #'     html_document: 
 #'      theme: cerulean
 #'      toc: yes
-#'      css: C:/Users/Meisam/Desktop/CapitalOne/custom.css
+#'      css: C:/Users/Meisam/Desktop/cOne/custom.css
 #' ---
 
 

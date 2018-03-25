@@ -1,6 +1,6 @@
 #===================================================
 # Code written by: Meisam Hejazi Nia
-# For: the Code Puzzle for Stable SparX
+# For: the Code Puzzle for SS
 # On: 08/29/2015
 #=================================================
 rm(list=ls())

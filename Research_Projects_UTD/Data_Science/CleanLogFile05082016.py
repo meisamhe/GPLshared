@@ -1,6 +1,6 @@
 #=======================================================
 # Code written by Meisam Hejazi Nia
-# For Correlation 1 interview project
+# For C1
 # Write: 05/08/2016
 #=======================================================
 import os
