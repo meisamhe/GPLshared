@@ -1,0 +1,99 @@
+MM.MySQL 2.0.3
+Mark Matthews JDBC Driver for MySQL
+Copyright (c) 1998-1999 Mark Matthews
+
+CONTENT
+* License
+* System Requirements
+* Introduction
+* Usage
+* Known Bugs
+* Support
+
+LICENSE
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Library General Public
+License as published by the Free Software Foundation; either
+version 2 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Library General Public License for more details.
+ 
+You should have received a copy of the GNU Library General Public
+License along with this library; if not, write to the
+Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+Boston, MA  02111-1307, USA.
+
+See the COPYING file located in the top-level-directory of
+the archive of this library for complete text of license.
+
+SYSTEM REQUIREMENTS
+ 
+* Any Java virtual machine supporting JDBC-1.2 or JDBC-2.0 (JDK-1.1 or higher)
+* Any MySQL server supporting version 9 or 10 of the MySQL protocol
+
+Because MySQL is not fully ANSI SQL-92 compliant, it is not possible to 
+create a fully JDBC-compliant driver for MySQL.  However, this driver 
+strives to implement as much of the JDBC API as is feasible.
+
+INTRODUCTION
+
+This version of the MM.MySQL driver is a beta release. BETA means that 
+while there are no known show-stopping bugs, the features of this driver
+are still immature enough to cause the end-user to be exposed to some
+level of risk when using the driver. You should only use BETA versions
+of MM.MySQL if you are comfortable with the inherent risk involved with
+using a BETA product.
+
+MM.MySQL is an implemntation of the JDBC API for the MySQL relational
+database server. It strives to conform as much as possible to the API
+as specified by JavaSoft. It is known to work with many third-party 
+products, including Borland JBuilder, IBM Visual Age for Java, SQL/J,
+the Locomotive and Symantec Visual Cafe.
+
+USAGE AND INSTALLATION
+
+More detailed documentation is available in the doc/ directory, but the
+short version is as follows:
+
+You have one of two choices, copy the org subdirectory and all of it's contents
+to anywhere you like, and put the directory holding the org subdirectory
+in your classpath, or...
+
+Put either the mysql_1_comp.jar, mysql_1_uncomp.jar, mysql_2_comp.jar, 
+mysql_2_uncomp.jar, mysql_both_comp.jar or mysql_both_uncomp.jar in 
+your classpath.
+
+The jar-file naming convention is mysql_(jdbc verion)_compressesed/uncompressed.
+
+You will have to figure out what JDBC version your JDK is using, and whether or not it is happy reading compressed jar files.
+
+Note that the JAR file instructions here are the ones you need to use, not
+the ones in the "doc" subdirectory. These directions will probably change as
+I find out how well the various JVMs deal with the different jar files.
+
+KNOWN BUGS
+
+There are many parts of the JDBC-2.0 spec that are not implemented (yet). 
+
+The big one is positioned update, which is coming, but first I want to deal
+with class-loading and applet issues with the new driver setup before I 
+tackle that problem.
+
+If you see something that is not implemented, and you have an idea on how to
+do it, go ahead and let me know. I'm always looking for help and/or feedback
+about the driver.
+
+SUPPORT
+
+Is available on the mysql-java mailing list available from www.mysql.com, or
+through e-mail to me <mmatthew@thematthews.org>. I can't guarantee that I 
+will get right back to you, but I've got a pretty good turn-around-time
+on MM.MySQL problem e-mails.
+
+--
+This software is OSI Certified Open Source Software.
+OSI Certified is a certification mark of the Open Source Initiative.

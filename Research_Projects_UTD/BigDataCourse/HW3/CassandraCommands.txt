@@ -1,0 +1,60 @@
+
+# replication factor =1 
+# dataset in /cassandra-input/user.dat
+
+# Dataset:
+
+# command to run cassandra (cqlsh)
+/usr/local/apache-cassandra-2.0.5/bin/cassandra-cli --host csac0
+
+# create a key space with netID: mxh109420
+CREATE KEYSPACE mxh109420 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1} 
+
+#Create a COLUMN FAMILY for this dataset
+USE mxh109420;
+
+#UserID:Gender:Age:Occupation:Zip-code
+# column family is a table: http://www.datastax.com/docs/1.1/references/cql/CREATE_COLUMNFAMILY
+CREATE TABLE users( 
+   UserID int PRIMARY KEY,
+   Gender varchar, 
+   Age int,
+   Occupation int,
+   Zip-code int); 
+
+# another way to define column family
+CREATE COLUMN FAMILY users
+WITH comparator = UTF8Type
+AND key_validation_class=UTF8Type
+AND column_metadata = [
+{column_name: UserID, validation_class: LongType}
+{column_name: Gender, validation_class: AsciiType}
+{column_name: Age, validation_class: LongType}
+{column_name: Occupation, validation_class: LongType}
+{column_name: Zip-code, validation_class: LongType}
+];
+
+# the same for both column family and table
+INSERT INTO users(UserID,Gender,Age,Occupation,Zip-code) VALUES (13,F,51,1,93334); 
+INSERT INTO users(UserID,Gender,Age,Occupation,Zip-code) VALUES (1471,F,31,17,11116); 
+INSERT INTO users(UserID,Gender,Age,Occupation,Zip-code) VALUES (1496,F,31,17,94118) USING TTL 300; 
+
+#Show the following:
+#i. Get the Gender and Occupation for user with id 13 ?
+SELECT Gender,Occupation FROM users
+  WHERE UserID =13;
+
+#ii. Retrieve all rows and columns.
+SELECT * FROM users;
+
+#iii. Delete column Gender for the user id 1471.
+DELETE Gender FROM users where UserID  = 1471;
+
+#iv. Drop the column family.
+DROP COLUMNFAMILY users;
+
+#Use describe keyspace command with your netid and show content.
+DESCRIBE KEYSPACE mxh109420;
+
+
+

@@ -1,0 +1,21 @@
+/Buffer.java/1.1.1.1/Sat Apr 22 00:10:42 2000//
+/Debug.java/1.1.1.1/Sat Apr 22 00:10:42 2000//
+/Field.java/1.1.1.1/Sat Apr 22 00:10:42 2000//
+/MysqlDataSource.java/1.1.1.1/Sat Apr 22 00:10:42 2000//
+/MysqlDataSourceFactory.java/1.1.1.1/Sat Apr 22 00:10:42 2000//
+/MysqlDefs.java/1.1.1.1/Sat Apr 22 00:10:42 2000//
+/SQLError.java/1.1.1.1/Sat Apr 22 00:10:42 2000//
+/Statement.java/1.1.1.1/Sat Apr 22 00:10:42 2000//
+/Token.java/1.1.1.1/Sat Apr 22 00:10:42 2000//
+/Util.java/1.1.1.1/Sat Apr 22 00:10:42 2000//
+D/jdbc1////
+D/jdbc2////
+/ResultSetMetaData.java/1.2/Sun May 28 18:35:24 2000//
+/EscapeTokenizer.java/1.2/Sun May 28 18:36:01 2000//
+/DatabaseMetaData.java/1.3/Sun May 28 18:54:54 2000//
+/EscapeProcessor.java/1.3/Mon May 29 15:02:21 2000//
+/ResultSet.java/1.3/Sat Jun 03 01:01:25 2000//
+/PreparedStatement.java/1.3/Tue Jul 04 01:10:03 2000//
+/Driver.java/1.3/Tue Jul 04 02:03:26 2000//
+/MysqlIO.java/1.4/Tue Jul 04 02:04:22 2000//
+/Connection.java/1.6/Tue Jul 04 02:05:40 2000//

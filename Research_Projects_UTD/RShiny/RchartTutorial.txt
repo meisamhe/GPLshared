@@ -1,0 +1,150 @@
+RChart
+====================================
+rChart: create interactive javascript visualization using R
+
+so learning complex tool such as D3 is not required
+
+Source: http://ramnathv.github.io/rCharts/
+
+
+#installation method that works:
+#====================================
+#install.packages("devtools", dependencies=TRUE)
+#install.packages('Rcpp', dependencies = TRUE)
+#install.packages("ggplot2", dependencies=TRUE) 
+library(devtools)
+library(Rcpp)
+
+library(downloader)
+download("https://github.com/ramnathv/rCharts/archive/master.tar.gz", "rCharts.tar.gz")
+install.packages("rCharts.tar.gz", repos = NULL, type = "source")
+
+
+
+
+# Example codes for R-chart
+#========================================================
+setwd("C:\\Users\\sg0224373\\Desktop\\SabreTasks\\HotelProject\\RCode\\rChartSample")
+require(rCharts)
+haireye=as.data.frame(HairEyeColor)
+n1 <- nPlot(Freq ~ Hair, group= 'Eye', type= 'multiBarChart', data=subset(haireye, 
+                                                                          Sex=='Male')
+)
+#miesam: to see the chart
+show(n1)
+#meisam: create directory of fig that does not exist
+dir.create("fig", showWarnings = FLASE, recursive = FALSE, mode = "0777")
+n1$save('fig/n1.html',cdn=TRUE)
+cat('<iframe src="fig/n1.html" width=100%, height=600></iframe>')
+
+#object n1 contains the plot
+
+calling plot or not assignment creates the plot (or show function)
+
+#print out the html for the plot
+n1$html()
+
+#can save and use the code in slidify
+n1$save(filename)
+
+#Deconstructing another example
+#====================
+##Exampe 1 Facetted Scatterplot
+names(iris)=gsub("\\.","",names(iris))
+r1=rPlot(SepalLength~SepalWidth | Species, data = iris, color = 'Species', type= 'point')
+r1$save('fig/r1.html',cdn=TRUE)
+cat('<iframe src="fig/r1.html" width=100%, height=600></iframe>')
+
+
+#Example 2 Facetted Barplot
+#========================
+hair_eye = as.data.frame(HairEyeColor)
+r2 <- rPlot(Freq ~ Hair | Eye, color = 'Eye', data= hair_eye, type = 'bar')
+r2$save ('fig/r2.html', cdn = TRUE)
+cat('<iframe src="fig/r2.html" width=100%, height = 600></iframe>')
+
+#How to get the js/html or publish an rChart
+#======================================
+r1<- rPlot(mpg ~wt | am + vs, data = mtcars, type = "point", color="gear")
+r1$print("chart1") # print out the js
+r1$save('myplot.html') #save as html file
+
+
+r1$publish('myPlot', host='gist') #save to gist, rjson required
+r$publish('myPlot', host=rpubs') #save to rpubs
+
+#===================================================================
+
+rChart has links to several libraries
+#===================================================================
+
+#morris
+data(economics, package="ggplot2")
+econ<-transform(economics, data=as.character(date))
+m1 <- mPlot(x="date", y=c("psavert", "uempmed"), type="Line", data=econ)
+m1$set(pointSize=0, lineWidth=1)
+m1$save('fig/m1.html', cdn=TRUE)
+cat('<iframe src="fig/m1.html" width=100%, height=600></iframe>')
+
+XCharts
+#============================================================
+require(reshape2)
+uspexp <- melt(USPersonalExpenditure)
+names(uspexp)[1:2]=c("category", "year")
+x1<- xPlot(value ~ year, group = "category", data= uspexp, type="line-dotted")
+x1$save('fig/x1.html', cdn=TRUE)
+cat('<iframe src="fig/x1.html" width=100%, height=600></iframe>')
+
+#Leaflet
+#============================
+mp3 <- Leaflet$new()
+mp3$setView(c(51,505,-0.09), zoom=13)
+mp3$marker(c(51.5, -0.09), bindPopup= "<p> Hi. I am popup </p>")
+mp3$marker(c(51.495, -0.083), bindPopup= "<p> Hi. I am another popup </p>")
+show(mp3)
+mp3$save('fig/mp3.html')
+
+mp3$save('fig/mp3.html', cdn=TRUE)
+cat('<iframe src="fig/mp3.html", width=100%, height=600></iframe>')
+
+#Rickshaw
+#============================
+usp = reshape2::melt(USPersonalExpenditure)
+#get the decades into a date Rickshaw links
+usp$Var2 <- as.numeric(as.POSIXct(paste0(usp$Var2, "-01-01")))
+p4 <- Rickshaw$new()
+p4$layer(value ~ Var2, group = "Var1", data = usp, type = "area", width=560)
+#add a helpful slider this easily; other features TRUE as a default
+p4$set(slider = TRUE)
+p4$save('fig/p4.html')
+
+p4$save('fig/p4.html', cdn=TRUE)
+cat('<iframe src="fig/p4.html" width=100%, height=600></iframe>')
+
+#highchart
+#===============================
+h1<- hPlot(x="Wr.Hnd", y="NW.Hnd", data=MASS::survey, type=c("line", "bubble", "scatter"), 
+           group="Clap", size="Age")
+
+h1$save('fig/h1.html')
+show(h1)
+
+h1$save('fig/h1.html', cdn=TRUE)
+cat('<iframe src="fig/h1.html" width=100%, height=600></iframe>')
+
+
+rChart summary
+#=================================
+(1) makes creating interactive javascript visualization in R easy
+(2) non-trivial customization require knowledgte of javascript
+(3) It is under development
+
+#Rchart cheat sheet
+#=============================
+# continuous time plot: mPlot
+# frequency plot by: rPlot, type='bar'
+# scatter plot: type="point"
+# line curve: xPlot, type='line-dotted'
+# for map and landmark: Leaflet
+#stack diagram by: Rickshaw
+#for maps GoogleVis library is good

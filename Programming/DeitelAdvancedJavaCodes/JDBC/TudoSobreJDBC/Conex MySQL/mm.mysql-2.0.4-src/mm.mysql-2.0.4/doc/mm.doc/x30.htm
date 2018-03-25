@@ -1,0 +1,169 @@
+<HTML
+><HEAD
+><TITLE
+>Programming Notes</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.33"><LINK
+REL="HOME"
+TITLE="Documentation for MM.MySQL"
+HREF="book1.htm"><LINK
+REL="UP"
+TITLE="Release Notes"
+HREF="c21.htm"><LINK
+REL="PREVIOUS"
+TITLE="MM.MySQL Features"
+HREF="x27.htm"><LINK
+REL="NEXT"
+TITLE="Known Limitations"
+HREF="x41.htm"></HEAD
+><BODY
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Documentation for MM.MySQL</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x27.htm"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. Release Notes</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x41.htm"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN30"
+>Programming Notes</A
+></H1
+><P
+>This section contains information specific to programming
+             with version 1.1h of the MM.MySQL JDBC driver.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN33"
+>Virtual Machine Notes</A
+></H2
+><P
+>Some virtual machines (notably Microsoft's and Netscape's)
+               don't properly call some static class initializers.</P
+><P
+>This causes the driver registration to fail when using
+               the Class.forName() method.</P
+><P
+>The work-around is to add the newInstance() call. To assure that               their applications will run on all virtual machines, developers                should always call newInstance() when registering a driver.
+         </P
+><DIV
+CLASS="EXAMPLE"
+><P
+><B
+>Example 1-1. Class Loader Work-Around</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>&#13;             try {
+               Class.forName("org.gjt.mm.mysql.Driver").newInstance();
+             }
+             catch (Exception E) {
+               E.printStackTrace();
+             }
+
+           </PRE
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x27.htm"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.htm"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x41.htm"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>MM.MySQL Features</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c21.htm"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Known Limitations</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

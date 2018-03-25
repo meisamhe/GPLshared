@@ -1,0 +1,850 @@
+# Meisam Hejazi Nia
+# April 12, 2015
+
+wget http://www.apache.org/dyn/closer.cgi/spark/spark-1.3.0/spark-1.3.0.tgz
+
+or alternatively copy it from the local by winSCP after downloading it
+tar -zxvf spark-1.3.0-bin-hadoop2.4.tgz
+
+an alternative way is to download on windows and then unzip and move to the hortonworks with winSCP
+
+# to run I should use:
+sudo ./bin/spark-shell
+
+put the files I want to use in the main folder that I ran the spark from, e.g. spark-1.3.0-bin-hadoop2.4/
+
+
+# to save the results into a file (it automatically collects and prints)
+lines.map(word=>(word,1)).reduceByKey(_+_).saveAsTextFile("output.txt")
+
+
+lines.map(word=>(word,1)).reduceByKey(_+_).collect.foreach(println)
+
+lines.map(word=>(word,1)).reduceByKey(_+_).top(10)
+
+
+// top 10 Avg Rated, order of rating
+val lines = sc.textFile("ratings.dat")
+val sumratings = lines.map(line=> line.split("::")).map(line=>(line(1),line(2).toDouble)).reduceByKey(_+_)
+val counts = lines.map(line =>line.split("::")).map(line => (line(1),1)).reduceByKey(_+_)
+sumratings.join(counts).mapValues{case(sum,count) => (1.0 * sum)/count}.map(item=>item.swap).sortByKey().top(10)
+
+// an alternative way
+sumratings.join(counts).map{entry => (entry._2._1/entry._2._2,entry._1)}.sortByKey().top(10)
+
+// save output to file
+sumratings.join(counts).mapValues{case(sum,count) => (1.0 * sum)/count}.map(item=>item.swap).sortByKey().saveAsTextFile("output.txt")
+
+#=================================================
+# spark item similarity for recom system
+#===================================================
+spark-itemsimilarity Mahout 1.0
+Usage: spark-itemsimilarity [options]
+
+Disconnected from the target VM, address: '127.0.0.1:64676', transport: 'socket'
+Input, output options
+  -i <value> | --input <value>
+        Input path, may be a filename, directory name, or comma delimited list of HDFS supported URIs (required)
+  -i2 <value> | --input2 <value>
+        Secondary input path for cross-similarity calculation, same restrictions as "--input" (optional). Default: empty.
+  -o <value> | --output <value>
+        Path for output, any local or HDFS supported URI (required)
+
+Algorithm control options:
+  -mppu <value> | --maxPrefs <value>
+        Max number of preferences to consider per user (optional). Default: 500
+  -m <value> | --maxSimilaritiesPerItem <value>
+        Limit the number of similarities per item to this number (optional). Default: 100
+
+Note: Only the Log Likelihood Ratio (LLR) is supported as a similarity measure.
+
+Input text file schema options:
+  -id <value> | --inDelim <value>
+        Input delimiter character (optional). Default: "[,\t]"
+  -f1 <value> | --filter1 <value>
+        String (or regex) whose presence indicates a datum for the primary item set (optional). Default: no filter, all data is used
+  -f2 <value> | --filter2 <value>
+        String (or regex) whose presence indicates a datum for the secondary item set (optional). If not present no secondary dataset is collected
+  -rc <value> | --rowIDColumn <value>
+        Column number (0 based Int) containing the row ID string (optional). Default: 0
+  -ic <value> | --itemIDColumn <value>
+        Column number (0 based Int) containing the item ID string (optional). Default: 1
+  -fc <value> | --filterColumn <value>
+        Column number (0 based Int) containing the filter string (optional). Default: -1 for no filter
+
+Using all defaults the input is expected of the form: "userID<tab>itemId" or "userID<tab>itemID<tab>any-text..." and all rows will be used
+
+File discovery options:
+  -r | --recursive
+        Searched the -i path recursively for files that match --filenamePattern (optional), Default: false
+  -fp <value> | --filenamePattern <value>
+        Regex to match in determining input files (optional). Default: filename in the --input option or "^part-.*" if --input is a directory
+
+Output text file schema options:
+  -rd <value> | --rowKeyDelim <value>
+        Separates the rowID key from the vector values list (optional). Default: "\t"
+  -cd <value> | --columnIdStrengthDelim <value>
+        Separates column IDs from their values in the vector values list (optional). Default: ":"
+  -td <value> | --elementDelim <value>
+        Separates vector element values in the values list (optional). Default: " "
+  -os | --omitStrength
+        Do not write the strength to the output files (optional), Default: false.
+This option is used to output indexable data for creating a search engine recommender.
+
+Default delimiters will produce output of the form: "itemID1<tab>itemID2:value2<space>itemID10:value10..."
+
+Spark config options:
+  -ma <value> | --master <value>
+        Spark Master URL (optional). Default: "local". Note that you can specify the number of cores to get a performance improvement, for example "local[4]"
+  -sem <value> | --sparkExecutorMem <value>
+        Max Java heap available as "executor memory" on each node (optional). Default: 4g
+  -rs <value> | --randomSeed <value>
+
+  -h | --help
+        prints this usage text
+
+#=========================================================
+# 2. spark-rowsimilarity
+#=========================================================
+By default it reads (rowID<tab>columnID1:strength1<space>columnID2:strength2...) Since this job only supports LLR similarity, which does not use the input strengths, they may be omitted in the input. It writes (rowID<tab>rowID1:strength1<space>rowID2:strength2...)
+
+spark-rowsimilarity Mahout 1.0
+Usage: spark-rowsimilarity [options]
+
+Input, output options
+  -i <value> | --input <value>
+        Input path, may be a filename, directory name, or comma delimited list of HDFS supported URIs (required)
+  -o <value> | --output <value>
+        Path for output, any local or HDFS supported URI (required)
+
+Algorithm control options:
+  -mo <value> | --maxObservations <value>
+        Max number of observations to consider per row (optional). Default: 500
+  -m <value> | --maxSimilaritiesPerRow <value>
+        Limit the number of similarities per item to this number (optional). Default: 100
+
+Note: Only the Log Likelihood Ratio (LLR) is supported as a similarity measure.
+Disconnected from the target VM, address: '127.0.0.1:49162', transport: 'socket'
+
+Output text file schema options:
+  -rd <value> | --rowKeyDelim <value>
+        Separates the rowID key from the vector values list (optional). Default: "\t"
+  -cd <value> | --columnIdStrengthDelim <value>
+        Separates column IDs from their values in the vector values list (optional). Default: ":"
+  -td <value> | --elementDelim <value>
+        Separates vector element values in the values list (optional). Default: " "
+  -os | --omitStrength
+        Do not write the strength to the output files (optional), Default: false.
+This option is used to output indexable data for creating a search engine recommender.
+
+Default delimiters will produce output of the form: "itemID1<tab>itemID2:value2<space>itemID10:value10..."
+
+File discovery options:
+  -r | --recursive
+        Searched the -i path recursively for files that match --filenamePattern (optional), Default: false
+  -fp <value> | --filenamePattern <value>
+        Regex to match in determining input files (optional). Default: filename in the --input option or "^part-.*" if --input is a directory
+
+Spark config options:
+  -ma <value> | --master <value>
+        Spark Master URL (optional). Default: "local". Note that you can specify the number of cores to get a performance improvement, for example "local[4]"
+  -sem <value> | --sparkExecutorMem <value>
+        Max Java heap available as "executor memory" on each node (optional). Default: 4g
+  -rs <value> | --randomSeed <value>
+
+  -h | --help
+        prints this usage text
+
+#==============================================================================================
+# Question 1: k-mean algorithm from scratch using SCALA and SPark
+# input: Q1_testkmean.txt
+# K = 3
+# Output: 
+# Print: (1) each point (2) correspoinding cluster it belongs to
+# Print: Final centroids
+#===============================================================================================
+#Algorithm:
+# iterate limitedly e.g. 100 times(RATHER than checking the variance and mean to check the convergence){ 
+# INPUT to MAPPER: clusterID, value: centroid points
+#(1) compute distance from all points to all k-centers (MAP)
+#(2) Assign each point to the nearest k-center, smallest distance assignment for the point (MAP)
+# OUTPUT of MAPPER: key: clusterID, value: point
+#(3) Compute the AVG of all points assigned to all specific k-centers (REDUCE)
+#(4) Replace the k-centers with the new AVG (REDUCE)
+# OUTPUT of REDUCER: clusterID, value: centroid points
+
+Questions: 
+1. how do I write a code that for each point computes the distances and outputs the [clusterID,value] pair?
+
+
+// Code for KMean Clustering
+// Created by Meisam Hejazi Nia
+// Date: 04/13/2015
+
+class Point(xc: Double, yc: Double) {
+  var x: Double= xc
+  var y: Double= yc
+}
+
+import java.lang.Math
+
+// distance function: Euclidean
+def distance(first: Point, second: Point) :Double={
+   return Math.sqrt((first.x-second.x)*(first.x-second.x)+(first.y-second.y)*(first.y-second.y))
+ }
+
+// define initial points
+val initial0= new Point(0.0,0.0)
+val initial1 = new Point(1.0,1.0)
+val initial2 = new Point(5.0,5.0)
+
+// test whether distance works
+distance(initial0,initial1)
+
+val clustMeans= Array(initial0,initial1,initial2)
+clustMeans.length
+
+def closestClust(currentP: Point, clustMeans: Array[Point]): Int={
+ val distances = for (centroid <- clustMeans) yield distance(centroid, currentP)
+ return distances.zipWithIndex.min._2
+}
+
+// function to compute new centeriods
+def newCentroid(points: List[Point]): Point = {
+ var sumX = 0.0
+ var sumY = 0.0
+ for (point <-points) {
+    sumX = sumX + point.x
+    sumY = sumY + point.y
+ }
+   return new Point(sumX / points.length, sumY / points.length)
+ }
+
+
+// read the input file and create tuples
+val kmeanData = sc.textFile("Q1_testkmean.txt")
+val observations = kmeanData.map(obs => obs.split(" ")).map(obs => (obs(0).toDouble,obs(1).toDouble)).collect
+
+// find the actual mean
+val observationsParallel = sc.parallelize(observations)
+val sumElements = observationsParallel.map(element => (1,element)).reduceByKey((first,second)=>(first._1+second._1,first._2+second._2)).collect
+val meanPoints = (sumElements(0)._2._1/observations.length,sumElements(0)._2._2/observations.length)
+
+// Initialize cluster means
+val initial0= new Point(meanPoints._1,meanPoints._2)
+val initial1 = new Point(meanPoints._1,meanPoints._2-1.0)
+val initial2 = new Point(meanPoints._1-1.0,meanPoints._2)
+
+val clustMeans= Array(initial0,initial1,initial2)
+
+// use the touple file to create array of points
+val observationPoints=observations.map(obs =>new Point(obs._1,obs._2))
+
+// calculate new assignments
+var assignment = observationPoints.map(obsPoint => (closestClust(obsPoint,clustMeans),(obsPoint.x,obsPoint.y)))
+
+// Given new assignments calculate new centroids
+// prepare by turning into RDD
+var assignmentRDD = sc.parallelize(assignment)
+
+// first create list of tuples for each cluster including sum of x and sum of y
+var sumCentroidXY = assignmentRDD .reduceByKey ((first,second)=>(first._1+second._1,first._2+second._2))
+var countCentroid = assignmentRDD.map(element => (element._1,1)).reduceByKey(_+_)
+var clustMean = sumCentroidXY.join(countCentroid).mapValues{case(sum,count) => ((1.0*sum._1)/count,(1.0*sum._2)/count)}.collect
+var clustMeans =clustMean.map(obs =>new Point(obs._2._1,obs._2._2))
+
+// the main loop to (1) assign and (2) calculate new cluster mean
+for (i <- 1 to 500){
+  // calculate new assignments
+  assignment = observationPoints.map(obsPoint => (closestClust(obsPoint,clustMeans),(obsPoint.x,obsPoint.y)))
+
+  // Given new assignments calculate new centroids
+  // prepare by turning into RDD
+  assignmentRDD = sc.parallelize(assignment)
+
+  // first create list of tuples for each cluster including sum of x and sum of y
+  sumCentroidXY = assignmentRDD .reduceByKey ((first,second)=>(first._1+second._1,first._2+second._2))
+  countCentroid = assignmentRDD.map(element => (element._1,1)).reduceByKey(_+_)
+  clustMean = sumCentroidXY.join(countCentroid).mapValues{case(sum,count) => ((1.0*sum._1)/count,(1.0*sum._2)/count)}.collect
+  clustMeans =clustMean.map(obs =>new Point(obs._2._1,obs._2._2))
+}
+
+// saving output
+// before running make sure I have ran: 
+// sudo rm -r ClustCentroidMeanoutput
+// sudo rm -r ClustDataAssignmentoutput
+val clustMeanRDD = sc.parallelize(clustMean)
+clustMeanRDD.saveAsTextFile("ClustCentroidMeanoutput")
+
+assignmentRDD.saveAsTextFile("ClustDataAssignmentoutput")
+
+#=========================================================================
+# Clustering..... Done
+# Next... Mahout Spark Item similarity recommendation System
+#=========================================================================
+# install mahout: first download it from mahout site (tar.gz version)
+# move it from winCP
+#tar -zxvf mahout-distribution-0.10.0.tar.gz
+
+# to get spark URL
+# first call the following
+sudo sbin/start-all.sh
+wget http://localhost:8080/
+
+#then the index file that is saved contains the path of spark
+spark://sandbox.hortonworks.com:7077
+
+#then export the following
+#export MAHOUT_HOME=[directory into which you checked out Mahout]
+export MAHOUT_HOME=/user/lib/hue/mahout-distribution-0.10.0
+#export SPARK_HOME=[directory where you unpacked Spark]
+export SPARK_HOME=/usr/lib/hue/spark-1.3.0-bin-hadoop2.4
+#export MASTER=[url of the Spark master]
+export MASTER=spark://sandbox.hortonworks.com:7077
+
+#check whether setting is correct
+echo $MAHOUT_HOME
+echo $SPARK_HOME
+echo $MASTER
+
+export MAHOUT_JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
+
+echo $MAHOUT_JAVA_HOME
+
+#in the mahout file in the bin/mahout folder add
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
+#export MAHOUT_HOME=[directory into which you checked out Mahout]
+export MAHOUT_HOME=/user/lib/hue/mahout-distribution-0.10.0
+#export SPARK_HOME=[directory where you unpacked Spark]
+export SPARK_HOME=/usr/lib/hue/spark-1.3.0-bin-hadoop2.4
+#export MASTER=[url of the Spark master]
+export MASTER=spark://sandbox.hortonworks.com:7077
+
+# in the mahout folder run the following
+sudo bin/mahout spark-shell
+
+# testing and playing with mahout spark shell
+#=========================================
+val test = dense(
+     (2, 2, 10.5, 10, 29.509541),  // Apple Cinnamon Cheerios
+      (1, 2, 12,   12, 18.042851),  // Cap'n'Crunch
+      (1, 1, 12,   13, 22.736446),  // Cocoa Puffs
+      (2, 1, 11,   13, 32.207582),  // Froot Loops
+     (1, 2, 12,   11, 21.871292),  // Honey Graham Ohs
+     (2, 1, 16,   8,  36.187559),  // Wheaties Honey Gold
+     (6, 2, 17,   1,  50.764999),  // Cheerios
+     (3, 2, 13,   7,  40.400208),  // Clusters
+     (3, 3, 13,   4,  45.811716)); // Great Grains Pecan
+
+val drmData = drmParallelize(test);
+
+# does not work the problem is mentioned as not compling on the system
+http://mail-archives.apache.org/mod_mbox/mahout-dev/201404.mbox/%3CCAPud8TpiAHY2_1mFjxzvEFGAf0cdzAT_EfVNq8Kh=jjZJQREFQ@mail.gmail.com%3E
+
+
+#==================================================================
+# second attempt to have mahout up and running
+#==================================================================
+
+# downloaded the latest version of apache maven
+tar -zxvf apache-maven-3.3.1-bin.tar.gz
+
+export PATH=$PATH:$JAVA_HOME/bin/
+export M2_HOME=/usr/lib/hue/apache-maven-3.3.1
+export M2=$M2_HOME/bin
+#export MAVEN_OPTS=-Xms256m -Xmx512m
+export PATH=$M2:$PATH
+
+#check
+mvn --version
+
+# extract the mahoud code
+tar -zxvf mahout-distribution-0.10.0-src.tar.gz
+
+#Change to the mahout directory and build mahout using 
+mvn -DskipTests clean install
+
+# it seems I have to have internet added second adopter in addition to the first  "Host-Only Adapter"
+# which was NAT to be able to connect to internet
+
+# to pipe and see the result page by page
+ifconfig | less
+
+# create a mahout folder
+mkdir mahout
+# check out master directory
+git clone https://github.com/apache/mahout mahout
+# change folder to the mahout folder
+cd mahout
+# first make sure that the path variables of maven is set
+mvn -DskipTests clean install
+
+#====================
+# SUCCESS
+#====================
+
+# to get spark URL
+# first call the following
+sudo sbin/start-all.sh
+wget http://localhost:8080/
+
+#then the index file that is saved contains the path of spark
+spark://sandbox.hortonworks.com:7077
+# an alternative is to check the log file in:
+/usr/lib/hue/spark-1.3.0-bin-hadoop2.4/logs
+
+#then export the following
+#export MAHOUT_HOME=[directory into which you checked out Mahout]
+#export MAHOUT_HOME=/user/lib/hue/mahout-distribution-0.10.0
+# the path for the newly installed
+export MAHOUT_HOME=/user/lib/hue/mahout
+
+#export SPARK_HOME=[directory where you unpacked Spark]
+export SPARK_HOME=/usr/lib/hue/spark-1.3.0-bin-hadoop2.4
+#export MASTER=[url of the Spark master]
+export MASTER=spark://sandbox.hortonworks.com:7077
+
+#check whether setting is correct
+echo $MAHOUT_HOME
+echo $SPARK_HOME
+echo $MASTER
+
+export MAHOUT_JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
+
+echo $MAHOUT_JAVA_HOME
+
+sudo sbin/start-all.sh
+sudo bin/mahout spark-shell
+
+
+#in the mahout file in the bin/mahout folder add
+# set JAVA_HOME
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
+#export MAHOUT_HOME=[directory into which you checked out Mahout]
+#export MAHOUT_HOME=/user/lib/hue/mahout-distribution-0.10.0
+export MAHOUT_HOME=/user/lib/hue/mahout
+#export SPARK_HOME=[directory where you unpacked Spark]
+export SPARK_HOME=/usr/lib/hue/spark-1.3.0-bin-hadoop2.4
+#export MASTER=[url of the Spark master]
+export MASTER=spark://sandbox.hortonworks.com:7077
+
+# in the mahout folder run the following
+sudo bin/mahout spark-shell
+
+# The problem exists, so I just found out I have to set spark context in the following format
+implicit val mahoutCtx = mahoutSparkContext(
+masterUrl = "local",
+appName = "MahoutLocalContext"
+// [,...]
+)
+// Import matrix, vector types, etc.
+import org.apache.mahout.math._
+// Import scala bindings operations
+import scalabindings._
+// Enable R-like dialect in scala bindings
+import RLikeOps._
+// Import distributed matrix apis
+import drm._
+// Import R-like distributed dialect
+import RLikeDrmOps._
+// Those are needed for Spark-specific
+// operations such as context creation.
+// 100% engine-agnostic code does not
+// require these.
+import org.apache.mahout.sparkbindings._
+// A good idea when working with mixed
+// scala/java iterators and collections
+import collection._
+import JavaConversions._
+
+val drmData = drmParallelize(dense(
+  (2, 2, 10.5, 10, 29.509541),  // Apple Cinnamon Cheerios
+  (1, 2, 12,   12, 18.042851),  // Cap'n'Crunch
+  (1, 1, 12,   13, 22.736446),  // Cocoa Puffs
+  (2, 1, 11,   13, 32.207582),  // Froot Loops
+  (1, 2, 12,   11, 21.871292),  // Honey Graham Ohs
+  (2, 1, 16,   8,  36.187559),  // Wheaties Honey Gold
+  (6, 2, 17,   1,  50.764999),  // Cheerios
+  (3, 2, 13,   7,  40.400208),  // Clusters
+  (3, 3, 13,   4,  45.811716)), // Great Grains Pecan
+  numPartitions = 2);
+
+val drmX = drmData(::, 0 until 4)
+val y = drmData.collect(::, 4)
+val drmXtX = drmX.t %*% drmX
+val drmXty = drmX.t %*% y
+
+// collect data into the memory of target machine
+val XtX = drmXtX.collect
+val Xty = drmXty.collect(::, 0)
+
+val beta = solve(XtX, Xty)
+
+val yFitted = (drmX %*% beta).collect(::, 0)
+(y - yFitted).norm(2)
+
+def ols(drmX: DrmLike[Int], y: Vector) = 
+  solve(drmX.t %*% drmX, drmX.t %*% y)(::, 0)
+
+def goodnessOfFit(drmX: DrmLike[Int], beta: Vector, y: Vector) = {
+  val fittedY = (drmX %*% beta).collect(::, 0)
+  (y - fittedY).norm(2)
+}
+
+val drmXwithBiasColumn = drmX.mapBlock(ncol = drmX.ncol + 1) {
+  case(keys, block) =>
+    // create a new block with an additional column
+    val blockWithBiasColumn = block.like(block.nrow, block.ncol + 1)
+    // copy data from current block into the new block
+    blockWithBiasColumn(::, 0 until block.ncol) := block
+    // last column consists of ones
+    blockWithBiasColumn(::, block.ncol) := 1
+
+    keys -> blockWithBiasColumn
+}
+
+val betaWithBiasTerm = ols(drmXwithBiasColumn, y)
+goodnessOfFit(drmXwithBiasColumn, betaWithBiasTerm, y)
+
+val cachedDrmX = drmXwithBiasColumn.checkpoint()
+
+val betaWithBiasTerm = ols(cachedDrmX, y)
+val goodness = goodnessOfFit(cachedDrmX, betaWithBiasTerm, y)
+
+cachedDrmX.uncache()
+
+goodness
+
+#=======================================================
+# Task of question 2 of homework 4
+#=======================================================
+# command format to use
+# file format:
+#u1,purchase,iphone
+mahout spark-itemsimilarity \
+    --input in-file \     # where to look for data
+    --output out-path \   # root dir for output
+    --master masterUrl \  # URL of the Spark master server
+    --filter1 purchase \  # word that flags input for the primary action
+    --filter2 view \      # word that flags input for the secondary action
+    --itemIDPosition 2 \  # column that has the item ID
+    --rowIDPosition 0 \   # column that has the user ID
+    --filterPosition 1    # column that has the filter word
+
+# filled command format
+# file format: 
+#1::1193::5::978300760
+#UserID::MovieID::Rating::Timestamp
+sudo /usr/lib/hue/mahout/bin/mahout spark-itemsimilarity --input /usr/lib/hue/spark-1.3.0-bin-hadoop2.4/ratings.dat --output /usr/lib/hue/HW4Q2Similarity --master spark://sandbox.hortonworks.com:7077 --filter1 3 --inDelim "::" --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2    
+
+#The problem might be that I am not using hdfs, so I moved to hdfs
+hdfs dfs -mkdir hdfs:///Q4input
+hdfs dfs -ls hdfs://
+hdfs dfs -put /usr/lib/hue/spark-1.3.0-bin-hadoop2.4/ratings.dat hdfs:///Q4input
+hdfs dfs -ls hdfs:///Q4input
+
+sudo /usr/lib/hue/mahout/bin/mahout spark-itemsimilarity --input hdfs:///Q4input/ratings.dat --output hdfs:///HW4Q2Similarity --master spark://sandbox.hortonworks.com:7077 --filter1 3 --inDelim "::" --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2   
+
+# test on the server cs6360
+hdfs dfs -put BigDataHW4/ratings.dat /mxh109420/input
+hdfs dfs -ls /mxh109420/input
+
+# define spark path
+export SPARK_HOME=/usr/local/spark-1.2.0-bin-hadoop2.4
+$SPARK_HOME/sbin/start-all.sh
+wget http://localhost:8080/
+
+# It did not work, so I try to run this manually in hadoop
+
+/usr/local/mahout-1.0u/bin/mahout   spark-itemsimilarity --input /home/004/m/mx/mxh109420/BigDataHW4/ratings.dat --output  /home/004/m/mx/mxh109420/HW4Q2Similarity --filter1 3 --inDelim "::" --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2  
+
+/usr/local/mahout-1.0u/bin/mahout   spark-itemsimilarity --input hdfs:///mxh109420/input/ratings.dat --output  hdfs:///mxh109420/ioutput/HW4Q2Similarity --filter1 3 --inDelim "::" --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2  
+
+#==============================
+# commands that I tested but failed at hortonworks
+#===============================
+/usr/lib/hue/mahout/bin/mahout spark-itemsimilarity --input /usr/lib/hue/spark-1.3.0-bin-hadoop2.4/ratings1.dat --output HW4Q2Similarity --master spark://sandbox.hortonworks.com:7077 --filter1 3 --inDelim "::" --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2 
+
+sudo /usr/lib/hue/mahout/bin/mahout spark-itemsimilarity --input file:///usr/lib/hue/spark-1.3.0-bin-hadoop2.4/ratings1.dat --output file:///usr/lib/hue/HW4Q2Similarity --master spark://sandbox.hortonworks.com:7077 --filter1 3 --inDelim "::" --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2 -sem 1g  -m 36
+
+ 
+
+sudo /usr/lib/hue/mahout-distribution-0.10.0/bin/mahout spark-itemsimilarity --input file:///usr/lib/hue/spark-1.3.0-bin-hadoop2.4/ratings1.dat --output file:///usr/lib/hue/HW4Q2Similarity --master spark://sandbox.hortonworks.com:7077 --filter1 3 --inDelim "::" --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2 -sem 2.5g  -m 36
+
+sudo /usr/lib/hue/mahout-distribution-0.10.0/bin/mahout spark-itemsimilarity --input file:///usr/lib/hue/spark-1.3.0-bin-hadoop2.4/ratings.dat --output file:///usr/lib/hue/HW4Q2Similarity --master spark://sandbox.hortonworks.com:7077 --filter1 3 --inDelim "::" --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2 -sem 1g  -m 36
+
+
+/usr/local/mahout-1.0u/bin/mahout   spark-itemsimilarity --input hdfs:///mxh109420/input/ratings.dat --output  hdfs:///mxh109420/ioutput/HW4Q2Similarity --filter1 3 --inDelim "::" --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2 
+
+
+sudo /usr/lib/hue/mahout-distribution-0.10.0/bin/mahout spark-itemsimilarity --input file:///usr/lib/hue/spark-1.3.0-bin-hadoop2.4/testMahoutRecom.txt --output file:///usr/lib/hue/testMahoutSimilarity --master spark://sandbox.hortonworks.com:7077 --filter1 purchase --filter2 view  --itemIDColumn 2 --rowIDColumn 0 --filterColumn 1 -sem 1g
+
+#=====================================================================
+Work in MAHOUT SHELL
+#=====================================================================
+sudo sbin/start-all.sh
+sudo bin/mahout spark-shell
+
+
+# The problem exists, so I just found out I have to set spark context in the following format
+implicit val mahoutCtx = mahoutSparkContext(
+masterUrl = "local",
+appName = "MahoutLocalContext"
+// [,...]
+)
+// Import matrix, vector types, etc.
+import org.apache.mahout.math._
+// Import scala bindings operations
+import scalabindings._
+// Enable R-like dialect in scala bindings
+import RLikeOps._
+// Import distributed matrix apis
+import drm._
+// Import R-like distributed dialect
+import RLikeDrmOps._
+// Those are needed for Spark-specific
+// operations such as context creation.
+// 100% engine-agnostic code does not
+// require these.
+import org.apache.mahout.sparkbindings._
+// A good idea when working with mixed
+// scala/java ithdfsPathction._
+import JavaConversions._
+
+val drmB = drmFromHDFS(path="hdfs:///Q4input/ratings.dat")
+
+val drmB=drmDfsRead(path = "hdfs:///Q4input/ratings.dat")
+
+val drmB=drmDfsRead(path = "/usr/lib/hue/spark-1.3.0-bin-hadoop2.4/ratings1.dat")
+
+val drmData = drmParallelize(dense(
+  (2, 2, 10.5, 10, 29.509541),  // Apple Cinnamon Cheerios
+  (1, 2, 12,   12, 18.042851),  // Cap'n'Crunch
+  (1, 1, 12,   13, 22.736446),  // Cocoa Puffs
+  (2, 1, 11,   13, 32.207582),  // Froot Loops
+  (1, 2, 12,   11, 21.871292),  // Honey Graham Ohs
+  (2, 1, 16,   8,  36.187559),  // Wheaties Honey Gold
+  (6, 2, 17,   1,  50.764999),  // Cheerios
+  (3, 2, 13,   7,  40.400208),  // Clusters
+  (3, 3, 13,   4,  45.811716)), // Great Grains Pecan
+  numPartitions = 2);
+
+val drmX = drmData(::, 0 until 4)
+val y = drmData.collect(::, 4)
+val drmXtX = drmX.t %*% drmX
+val drmXty = drmX.t %*% y
+
+// collect data into the memory of target machine
+val XtX = drmXtX.collect
+val Xty = drmXty.collect(::, 0)
+
+val beta = solve(XtX, Xty)
+
+val yFitted = (drmX %*% beta).collect(::, 0)
+(y - yFitted).norm(2)
+
+def ols(drmX: DrmLike[Int], y: Vector) = 
+  solve(drmX.t %*% drmX, drmX.t %*% y)(::, 0)
+
+def goodnessOfFit(drmX: DrmLike[Int], beta: Vector, y: Vector) = {
+  val fittedY = (drmX %*% beta).collect(::, 0)
+  (y - fittedY).norm(2)
+}
+
+val drmXwithBiasColumn = drmX.mapBlock(ncol = drmX.ncol + 1) {
+  case(keys, block) =>
+    // create a new block with an additional column
+    val blockWithBiasColumn = block.like(block.nrow, block.ncol + 1)
+    // copy data from current block into the new block
+    blockWithBiasColumn(::, 0 until block.ncol) := block
+    // last column consists of ones
+    blockWithBiasColumn(::, block.ncol) := 1
+
+    keys -> blockWithBiasColumn
+}
+
+val betaWithBiasTerm = ols(drmXwithBiasColumn, y)
+goodnessOfFit(drmXwithBiasColumn, betaWithBiasTerm, y)
+
+val cachedDrmX = drmXwithBiasColumn.checkpoint()
+
+val betaWithBiasTerm = ols(cachedDrmX, y)
+val goodness = goodnessOfFit(cachedDrmX, betaWithBiasTerm, y)
+
+cachedDrmX.uncache()
+
+goodness
+#====================================================================
+# Next Try with MapR-Sandbox that supports spark and mahout
+#====================================================================
+Guide:http://doc.mapr.com/display/MapR/MapR+Sandbox+for+Hadoop/
+Import appliance
+also check reinitialize MAC
+
+User: mapr
+password: mapr
+
+Problem: putty did not work although I added more drivers
+
+#======================================================================
+# Searched to find a way to use Hortonworks sandbox guide to setup spark
+#=======================================================================
+http://hortonworks.com/hadoop-tutorial/using-apache-spark-hdp/
+
+#commands
+wget http://public-repo-1.hortonworks.com/HDP-LABS/Projects/spark/1.2.0/spark-1.2.0.2.2.0.0-82-bin-2.6.0.2.2.0.0-2041.tgz
+
+sudo sbin/start-all.sh
+sudo bin/mahout spark-shell
+
+
+#in the mahout file in the bin/mahout folder add
+# set JAVA_HOME
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk.x86_64
+#export MAHOUT_HOME=[directory into which you checked out Mahout]
+#export MAHOUT_HOME=/user/lib/hue/mahout-distribution-0.10.0
+export MAHOUT_HOME=/user/lib/hue/mahout
+#export SPARK_HOME=[directory where you unpacked Spark]
+export SPARK_HOME=/usr/lib/hue/spark-1.2.0.2.2.0.0-82-bin-2.6.0.2.2.0.0-2041
+#export MASTER=[url of the Spark master]
+export MASTER=spark://sandbox.hortonworks.com:7077
+
+# in the mahout folder run the following
+sudo bin/mahout spark-shell
+
+At least now I can navigate to mahout gracefully, and the errors that I have had before does not occure, so the problem has been SPARK and it needed hortonworks version
+#========================================================================================================
+# Try on cs6360
+#=========================================================================================================
+
+Login to the cs6360 cluster.
+
+
+cd ~
+
+#open the .bash_profile file.
+
+# replace the mahout and spark location with.
+
+export MAHOUT_HOME=/usr/local/mahout-1.0u
+export SPARK_HOME=/usr/local/spark-1.0.2-bin-hadoop2
+
+#also edit the PATH variable as follows
+
+export PATH=/usr/local/jdk1.7.0_60/bin:/usr/local/apache-ant-1.9.4/bin:/usr/local/hadoop-2.4.1/bin:/usr/local/pig-0.13.0/bin:/usr/local/apache-hive-0.13.1/bin:/usr/local/apache-maven-3.2.2/bin:/usr/local/jdk1.6.0_37/bin:/usr/local/hadoop-1.0.4/bin:/usr/local/pig-0.10.1/bin:/usr/local/hive-0.9.0/bin:/usr/local/apache-maven-2.2.1/bin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/mahout-1.0u/bin:/usr/local/spark-1.2.0-bin-hadoop2.4/bin:
+export JAVA_HOME=/usr/local/jdk1.7.0_51
+
+export PATH=$JAVA_HOME/bin:/usr/local/apache-cassandra-2.0.5/bin:$PATH
+
+
+save the file
+
+logout and Relogin.
+
+You will need to use the ratings.dat file in hdfs already.
+
+I have copied ratings.dat to /ratings.dat.
+
+I have supplied the input parameters with spark-similarity
+
+mahout spark-itemsimilarity --input /ratings.dat [Specify other parameters you need to complete the homework]
+
+# also the simplest work, I did it on cs6360ework
+
+/usr/local/mahout-1.0u/bin/mahout   spark-itemsimilarity --input hdfs:///mxh109420/input/ratings.dat --output  hdfs:///mxh109420/ioutput/HW4Q2Similarity --filter1 3 --inDelim "::" --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2 
+
+hdfs dfs -get hdfs:///mxh109420/ioutput/HW4Q2Similarity HW4Q2Similarity
+
+#=========================================================
+# HW4 Q2, the second portion for reformatting
+#=========================================================
+HW4Q2SimilarityAnalysis
+file name: part-00000
+
+hadoop fs -ls hdfs:///
+
+hadoop fs -put /usr/lib/hue/HW4Q2SimilarityAnalysis/ hdfs:///
+
+hadoop fs -ls hdfs:///HW4Q2SimilarityAnalysis/
+
+# file in the folder:
+/part-00000
+
+
+// Code to reformat result of itemSimilarityAnalysis
+//Created by Meisam Hejazi Nia
+// Date: 04/17/2015
+
+//userID to fetch similar item to recommend
+val userID = 20
+// reading .movies.dat and ratings.dat
+val ratings = sc.textFile("file:///usr/lib/hue/movieDataSetsHW4Q2/ratings.dat")
+//format: UserID::MovieID::Ratings, filter only for the current userID and when the ratings is 3.0
+val ratingsObs  = ratings.map(obs => obs.split("::")).map(line=>Array(line(0),line(1),line(2))).filter(obs=>if ((obs(0).toDouble==userID) && (obs(2).toDouble==3) ) true else false).map(obs => (obs(1).toDouble,1))
+
+// result is: ratingsObs: Array[Array[String]] = Array(Array(20, 3863, 3), Array(20, 1694, 3), Array(20, 1375, 3), Array(20, 1468, 3))
+//result is: ratingsObs: org.apache.spark.rdd.RDD[(Double, Int)] = MappedRDD[30] at map at <console>:18
+
+// read the input file and create tuples
+//val itemAnalysisData = sc.textFile("hdfs:///HW4Q2SimilarityAnalysis/part-00000")
+val itemAnalysisData = sc.textFile("file:///usr/lib/hue/HW4Q2SimilarityAnalysis/part-00000")
+val observations = itemAnalysisData.map(obs => obs.split("\t")).collect
+
+// function to extract list of similar Movies ID
+def similarMovieID(movieID: Double, similarMovie: Array[String]): (Double,Array[Double])={
+ val simMovieIDList= for (simMovie <- similarMovie) yield simMovie.split(":")(0).toDouble
+ return (movieID,simMovieIDList)
+}
+
+// Thre are elements in the file that do not have any similar item, so filter them
+val observations = itemAnalysisData.map(obs => obs.split("\t")).filter(item=> if (item.length==2) true else false).map(element => similarMovieID(element(0).toDouble,element(1).split(" ")))
+
+// Output is: observations: Array[(Double, Array[Double])] = Array((2828.0,Array(2720.0, 2555.
+
+val movies = sc.textFile("file:///usr/lib/hue/movieDataSetsHW4Q2/movies.dat")
+//movieID:: movieName
+val moviesObs = movies.map(obs => obs.split("::")).map(obs => (obs(0).toDouble,obs(1)))
+// output: org.apache.spark.rdd.RDD[(Double, String)] 
+
+// function that returns the movieTitle
+def withMovieTitle(movieID: Double, similarMovies:Array[Double]):String={
+ val movieToFind = Array(movieID)
+ val movieToFindRDD = sc.parallelize(movieToFind).map(x=>(x,1))
+ var result = moviesObs.join(movieToFindRDD).map(obs => obs._1+":"+obs._2._1).fold("")((s1, s2) =>s2)
+ var sp = " "
+ var counter = 0
+ for (movieSimilarToFindID <- similarMovies){
+   val movieSimilarToFind = Array(movieSimilarToFindID)
+   val movieSimilarToFindRDD = sc.parallelize(movieSimilarToFind).map(x=>(x,1))
+   if (counter>0) sp = "," else counter=counter+1
+   result = result + sp + moviesObs.join(movieSimilarToFindRDD).map(obs => obs._1+":"+obs._2._1).fold("")((s1, s2) =>s2)
+ }
+ return result
+}
+
+//test 
+withMovieTitle(3863.0,Array(3793.0, 3556.0, 3893.0))
+
+val similarMovies = observations.join(ratingsObs).map(obs=>(obs._1.toDouble,obs._2._1)).collect
+// 3863.0  1468.0 1375.0 1694.0
+
+var counter = 0
+var result = ""
+ for (movieSimilarToFindID <- similarMovies){
+  //var movie = similarMovies(0)(0).toString.toDouble
+  result = result + "\n\n" +withMovieTitle(similarMovies(counter)._1,similarMovies(counter)._2)
+  counter = counter + 1
+}
+println (result)
+
+
+#=========================================
+# Result of step 1-3 for part 2 of Question 2 of HW4
+#=========================================
+3863.0:Cell, The (2000) 3793.0:X-Men (2000),3556.0:Virgin Suicides, The (1999),3893.0:Nurse Betty (2000),3623.0:Mission: Impossible 2 (2000),3617.0:Road Trip (2000),3744.0:Shaft (2000),3948.0:Meet the Parents (2000),3535.0:American Psycho (2000),3300.0:Pitch Black (2000),2232.0:Cube (1997),3879.0:Art of War, The (2000),788.0:Nutty Professor, The (1996),3785.0:Scary Movie (2000),3513.0:Rules of Engagement (2000),3745.0:Titan A.E. (2000),3755.0:Perfect Storm, The (2000),2683.0:Austin Powers: The Spy Who Shagged Me (1999),3831.0:Saving Grace (2000),3534.0:28 Days (2000),3597.0:Whipped (2000),3298.0:Boiler Room (2000),3743.0:Boys and Girls (2000),3826.0:Hollow Man (2000),3355.0:Ninth Gate, The (2000),216.0:Billy Madison (1995),2694.0:Big Daddy (1999),3794.0:Chuck & Buck (2000),2169.0:Dead Man on Campus (1998),3798.0:What Lies Beneath (2000),3175.0:Galaxy Quest (1999),3052.0:Dogma (1999),3525.0:Bachelor Party (1984),3861.0:Replacements, The (2000),3301.0:Whole Nine Yards, The (2000),3752.0:Me, Myself and Irene (2000),2793.0:American Werewolf in Paris, An (1997),3898.0:Bait (2000),3882.0:Bring It On (2000),610.0:Heavy Metal (1981),2033.0:Black Cauldron, The (1985),3896.0:Way of the Gun, The (2000),2231.0:Rounders (1998),2599.0:Election (1999),3753.0:Patriot, The (2000),186.0:Nine Months (1995),2846.0:Adventures of Milo and Otis, The (1986),344.0:Ace Ventura: Pet Detective (1994),2572.0:10 Things I Hate About You (1999),3481.0:High Fidelity (2000),3527.0:Predator (1987),3325.0:Next Best Thing, The (2000),499.0:Mr. Wonderful (1993),1909.0:X-Files: Fight the Future, The (1998),3536.0:Keeping the Faith (2000),3510.0:Frequency (2000),3821.0:Nutty Professor II: The Klumps (2000),1544.0:Lost World: Jurassic Park, The (1997),3285.0:Beach, The (2000),3952.0:Contender, The (2000),2657.0:Rocky Horror Picture Show, The (1975),2011.0:Back to the Future Part II (1989),1854.0:Kissing a Fool (1998),1747.0:Wag the Dog (1997),3895.0:Watcher, The (2000),3081.0:Sleepy Hollow (1999),3809.0:What About Bob? (1991),3005.0:Bone Collector, The (1999),2641.0:Superman II (1980),3409.0:Final Destination (2000),3911.0:Best in Show (2000),3624.0:Shanghai Noon (2000),231.0:Dumb & Dumber (1994),1513.0:Romy and Michele's High School Reunion (1997),3483.0:Road to El Dorado, The (2000),1884.0:Fear and Loathing in Las Vegas (1998),3051.0:Anywhere But Here (1999),3943.0:Bamboozled (2000),2706.0:American Pie (1999),165.0:Die Hard: With a Vengeance (1995),2502.0:Office Space (1999),1372.0:Star Trek VI: The Undiscovered Country (1991),32.0:Twelve Monkeys (1995),2333.0:Gods and Monsters (1998),3173.0:Any Given Sunday (1999),3452.0:Romeo Must Die (2000),3319.0:Judy Berlin (1999),3908.0:Urban Legends: Final Cut (2000),2261.0:One Crazy Summer (1986),1648.0:House of Yes, The (1997),2836.0:Outside Providence (1999),2504.0:200 Cigarettes (1999),2581.0:Never Been Kissed (1999),3869.0:Naked Gun 2 1/2: The Smell of Fear, The (1991),2907.0:Superstar (1999),3457.0:Waking the Dead (1999),2724.0:Runaway Bride (1999),1591.0:Spawn (1997),3317.0:Wonder Boys (2000),316.0:Stargate (1994),1693.0:Amistad (1997)
+
+1468.0:Booty Call (1997) 2616.0:Dick Tracy (1990),1619.0:Seven Years in Tibet (1997),3259.0:Far and Away (1992),2121.0:Cujo (1983),605.0:One Fine Day (1996),3948.0:Meet the Parents (2000),3064.0:Poison Ivy: New Seduction (1997),543.0:So I Married an Axe Murderer (1993),1503.0:8 Heads in a Duffel Bag (1997),45.0:To Die For (1995),3257.0:Bodyguard, The (1992),1246.0:Dead Poets Society (1989),1839.0:My Giant (1998),2829.0:Muse, The (1999),3263.0:White Men Can't Jump (1992),3258.0:Death Becomes Her (1992),1721.0:Titanic (1997),3444.0:Bloodsport (1988),747.0:Stupids, The (1996),2445.0:At First Sight (1999),381.0:When a Man Loves a Woman (1994),236.0:French Kiss (1995),573.0:Ciao, Professore! (Io speriamo che me la cavo ) (1993),2375.0:Money Pit, The (1986),2168.0:Dance with Me (1998),2410.0:Rocky III (1982),725.0:Great White Hype, The (1996),2443.0:Playing by Heart (1998),12.0:Dracula: Dead and Loving It (1995),419.0:Beverly Hillbillies, The (1993),1476.0:Private Parts (1997),440.0:Dave (1993),435.0:Coneheads (1993),216.0:Billy Madison (1995),1453.0:Beautician and the Beast, The (1997),1841.0:Gingerbread Man, The (1998),3843.0:Sleepaway Camp (1983),1602.0:Leave It to Beaver (1997),3398.0:Muppets Take Manhattan, The (1984),3254.0:Wayne's World 2 (1993),39.0:Clueless (1995),429.0:Cabin Boy (1994),431.0:Carlito's Way (1993),1365.0:Ridicule (1996),1887.0:Almost Heroes (1998),2394.0:Prince of Egypt, The (1998),2253.0:Toys (1992),2154.0:How Stella Got Her Groove Back (1998),3274.0:Single White Female (1992),3187.0:Trans (1998),2777.0:Cobra (1925),3269.0:Forever Young (1992),3478.0:Bamba, La (1987),1466.0:Donnie Brasco (1997),1975.0:Friday the 13th Part 2 (1981),2561.0:True Crime (1999),1911.0:Doctor Dolittle (1998),2406.0:Romancing the Stone (1984),2403.0:First Blood (1982),367.0:Mask, The (1994),1339.0:Bram Stoker's Dracula (1992),2746.0:Little Shop of Horrors (1986),1297.0:Real Genius (1985),498.0:Mr. Jones (1993),2890.0:Three Kings (1999),1373.0:Star Trek V: The Final Frontier (1989),2446.0:In Dreams (1999),2387.0:Very Bad Things (1998),3039.0:Trading Places (1983),1088.0:Dirty Dancing (1987),150.0:Apollo 13 (1995),2033.0:Black Cauldron, The (1985),1178.0:Paths of Glory (1957),550.0:Threesome (1994),3203.0:Dead Calm (1989),837.0:Matilda (1996),174.0:Jury Duty (1995),2789.0:Damien: Omen II (1978),595.0:Beauty and the Beast (1991),2141.0:American Tail, An (1986),344.0:Ace Ventura: Pet Detective (1994),3459.0:Gothic (1986),2581.0:Never Been Kissed (1999),1785.0:King of New York (1990),3072.0:Moonstruck (1987),46.0:How to Make an American Quilt (1995),3614.0:Honeymoon in Vegas (1992),271.0:Losing Isaiah (1995),444.0:Even Cowgirls Get the Blues (1993),3763.0:F/X (1986),256.0:Junior (1994),1120.0:People vs. Larry Flynt, The (1996),1615.0:Edge, The (1997),2283.0:Sheltering Sky, The (1990),2419.0:Extremities (1986),3173.0:Any Given Sunday (1999),122.0:Boomerang (1992),2417.0:Heartburn (1986),3394.0:Blind Date (1987),70.0:From Dusk Till Dawn (1996)
+
+1375.0:Star Trek III: The Search for Spock (1984) 1373.0:Star Trek V: The Final Frontier (1989),1372.0:Star Trek VI: The Undiscovered Country (1991),329.0:Star Trek: Generations (1994),2641.0:Superman II (1980),1371.0:Star Trek: The Motion Picture (1979),2393.0:Star Trek: Insurrection (1998),2640.0:Superman (1978),1376.0:Star Trek IV: The Voyage Home (1986),316.0:Stargate (1994),1356.0:Star Trek: First Contact (1996),2011.0:Back to the Future Part II (1989),2105.0:Tron (1982),3638.0:Moonraker (1979),3704.0:Mad Max Beyond Thunderdome (1985),2115.0:Indiana Jones and the Temple of Doom (1984),2405.0:Jewel of the Nile, The (1985),1374.0:Star Trek: The Wrath of Khan (1982),2985.0:Robocop (1987),3527.0:Predator (1987),3698.0:Running Man, The (1987),2054.0:Honey, I Shrunk the Kids (1989),2528.0:Logan's Run (1976),2455.0:Fly, The (1986),1909.0:X-Files: Fight the Future, The (1998),10.0:GoldenEye (1995),3479.0:Ladyhawke (1985),2470.0:Crocodile Dundee (1986),2100.0:Splash (1984),2094.0:Rocketeer, The (1991),3701.0:Alien Nation (1988),1320.0:Alien? (1992),1129.0:Escape from New York (1981),2003.0:Gremlins (1984),2407.0:Cocoon (1985),3107.0:Backdraft (1991),3702.0:Mad Max (1979),3697.0:Predator 2 (1990),3699.0:Starman (1984),2021.0:Dune (1984),2989.0:For Your Eyes Only (1981),780.0:Independence Day (ID4) (1996),2533.0:Escape from the Planet of the Apes (1971),3770.0:Dreamscape (1984),2527.0:Westworld (1973),3635.0:Spy Who Loved Me, The (1977),1587.0:Conan the Barbarian (1982),2406.0:Romancing the Stone (1984),2657.0:Rocky Horror Picture Show, The (1975),1127.0:Abyss, The (1989),2990.0:Licence to Kill (1989),1370.0:Die Hard 2 (1990),1967.0:Labyrinth (1986),2034.0:Black Hole, The (1979),1135.0:Private Benjamin (1980),2808.0:Universal Soldier (1992),2001.0:Lethal Weapon 2 (1989),1690.0:Alien: Resurrection (1997),1544.0:Lost World: Jurassic Park, The (1997),1876.0:Deep Impact (1998),1101.0:Top Gun (1986),2529.0:Planet of the Apes (1968),2409.0:Rocky II (1979),2311.0:2010 (1984),1391.0:Mars Attacks! (1996),3639.0:Man with the Golden Gun, The (1974),610.0:Heavy Metal (1981),1676.0:Starship Troopers (1997),2376.0:View to a Kill, A (1985),2193.0:Willow (1988),3763.0:F/X (1986),1479.0:Saint, The (1997),2642.0:Superman III (1983),95.0:Broken Arrow (1996),592.0:Batman (1989),1073.0:Willy Wonka and the Chocolate Factory (1971),2410.0:Rocky III (1982),653.0:Dragonheart (1996),2012.0:Back to the Future Part III (1990),2991.0:Live and Let Die (1973),379.0:Timecop (1994),2476.0:Heartbreak Ridge (1986),1396.0:Sneakers (1992),165.0:Die Hard: With a Vengeance (1995),3448.0:Good Morning, Vietnam (1987),1019.0:20,000 Leagues Under the Sea (1954),1722.0:Tomorrow Never Dies (1997),442.0:Demolition Man (1993),2414.0:Young Sherlock Holmes (1985),1573.0:Face/Off (1997),2.0:Jumanji (1995),3703.0:Mad Max 2 (a.k.a. The Road Warrior) (1981),748.0:Arrival, The (1996),2916.0:Total Recall (1990),2009.0:Soylent Green (1973),2143.0:Legend (1985),3082.0:World Is Not Enough, The (1999),1552.0:Con Air (1997),648.0:Mission: Impossible (1996),733.0:Rock, The (1996),2194.0:Untouchables, The (1987)
+
+1694.0:Apostle, The (1997) 994.0:Big Night (1996),1810.0:Primary Colors (1998),1120.0:People vs. Larry Flynt, The (1996),281.0:Nobody's Fool (1994),1635.0:Ice Storm, The (1997),16.0:Casino (1995),1094.0:Crying Game, The (1992),1245.0:Miller's Crossing (1990),1268.0:Pump Up the Volume (1990),647.0:Courage Under Fire (1996),1392.0:Citizen Ruth (1996),2433.0:Civil Action, A (1998),3246.0:Malcolm X (1992),1358.0:Sling Blade (1996),3386.0:JFK (1991),2918.0:Ferris Bueller's Day Off (1986),1594.0:In the Company of Men (1997),2369.0:Desperately Seeking Susan (1985),1727.0:Horse Whisperer, The (1998),2243.0:Broadcast News (1987),3448.0:Good Morning, Vietnam (1987),562.0:Welcome to the Dollhouse (1995),535.0:Short Cuts (1993),2333.0:Gods and Monsters (1998),1589.0:Cop Land (1997),3060.0:Commitments, The (1991),1093.0:Doors, The (1991),2329.0:American History X (1998),1095.0:Glengarry Glen Ross (1992),1730.0:Kundun (1997),1747.0:Wag the Dog (1997),3147.0:Green Mile, The (1999),2407.0:Cocoon (1985),3145.0:Cradle Will Rock, The (1999),3252.0:Scent of a Woman (1992),272.0:Madness of King George, The (1994),1343.0:Cape Fear (1991),3259.0:Far and Away (1992),14.0:Nixon (1995),806.0:American Buffalo (1996),1693.0:Amistad (1997),2025.0:Lolita (1997),235.0:Ed Wood (1994),25.0:Leaving Las Vegas (1995),373.0:Red Rock West (1992),3250.0:Alive (1993),431.0:Carlito's Way (1993),1179.0:Grifters, The (1990),1186.0:Sex, Lies, and Videotape (1989),508.0:Philadelphia (1993),1784.0:As Good As It Gets (1997),300.0:Quiz Show (1994),2942.0:Flashdance (1983),1611.0:My Own Private Idaho (1991),1061.0:Sleepers (1996),194.0:Smoke (1995),175.0:Kids (1995),3148.0:Cider House Rules, The (1999),1729.0:Jackie Brown (1997),62.0:Mr. Holland's Opus (1995),43.0:Restoration (1995),3173.0:Any Given Sunday (1999),222.0:Circle of Friends (1995),105.0:Bridges of Madison County, The (1995),2987.0:Who Framed Roger Rabbit? (1988),1719.0:Sweet Hereafter, The (1997),1660.0:Eve's Bayou (1997),3723.0:Hamlet (1990),2890.0:Three Kings (1999),3107.0:Backdraft (1991),3251.0:Agnes of God (1985),2336.0:Elizabeth (1998),1840.0:He Got Game (1998),778.0:Trainspotting (1996),2011.0:Back to the Future Part II (1989),534.0:Shadowlands (1993),3684.0:Fabulous Baker Boys, The (1989),800.0:Lone Star (1996),247.0:Heavenly Creatures (1994),1633.0:Ulee's Gold (1997),32.0:Twelve Monkeys (1995),2145.0:Pretty in Pink (1986),1459.0:Absolute Power (1997),2112.0:Grand Canyon (1991),866.0:Bound (1996),1597.0:Conspiracy Theory (1997),3911.0:Best in Show (2000),2912.0:Limey, The (1999),2291.0:Edward Scissorhands (1990),2474.0:Color of Money, The (1986),2702.0:Summer of Sam (1999),448.0:Fearless (1993),2470.0:Crocodile Dundee (1986),2442.0:Hilary and Jackie (1998),1090.0:Platoon (1986),2915.0:Risky Business (1983),2023.0:Godfather: Part III, The (1990),3342.0:Birdy (1984),1500.0:Grosse Pointe Blank (1997),1060.0:Swingers (1996)

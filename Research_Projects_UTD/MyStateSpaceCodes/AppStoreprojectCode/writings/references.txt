@@ -1,0 +1,153 @@
+Anderson, Chris (2006), The Long Tail: Why the Future of Business Is Selling Less of More, New York: Hyperion.
+
+Arnold, Stephen J., Tae H. Oum, and Douglas J. Tigert (1983), “Determinant Attributes in Retail Patronage: Seasonal, Temporal, Regional, and International Comparisons,” Journal of Marketing Research, 20 (2), 149–57.
+
+Bell, D. R., & Song, S. (2007). Neighborhood effects and trial on the Internet: Evidence from online grocery retailing. Quantitative Marketing and Economics, 5(4), 361-400.
+
+Berger, Jonah, Michaela Draganska, and Itamar Simonson (2007), “The Influence of Product Variety on Brand Perception and Choice,” Marketing Science, 26 (4), 460–72.
+
+Bezawada, R., Balachander, S., Kannan, P. K., & Shankar, V. (2009). Cross-category effects of aisle and display placements: A spatial modeling approach and insights. Journal of Marketing, 73(3), 99-117.
+
+Boatwright, Peter and Joseph C. Nunes (2001), “Reducing Assortment: An Attribute-Based Approach,” Journal of Marketing, 65 (3), 50–63.
+
+Borle, Sharad, Peter Boatwright, Joseph B. Kadane, Joseph C. Nunes, and Galit Shmueli (2005), “The Effect of Product Assortment Changes on Customer Retention,” Marketing Science, 24 (4), 616–22.
+
+Bown, Nicola J., Daniel Read, and Barbara Summers (2003), “The Lure of Choice,” Journal of Behavioral Decision Making, 16 (4), 297–308.
+
+Bradlow, E. T., Bronnenberg, B., Russell, G. J., Arora, N., Bell, D. R., Duvvuri, S. D., Yang, S. (2005). Spatial models in marketing. Marketing Letters, 16(3-4), 267-278.
+
+Carare, O. (2012). The impact of bestseller rank ondemand: evidence from the app market. International Economic Review, 53(3), 717-742.
+
+Chatterjee, R. A., & Eliashberg, J. (1990). The innovation diffusion process in a heterogeneous population: A micromodeling approach. Management Science, 36(9), 1057-1079.
+
+Chernev, A., & Hamilton, R. (2009). Assortment size and option attractiveness in consumer choice among retailers. Journal of Marketing Research, 46(3), 410-420.
+
+Choi, J., Hui, S. K., & Bell, D. R. (2010). Spatiotemporal analysis of imitation behavior across new buyers at an online grocery retailer. Journal of Marketing Research, 47(1), 75-89.
+
+Craig, C. Samuel, Avijit Ghosh, and Sara McLafferty (1984), “Models of the Retail Location Process: A Review,” Journal of Retailing, 60 (1), 5–36.
+
+Dekimpe, M. G., Parker, P. M., & Sarvary, M. (2000). Global diffusion of technological innovations: A coupled-hazard approach. Journal of Marketing Research, 37(1), 47-59.
+
+Diehl, K., & Poynor, C. (2010). Great expectations?! Assortment size, expectations, and satisfaction. Journal of Marketing Research, 47(2), 312-322.
+
+Dover, Y., Goldenberg, J., & Shapira, D. (2012). Network traces on penetration: Uncovering degree distribution from adoption data. Marketing Science, 31(4), 689-712.
+
+Drèze, Xavier, Stephen J. Hoch, and Mary E. Purk (1994), “Shelf Management and Space Elasticity,” Journal of Retailing, 70 (4), 301–26.
+
+Dubé, J. P., Hitsch, G. J., & Rossi, P. E. (2010). State dependence and alternative explanations for consumer inertia. The RAND Journal of Economics, 41(3), 417-445.
+
+Erdem, T., & Keane, M. P. (1996). Decision-making under uncertainty: Capturing dynamic brand choice processes in turbulent consumer goods markets. Marketing science, 15(1), 1-20.
+
+Fasolo, Barbara, Ralph Hertwig, Michaela Huber, and Mark Ludwig (2009), “Size, Entropy, and Density: What Is the Difference That Makes the Difference between Small and Large Real-World Assortments?” Psychology and Marketing, 26 (3), 254–79.
+
+Garg, R., & Telang, R. (2013). Inferring app demand from publicly available data. MIS Quarterly, 37(4), 1253-1264.
+
+Ghose, A., Goldfarb, A., & Han, S. P. (2012). How is the mobile Internet different? Search costs and local activities. Information Systems Research, 24(3), 613-631.
+
+------,  Han, S. P. (2011). A dynamic structural model of user learning on the mobile Internet. Available at SSRN 1485049.
+
+------,  Han, S. P. (2011). An empirical analysis of user content generation and usage behavior on the mobile Internet. Management Science, 57(9), 1671-1691.
+
+------,  Han, S. P. (2014). Estimating Demand for Mobile Applications in the New Economy. Management Science.
+
+Gilbride, T. J., Allenby, G. M. (2004). A choice model with conjunctive, disjunctive, and compensatory screening rules. Marketing Science, 23(3), 391-406.
+
+Gourville, J. T., & Soman, D. (2005). Overchoice and assortment type: When and why variety backfires. Marketing science, 24(3), 382-395.
+
+Hartmann, W. R. (2010). Demand estimation with social interactions and the implications for targeted marketing. Marketing Science, 29(4), 585-601.
+
+--------, Manchanda, P., Nair, H., Bothner, M., Dodds, P., Godes, D.,Tucker, C. (2008). Modeling social interactions: Identification, empirical methods and policy implications. Marketing letters, 19(3-4), 287-304.
+
+Horsky, D., & Simon, L. S. (1983). Advertising and the diffusion of new products. Marketing Science, 2(1), 1-17.
+
+Iyengar, Sheena S., Rachael E. Wells, and Barry Schwartz (2006), “Doing Better but Feeling Worse—Looking for the `Best' Job Undermines Satisfaction,” Psychological Science, 17 (2), 143–50.
+
+Iyengar, R., Van den Bulte, C., & Valente, T. W. (2011). Opinion leadership and social contagion in new product diffusion. Marketing Science, 30(2), 195-212.
+
+Jaihak, C., & Rao, V. R. (2011). A General Consumer Preference Model for Experience Products: Application to Internet Recommendation Services. Johnson School Research Paper Series, (49-2011).
+
+Kahn, Barbara E. and Darrin R. Lehmann (1991), “Modeling Choice among Assortments,” Journal of Retailing, 67 (3), 274–99.
+
+Koelemeijer, Kitty and Harmen Oppewal (1999), “Assessing the Effects of Assortment and Ambience: A Choice Experimental Approach,” Journal of Retailing, 75 (3), 319–45.
+
+Karaca-Mandic, P. (2011). Role of complementarities in technology adoption: The case of DVD players. Quantitative Marketing and Economics, 9(2), 179-210.
+
+Kim, Y., Telang, R., Vogt, W. B., & Krishnan, R. (2010). An empirical analysis of mobile voice service and SMS: a structural model. Management Science, 56(2), 234-252.
+
+Kuksov, D., & Villas-Boas, J. M. (2010). When more alternatives lead to less choice. Marketing Science, 29(3), 507-524.
+
+Kurt, D., Inman, J. J., Argo, J. J. (2011). The influence of friends on consumer spending: The role of agency-communion orientation and self-monitoring. Journal of Marketing Research, 48(4), 741-754.
+
+Lee, S., Kim, J., & Allenby, G. M. (2013). A direct utility model for asymmetric complements. Marketing Science, 32(3), 454-470.
+
+Lemmens, A., & Croux, C. (2006). Bagging and boosting classification trees to predict churn. Journal of Marketing Research, 43(2), 276-286.
+
+Lelarge, M. (2012). Diffusion and cascading behavior in random networks. Games and Economic Behavior, 75(2), 752-775.
+
+Liu, C. Z., Au, Y. A., & Choi, H. S. (2012). An Empirical Study of the Freemium Strategy for Mobile Apps: Evidence from the Google Play Market.
+
+Liu, H., Chintagunta, P. K., & Zhu, T. (2010). Complementarities and the demand for home broadband internet services. Marketing Science, 29(4), 701-720.
+
+Ma, Y., Seetharaman, P. B., & Narasimhan, C. (2012). Modeling dependencies in brand choice outcomes across complementary categories. Journal of Retailing, 88(1), 47-62.
+
+Manski, C. F. (1993). Identification of endogenous social effects: The reflection problem. The review of economic studies, 60(3), 531-542.
+
+Moon, S., & Russell, G. J. (2008). Predicting product purchase from inferred customer similarity: An autologistic model approach. Management Science, 54(1), 71-82.
+
+Naik, P. A., Prasad, A., & Sethi, S. P. (2008). Building brand awareness in dynamic oligopoly markets. Management Science, 54(1), 129-138.
+
+Nair, H. S., Manchanda, P., & Bhatia, T. (2010). Asymmetric social interactions in physician prescription behavior: The role of opinion leaders. Journal of Marketing Research, 47(5), 883-895.
+
+Narayan, V., Rao, V. R., & Saunders, C. (2011). How peer influence affects attribute preferences: A Bayesian updating mechanism. Marketing Science, 30(2), 368-384.
+
+Niraj, R., Padmanabhan, V., & Seetharaman, P. B. (2008). Research Note-A Cross-Category Model of Households' Incidence and Quantity Decisions. Marketing Science, 27(2), 225-235.
+
+Oestreicher-Singer, G., & Sundararajan, A. (2012). The visible hand? Demand effects of recommendation networks in electronic markets. Management Science, 58(11), 1963-1981.
+
+Oppewal, Harmen and Kitty Koelemeijer (2005), “More Choice Is Better: Effects of Assortment Size and Composition on Assortment Evaluation,” International Journal of Research in Marketing, 22 (1), 45–60.
+
+Peres, R., Muller, E., & Mahajan, V. (2010). Innovation diffusion and new product growth models: A critical review and research directions. International Journal of Research in Marketing, 27(2), 91-106.
+
+Putsis Jr, W. P., Balasubramanian, S., Kaplan, E. W., & Sen, S. K. (1997). Mixing behavior in cross-country diffusion. Marketing Science, 16(4), 354-369.
+
+Putsis Jr, W. P., & Srinvasan, V. (2000). 11. estimation techniques for microdiffusion models. New-productdiffusion models.
+
+Peter E. Rossi, Allenby, G. M., & McCulloch, R. E. (2005). Bayesian statistics and marketing. J. Wiley & Sons.
+
+Sloot, Laurens M., Dennis Fok, and Peter C. Verhoef (2006), “The Short- and Long-Term Impact of an Assortment Reduction on Category Sales,” Journal of Marketing Research, 43 (4), 536–54.
+
+Scheibehenne, B., Greifeneder, R., & Todd, P. M. (2010). Can there ever be too many options? A meta-analytic review of choice overload. Journal of Consumer Research, 37(3), 409-425.
+
+Schwartz, Barry (2004), The Paradox of Choice: Why More Is Less, New York: Harper Collins.
+
+Sela, Aner, Jonah Berger, and Wendy Liu (2009), “Variety, Vice, and Virtue: How Assortment Size Influences Option Choice,” Journal of Consumer Research, 35 (6), 941–51.
+
+Simon, H. A. (1972). Theories of bounded rationality. Decision and organization, 1, 161-176.
+
+Song, I., Chintagunta, P. K. (2003). A micromodel of new product adoption with heterogeneous and forward-looking consumers: Application to the digital camera category. Quantitative Marketing and Economics, 1(4), 371-407.
+
+------------------------------ (2006). Measuring cross-category price effects with aggregate store data. Management Science, 52(10), 1594-1609.
+
+Sriram, S., Chintagunta, P. K., & Agarwal, M. K. (2010). Investigating consumer purchase behavior in related technology product categories. Marketing Science, 29(2), 291-314.
+
+Stephen, A. T., & Toubia, O. (2010). Deriving value from social commerce networks. Journal of marketing research, 47(2), 215-228.
+
+Talukdar, D., Sudhir, K., & Ainslie, A. (2002). Investigating new product diffusion across products and countries. Marketing Science, 21(1), 97-114.
+
+Timmermans, Danielle (1993), “The Impact of Task Complexity on Information Use in Multi-attribute Decision Making,” Journal of Behavioral Decision Making, 6 (2), 95–111.
+
+Trusov, M., Rand, W., & Joshi, Y. V. (2013). Improving Prelaunch Diffusion Forecasts: Using Synthetic Networks as Simulated Priors. Journal of Marketing Research, 50(6), 675-690.
+
+Villas-Boas, J. M. (2008). Information overload with endogenous pricing. Working paper, University of California, Berkeley, Berkeley.
+
+Villas-Boas, J. M. (2009). Product variety and endogenous pricing with evaluation costs. Management Science, 55(8), 1338-1346.
+
+Wedel, M.,  Zhang, J. (2004). Analyzing brand competition across subcategories. Journal of Marketing Research, 41(4), 448-456.
+
+Yang, B., & Ching, A. T. (2013). Dynamics of consumer adoption of financial innovation: The case of ATM cards. Management Science, 60(4), 903-922.
+
+Young, H. P. (2009). Innovation diffusion in heterogeneous populations: Contagion, social influence, and social learning. The American economic review, 1899-1924.
+
+Yang, S., Narayan, V.,  Assael, H. (2006). Estimating the interdependence of television program viewership between spouses: A Bayesian simultaneous equation model. Marketing Science, 25(4), 336-349.
+
+-------, & Allenby, G. M. (2003). Modeling interdependent consumer preferences. Journal of Marketing Research, 40(3), 282-294.

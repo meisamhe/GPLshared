@@ -1,0 +1,604 @@
+# get the result out of hdfs and check it
+hdfs dfs -get '/mxh109420/Spring-2015-input/' 'bigData/'
+
+#=================================================================
+# Pig Practice
+# top 10 average rated movies
+Rating = load '/mxh109420/Spring-2015-input/ratings.dat' using PigStorage(':') as (USERID:int, MOVIEID:int, RATING:double, TIMESTAMP:chararray);
+MVIDG = group Rating by MOVIEID;
+AVGRT = foreach MVIDG generate group,AVG(Rating.RATING) as avgRating;
+Ordrd = order AVGRT by avgRating desc;
+onlyTen = limit Ordrd 10;
+dump onlyTen ;
+
+
+A = load  '/mxh109420/Spring-2015-input/ratings.dat' using PigStorage(':') as (USERID:int, MOVIEID:int, RATING:double, TIMESTAMP:chararray);
+B = group A by MOVIEID;
+C = foreach B generate group, AVG(A.RATING) as avgRating;
+D = order C by avgRating desc;
+E = limit D 10;
+dump E;
+
+#============================================================
+Question 1:
+1. Consider all movies that has Comedy AND Drama both in its Genre List
+
+# check the substring
+X = FILTER A BY (f1 matches '.*the_word_you're_looking_for.*');
+
+X = FILTER A BY (f1 matches '.*apache.*');
+
+
+# Pig Practice
+# start easy
+# only Comedy Movies
+movies = load '/mxh109420/Spring-2015-input/movies.dat' using PigStorage(':') as (MOVIEID:int, TITLE:chararray, Genres:chararray);
+onlyComedy= FILTER movies BY (Genres matches '.*Comedy.*');
+dump onlyComedy;
+
+# Pig Practice
+# start easy
+# only Drama Movies
+movies = load '/mxh109420/Spring-2015-input/movies.dat' using PigStorage(':') as (MOVIEID:int, TITLE:chararray, Genres:chararray);
+onlyDrama= FILTER movies BY (Genres matches '.*Drama.*');
+dump onlyDrama;
+
+# only movies that have both Drama and Comedy
+movies = load '/mxh109420/Spring-2015-input/movies.dat' using PigStorage(':') as (MOVIEID:int, TITLE:chararray, Genres:chararray);
+onlyDramaComedy= FILTER movies BY ((Genres matches '.*Drama.*') AND (Genres matches '.*Comedy.*'));
+dump onlyDramaComedy;
+
+#find average ratings of movies in comedy and drama
+movies = load '/mxh109420/Spring-2015-input/movies.dat' using PigStorage(':') as (MOVIEID:int, TITLE:chararray, Genres:chararray);
+onlyDramaComedy= FILTER movies BY ((Genres matches '.*Drama.*') AND (Genres matches '.*Comedy.*'));
+Rating = load '/mxh109420/Spring-2015-input/ratings.dat' using PigStorage(':') as (USERID:int, MOVIEID:int, RATING:double, TIMESTAMP:chararray);
+MVIDG = group Rating by MOVIEID;
+AVGRT = foreach MVIDG generate group as MovieID,AVG(Rating.RATING) as avgRating;
+moviesRating = JOIN onlyDramaComedy by MOVIEID, AVGRT by MovieID;
+dump moviesRating;
+
+#find lowest rated movies in comedy and drama
+movies = load '/mxh109420/Spring-2015-input/movies.dat' using PigStorage(':') as (MOVIEID:int, TITLE:chararray, Genres:chararray);
+onlyDramaComedy= FILTER movies BY ((Genres matches '.*Drama.*') AND (Genres matches '.*Comedy.*'));
+Rating = load '/mxh109420/Spring-2015-input/ratings.dat' using PigStorage(':') as (USERID:int, MOVIEID:int, RATING:double, TIMESTAMP:chararray);
+MVIDG = group Rating by MOVIEID;
+AVGRT = foreach MVIDG generate group as MovieID,AVG(Rating.RATING) as avgRating;
+moviesRating = JOIN onlyDramaComedy by MOVIEID, AVGRT by MovieID;
+OrdrdComedyDrama = order moviesRating by avgRating ASC;
+lowestComedyDrama = limit OrdrdComedyDrama 1;
+dump lowestComedyDrama ;
+#result: (133, Nueba Yol (1995), Comedy|Drama, 133, 1.0)
+# who rate? 4486:133:1:965013057
+#4486:F:41:8:98664
+
+#Males aged between 20 - 40
+users  = load '/mxh109420/Spring-2015-input/users.dat' using PigStorage(':') as (UserID:int, Gender:chararray, Age: int, Occupation:int, ZipCode:int);
+users2040 = FILTER users BY ((Age>20) and (Age<40) and Gender=='M');
+dump users2040 ;
+
+# Male users between 20-40 that rated the lowest rated movies in comedy and drama
+#find lowest rated movies in comedy and drama
+movies = load '/mxh109420/Spring-2015-input/movies.dat' using PigStorage(':') as (MOVIEID:int, TITLE:chararray, Genres:chararray);
+onlyDramaComedy= FILTER movies BY ((Genres matches '.*Drama.*') AND (Genres matches '.*Comedy.*'));
+Rating = load '/mxh109420/Spring-2015-input/ratings.dat' using PigStorage(':') as (USERID:int, MOVIEID:int, RATING:double, TIMESTAMP:chararray);
+MVIDG = group Rating by MOVIEID;
+AVGRT = foreach MVIDG generate group as MovieID,AVG(Rating.RATING) as avgRating;
+moviesRating = JOIN onlyDramaComedy by MOVIEID, AVGRT by MovieID;
+OrdrdComedyDrama = order moviesRating by avgRating ASC;
+lowestComedyDrama = limit OrdrdComedyDrama 1;
+ratedLCD = JOIN lowestComedyDrama by MOVIEID, Rating by MOVIEID;
+users  = load '/mxh109420/Spring-2015-input/users.dat' using PigStorage(':') as (UserID:int, Gender:chararray, Age: int, Occupation:int, ZipCode:int);
+users2040 = FILTER users BY ((Age>20) and (Age<40) and Gender=='M');
+M2040RLCD = JOIN ratedLCD by USERID, users2040 by UserID;
+dump M2040RLCD;
+#results: Nothing
+
+
+#=====================================================
+# content of Q1.pig query
+#=====================================================
+# Male users between 20-40 that rated the lowest rated movies in comedy and drama, with zip code starting with 1=<X>
+#find lowest rated movies in comedy and drama
+movies = load '/mxh109420/Spring-2015-input/movies.dat' using PigStorage(':') as (MOVIEID:int, TITLE:chararray, Genres:chararray);
+onlyDramaComedy= FILTER movies BY ((Genres matches '.*Drama.*') AND (Genres matches '.*Comedy.*'));
+Rating = load '/mxh109420/Spring-2015-input/ratings.dat' using PigStorage(':') as (USERID:int, MOVIEID:int, RATING:double, TIMESTAMP:chararray);
+MVIDG = group Rating by MOVIEID;
+AVGRT = foreach MVIDG generate group as MovieID,AVG(Rating.RATING) as avgRating;
+moviesRating = JOIN onlyDramaComedy by MOVIEID, AVGRT by MovieID;
+OrdrdComedyDrama = order moviesRating by avgRating ASC;
+lowestComedyDrama = limit OrdrdComedyDrama 1;
+ratedLCD = JOIN lowestComedyDrama by MOVIEID, Rating by MOVIEID;
+users  = load '/mxh109420/Spring-2015-input/users.dat' using PigStorage(':') as (UserID:int, Gender:chararray, Age: int, Occupation:int, ZipCode:int);
+users2040 = FILTER users BY ((Age>20) and (Age<40) and Gender=='M');
+M2040RLCD = JOIN ratedLCD by USERID, users2040 by UserID;
+M2040RLCDZ1 = FILTER M2040RLCD BY (( ZipCode >= 10000) AND ( ZipCode < 20000));
+dump M2040RLCDZ1;
+#======================
+# Result of Question #1
+# content of Q1.res
+#======================
+#resulted Commedy and Drama Movie is: (133, Nueba Yol (1995), Comedy|Drama, 133, 1.0)
+# who rates it is? 4486:133:1:965013057
+#The profile of rater is: 4486:F:41:8:98664
+# As a result he is not male and between 20 and 40, so the result is empty
+
+#======================================================
+# Q2: CoGroup command on MovieID for the dataset: (1) ratings and (2) Movies
+# Print first 5+<X> = 5+1 = 6 items
+# content of Q2.pig query
+#======================================================
+movies = load '/mxh109420/Spring-2015-input/movies.dat' using PigStorage(':') as (MOVIEID:int, TITLE:chararray, Genres:chararray);
+Rating = load '/mxh109420/Spring-2015-input/ratings.dat' using PigStorage(':') as (USERID:int, MOVIEID:int, RATING:double, TIMESTAMP:chararray);
+coGroupedRatMov = COGROUP movies BY MOVIEID, Rating BY MOVIEID;
+only6Items = limit coGroupedRatMov 6;
+dump only6Items ;
+#=====================
+# Result of Question #2
+# content of Q2.res
+#=====================
+# list of the first 6 movies, first the movie iteself, then its ratings
+
+#========================================================
+# Q3: repeat question 2 (implement join with co-group) commands.
+# pring first 5+<X> = 5+1 = 6 rows
+# contnet of Q3.pig query
+#=========================================================
+movies = load '/mxh109420/Spring-2015-input/movies.dat' using PigStorage(':') as (MOVIEID:int, TITLE:chararray, Genres:chararray);
+Rating = load '/mxh109420/Spring-2015-input/ratings.dat' using PigStorage(':') as (USERID:int, MOVIEID:int, RATING:double, TIMESTAMP:chararray);
+coGroupedRatMov = COGROUP movies BY MOVIEID, Rating BY MOVIEID;
+semiJoinedMv= filter coGroupedRatMov by not IsEmpty(movies);
+semiJoinedRslt= foreach semiJoinedMv generate flatten(Rating),flatten(movies);
+only6ItemsSJ = limit semiJoinedRslt 6;
+dump only6ItemsSJ ;
+
+#result of smijoin
+(967,1,4.0,975116058,1,Toy Story (1995),Animation|Children's|Comedy)
+(1359,1,5.0,974770398,1,Toy Story (1995),Animation|Children's|Comedy)
+(3057,1,3.0,970592981,1,Toy Story (1995),Animation|Children's|Comedy)
+(4126,1,5.0,972873564,1,Toy Story (1995),Animation|Children's|Comedy)
+(4251,1,3.0,965308286,1,Toy Story (1995),Animation|Children's|Comedy)
+(5230,1,3.0,961462664,1,Toy Story (1995),Animation|Children's|Comedy)
+
+#======================================================================
+# Write UDF FORMAT_GENRE:
+# Children's ==> 1) Children's mxh109420
+# Animation|Children's ==> 1) Children's & 2) Animation mxh109420
+# Children's|Adventure|Animation ==> 1) Children's, 2) Adventure & 3) Animation mxh109420
+# use UDF FORMAT_GENRE function on movies data set and pring the movie name with its genre(s)
+#======================================================================
+
+# start with simple test of to Upper to make sure it works
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.pig.EvalFunc;
+import org.apache.pig.backend.executionengine.ExecException;
+import org.apache.pig.data.Tuple;
+
+public class ConvertToUpper extends EvalFunc <String> {
+
+@Override
+    public String exec(Tuple input) {
+        try {
+            if (input == null || input.size() == 0) {
+                return null;
+            }
+
+            String str = (String) input.get(0);
+            return str.toUpperCase();
+        } catch (ExecException ex) {
+            System.out.println("Error: " + ex.toString());
+        }
+
+        return null;
+    }
+}
+
+#======================================================================
+# commands:
+# mkdir PIG_UDF
+# cd PIG_UDF
+# put java file in the folder
+# Check the pig version and configure accordingly
+# javac -cp /usr/local/pig-0.13.0/pig-0.13.0-h1.jar ConvertToUpper.java
+# jar -cf pig_udf.jar .
+
+# registering and using UDF
+REGISTER /home/004/m/mx/mxh109420/PIG_UDF/pig_udf.jar;
+
+movies = load '/mxh109420/Spring-2015-input/movies.dat' using PigStorage(':') as (MOVIEID:int, TITLE:chararray, GENRE:chararray);
+reformatedMovies = FOREACH movies GENERATE MOVIEID, ConvertToUpper(TITLE), GENRE;
+DUMP reformatedMovies ;
+
+
+#======================================================
+# Actual one attemp
+# Write UDF FORMAT_GENRE:
+# Children's ==> 1) Children's mxh109420
+# Animation|Children's ==> 1) Children's & 2) Animation mxh109420
+# Children's|Adventure|Animation ==> 1) Children's, 2) Adventure & 3) Animation mxh109420
+# use UDF FORMAT_GENRE function on movies data set and pring the movie name with its genre(s)
+
+// program to be used in PIG to reformate GENRE
+// Children's ==> 1) Children's mxh109420
+// Animation|Children's ==> 1) Children's & 2) Animation mxh109420
+// Children's|Adventure|Animation ==> 1) Children's, 2) Adventure & 3) Animation mxh109420
+// Written by Meisam Hejazi Nia
+// March 23rd, 2015
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.apache.pig.EvalFunc;
+import org.apache.pig.backend.executionengine.ExecException;
+import org.apache.pig.data.Tuple;
+
+public class FORMAT_GENRE_PIG extends EvalFunc <String> {
+
+@Override
+    public String exec(Tuple input) {
+		int genreCount = -2;
+		String output = "";
+        try {
+            if (input == null || input.size() == 0) {
+                return null;
+            }
+
+            String str = (String) input.get(0);
+			// First split Genre by the seperator '|'
+			String[] separated = str.split("\\|");
+            genreCount = separated.length;
+            
+			if (genreCount == 1){
+				output+="1) ";
+				output+=separated[0];
+				output+=" mxh109420";
+				return output;
+			}else{
+					if (genreCount == 2){
+							output+="1) ";
+							output+=separated[0];
+							output+=" & 2) ";
+							output+=separated[1];
+							output+=" mxh109420";
+							return output;
+				   }else{
+						output+="1) ";
+						output+=separated[0];
+						output+=", 2) ";
+						output+=separated[1];
+						output+=" & 3) ";
+						output+=separated[2];
+						output+=" mxh109420";
+						return output;
+				
+				   }
+			}
+        } catch (ExecException ex) {
+            System.out.println("Meisam Error: " + ex.toString());
+        }
+		output +="Exited with Error, with the followingNumber Of genre:";
+		output += Integer.toString(genreCount);
+        return output;
+    }
+}
+
+# commands:
+# mkdir PIG_UDF
+# cd PIG_UDF
+# put java file in the folder
+# Check the pig version and configure accordingly
+# javac -cp /usr/local/pig-0.13.0/pig-0.13.0-h1.jar FORMAT_GENRE_PIG.java 
+# jar -cf pig_udf.jar .
+
+# registering and using UDF
+REGISTER /home/004/m/mx/mxh109420/PIG_UDF/pig_udf.jar;
+
+movies = load '/mxh109420/Spring-2015-input/movies.dat' using PigStorage(':') as (MOVIEID:int, TITLE:chararray, GENRE:chararray);
+reformatedMovies = FOREACH movies GENERATE MOVIEID, TITLE, FORMAT_GENRE_PIG(GENRE);
+only6Items = limit reformatedMovies 6;
+DUMP reformatedMovies ;
+
+# run pig file
+pig -x mapreduce Q4.pig > /home/004/m/mx/mxh109420/PIG_UDF/Q4.res
+
+#=========================================================================================
+# Hive
+#=========================================================================================
+
+#==========================
+# Q5
+# top 10+<X> = 11 average rated "Comedy"
+# descending order of rating
+# Create Table Command
+# Load from Local
+# Hive Query
+#==============================
+# on this question the server did not work, so I had to move to my PC
+# to configure virtual box should be set as the network not NAT or adapter
+# preparation by
+hdfs dfs -mkdir /mxh109420/
+hdfs dfs -put mxh109420/* /mxh109420/
+hdfs dfs -ls /mxh109420/
+hdfs dfs -ls /mxh109420/hive-partition-hw3/
+
+//CREAT TABLE AND LOADING DATA...
+CREATE TABLE IF NOT EXISTS movies(MOVIEID INT, TITLE STRING, GENRE STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY ':';
+show tables;
+CREATE TABLE IF NOT EXISTS ratings(USERID INT, MOVIEID INT, RATING INT, TIMESTAMP STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY ':';
+show tables;
+LOAD DATA INPATH '/mxh109420/Spring-2015-input/movies.dat'  INTO TABLE movies;
+SELECT GENRE FROM movies;
+LOAD DATA INPATH '/mxh109420/Spring-2015-input/ratings.dat'  INTO TABLE ratings;
+
+// Now join and select only Commedy
+SELECT m.TITLE,r.MOVIEID,AVG(r.RATING) as AVGRT
+FROM ratings r JOIN movies m ON (r.MOVIEID=m.MOVIEID) 
+WHERE m.GENRE RLIKE '.*Comedy.*'
+GROUP BY r.MOVIEID, m.TITLE
+SORT BY AVGRT DESC;
+
+//adding rank
+# used rank() over (ORDER BY V.volume DESC) as rank
+
+SELECT TITLE, MOVIEID, AVGRT, rank() over (ORDER BY AVGRT DESC) as rank
+FROM (SELECT m.TITLE,r.MOVIEID,AVG(r.RATING) as AVGRT
+FROM ratings r JOIN movies m ON (r.MOVIEID=m.MOVIEID) 
+WHERE m.GENRE RLIKE '.*Comedy.*'
+GROUP BY r.MOVIEID, m.TITLE
+SORT BY AVGRT DESC) data
+DISTRIBUTE BY TITLE, MOVIEID, AVGRT
+SORT BY AVGRT DESC;
+
+// Join and only select 11 elements
+SELECT TITLE, MOVIEID, AVGRT, rank
+FROM( SELECT TITLE, MOVIEID, AVGRT, rank() over (ORDER BY AVGRT DESC) as rank
+FROM (SELECT m.TITLE,r.MOVIEID,AVG(r.RATING) as AVGRT
+FROM ratings r JOIN movies m ON (r.MOVIEID=m.MOVIEID) 
+WHERE m.GENRE RLIKE '.*Comedy.*'
+GROUP BY r.MOVIEID, m.TITLE
+SORT BY AVGRT DESC) data
+DISTRIBUTE BY TITLE, MOVIEID, AVGRT
+SORT BY AVGRT DESC) withRank
+WHERE rank<12
+SORT BY AVGRT DESC;
+
+#========================================================
+# Q6
+#List all Movies
+# Genre is "Comedy" or "Drama"
+# the average movie rating is in between 4.5-4.6 (inclusive)
+# Only male users rate the movie
+# Show the create table command, load from local, and the Hive query
+#========================================================
+
+# start with selecting only those that male users have rated
+# I can compare counts of all ratings, and those that only male users have rated
+
+# new create table to include users
+CREATE TABLE IF NOT EXISTS users(USERID INT, GENDER STRING, AGE INT, OCCUPATION INT,ZIPCODE INT) ROW FORMAT DELIMITED FIELDS TERMINATED BY ':';
+show tables;
+LOAD DATA INPATH '/mxh109420/Spring-2015-input/users.dat'  INTO TABLE users;
+SELECT * FROM users;
+
+//TAKE MOVIEID AND TOTAL RATING AND AVERAGE RATING
+SELECT MOVIEID,COUNT(CDMOV.USERID) AS TOTALRT,AVG(RATING) AS AVGRT
+FROM (SELECT m.TITLE,r.MOVIEID,r.USERID,r.RATING
+FROM ratings r JOIN movies m ON (r.MOVIEID=m.MOVIEID) 
+WHERE (m.GENRE RLIKE '.*Comedy.*') OR (m.GENRE RLIKE '.*Drama.*') ) CDMOV 
+JOIN users ON (users.USERID = CDMOV.USERID)
+GROUP BY MOVIEID;
+
+// NUMBER OF RATINGS THAT HAS BEEN DONE ONLY BY MALE
+SELECT MOVIEID,COUNT(CDMOV.USERID) AS MLTOTALRT
+FROM (SELECT m.TITLE,r.MOVIEID,r.USERID,r.RATING
+FROM ratings r JOIN movies m ON (r.MOVIEID=m.MOVIEID) 
+WHERE (m.GENRE RLIKE '.*Comedy.*') OR (m.GENRE RLIKE '.*Drama.*') ) CDMOV 
+JOIN users ON (users.USERID = CDMOV.USERID)
+WHERE users.GENDER='M'
+GROUP BY MOVIEID;
+
+// Only select those movies that are rated by male
+
+SELECT allCDMOV.MOVIEID, allCDMOV.AVGRT
+FROM (SELECT MOVIEID,COUNT(CDMOV.USERID) AS TOTALRT,AVG(RATING) AS AVGRT
+FROM (SELECT m.TITLE,r.MOVIEID,r.USERID,r.RATING
+FROM ratings r JOIN movies m ON (r.MOVIEID=m.MOVIEID) 
+WHERE (m.GENRE RLIKE '.*Comedy.*') OR (m.GENRE RLIKE '.*Drama.*') ) CDMOV 
+JOIN users ON (users.USERID = CDMOV.USERID)
+GROUP BY MOVIEID) allCDMOV JOIN (SELECT MOVIEID,COUNT(CDMOV.USERID) AS MLTOTALRT
+FROM (SELECT m.TITLE,r.MOVIEID,r.USERID,r.RATING
+FROM ratings r JOIN movies m ON (r.MOVIEID=m.MOVIEID) 
+WHERE (m.GENRE RLIKE '.*Comedy.*') OR (m.GENRE RLIKE '.*Drama.*') ) CDMOV 
+JOIN users ON (users.USERID = CDMOV.USERID)
+WHERE users.GENDER='M'
+GROUP BY MOVIEID) MLCDMOV ON (MLCDMOV.MOVIEID = allCDMOV.MOVIEID)
+WHERE MLCDMOV.MLTOTALRT = allCDMOV.TOTALRT;
+
+// ADD THE CONDITION THAT THE AVG RATING IS BETWEEN 4.5 AND 4.6 INCLUSIVE
+
+SELECT allCDMOV.TITLE, allCDMOV.MOVIEID, allCDMOV.AVGRT
+FROM (SELECT TITLE,MOVIEID,COUNT(CDMOV.USERID) AS TOTALRT,AVG(RATING) AS AVGRT
+FROM (SELECT m.TITLE,r.MOVIEID,r.USERID,r.RATING
+FROM ratings r JOIN movies m ON (r.MOVIEID=m.MOVIEID) 
+WHERE (m.GENRE RLIKE '.*Comedy.*') OR (m.GENRE RLIKE '.*Drama.*') ) CDMOV 
+JOIN users ON (users.USERID = CDMOV.USERID)
+GROUP BY MOVIEID, TITLE) allCDMOV JOIN (SELECT MOVIEID,COUNT(CDMOV.USERID) AS MLTOTALRT
+FROM (SELECT m.TITLE,r.MOVIEID,r.USERID,r.RATING
+FROM ratings r JOIN movies m ON (r.MOVIEID=m.MOVIEID) 
+WHERE (m.GENRE RLIKE '.*Comedy.*') OR (m.GENRE RLIKE '.*Drama.*') ) CDMOV 
+JOIN users ON (users.USERID = CDMOV.USERID)
+WHERE users.GENDER='M'
+GROUP BY MOVIEID) MLCDMOV ON (MLCDMOV.MOVIEID = allCDMOV.MOVIEID)
+WHERE MLCDMOV.MLTOTALRT = allCDMOV.TOTALRT AND allCDMOV.AVGRT>=4.5 AND allCDMOV.AVGRT<=4.6;
+
+
+#========================================================
+# Q7
+# create one table partitioned by month
+#Show the create table one command, 
+#load from local three commands
+#one Hive query that selects all columns from the table for the virtual column month of March.
+#========================================================
+# to put data into the related folder
+hdfs dfs -put /mxh109420/hive-partition-hw3/*.* /mxh109420/hive-partition-hw3/
+
+//MovieID;Title;Genres
+CREATE TABLE movieMonth (
+  MOVIEID STRING,
+  TITLE STRING,
+  GENRE STRING)
+PARTITIONED BY (MONTH String)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY "\073" ;
+
+LOAD DATA LOCAL INPATH 'mxh109420/hive-partition-hw3/February.dat' OVERWRITE INTO TABLE movieMonth PARTITION (MONTH='FEBRUARY');
+LOAD DATA LOCAL INPATH 'mxh109420/hive-partition-hw3/January.dat' OVERWRITE INTO TABLE movieMonth PARTITION (MONTH='JANUARY');
+LOAD DATA LOCAL INPATH 'mxh109420/hive-partition-hw3/March.dat' OVERWRITE INTO TABLE movieMonth PARTITION (MONTH='MARCH');
+
+SELECT * 
+FROM movieMonth
+WHERE MONTH = 'MARCH';
+
+
+
+#===============================================================
+# Q8
+# Create three tables that have three columns each (MovieID, MovieName, Genre). 
+#Each table will represent a month. The three months are January, February and March.
+#Using Hive multi-table insert, insert values from the table you created in Q7 to these three tables 
+#each table should have names of movies e.g. movies_march etc. for the specified month
+#==============================================================
+CREATE TABLE IF NOT EXISTS January(MOVIEID STRING,
+  TITLE STRING,
+  GENRE STRING) 
+   ROW FORMAT DELIMITED FIELDS TERMINATED BY "\073";
+show tables;
+CREATE TABLE IF NOT EXISTS February(MOVIEID STRING,
+  TITLE STRING,
+  GENRE STRING) 
+   ROW FORMAT DELIMITED FIELDS TERMINATED BY "\073";
+show tables;
+CREATE TABLE IF NOT EXISTS March(MOVIEID STRING,
+  TITLE STRING,
+  GENRE STRING) 
+   ROW FORMAT DELIMITED FIELDS TERMINATED BY "\073";
+show tables;
+
+FROM movieMonth
+  INSERT OVERWRITE TABLE January SELECT movieMonth.MOVIEID,movieMonth.TITLE,movieMonth.GENRE WHERE movieMonth.MONTH="JANUARY"
+  INSERT OVERWRITE TABLE February SELECT movieMonth.MOVIEID,movieMonth.TITLE,movieMonth.GENRE WHERE movieMonth.MONTH="FEBRUARY"
+  INSERT OVERWRITE TABLE March SELECT movieMonth.MOVIEID,movieMonth.TITLE,movieMonth.GENRE WHERE movieMonth.MONTH="MARCH";
+
+#===========================================================
+# Q8
+# Write a UDF(User Define Function) FORMAT_GENRE in Hive which basically formats the genre in movies:
+# Before formatting: Children's
+# After formatting: 1) Children's <NetId> :hive
+# Before formatting: Animation|Children's
+# After formatting: 1) Children's & 2) Animation <NetId> :hive
+# Before formatting: Children's|Adventure|Animation
+# After formatting: 1) Children's, 2) Adventure & 3) Animation <NetId> :hive
+#========================================================
+
+// program to be used in PIG to reformate GENRE
+// Children's ==> 1) Children's mxh109420:hive
+// Animation|Children's ==> 1) Children's & 2) Animation mxh109420:hive
+// Children's|Adventure|Animation ==> 1) Children's, 2) Adventure & 3) Animation mxh109420:hive
+// Written by Meisam Hejazi Nia
+// March 24rd, 2015
+
+import org.apache.hadoop.hive.ql.exec.UDF;
+import org.apache.hadoop.hive.ql.exec.Description;
+import org.apache.hadoop.io.Text;
+
+@Description(name = "FORMAT_GENRE_HIVE",
+value = "_FUNC_(str) - Reformats the Genre that it receives, e.g. Children's ==> 1) Children's mxh109420 :hive, Animation|Children's ==> 1) Children's & 2) Animation mxh109420 :hive, Children's|Adventure|Animation ==> 1) Children's, 2) Adventure & 3) Animation mxh109420 :hive",
+extended = "Example:\n"
++ "  > SELECT Title,FORMAT_GENRE_HIVE(GENRE) FROM movies m;")
+
+public class FORMAT_GENRE_HIVE extends UDF {
+    public Text evaluate(Text s) {		
+		Text to_value = new Text("");
+		int genreCount = -2;
+		String output = "";
+        try {
+            String str = s.toString();
+			// First split Genre by the seperator '|'
+			String[] separated = str.split("\\|");
+            genreCount = separated.length;
+            
+			if (genreCount == 1){
+				output+="1) ";
+				output+=separated[0];
+				output+=" mxh109420 :hive";
+				to_value.set(output);
+				return to_value;
+			}else{
+					if (genreCount == 2){
+							output+="1) ";
+							output+=separated[0];
+							output+=" & 2) ";
+							output+=separated[1];
+							output+=" mxh109420 :hive";
+							to_value.set(output);
+							return to_value;
+				   }else{
+						output+="1) ";
+						output+=separated[0];
+						output+=", 2) ";
+						output+=separated[1];
+						output+=" & 3) ";
+						output+=separated[2];
+						output+=" mxh109420 :hive";
+						to_value.set(output);
+						return to_value;
+				
+				   }
+			}
+        } catch (Exception ex) {
+            System.out.println("Meisam Error: " + ex.toString());
+        }
+		output +="Exited with Error, with the followingNumber Of genre:";
+		output += Integer.toString(genreCount);
+		to_value.set(output);
+        return to_value;
+		
+    }
+}
+
+
+
+#============================
+# Compile and Create UDF
+#============================
+# hive path is:
+/usr/hdp/2.2.0.0-2041/hive/lib/hive-exec-0.14.0.2.2.0.0.0-2041.jar
+/usr/hdp/2.2.0.0-2041/hadoop/hadoop-common.jar
+/usr/hdp/
+# Unfortuantely the home computer did not work, so I decided to compile it on the server cs6360
+#javac -classpath /usr/hdp/2.2.0.0-2041/hive/lib/hive-exec-0.14.0.2.2.0.0-2041.jar:/usr/hdp/2.2.0.0-2041/hadoop/ -d /usr/lib/hue/UDF_HIVE FORMAT_GENRE_HIVE.java
+
+mkdir HIVE_UDP
+CD HIVE_UDP
+
+# javac -cp /usr/local/pig-0.13.0/pig-0.13.0-h1.jar FORMAT_GENRE_PIG.java 
+# jar -cf pig_udf.jar .
+
+#path on cs6063: /usr/local/hive-0.9.0/lib/hive-exec-0.9.0.jar
+#path on cs6063: /usr/local/hadoop-1.2.1i/hadoop-core-1.2.1.jar
+
+javac -classpath /usr/local/hive-0.9.0/lib/hive-exec-0.9.0.jar:/usr/local/hadoop-1.2.1i/hadoop-core-1.2.1.jar -d /home/004/m/mx/mxh109420/HIVE_UDP FORMAT_GENRE_HIVE.java
+
+jar -cf FORMAT_GENRE_HIVE.jar .
+
+#pwd
+/usr/lib/hue
+
+add jar /usr/lib/hue/FORMAT_GENRE_HIVE.jar;
+CREATE TEMPORARY FUNCTION FORMAT_GENRE_HIVE as 'FORMAT_GENRE_HIVE'; 
+
+SELECT movieMonth.MOVIEID,movieMonth.TITLE,FORMAT_GENRE_HIVE(movieMonth.GENRE)  FROM movieMonth WHERE movieMonth.MONTH="JANUARY";
+
+

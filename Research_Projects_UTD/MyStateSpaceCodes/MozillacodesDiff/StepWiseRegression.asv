@@ -1,0 +1,74 @@
+%stepwise regression for alpha,p,q,delta (mean for 52 addons)on the explanatory variables
+%------------------------------------------------------------------------------------------------------------------
+% reading explained/dependent variables
+%=================================================================================================================
+[num,txt,raw] = xlsread('C:\Users\MHE\Desktop\ActiveCourses\Projects\FirefoxAddon(VeryLowPriority)\DiffData\AnalysisOFStepWiseRegression.xlsx',1); 
+num=num(:,3:15); % list of variables: [1: delta, 2:6: p, 7:12: q, delta:13] in result
+alpha = num(:,1);
+p     = num(:,2:6);
+q     = num(:,7:12);
+delta = num(:,13);
+%-------------------------------------------------------------------------------------------------------------------------
+
+% read explanatory/independent variables for alpha
+[num,txt,raw] = xlsread('C:\Users\MHE\Desktop\ActiveCourses\Projects\FirefoxAddon(VeryLowPriority)\DiffData\AnalysisOFStepWiseRegression.xlsx',2); 
+ num=num(:,3:33); % list of variables
+ x  = num;
+
+% run stepwise regression to explain alpha
+clc
+[b,se,pval,inmodel,stats,nextstep,history]= stepwisefit(x,alpha)
+%====================================================================================================================
+
+% read explanatory/independent variables for p
+[num,txt,raw] = xlsread('C:\Users\MHE\Desktop\ActiveCourses\Projects\FirefoxAddon(VeryLowPriority)\DiffData\AnalysisOFStepWiseRegression.xlsx',3); 
+ num=num(:,3:33); % list of variables
+ x  = num;
+
+% run stepwise regression to explain p
+clc
+for i=1:size(p,2)
+    [b,se,pval,inmodel,stats,nextstep,history]= stepwisefit(x,p(:,i))
+end;
+%====================================================================================================================
+
+
+% read explanatory/independent variables for q
+[num,txt,raw] = xlsread('C:\Users\MHE\Desktop\ActiveCourses\Projects\FirefoxAddon(VeryLowPriority)\DiffData\AnalysisOFStepWiseRegression.xlsx',4); 
+ num=num(:,3:28); % list of variables
+ x  = num;
+% run stepwise regression to explain q
+clc
+for i=1:size(q,2)
+    [b,se,pval,inmodel,stats,nextstep,history]= stepwisefit(x,q(:,i))
+end;
+%====================================================================================================================
+% read explanatory/independent variables for delta
+[num,txt,raw] = xlsread('C:\Users\MHE\Desktop\ActiveCourses\Projects\FirefoxAddon(VeryLowPriority)\DiffData\AnalysisOFStepWiseRegression.xlsx',5); 
+ num=num(:,3:28); % list of variables
+ x  = num;
+ 
+% run stepwise regression to explain delta
+clc
+[b,se,pval,inmodel,stats,nextstep,history]= stepwisefit(x,delta)
+%====================================================================================================================
+% check multicollinearity
+
+%check for alpha
+alphaitems = [4,5,6,7,19,20,21,22,23,24,28,29,33];
+
+
+% check for p
+pitmes = [3,4,5,6,7,11,12,13,14,15,20,22,24,30,33];
+
+
+% check for q
+qitems=[3,4,5,6,7,9,10,11,12,13,19,26,27,28];
+
+
+% check for delta
+
+
+
+%iterate on each item and run stepwise regression and give the results
+% [b,se,pval,inmodel,stats,nextstep,history]= stepwisefit(x,crimerate)

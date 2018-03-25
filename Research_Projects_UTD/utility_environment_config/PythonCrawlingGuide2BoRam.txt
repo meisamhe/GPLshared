@@ -1,0 +1,86 @@
+Hello Bo Ram,
+
+Following is a short guide to crawl in python. Take a look, and if you had questions, just let me know.
+
+1. First download and install python 2.7 which is a stable version, set the pythonpath (I explain how to do so at the end of this email)
+
+2. Make sure that you have the following libraries, otherwise use "easy_install", or "pip" or even the following website to download and install them:
+
+from datetime import datetime
+from csv import DictReader #library to read csv file
+from math import exp, log, sqrt  #library for mathematical operations
+import urllib2    # library for 
+import re         # library for regular expression matching 
+import time       # library for 
+
+for easy install: For Windows without PowerShell 3 or for installation without a command-line, download ez_setup.py using your preferred web browser or other technique and “run” that file. (src: https://pypi.python.org/pypi/setuptools/12.0.5#windows-simplified)
+
+exe version of the libraries are available here: http://www.lfd.uci.edu/~gohlke/pythonlibs/
+install install tools, and use pip as suggested in (Use pip version 6 to install the downloaded .whl files.), the command to install pip is available in the same page
+
+2. following is some code to read a url from a csv file, getting the html file and then using regular expression to match the relevant part:
+
+#read content of a csv file
+interestingUsersFilePath = "C:\\Users\\mxh109420\\Desktop\\interestingUsers.csv"  # interestingUsers file to 
+f = open(interestingUsersFilePath)
+content = f.read().splitlines()
+
+# write the header of the file
+outIndvCS = open(individualCSData,'w')
+outIndvCS.write('url,user\n')
+
+rootUrl = "https://github.com"
+tailUrl = "/eugenkiss/7guis/graphs/contributors"
+
+url = rootUrl + tailUrl
+
+rawPage = urllib2.urlopen(url)	
+readItem = rawPage.read()
+time.sleep(0.3) # delays for 0.3 seconds
+
+# I want to find the following structure that I took out from chrome by right clicking on them item and pushing inspect element
+#<a class="aname" href="/jcelerier">jcelerier</a>
+pattern = '<a class="aname" href="([^"]*)">([^<]*)</a>'	
+
+# here [^"]* means match every character except " , and also prenthesis means I want you to save this as a result of match
+# similarly [^<]* means match with zero or more characters that are not '<'		
+# now given the pattern that I have created, the following code will find all the user and url tuples that are in the html file that I have read from the URL
+urlTail=re.findall(pattern, readItem) 
+
+# in other word urlTail[0] is the first tuple of (urltail, userName), and urlTail[1] is the second one, so if I want to access the first url Tail to build my next URL to crawl, I will use:
+
+url = rootURL+ urlTail[0][0]
+
+# you can check the content of the variable by running
+print (urlTail)
+
+# I may also decide to write these tuples into a file
+for item in urlTail:
+     outIndvCS.write('%s,%s\n'%(item[0],item[1]))
+
+Python unlike R, does not need { } for each block, and it understands blocks by indentations, so in the for loop, if all the lines have the same indentation (e.g. tab), then python understands that the loop contains all those commands.
+
+I attached a presentation that I created on crawling, which may be a little bit confusing, but the regular expression guideline may be helpful. Unlike re.findall that we use in python, in perl we use 'readItem=~/<a class="aname" href="([^"]*)">([^<]*)</a>/', if you wanted to translate from perl codes to python.
+
+Also I attached a short tutorial that my friend Cheng Nie has prepared on python, and it has some crawling code as well.
+
+Generally, you will learn by playing. You simply install python, then you add the path of your python installation both to environment variable PATH, and PYTHONPATH. Edit the PATH variable, and add the PYTHONPATH variable.
+
+Python path is a place where python searches for the libraries, so I add the following paths to it, so you do the same based on where you install your python:
+
+C:\Python27;C:\Python27\Lib\site-packages;C:\Python27\libs;C:\Python27\Lib\
+
+to set environment variable, you right click on the computer link in start menu of windows, then select properties. In a new window press "Advanced System Setting". Then in a new windows select "Environment Variable". Then edit the variable you want to change by putting semi colon ";", and adding the new path after it. 
+
+I usually write my code in notepad++, because it is easier, and then to execute it I use the following command "python mycrawlercode.py" in the command line. Also every time I want to make sure how the code works, and whether I am on track I test my code in a runtime environment. To do so, just open a command line and write python. Then symbol '>>' will appear, which allows you to write python code line by line, the same way you write an R code, and then test it.
+
+
+Kind Regards, 
+Meisam Hejazi Nia 
+Doctoral Candidate in Management Science (Marketing Analytics)
+Naveen Jindal School of Management, The University of Texas at Dallas
+800 W Campbell rd | School of Management |Richardson, TX, 75080
+Cell: 469.999.2798 
+Email: meisam.hejazinia@utdallas.edu 
+View my complete profile: http://www.hejazinia.com/
+

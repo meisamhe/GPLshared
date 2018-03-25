@@ -1,0 +1,271 @@
+<HTML
+><HEAD
+><TITLE
+>Installing MM.MySQL</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.33"><LINK
+REL="HOME"
+TITLE="Documentation for MM.MySQL"
+HREF="book1.htm"><LINK
+REL="UP"
+TITLE="Installation Instructions"
+HREF="c62.htm"><LINK
+REL="PREVIOUS"
+TITLE="Installation Instructions"
+HREF="c62.htm"><LINK
+REL="NEXT"
+TITLE="Programming Information"
+HREF="c106.htm"></HEAD
+><BODY
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Documentation for MM.MySQL</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c62.htm"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 2. Installation Instructions</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c106.htm"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN68"
+>Installing MM.MySQL</A
+></H1
+><P
+>There are two steps to installing MM.MySQL. First, you need to unpack the files you downloaded, and second you need to add MM.MySQL to your CLASSPATH.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN71"
+>Unpacking MM.MySQL</A
+></H2
+><P
+>Use the appropriate tool to unpack the MM.MySQL distribution (tar -xzf filename.tar.gz for Unix, winzip for Windows).</P
+><P
+>You will end up with the following directory structure:</P
+><P
+CLASS="LITERALLAYOUT"
+>mm.mysql.jdbc-[version]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;COPYING<br>
+&nbsp;&nbsp;&nbsp;&nbsp;README<br>
+&nbsp;&nbsp;&nbsp;&nbsp;doc<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mysql_comp.jar<br>
+&nbsp;&nbsp;&nbsp;&nbsp;mysql_uncomp.jar<br>
+&nbsp;&nbsp;&nbsp;&nbsp;org<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gjt<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mm<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mysql<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN76"
+>Setting the CLASSPATH</A
+></H2
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>Note: </B
+>       If you are using a virtual machine other than the JDK like the JRE or Microsoft's Jview consult the appropriate documentation for details on how to set the CLASSPATH variable.</P
+></BLOCKQUOTE
+></DIV
+><P
+>The CLASSPATH tells the Java runtime and compiler where to find the classes it needs to run. To allow the Java Virtual Machine to find MM.MySQL and use it, the CLASSPATH needs to be modified.</P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>Note: </B
+>On Windows systems make sure that either file and directory names in the CLASSPATH are no longer than 8.3 or that they use the mangled names, or that the entire CLASSPATH is surrounded by quotes. Otherwise, the Java runtime will not be able to find the classes.</P
+></BLOCKQUOTE
+></DIV
+><P
+>You will need to either set the CLASSPATH to include the mm.mysql.jdbc-[version] directory you created when you unarchived the MM.MySQL files, or include the full path to the mysql_comp.jar or mysql_uncomp.jar (compressed, and uncompressed, respectively) file. Note: Some JVM's cannot load compressed JAR files, so make sure if you are using JAR files that you are using one appropriate for your JVM.</P
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN84"
+>Setting the CLASSPATH under UNIX</A
+></H3
+><P
+>The following is an example of setting the CLASSPATH under UNIX (using csh).</P
+><DIV
+CLASS="EXAMPLE"
+><P
+><B
+>Example 2-1. Setting the CLASSPATH under UNIX</B
+></P
+><PRE
+CLASS="SCREEN"
+>         <TT
+CLASS="PROMPT"
+>$</TT
+><TT
+CLASS="USERINPUT"
+><B
+> setenv CLASSPATH /path/to/mm.mysql.jdbc-[version]:$CLASSPATH</B
+></TT
+>
+         </PRE
+></DIV
+><P
+>The above command can be added to the appropriate startup file for the login shell to make MM.MySQL available to all Java applications.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN93"
+>Setting the CLASSPATH under Microsoft Windows</A
+></H3
+><P
+>The following is an example of setting the CLASSPATH under Microsoft Windows:</P
+><DIV
+CLASS="EXAMPLE"
+><P
+><B
+>Example 2-2. Setting the CLASSPATH under Microsoft Windows</B
+></P
+><PRE
+CLASS="SCREEN"
+>          <TT
+CLASS="PROMPT"
+>C:\&#62;</TT
+><TT
+CLASS="USERINPUT"
+><B
+> set CLASSPATH=\path\to\mm.mysql.jdbc-[version];%CLASSPATH%</B
+></TT
+>
+          </PRE
+></DIV
+><P
+>This command can be added as the last line in <TT
+CLASS="FILENAME"
+>AUTOEXEC.BAT</TT
+>. If this is done the MM.MySQL driver will be available to all Java applications run on the Windows system. This setting will require the computer to be rebooted before the changes will take effect.</P
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="AEN103"
+>What's Next?</A
+></H3
+><P
+>Once the CLASSPATH is set, the driver is ready for use! Taking a look at the next chapter containing programming information might be a good idea, however.</P
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c62.htm"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.htm"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c106.htm"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Installation Instructions</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c62.htm"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Programming Information</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

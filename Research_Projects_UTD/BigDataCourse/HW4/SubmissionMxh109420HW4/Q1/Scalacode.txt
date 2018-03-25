@@ -1,0 +1,127 @@
+#==============================================================================================
+# Question 1: k-mean algorithm from scratch using SCALA and SPark
+# input: Q1_testkmean.txt
+# K = 3
+# Output: 
+# Print: (1) each point (2) correspoinding cluster it belongs to
+# Print: Final centroids
+#===============================================================================================
+#Algorithm:
+# iterate limitedly e.g. 100 times(RATHER than checking the variance and mean to check the convergence){ 
+# INPUT to MAPPER: clusterID, value: centroid points
+#(1) compute distance from all points to all k-centers (MAP)
+#(2) Assign each point to the nearest k-center, smallest distance assignment for the point (MAP)
+# OUTPUT of MAPPER: key: clusterID, value: point
+#(3) Compute the AVG of all points assigned to all specific k-centers (REDUCE)
+#(4) Replace the k-centers with the new AVG (REDUCE)
+# OUTPUT of REDUCER: clusterID, value: centroid points
+
+Questions: 
+1. how do I write a code that for each point computes the distances and outputs the [clusterID,value] pair?
+
+
+// Code for KMean Clustering
+// Created by Meisam Hejazi Nia
+// Date: 04/13/2015
+
+class Point(xc: Double, yc: Double) {
+  var x: Double= xc
+  var y: Double= yc
+}
+
+import java.lang.Math
+
+// distance function: Euclidean
+def distance(first: Point, second: Point) :Double={
+   return Math.sqrt((first.x-second.x)*(first.x-second.x)+(first.y-second.y)*(first.y-second.y))
+ }
+
+// define initial points
+val initial0= new Point(0.0,0.0)
+val initial1 = new Point(1.0,1.0)
+val initial2 = new Point(5.0,5.0)
+
+// test whether distance works
+distance(initial0,initial1)
+
+val clustMeans= Array(initial0,initial1,initial2)
+clustMeans.length
+
+def closestClust(currentP: Point, clustMeans: Array[Point]): Int={
+ val distances = for (centroid <- clustMeans) yield distance(centroid, currentP)
+ return distances.zipWithIndex.min._2
+}
+
+// function to compute new centeriods
+def newCentroid(points: List[Point]): Point = {
+ var sumX = 0.0
+ var sumY = 0.0
+ for (point <-points) {
+    sumX = sumX + point.x
+    sumY = sumY + point.y
+ }
+   return new Point(sumX / points.length, sumY / points.length)
+ }
+
+
+// read the input file and create tuples
+val kmeanData = sc.textFile("/usr/lib/hue/spark-1.3.0-bin-hadoop2.4/Q1_testkmean.txt")
+val observations = kmeanData.map(obs => obs.split(" ")).map(obs => (obs(0).toDouble,obs(1).toDouble)).collect
+
+// find the actual mean
+val observationsParallel = sc.parallelize(observations)
+val sumElements = observationsParallel.map(element => (1,element)).reduceByKey((first,second)=>(first._1+second._1,first._2+second._2)).collect
+val meanPoints = (sumElements(0)._2._1/observations.length,sumElements(0)._2._2/observations.length)
+
+// Initialize cluster means
+val initial0= new Point(meanPoints._1,meanPoints._2)
+val initial1 = new Point(meanPoints._1,meanPoints._2-1.0)
+val initial2 = new Point(meanPoints._1-1.0,meanPoints._2)
+
+val clustMeans= Array(initial0,initial1,initial2)
+
+// use the touple file to create array of points
+val observationPoints=observations.map(obs =>new Point(obs._1,obs._2))
+
+// calculate new assignments
+var assignment = observationPoints.map(obsPoint => (closestClust(obsPoint,clustMeans),(obsPoint.x,obsPoint.y)))
+
+// Given new assignments calculate new centroids
+// prepare by turning into RDD
+var assignmentRDD = sc.parallelize(assignment)
+
+// first create list of tuples for each cluster including sum of x and sum of y
+var sumCentroidXY = assignmentRDD .reduceByKey ((first,second)=>(first._1+second._1,first._2+second._2))
+var countCentroid = assignmentRDD.map(element => (element._1,1)).reduceByKey(_+_)
+var clustMean = sumCentroidXY.join(countCentroid).mapValues{case(sum,count) => ((1.0*sum._1)/count,(1.0*sum._2)/count)}.collect
+var clustMeans =clustMean.map(obs =>new Point(obs._2._1,obs._2._2))
+
+// the main loop to (1) assign and (2) calculate new cluster mean
+for (i <- 1 to 50){
+  // calculate new assignments
+  assignment = observationPoints.map(obsPoint => (closestClust(obsPoint,clustMeans),(obsPoint.x,obsPoint.y)))
+
+  // Given new assignments calculate new centroids
+  // prepare by turning into RDD
+  assignmentRDD = sc.parallelize(assignment)
+
+  // first create list of tuples for each cluster including sum of x and sum of y
+  sumCentroidXY = assignmentRDD .reduceByKey ((first,second)=>(first._1+second._1,first._2+second._2))
+  countCentroid = assignmentRDD.map(element => (element._1,1)).reduceByKey(_+_)
+  clustMean = sumCentroidXY.join(countCentroid).mapValues{case(sum,count) => ((1.0*sum._1)/count,(1.0*sum._2)/count)}.collect
+  clustMeans =clustMean.map(obs =>new Point(obs._2._1,obs._2._2))
+}
+
+// saving output
+// before running make sure I have ran: 
+// sudo rm -r ClustCentroidMeanoutput
+// sudo rm -r ClustDataAssignmentoutput
+val clustMeanRDD = sc.parallelize(clustMean)
+clustMeanRDD.saveAsTextFile("ClustCentroidMeanoutput")
+
+assignmentRDD.saveAsTextFile("ClustDataAssignmentoutput")
+
+#=========================================================================
+# Clustering..... Done
+# Next... Mahout Spark Item similarity recommendation System
+#=========================================================================

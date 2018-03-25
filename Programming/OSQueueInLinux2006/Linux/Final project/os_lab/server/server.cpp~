@@ -1,0 +1,13 @@
+#include <qapplication.h>
+#include  "serverform.h"
+#include <iostream>
+using namespace std;
+
+int main(int argc,char **argv)
+	{
+	QApplication App(argc,argv);
+	ServerForm myServerForm;
+	myServerForm.show();
+	App.setMainWidget(&myServerForm);
+	return App.exec();
+	}

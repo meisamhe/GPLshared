@@ -1,0 +1,1331 @@
+bash rc
+tmux
+vim
+
+You can write a small shell script that launches tmux with the required programs. I have the following in a shell script that I call dev-tmux. A dev environment:
+
+#!/bin/sh 
+tmux new-session -d 'vim'
+tmux split-window -v 'ipython'
+tmux split-window -h
+tmux new-window 'mutt'
+tmux -2 attach-session -d 
+So everytime I want to launch my favorite dev environment I can just do
+
+$ dev-tmux
+
+tmux shortcuts & cheatsheet
+start new:
+
+tmux
+start new with session name:
+
+tmux new -s myname
+attach:
+
+tmux a  #  (or at, or attach)
+attach to named:
+
+tmux a -t myname
+list sessions:
+
+tmux ls
+kill session:
+
+tmux kill-session -t myname
+Kill all the tmux sessions:
+
+tmux ls | grep : | cut -d. -f1 | awk '{print substr($1, 0, length($1)-1)}' | xargs kill
+In tmux, hit the prefix ctrl+b (my modified prefix is ctrl+a) and then:
+
+Sessions
+:new<CR>  new session
+s  list sessions
+$  name session
+Windows (tabs)
+c  create window
+w  list windows
+n  next window
+p  previous window
+f  find window
+,  name window
+&  kill window
+Panes (splits)
+%  vertical split
+"  horizontal split
+
+o  swap panes
+q  show pane numbers
+x  kill pane
++  break pane into window (e.g. to select text by mouse to copy)
+-  restore pane from window
+?  space - toggle between layouts
+<prefix> q (Show pane numbers, when the numbers show up type the key to goto that pane)
+<prefix> { (Move the current pane left)
+<prefix> } (Move the current pane right)
+<prefix> z toggle pane zoom
+Sync Panes
+You can do this by switching to the appropriate window, typing your Tmux prefix (commonly Ctrl-B or Ctrl-A) and then a colon to bring up a Tmux command line, and typing:
+
+:setw synchronize-panes
+You can optionally add on or off to specify which state you want; otherwise the option is simply toggled. This option is specific to one window, so it won’t change the way your other sessions or windows operate. When you’re done, toggle it off again by repeating the command. tip source
+
+Resizing Panes
+You can also resize panes if you don’t like the layout defaults. I personally rarely need to do this, though it’s handy to know how. Here is the basic syntax to resize panes:
+
+PREFIX : resize-pane -D (Resizes the current pane down)
+PREFIX : resize-pane -U (Resizes the current pane upward)
+PREFIX : resize-pane -L (Resizes the current pane left)
+PREFIX : resize-pane -R (Resizes the current pane right)
+PREFIX : resize-pane -D 20 (Resizes the current pane down by 20 cells)
+PREFIX : resize-pane -U 20 (Resizes the current pane upward by 20 cells)
+PREFIX : resize-pane -L 20 (Resizes the current pane left by 20 cells)
+PREFIX : resize-pane -R 20 (Resizes the current pane right by 20 cells)
+PREFIX : resize-pane -t 2 20 (Resizes the pane with the id of 2 down by 20 cells)
+PREFIX : resize-pane -t -L 20 (Resizes the pane with the id of 2 left by 20 cells)
+Copy mode:
+Pressing PREFIX [ places us in Copy mode. We can then use our movement keys to move our cursor around the screen. By default, the arrow keys work. we set our configuration file to use Vim keys for moving between windows and resizing panes so we wouldn’t have to take our hands off the home row. tmux has a vi mode for working with the buffer as well. To enable it, add this line to .tmux.conf:
+
+setw -g mode-keys vi
+With this option set, we can use h, j, k, and l to move around our buffer.
+
+To get out of Copy mode, we just press the ENTER key. Moving around one character at a time isn’t very efficient. Since we enabled vi mode, we can also use some other visible shortcuts to move around the buffer.
+
+For example, we can use "w" to jump to the next word and "b" to jump back one word. And we can use "f", followed by any character, to jump to that character on the same line, and "F" to jump backwards on the line.
+
+   Function                vi             emacs
+   Back to indentation     ^              M-m
+   Clear selection         Escape         C-g
+   Copy selection          Enter          M-w
+   Cursor down             j              Down
+   Cursor left             h              Left
+   Cursor right            l              Right
+   Cursor to bottom line   L
+   Cursor to middle line   M              M-r
+   Cursor to top line      H              M-R
+   Cursor up               k              Up
+   Delete entire line      d              C-u
+   Delete to end of line   D              C-k
+   End of line             $              C-e
+   Goto line               :              g
+   Half page down          C-d            M-Down
+   Half page up            C-u            M-Up
+   Next page               C-f            Page down
+   Next word               w              M-f
+   Paste buffer            p              C-y
+   Previous page           C-b            Page up
+   Previous word           b              M-b
+   Quit mode               q              Escape
+   Scroll down             C-Down or J    C-Down
+   Scroll up               C-Up or K      C-Up
+   Search again            n              n
+   Search backward         ?              C-r
+   Search forward          /              C-s
+   Start of line           0              C-a
+   Start selection         Space          C-Space
+   Transpose chars                        C-t
+Misc
+d  detach
+t  big clock
+?  list shortcuts
+:  prompt
+Configurations Options:
+# Mouse support - set to on if you want to use the mouse
+* setw -g mode-mouse off
+* set -g mouse-select-pane off
+* set -g mouse-resize-pane off
+* set -g mouse-select-window off
+
+# Set the default terminal mode to 256color mode
+set -g default-terminal "screen-256color"
+
+# enable activity alerts
+setw -g monitor-activity on
+set -g visual-activity on
+
+# Center the window list
+set -g status-justify centre
+
+# Maximize and restore a pane
+unbind Up bind Up new-window -d -n tmp \; swap-pane -s tmp.1 \; select-window -t tmp
+unbind Down
+bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
+ 
+alias' information.< p>
+
+Thanks Steve Long for additional links and references.
+
+Thanks Mukhtar Sharif for correction to BASH by example links.
+
+
+
+Translations
+This article is translated to Serbo-Croatian language by Web Geeks .
+
+---------------------
+Getting Started with BASH 
+A Bash Tutorial
+
+What is the Bash Shell?
+Bash's Configuration Files
+Modifying the Bash Shell with the set Command
+Set Emacs Mode in Bash
+Commands to take advantage of bash's Emacs Mode
+Set Vi Mode in Bash
+Commands to take advantage of bash's Vi Mode
+Useful Commands and Features
+Flip the Last Two Characters
+Searching Bash History
+Dealing with Spaces
+Using the Backslash Escape Sequence
+Using Single/Double Quotes with Spaces and Variables
+Lists Using { and }
+Executing Multiple Commands in Sequence
+Pipelining Output from One Command to Another
+Aliasing Commands
+Altering the Command Prompt Look and Information
+Backslash-escape special characters
+Color Codes
+Fun Stuff
+CDargs - Shell Bookmarks
+Basic and Extended Bash Completion
+Links
+Links to Bash Scripting Tutorials
+Contributions
+Translations
+
+
+What is the Bash Shell?
+The GNU Bourne-Again SHell (BASH) incorporates features from the C Shell (csh) and the Korn Shell (ksh) and conforms to the POSTIX 2 shell specifications. It provides a Command Line Interface (CLI) for working on *nix systems and is the most common shell used on Linux systems. Useful bash features will be the subject of the rest of this document.
+
+
+Bash's Configuration Files
+Because what I want to say here has already been written I will quote the section entitled "Files used by Bash" from freeunix.dyndns.org's "Customizing your Bash environment"
+
+In your home directory, 3 files have a special meaning to Bash, allowing you to set up your environment automatically when you log in and when you invoke another Bash shell, and allow you to execute commands when you log out.
+These files may exist in your home directory, but that depends largely on the Linux distro you're using and how your sysadmin (if not you) has set up your account. If they're missing, Bash defaults to /etc/profile.
+You can easily create these files yourself using your favorite texteditor. They are:
+.bash_profile : read and the commands in it executed by Bash every time you log in to the system
+.bashrc : read and executed by Bash every time you start a subshell
+.bash_logout : read and executed by Bash every time a login shell exits
+Bash allows 2 synonyms for .bash_profile : .bash_login and .profile. These are derived from the C shell's file named .login and from the Bourne shell and Korn shell files named .profile. Only one of these files is read when you log in. If .bash_profile isn't there, Bash will look for .bash_login. If that is missing too, it will look for .profile.
+.bash_profile is read and executed only when you start a login shell (that is, when you log in to the system). If you start a subshell (a new shell) by typing bash at the command prompt, it will read commands from .bashrc. This allows you to separate commands needed at login from those needed when invoking a subshell. 
+However, most people want to have the same commands run regardless of whether it is a login shell or a subshell. This can be done by using the source command from within .bash_profile to execute .bashrc. You would then simply place all the commands in .bashrc.
+These files are useful for automatically executing commands like: set, alias, unalias, and setting the PS(1-4) variables, which can all be used to modify your bash environment.
+
+You can use the source command to apply the changes that you have just made in a configuration file. For example if you add an alias to /etc/profile to apply the changes to your current session execute:
+
+$ source /etc/profile
+Active aliases can be viewed by executing the alias command. Some common files that may modify aliases are: ~/.bashrc, ~/.bash_profile, ~/.profile, /etc/bashrc, /etc/profile, files in /etc/profile.d. 
+
+Modifying the Bash Shell with the set Command
+Two options that can be set using the set command that will be of some interest to the common user are "-o vi" and "-o emacs". As with all of the environment modifying commands these can be typed at the command prompt or inserted into the appropriate file mentioned above.
+
+Set Emacs Mode in Bash
+$ set -o emacs
+This is usually the default editing mode when in the bash environment and means that you are able to use commands like those in Emacs (defined in the Readline library) to move the cursor, cut and paste text, or undo editing.
+
+Commands to take advantage of bash's Emacs Mode:
+
+ctrl-a	Move cursor to beginning of line
+ctrl-e	Move cursor to end of line
+meta-b	Move cursor back one word
+meta-f	Move cursor forward one word
+ctrl-w	Cut the last word
+ctrl-u	Cut everything before the cursor 
+ctrl-k	Cut everything after the cursor
+ctrl-y	Paste the last thing to be cut
+ctrl-_	Undo
+NOTE: ctrl- = hold control, meta- = hold meta (where meta is usually the alt or escape key).
+
+A combination of ctrl-u to cut the line combined with ctrl-y can be very helpful. If you are in middle of typing a command and need to return to the prompt to retrieve more information you can use ctrl-u to save what you have typed in and after you retrieve the needed information ctrl-y will recover what was cut.
+
+Set Vi Mode in Bash
+$ set -o vi
+Vi mode allows for the use of vi like commands when at the bash prompt. When set to this mode initially you will be in insert mode (be able to type at the prompt unlike when you enter vi). Hitting the escape key takes you into command mode.
+
+Commands to take advantage of bash's Vi Mode:
+
+h	Move cursor left
+l	Move cursor right
+A	Move cursor to end of line and put in insert mode
+0	(zero) Move cursor to beginning of line (doesn't put in insert mode) 
+i	Put into insert mode at current position
+a	Put into insert mode after current position
+dd	Delete line (saved for pasting)
+D	Delete text after current cursor position (saved for pasting)
+p	Paste text that was deleted
+j	Move up through history commands
+k	Move down through history commands
+u	Undo
+
+Useful Commands and Features
+The commands in this section are non-mode specific, unlike the ones listed above.
+
+Flip the Last Two Characters
+If you type like me your fingers spit characters out in the wrong order on occasion. ctrl-t swaps the order that the last two character appear in.
+
+Searching Bash History
+As you enter commands at the CLI they are saved in a file ~./.bash_history. From the bash prompt you can browse the most recently used commands through the least recently used commands by pressing the up arrow. Pressing the down arrow does the opposite.
+
+If you have entered a command a long time ago and need to execute it again you can search for it. Type the command 'ctrl-r' and enter the text you want to search for.
+
+Dealing with Spaces
+First, I will mention a few ways to deal with spaces in directory names, file names, and everywhere else.
+
+Using the Backslash Escape Sequence
+One option is to use bash's escape character \. Any space following the backslash is treated as being part of the same string. These commands create a directory called "foo bar" and then remove it.
+
+$ mkdir foo\ bar
+$ rm -r foo\ bar
+The backslash escape sequence can also be used to decode commands embedded in strings which can be very useful for scripting or modifying the command prompt as discussed later.
+
+Using Single/Double Quotes with Spaces and Variables
+Single and double quotes can also be used for dealing with spaces.
+
+$ touch 'dog poo'
+$ rm "dog poo"
+The difference between single and double quotes being that in double quotes the $, \, and ' characters still preserve their special meanings. Single quotes will take the $ and \ literally and regard the ' as the end of the string. Here's an example:
+
+$ MY_VAR='This is my text'
+$ echo $MY_VAR
+This is my text
+$ echo "$MY_VAR"
+This is my text
+$ echo '$MY_VAR'
+$MY_VAR
+The string following the $ character is interpreted as being a variable except when enclosed in single quotes as shown above.
+
+Lists Using { and }
+The characters { and } allow for list creation. In other words you can have a command be executed on each item in the list. This is perhaps best explained with examples:
+
+$ touch {temp1,temp2,temp3,temp4}
+This will create/modify the files temp1, temp2, temp3, and temp4 and as in the example above when the files share common parts of the name you can do:
+
+$ mv temp{1,2,3,4} ./foo\ bar/
+This will move all four of the files into a directory 'foo bar'.
+
+Executing Multiple Commands in Sequence
+This is a hefty title for a simple task. If you want to run three commands, one right after the other, you can type them on a single line:
+
+$ ./configure; make; make install
+OR
+$ ./configure && make && make install
+With the first if the ./configure fails the other two commands will continue to execute. With the second the commands following the && will only execute if the command previous finishes without error. Thus, the second would be most useful for this example because there is no reason to run 'make' or 'make install' if the configuration fails.
+
+Piping Output from One Command to Another
+Piping allows the user to do several fantastic thing by combining utilities. I will cover only very basic uses for piping. I most commonly use the pipe command, |, to pipe text that is output from one command through the grep command to search for text.
+
+Examples:
+See if a program, centericq, is running:
+$ ps ax | grep centericq
+25824 pts/2 S 0:18 centericq
+Count the number of files in a directory (nl counts things):
+$ ls | nl
+1 #.emacs#
+2 BitchX
+3 Outcast double cd.lst
+4 bm.shader
+5 bmtexturesbase.pk3
+If my memory serves using RPM to check if a package is installed:
+$ rpm -qa | grep package_name
+A more advance example:
+$ cat /etc/passwd | awk -F: '{print $1 "\t" $6}' | sort > ./users
+This sequence takes the information if the file passwd, pipes it to awk, which takes the first and sixth fields (the user name and home directory respectively), pipes these fields separated by a tab ("\t") to sort, which sorts the list alphabetically, and puts it into a file called users.
+
+Aliasing Commands
+Once again I like how this topic is covered on freeunix.dyndns.org:8088 in "Customizing your Bash environment" I will quote the section entitled "Aliasses":
+
+If you have used UNIX for a while, you will know that there are many commands available and that some of them have very cryptic names and/or can be invoked with a truckload of options and arguments. So, it would be nice to have a feature allowing you to rename these commands or type something simple instead of a list of options. Bash provides such a feature : the alias .
+Aliasses can be defined on the command line, in .bash_profile, or in .bashrc, using this form :
+ alias name=command
+This means that name is an alias for command. Whenever name is typed as a command, Bash will substitute command in its place. Note that there are no spaces on either side of the equal sign. Quotes around command are necessary if the string being aliassed consists of more than one word. A few examples :
+
+alias ls='ls -aF --color=always'
+alias ll='ls -l'
+alias search=grep
+alias mcd='mount /mnt/cdrom'
+alias ucd='umount /mnt/cdrom'
+alias mc='mc -c'
+alias ..='cd ..'
+alias ...='cd ../..'  
+The first example ensures that ls always uses color if available, that dotfiles are listed as well,that directories are marked with a / and executables with a *. To make ls do the same on FreeBSD, the alias would become :
+
+   alias ls='/bin/ls -aFG' 
+To see what aliasses are currently active, simply type alias at the command prompt and all active aliasses will be listed. To "disable" an alias type unalias followed by the alias name.
+
+Altering the Command Prompt Look and Information
+Bash has the ability to change how the command prompt is displayed in information as well as colour. This is done by setting the PS1 variable. There is also a PS2 variable. It controls what is displayed after a second line of prompt is added and is usually by default '> '. The PS1 variable is usually set to show some useful information by the Linux distribution you are running but you may want to earn style points by doing your own modifications.
+
+Here are the backslash-escape special characters that have meaning to bash:
+
+ \a     an ASCII bell character (07)
+ \d     the date  in  "Weekday  Month  Date"  format
+        (e.g., "Tue May 26")
+ \e     an ASCII escape character (033)
+ \h     the hostname up to the first `.'
+ \H     the hostname
+ \j     the  number of jobs currently managed by the shell
+ \l     the basename of the shell's terminal device name
+ \n     newline
+ \r     carriage return
+ \s     the  name  of  the shell, the basename of $0
+        (the portion following the final slash)
+ \t     the current time in 24-hour HH:MM:SS format
+ \T     the current time in 12-hour HH:MM:SS format
+ \@     the current time in 12-hour am/pm format
+ \u     the username of the current user
+ \v     the version of bash (e.g., 2.00)
+ \V     the release of bash,  version  +  patchlevel
+        (e.g., 2.00.0)
+ \w     the current working directory
+ \W     the  basename  of the current working direcory
+ \!     the history number of this command
+ \#     the command number of this command
+ \$     if the effective UID is 0, a #, otherwise a $
+ \nnn   the character corresponding to the octal number nnn
+ \\     a backslash
+ \[     begin a sequence of non-printing characters,
+        which could be used to embed a terminal control
+        sequence into the prompt
+ \]     end a sequence of non-printing characters
+Colours In Bash:
+
+Black       0;30     Dark Gray     1;30
+Blue        0;34     Light Blue    1;34
+Green       0;32     Light Green   1;32
+Cyan        0;36     Light Cyan    1;36
+Red         0;31     Light Red     1;31
+Purple      0;35     Light Purple  1;35
+Brown       0;33     Yellow        1;33
+Light Gray  0;37     White         1;37
+Here is an example borrowed from the Bash-Prompt-HOWTO:
+
+PS1="\[\033[1;34m\][\$(date +%H%M)][\u@\h:\w]$\[\033[0m\] "
+This turns the text blue, displays the time in brackets (very useful for not losing track of time while working), and displays the user name, host, and current directory enclosed in brackets. The "\[\033[0m\]" following the $ returns the colour to the previous foreground colour.
+
+How about command prompt modification thats a bit more "pretty":
+
+PS1="\[\033[1;30m\][\[\033[1;34m\]\u\[\033[1;30m\]@\[\033[0;35m\]\h\[\033[1;30m\]] \[\033[0;37m\]\W \[\033[1;30m\]\$\[\033[0m\] "
+This one sets up a prompt like this: [user@host] directory $
+
+Break down:
+
+\[\033[1;30m\] - Sets the color for the characters that follow it. Here 1;30 will set them to Dark Gray. 
+\u \h \W \$ - Look to the table above 
+\[\033[0m\] - Sets the colours back to how they were originally.
+
+Each user on a system can have their own customized prompt by setting the PS1 variable in either the .bashrc or .profile files located in their home directories.
+
+FUN STUFF!
+A quick note about bashish. It allows for adding themes to a terminal running under a GUI. Check out the site for some screen-shots of what it can do.
+
+Also, the program fortune is a must [At least I have considered it so every since my Slackware days (it is default)]. It doesn't have anything to do with bash and is a program that outputs a quote to the screen. Several add-ons are available to make it say stuff about programming, the xfiles, futurama, starwars, and more. Just add a line in your /etc/profile like this to brighten your day when you log into your computer:
+
+echo;fortune;echo
+
+
+CDargs - Shell Bookmarks
+Impress your friends and colleagues with lightening fast directory switching using the CDargs bookmarking tool. CDargs is not exclusive to BASH, but is a great addition and works on *nix based systems, including OS X. Download CDargs here in source or rpm.
+
+CDargs allow for setting named marks in directories and moving to them quickly using the cdb command or a ncurses view.
+
+Install
+Compile / install source
+Move cdargs-bash.sh to /etc
+Add this line to your users .bashrc file
+
+source /etc/cdargs-bash.sh
+
+Relogin or run source ~/.bashrc
+Usage
+mark
+
+Mark a directory that you want to get to quickly in the future. Move to the desired directory and type mark <name> or simply mark to have it take the name of the current directory. You can also mark a directory using the ncurses tool. Run cdargs or cdb to start the ncurses tool. Add a new mark by pressing a.
+
+cdb
+
+Now you have a bunch of marked directories. Simply type cdb <name of a mark> to move to the marked directory. Alternatively use cdb and navigate with arrows or number to the desired mark.
+
+manage
+
+Start the ncurses tool cdb. Some useful keys to thump:
+
+a                   add new mark
+d                   delete mark
+e                   edit mark
+right left arrows   move in and out of directories
+l                   list the files in the highlighted directory
+c                   make a copy of a mark
+enter               go to selected directory / mark
+You can also edit the ~/.cdargs text file directly to manage marks
+
+
+
+Basic and Extended Bash Completion
+Basic Bash Completion will work in any bash shell. It allows for completion of:
+
+File Names
+Directory Names
+Executable Names
+User Names (when they are prefixed with a ~)
+Host Names (when they are prefixed with a @)
+Variable Names (when they are prefixed with a $)
+This is done simply by pressing the tab key after enough of the word you are trying to complete has been typed in. If when hitting tab the word is not completed there are probably multiple possibilities for the completion. Press tab again and it will list the possibilities.
+
+Note that when completing a user name using '~' the resulting completion will be the user's home directory. E.g. "ls ~myus" would complete to "ls ~myuser/" and executing it would show the contents of the myuser's home directory.
+
+Extended Programmable Bash Completion is a program that you can install to complete much more than the names of the things listed above. With extended bash completion you can, for example, complete the name of a computer you are trying to connect to with ssh or scp. It achieves this by looking through the known_hosts file and using the hosts listed there for the completion. This is greatly customizable and the package and more information can be found here.
+
+Configuration of Programmable Bash Completion is done in /etc/bash_completion. Here is a list of completions that are in my bash_completion file by default.
+
+completes on signal names
+completes on network interfaces
+expands tildes in pathnames
+completes on process IDs
+completes on process group IDs
+completes on user IDs
+completes on group IDs
+ifconfig(8) and iwconfig(8) helper function
+bash alias completion
+bash export completion
+bash shell function completion
+bash complete completion
+service completion
+chown(1) completion
+chgrp(1) completion
+umount(8) completion
+mount(8) completion
+Linux rmmod(8) completion
+Linux insmod(8), modprobe(8) and modinfo(8) completion
+man(1) completion
+renice(8) completion
+kill(1) completion
+Linux and FreeBSD killall(1) completion
+GNU find(1) completion
+Linux ifconfig(8) completion
+Linux iwconfig(8) completion
+RedHat & Debian GNU/Linux if{up,down} completion
+Linux ipsec(8) completion (for FreeS/WAN)
+Postfix completion
+cvs(1) completion
+rpm completion
+apt-get(8) completion
+chsh(1) completion
+chkconfig(8) completion
+user@host completion
+host completion based on ssh's known_hosts
+ssh(1) completion
+scp(1) completion
+rsync(1) completion
+Linux route(8) completion
+GNU make(1) completion
+GNU tar(1) completion
+jar(1) completion
+Linux iptables(8) completion
+tcpdump(8) completion
+autorpm(8) completion
+ant(1) completion
+mysqladmin(1) completion
+gzip(1) completion
+bzip2(1) completion
+openssl(1) completion
+screen(1) completion
+lftp(1) bookmark completion
+ncftp(1) bookmark completion
+gdb(1) completion
+Postgresql completion
+psql(1) completion
+createdb(1) completion
+dropdb(1) completion
+gcc(1) completion
+Linux cardctl(8) completion
+Debian dpkg(8) completion
+Debian GNU dpkg-reconfigure(8) completion
+Debian Linux dselect(8) completion
+Java completion
+PINE address-book completion
+mutt completion
+Debian reportbug(1) completion
+Debian querybts(1) completion
+update-alternatives completion
+Python completion
+Perl completion
+rcs(1) completion
+lilo(8) completion
+links completion
+FreeBSD package management tool completion
+FreeBSD kernel module commands
+FreeBSD portupgrade completion
+FreeBSD portinstall completion
+Slackware Linux removepkg completion
+look(1) completion
+ypcat(1) and ypmatch(1) completion
+mplayer(1) completion
+KDE dcop completion
+wvdial(1) completion
+gpg(1) completion
+iconv(1) completion
+dict(1) completion
+cdrecord(1) completion
+mkisofs(8) completion
+mc(1) completion
+yum(8) completion
+yum-arch(8) completion
+ImageMagick completion
+
+
+Links
+Bash Prompt HOWTO
+Bash Reference Manual
+Customizing your Bash environment
+Working more productively with bash 2.x
+Advancing in the Bash Shell
+Bash - Bourne Again SHell
+What's GNU: Bash - The GNU Shell
+Bash Tips in Gentoo Forums
+bash(1) - Linux man page
+BASHISH
+CDargs
+Bash Reference Manual
+Extending BASH completion
+Learn About Bash Scripting:
+Bash by example, Parlt 1
+Bash by example, Part 2
+Bash by example, Part 3
+Advanced Bash-Scripting Guide
+A quick guide to writing scripts using the bash shell
+Greg's wiki Bash Guide
+Greg's wiki Bash FAQ
+Bash Hackers Wiki
+Bash Pitfalls - Shows common bash scripting errors
+Additionally #bash on irc.freenode.org is a great place to ask questions and learn more about bash. 
+
+Contributions
+Thanks Michael Klement for notes on using bash completion with user names.
+
+Thanks Andrew Hart for letting me know about the non recursive rm mistake when deleting a directory.
+
+Thanks Paul Carey for pointing out a bash color code error.
+
+Thanks Matt Spaulding for the scoop on CDargs.
+
+Thanks Thomas for pointing out the difference between ; and && when executing multiple commands on one line.
+
+Thanks Bruce Langston for the correction for the BASHISH URL under Links.
+
+Thanks Scott Pedigo for additional 'alias' information.< p>
+
+Thanks Steve Long for additional links and references.
+
+Thanks Mukhtar Sharif for correction to BASH by example links.
+
+
+
+Translations
+This article is translated to Serbo-Croatian language by Web Geeks .
+
+ #!/bin/sh version is just fine)
+
+Note that if strings are not quote-protected in the above echo statement, new lines are replaced by spaces in the output.
+--------
+
+
+A quick guide to writing scripts using the bash shell
+A simple shell script
+A shell script is little more than a list of commands that are run in sequence. Conventionally, a shellscript should start with a line such as the following:
+#!/bin/bash
+THis indicates that the script should be run in the bash shell regardless of which interactive shell the user has chosen. This is very important, since the syntax of different shells can vary greatly.
+A simple example
+Here's a very simple example of a shell script. It just runs a few simple commands
+#!/bin/bash
+echo "hello, $USER. I wish to list some files of yours"
+echo "listing files in the current directory, $PWD"
+ls  # list files
+Firstly, notice the comment on line 4. In a bash script, anything following a pound sign # (besides the shell name on the first line) is treated as a comment. ie the shell ignores it. It is there for the benifit of people reading the script.
+
+$USER and $PWD are variables. These are standard variables defined by the bash shell itself, they needn't be defined in the script. Note that the variables are expanded when the variable name is inside double quotes. Expanded is a very appropriate word: the shell basically sees the string $USER and replaces it with the variable's value then executes the command.
+
+We continue the discussion on variables below ...
+
+Variables
+Any programming language needs variables. You define a variable as follows:
+X="hello"
+and refer to it as follows:
+$X
+More specifically, $X is used to denote the value of the variable X. Some things to take note of regarding semantics:
+bash gets unhappy if you leave a space on either side of the = sign. For example, the following gives an error message:
+X = hello
+while I have quotes in my example, they are not always necessary. where you need quotes is when your variable names include spaces. For example,
+X=hello world # error
+X="hello world" # OK
+This is because the shell essentially sees the command line as a pile of commands and command arguments seperated by spaces. foo=baris considered a command. The problem with foo = bar is the shell sees the word foo seperated by spaces and interprets it as a command. Likewise, the problem with the command X=hello world is that the shell interprets X=hello as a command, and the word "world" does not make any sense (since the assignment command doesn't take arguments).
+Single Quotes versus double quotes
+Basically, variable names are exapnded within double quotes, but not single quotes. If you do not need to refer to variables, single quotes are good to use as the results are more predictable.
+
+An example
+
+#!/bin/bash
+echo -n '$USER=' # -n option stops echo from breaking the line
+echo "$USER"
+echo "\$USER=$USER"  # this does the same thing as the first two lines
+The output looks like this (assuming your username is elflord)
+$USER=elflord
+
+$USER=elflord
+so the double quotes still have a work around. Double quotes are more flexible, but less predictable. Given the choice between single quotes and double quotes, use single quotes.
+Using Quotes to enclose your variables
+Sometimes, it is a good idea to protect variable names in double quotes. This is usually the most important if your variables value either (a) contains spaces or (b) is the empty string. An example is as follows:
+
+#!/bin/bash
+X=""
+if [ -n $X ]; then 	# -n tests to see if the argument is non empty
+	echo "the variable X is not the empty string"
+fi
+
+This script will give the following output:
+the variable X is not the empty string
+Why ? because the shell expands $X to the empty string. The expression [ -n ] returns true (since it is not provided with an argument). A better script would have been:
+#!/bin/bash
+X=""
+if [ -n "$X" ]; then 	# -n tests to see if the argument is non empty
+	echo "the variable X is not the empty string"
+fi
+
+In this example, the expression expands to [ -n "" ] which returns false, since the string enclosed in inverted commas is clearly empty.
+Variable Expansion in action
+Just to convince you that the shell really does "expand" variables in the sense I mentioned before, here is an example:
+#!/bin/bash
+LS="ls"
+LS_FLAGS="-al"
+
+$LS $LS_FLAGS $HOME
+
+This looks a little enigmatic. What happens with the last line is that it actually executes the command
+ls -al /home/elflord
+(assuming that /home/elflord is your home directory). That is, the shell simply replaces the variables with their values, and then executes the command.
+Using Braces to Protect Your Variables
+OK. Here's a potential problem situation. Suppose you want to echo the value of the variable X, followed immediately by the letters "abc". Question: how do you do this ? Let's have a try :
+#!/bin/bash
+X=ABC
+echo "$Xabc"
+THis gives no output. What went wrong ? The answer is that the shell thought that we were asking for the variable Xabc, which is uninitialised. The way to deal with this is to put braces around X to seperate it from the other characters. The following gives the desired result:
+#!/bin/bash
+X=ABC
+echo "${X}abc"
+Conditionals, if/then/elif
+Sometimes, it's necessary to check for certain conditions. Does a string have 0 length ? does the file "foo" exist, and is it a symbolic link , or a real file ? Firstly, we use the if command to run a test. The syntax is as follows:
+if condition
+then
+	statement1
+	statement2
+	..........
+fi
+Sometimes, you may wish to specify an alternate action when the condition fails. Here's how it's done.
+if condition
+then
+	statement1
+	statement2
+	..........
+else
+	statement3
+fi
+alternatively, it is possible to test for another condition if the first "if" fails. Note that any number of elifs can be added.
+if condition1
+then
+	statement1
+	statement2
+	..........
+elif condition2
+then
+	statement3
+	statement4
+	........    
+elif condition3
+then
+	statement5
+	statement6
+	........    
+
+
+fi
+The statements inside the block between if/elif and the next elif or fi are executed if the corresponding condition is true. Actually, any command can go in place of the conditions, and the block will be executed if and only if the command returns an exit status of 0 (in other words, if the command exits "succesfully" ). However, in the course of this document, we will be only interested in using "test" or "[ ]" to evaluate conditions.
+
+The Test Command and Operators
+The command used in conditionals nearly all the time is the test command. Test returns true or false (more accurately, exits with 0 or non zero status) depending respectively on whether the test is passed or failed. It works like this:
+test operand1 operator operand2
+for some tests, there need be only one operand (operand2) The test command is typically abbreviated in this form:
+[ operand1 operator operand2 ]
+To bring this discussion back down to earth, we give a few examples:
+#!/bin/bash
+X=3
+Y=4
+empty_string=""
+if [ $X -lt $Y ]	# is $X less than $Y ? 
+then
+	echo "\$X=${X}, which is smaller than \$Y=${Y}"
+fi
+
+if [ -n "$empty_string" ]; then
+	echo "empty string is non_empty"
+fi
+
+if [ -e "${HOME}/.fvwmrc" ]; then 			# test to see if ~/.fvwmrc exists
+	echo "you have a .fvwmrc file"
+	if [ -L "${HOME}/.fvwmrc" ]; then 		# is it a symlink ?  
+		echo "it's a symbolic link
+	elif [ -f "${HOME}/.fvwmrc" ]; then 	# is it a regular file ?
+		echo "it's a regular file"
+	fi
+else
+	echo "you have no .fvwmrc file"
+fi
+
+Some pitfalls to be wary of
+The test command needs to be in the form "operand1<space>operator<space>operand2" or operator<space>operand2 , in other words you really need these spaces, since the shell considers the first block containing no spaces to be either an operator (if it begins with a '-') or an operand (if it doesn't). So for example; this
+
+if [ 1=2 ]; then 
+	echo "hello"
+fi
+gives exactly the "wrong" output (ie it echos "hello", since it sees an operand but no operator.)
+Another potential trap comes from not protecting variables in quotes. We have already given an example as to why you must wrap anything you wish to use for a -n test with quotes. However, there are a lot of good reasons for using quotes all the time, or almost all of the time. Failing to do this when you have variables expanded inside tests can result in very wierd bugs. Here's an example: For example,
+
+#!/bin/bash
+X="-n"
+Y=""
+if [ $X = $Y ] ; then
+	echo "X=Y"
+fi
+This will give misleading output since the shell expands our expression to
+[ -n = ]
+and the string "=" has non zero length.
+A brief summary of test operators
+Here's a quick list of test operators. It's by no means comprehensive, but its likely to be all you'll need to remember (if you need anything else, you can always check the bash manpage ... )
+operator	produces true if...	number of operands
+-n	operand non zero length	1
+-z	operand has zero length	1
+-d	there exists a directory whose name is operand	1
+-f	there exists a file whose name is operand	1
+-eq	the operands are integers and they are equal	2
+-neq	the opposite of -eq	2
+=	the operands are equal (as strings)	2
+!=	opposite of =	2
+-lt	operand1 is strictly less than operand2 (both operands should be integers)	2
+-gt	operand1 is strictly greater than operand2 (both operands should be integers)	2
+-ge	operand1 is greater than or equal to operand2 (both operands should be integers)	2
+-le	operand1 is less than or equal to operand2 (both operands should be integers)	2
+Loops
+Loops are constructions that enable one to reiterate a procedure or perform the same procedure on several different items. There are the following kinds of loops available in bash
+for loops
+while loops
+For loops
+The syntax for the for loops is best demonstrated by example.
+#!/bin/bash
+for X in red green blue
+do
+	echo $X
+done
+THe for loop iterates the loop over the space seperated items. Note that if some of the items have embedded spaces, you need to protect them with quotes. Here's an example:
+#!/bin/bash
+colour1="red"
+colour2="light blue"
+colour3="dark green"
+for X in "$colour1" $colour2" $colour3"
+do
+	echo $X
+done
+Can you guess what would happen if we left out the quotes in the for statement ? This indicates that variable names should be protected with quotes unless you are pretty sure that they do not contain any spaces.
+Globbing in for loops
+The shell expands a string containing a * to all filenames that "match". A filename matches if and only if it is identical to the match string after replacing the stars * with arbitrary strings. For example, the character "*" by itself expands to a space seperated list of all files in the working directory (excluding those that start with a dot "." ) So
+
+echo *
+lists all the files and directories in the current directory.
+echo *.jpg
+lists all the jpeg files.
+echo ${HOME}/public_html/*.jpg
+lists all jpeg files in your public_html directory.
+As it happens, this turns out to be very useful for performing operations on the files in a directory, especially used in conjunction with a for loop. For example:
+
+#!/bin/bash
+for X in *.html
+do
+		grep -L '<UL>' "$X"
+done
+While Loops
+While loops iterate "while" a given condition is true. An example of this:
+
+#!/bin/bash
+X=0
+while [ $X -le 20 ]
+do
+	echo $X
+	X=$((X+1))
+done
+This raises a natural question: why doesn't bash allow the C like for loops
+
+for (X=1,X<10; X++)
+As it happens, this is discouraged for a reason: bash is an interpreted language, and a rather slow one for that matter. For this reason, heavy iteration is discouraged.
+Command Substitution
+Command Substitution is a very handy feature of the bash shell. It enables you to take the output of a command and treat it as though it was written on the command line. For example, if you want to set the variable X to the output of a command, the way you do this is via command substitution.
+
+There are two means of command substitution: brace expansion and backtick expansion.
+
+Brace expansion workls as follows: $(commands) expands to the output of commands This permits nesting, so commands can include brace expansions
+
+Backtick expansion expands `commands` to the output of commands
+
+An example is given;:
+
+#!/bin/bash
+files="$(ls)"
+web_files=`ls public_html`
+echo "$files"      # we need the quotes to preserve embedded newlines in $files
+echo "$web_files"  # we need the quotes to preserve newlines 
+X=`expr 3 \* 2 + 4` # expr evaluate arithmatic expressions. man expr for details.
+echo "$X"
+The advantage of the $() substitution method is almost self evident: it is very easy to nest. It is supported by most of the bourne shell varients (the POSIX shell or better is OK). However, the backtick substitution is slightly more readable, and is supported by even the most basic shells (any #!/bin/sh version is just fine)
+
+Note that if strings are not quote-protected in the above echo statement, new lines are replaced by spaces in the output.
+
+
+----------
+Vim quick tutorial
+---------
+Command line editors can be a scary thing to learn and use for beginners, and Vim is probably the scariest of them all - but it doesn't have to be. There's a lot to cover in Vim (more than one tutorial can possibly teach), but we'll cover most of the basics here so that you'll be at least comfortable editing files with it.
+
+We're going to break this tutorial into two sections. A super basic starter to get you up and running and then more detailed sections below with a better explanation
+
+Here's a blank canvas of what editing with Vim is like in our interactive tutorial. All examples will be JavaScript files. Try it out:
+
+Table of Contents
+ Introduction
+ Installing Vim
+ Super Basic Starter
+ Learn to Speak Vim's Language
+ Moving the Cursor
+ Exiting Vim
+ Text Editing - Deletion
+ Text Editing - Insertion
+ Operators and Motions, Counts, and Combining Them
+ The Undo Command
+ Quick Page Navigation
+ Searching
+ Matching Search
+ Search and Replace
+ Execute an External Command
+ Configuring Vim
+ Useful Tips and Tricks
+ Conclusion
+function meow() { return 'meow'; } function bark() { return 'woof'; } function getRandomAnimal() { var animals = [ 'cat', 'dog', 'hippo', 'lion', 'bear', 'zebra' ]; return animals[Math.floor(Math.random()*animals.length)]; } console.log(meow()); console.log(bark()); console.log(getRandomAnimal());
+# Introduction
+Command line editors are exactly what they sound like, they give you the ability to edit files from the command line. There's a whole bunch of them, too:
+
+Pico
+Nano
+Emacs
+Vi
+Vim
+Neovim
+Nano (which is basically a clone of Pico) is probably the most common one. It's just a dead simple editor and most people can usually figure out how to use it by just opening it up. Vim on the other hand requires training. Vim is a clone of Vi but improved (Vi IMproved). It has all the functionality of Vi and more - things like extra features, plugins, and more.
+
+Vim is also extremely extensible. You can use it as your primary editor or just as a simple editor for changing files when SSH'd into a server (usually what I just do). The goal of this tutorial is going to be to get you comfortable enough to make edits on a server with Vim. At the end of this tutorial you'll be able to make edits to config files, use Vim to manage your Git merges and conflicts, and more. How much you want to use it is up to you.
+
+If you're able to confidently use a vanilla install of Vim, you can effectively make edits on any server or OS worry free. Need to change an Nginx or Apache setting? No need to mount or do some FTP/SFTP stuff. Simply SSH into the box and make it happen from the command line in seconds.
+
+Learning Vim is an investment. As you learn it, you'll only get better with it and find more and more things to improve your productivity. Very good people with it will claim it's like an extension of your fingers allowing you to edit files faster and smarter than you can even with an editor as awesome as Sublime Text.
+
+# Installing Vim
+Vim works in almost any OS environment - including Windows. You can expect to be able to use it on virtually any machine or system that you're working with.
+
+Macs
+If you're using a Mac, VIM is already installed. It's an older version (~1.7), but it really doesn't matter for this tutorial. If you want to upgrade VIM on mac first, follow these steps (requires homebrew) in your terminal:
+
+Related Course: Getting Started with JavaScript for Web Development
+
+brew install mercurial
+sudo mkdir -p /opt/local/bin
+cd ~
+hg clone https://code.google.com/p/vim/
+cd vim
+./configure --prefix=/opt/local
+make
+sudo make install
+echo 'PATH=/opt/local/bin:$PATH' >> ~/.bash_profile
+source ~/.bash_profile
+After you do this, you should have VIM version (7.x) on your machine.
+
+Windows
+For Windows users visit the Official Vim website to download.
+
+Linux
+Vim ships as a package for *nix systems.
+
+For Ubuntu, just run this from your terminal:
+
+
+sudo apt-get install vim
+For CentOS, just run:
+
+
+sudo yum install vim
+Test Your Install
+Now that you have installed (or updated) Vim, it's time to test to see if it worked. From the command line in your terminal, type:
+
+
+vim -v
+Vim Startup Screen
+
+That's it! Now to exit this screen, just type:
+
+
+
+:q!
+# Super Basic Starter
+Before we go into detail, let's do a super basic starter example to get things rolling.
+
+From the terminal, navigate to a file and let's edit it with Vim:
+
+
+vim whatever.txt
+Alternatively, you can create a brand new file with the same command: vim mynewfile.txt.
+
+Now that you're using Vim, we need to explain the two modes that Vim has: Command Mode and Insert Mode. Command Mode, just like it sounds, is for executing commands. Things like custom Vim commands (we'll cover later), saving files, etc. Insert Mode, also just like it sounds, is for editing text freely.
+
+To enter Insert Mode simply type:
+
+
+i
+Insert mode with Vim
+
+Now type any nonsense you'd like. Once you're done, let's save the file. You need to first exit Insert Mode and enter Command Mode by hitting ESC.
+
+Once you're back into command mode, you'll need to save the file (called a Write) and then quit Vim. To enter a command, you need to hit the semicolon key :. Here's the command to save the edits (write, quit).
+
+
+:wq
+Saving a file with Vim
+
+That's it! Alternatively, if you want to quit Vim without saving changes, just type:
+
+
+
+:q!
+The exclamation mark means discard changes. So this literally will translate to "quit and discard changes" for Vim.
+
+That's all there is to the basic starter. If you want, you can either follow along in your own terminal or use our interactive editors below for the more detailed tutorial.
+
+# Learn to Speak Vim's Language
+Vim is always just listening for instructions from you. It's up to you to give it commands. You need to tell the editor what to do. Vim follows a system for the syntax and pattern of these commands. Once you learn the "language" of Vim, all you need to do is keep learning more commands - Vim's "vocabulary".
+
+There's no way to cover all the commands, but we'll get you started with the most common ones and how to start using them. In time, you'll learn more and more of these. Eventually, just when you think you've become a Vim expert, BOOM, you'll learn a new command and trick to save you time.
+
+Vim also comes with its own tutorial. If you need to freshen up on your skills, you can simply type this from the command line to bring it up:
+
+
+vimtutor
+Vimtutor Screenshot
+
+# Moving the Cursor
+From the earlier example, you were probably using the arrow keys to navigate around. That's perfectly okay, but it's recommended that you navigate a different way and actually not with the arrow keys. This way may be unnatural or weird at first, but it's recommended to use these keys instead:
+
+h - Left
+k - Up
+l - Right
+j - Down
+Here's a visual for reference:
+
+
+      ^
+      k
+< h       l >
+      j
+      v
+Simply try navigating around with these keys below to get the hang of it. It will get easier in time. You can hold any of these keys to quickly make the action repeat:
+
+function meow() { return 'meow'; } function bark() { return 'woof'; } function getRandomAnimal() { var animals = [ 'cat', 'dog', 'hippo', 'lion', 'bear', 'zebra' ]; return animals[Math.floor(Math.random()*animals.length)]; } console.log(meow()); console.log(bark()); console.log(getRandomAnimal());
+# Exiting Vim
+The first time I encountered Vim I had no idea what it was. A server had it pop-open on me with a git pull and I couldn't even figure out how to exit until a friend helped me out.
+
+To quit, enter Command Mode with ESC, then just type:
+
+
+:q
+To quit and discard changes, type:
+
+
+
+:q!
+To quit and save changes, type:
+
+
+:wq
+# Text Editing - Deletion
+It's one thing to delete text from Insert Mode, but you can also delete text from Command Mode. In the example below, click the editor and hit ESC to enter Command Mode. Next, navigate to any letter you want to delete and hit:
+
+
+x
+Try it below:
+
+function meow() { return 'meow'; } function bark() { return 'woof'; } function getRandomAnimal() { var animals = [ 'cat', 'dog', 'hippo', 'lion', 'bear', 'zebra' ]; return animals[Math.floor(Math.random()*animals.length)]; } console.log(meow()); console.log(bark()); console.log(getRandomAnimal());
+You're probably wondering why you just won't enter Insert Mode to delete characters. You can always do that, but you'll see from future examples that deleting text from Command Mode is more powerful and much quicker. It's better to start the habit now.
+
+# Text Editing - Insertion
+Text editing simply requires you that you enter Insert Mode. We already covered how to do that, but there's some other methods to do this that can help speed things up and save you some keystrokes.
+
+Inserting
+This puts the cursor before the current position.
+
+
+i
+Appending
+This puts the cursor after the current position.
+
+
+
+a
+Open Commands
+This puts the cursor below the line:
+
+
+o
+And this puts the cursor above the line:
+
+
+O
+Try each these below to see the differences in action:
+
+function meow() { return 'meow'; } function bark() { return 'woof'; } function getRandomAnimal() { var animals = [ 'cat', 'dog', 'hippo', 'lion', 'bear', 'zebra' ]; return animals[Math.floor(Math.random()*animals.length)]; } console.log(meow()); console.log(bark()); console.log(getRandomAnimal());
+# Operators and Motions, Counts, and Combining Them
+Commands are where the true power and efficiency come from Vim. It takes time to start using them, but they all follow a similar pattern. It's a good idea to learn how commands work, not memorize commands. Commands are broken down into these parts:
+
+Operator
+Numbers
+Motions
+When to put together, the Vim Command will look something like this:
+
+
+[OPERATOR][NUMBER][MOTION]
+Operators
+Operators are actions. These are like verbs of a sentence when "speaking Vim".
+
+Here's a list of common operators:
+
+d - Delete (acts like a "cut" command though)
+c - Change
+y - Yank
+p - Insert last deleted text after cursor (put command)
+r - Replace
+Motions
+Motions provide context to your Operators. These execute the action in a particular way.
+
+Here's a list of common motions:
+
+w - Until the start of the next word, EXCLUDING its first character.
+e - To the end of the current word, INCLUDING the last character.
+$ - To the end of the line, INCLUDING the last character.
+And some additional others:
+
+w - Forward by word
+b - Backward by word
+) - Beginning of next sentence
+( - Beginning of current sentence
+} - Beginning of next paragraph
+{ - Beginning of current paragraph
+] - Beggining of next sect
+[ - Begginning of current section
+H - Top line of screen
+L - Last line of screen
+Counts
+Counts are optional and simply let you put a multiplier to your command and motion. You'll see how these work in the examples below.
+
+In time you'll learn more and more of these and get quicker and quicker. It's usually handy to have a solid Vim Cheat Sheet on hand when getting started.
+
+Let's go over some examples to demo how these work to together. Once you recognize that it's a pattern and language, you can start figuring out and testing these all on your own.
+
+Deleting a Word
+Navigate to beginning of the word in the editor below and enter this command. If you're in the middle it will stop at where the word ends:
+
+
+
+dw
+function meow() { return 'meow'; } function bark() { return 'woof'; } function getRandomAnimal() { var animals = [ 'cat', 'dog', 'hippo', 'lion', 'bear', 'zebra' ]; return animals[Math.floor(Math.random()*animals.length)]; } console.log(meow()); console.log(bark()); console.log(getRandomAnimal());
+Deleting to End of a Line
+This will delete everything until the end of the line. Move your cursor to the beginning of a line and enter this command:
+
+
+d$
+Now, here's an example of a count. This will run the command twice and deleting two lines after the cursor position.
+
+
+d2$
+function meow() { return 'meow'; } function bark() { return 'woof'; } function getRandomAnimal() { var animals = [ 'cat', 'dog', 'hippo', 'lion', 'bear', 'zebra' ]; return animals[Math.floor(Math.random()*animals.length)]; } console.log(meow()); console.log(bark()); console.log(getRandomAnimal());
+Deleting a line is a super common task. Vim has a shortcut built in for this. For example, to quickly delete a line you can always just do dd instead.
+
+Deleting Four Words
+Here's a command for deleting four words:
+
+
+d4w
+function meow() { return 'meow'; } function bark() { return 'woof'; } function getRandomAnimal() { var animals = [ 'cat', 'dog', 'hippo', 'lion', 'bear', 'zebra' ]; return animals[Math.floor(Math.random()*animals.length)]; } console.log(meow()); console.log(bark()); console.log(getRandomAnimal());
+# The Undo Command
+With all these commands, there's a good chance you might mess up once or twice. This is totally normal and okay. You can quickly undo a command with:
+
+
+
+u
+Try undoing some commands in the editor below to see how easy it is:
+
+function meow() { return 'meow'; } function bark() { return 'woof'; } function getRandomAnimal() { var animals = [ 'cat', 'dog', 'hippo', 'lion', 'bear', 'zebra' ]; return animals[Math.floor(Math.random()*animals.length)]; } console.log(meow()); console.log(bark()); console.log(getRandomAnimal());
+# Quick Page Navigation
+Scrolling doesn't really exist in a terminal. So if you have a long file that you're editing, it might get real boring navigating with the arrow keys or h, k, l, j. Here's some tips for this:
+
+Move to the bottom of a file
+
+:G
+Move to the start of a file
+
+:gg
+Navigate to a specific line
+You can view your current page line with:
+
+
+:ctrl+g
+You can jump to a specific line with:
+
+
+
+:123+G
+# Searching
+You're probably used to doing ctrl-f to jump around a page. Vim is actually really similar to this - except it's a command. You're probably learning by now that everything is a command action.
+
+Search a page after the cursor position
+
+:/cats
+Search a page before the cursor position
+
+:?dogs
+Go to next or previous match
+To navigate to the next search match, enter:
+
+
+n
+To navigate to the previous search match, enter:
+
+
+
+N
+Try it out:
+
+function meow() { return 'meow'; } function bark() { return 'woof'; } function getRandomAnimal() { var animals = [ 'cat', 'dog', 'hippo', 'lion', 'bear', 'zebra' ]; return animals[Math.floor(Math.random()*animals.length)]; } console.log(meow()); console.log(bark()); console.log(getRandomAnimal());
+# Matching Search
+By this point, you can jump around the page and search things, but it's still slow to locate various things in a file. In Vim, you can jump around based on opening and closing matching brackets.
+
+For example, say you have:
+
+
+function hippopotamus() {
+    // insert 1 million lines of code here
+}
+If you go navigate to { and hit the following key, you'll jump to it's matching counter part.
+
+
+%
+This is insanely useful for quickly jumping around functions. This works on the following:
+
+( and )
+[ and ]
+{ and }
+Try it in the example below, it's awesome:
+
+function meow() { return 'meow'; } function bark() { return 'woof'; } function getRandomAnimal() { var animals = [ 'cat', 'dog', 'hippo', 'lion', 'bear', 'zebra' ]; return animals[Math.floor(Math.random()*animals.length)]; } console.log(meow()); console.log(bark()); console.log(getRandomAnimal());
+# Search and Replace
+Searching and jumping around the page is one thing, but maybe you want to change all words of cat to the word dog. This is really easy with Vim.
+
+Find and Replace
+
+:s/cat/dog
+Find and Replace All
+To replace all instances, you need to make the find and replace global. Here's how:
+
+
+
+:s/cat/dog/g
+This can get infinitely more complex. You can do regular expression find and replaces, replace only on certain lines, sections, and more.
+
+# Execute an External Command
+This creeps right out of the area of getting started with Vim to the intermediate parts of it. With Vim, the commands aren't just limited to the Vim syntax/language of operators and motions.
+
+You can execute external commands as you normally would from the command line inside of the editor. All you need to do is start the command with an exclamation mark.
+
+Here's an example to list all files:
+
+
+:!ls -al
+As you learn more about Vim, you'll see how insanely powerful this will be. You can do things like write to other files, grab code from other files, paste into other files, and more. In a sense, it like your own little Sublime Sidebar on steroids. We won't cover any of this in this tutorial, but here's a good resource for learning more about external commands with Vim.
+
+# Configuring Vim
+Vim can also do things like syntax highlighting. By default, this usually isn't enabled. To enable it on a file, simply enter the following command:
+
+
+:syntax on
+This is quite annoying to have to reenter on each file. This is where configuring Vim comes in handy. All Vim installs come with a file in your home directory called .vimrc. If it's not there, create one.
+
+So, from the command line and with vim, let's force enable :syntax on to be a default setting. The first step is to open the file in Vim:
+
+
+vim ~/.vimrc
+Then simply add this line to the file:
+
+
+
+syntax on
+Finally, save the file to have syntax on by default in Vim:
+
+
+:wq
+There's a ton of these features. Things like showing a ruler, always showing the line number, themes and color schemes, and much more. You can even create short codes and functions to operate from.
+
+A good reference for this is The Ultimate Vim Configuration for .vimrc. You can either copy this or pick and choose all the goodies you want from it.
+
+# Useful Tips and Tricks
+You should now be comfortable with Vim on the command line. Here's some miscellaneous useful tips and tricks.
+
+Set Vim as your default command line editor
+Nano is usually a default command line editor in a lot of systems. On Ubuntu or other Debian-based systems, run this command to make the switch:
+
+
+sudo update-alternatives --config editor
+Set Vim as your default editor for Git
+
+git config --global core.editor "vim"
+Plugins
+Vim also has the ability to allow third-parties to write plugins into the editor. This is awesome because you can use all this pre-built additional functionality by others.
+
+For example, NERD Tree will essentially simulate a sidebar for your editor.
+
+NERD Tree Screenshot for Wim
+
+To learn more about plugins, check out these additional resources:
+
+Vim Awesome - List of awesome plugins across the universe
+Favorite Vim Plugins
+Installing Plugins in Vim
+How do I install a plugin for vim?
+Neovim
+Appararently building a plugins on Vim is pretty difficult to do though. Neovim is a rebuild of Vim to hopefully making adding plugins easier. You can check out their official website to learn more.
+
+On Ubuntu, you can install Neovim by doing:
+
+
+
+sudo add-apt-repository ppa:neovim-ppa/unstable
+sudo apt-get update
+sudo apt-get install neovim
+# Conclusion
+That's all there is to getting started with Vim. Just like anything else in the development world, you get better at it by just doing it. Hopefully by now, you're ready to start editing files with Vim.
+
+Finally, there's a ton of awesome content on the web for Vim resources and learning beyond this article. I definitely encourage you to check them out:
+
+A Vim Tutorial and Primer
+Vimcasts
+Vim Adventures Game

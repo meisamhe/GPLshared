@@ -1,0 +1,91 @@
+# data set delimeter is ':'
+#first connect by ssh to cs6360.utdallas.edu 
+# don't change the port
+vi ~/.bash_profile
+right click to copy 
+Esc and then :x to save
+# make sure all is in one line for the last line, because otherwise it does not recognize to go to the next line
+hadoop fs -ls /
+hadoop fs -mkdir /mxh109420/
+hadoop fs -ls /Spring-2015-input/
+hadoop fs -cp /Spring-2015-input/ /mxh109420/
+# now I have the files in the folder (two files users.dat and ratings.dat)
+hadoop fs -ls /mxh109420/Spring-2015-input
+# check if everything is alright
+export -p
+
+#====================================
+# correction
+#========================================
+I found a way to access the server, by following the guides of connectToPigHiveServer file instructions, so I guess I don't need access to cs1 server. Also it seems there might be a tiny glitch in that file that should be corrected, otherwise ssh does not work. The glitch is in the last statement:
+
+export PATH=$JAVA_HOME/bin:$ANT_HOME/bin:$HADOOP_HOME/bin:$PIG_HOME/bin:$HIVE
+_HOME/bin:$MAVEN_HOME/bin:$PATH:$MAHOUT_HOME/bin
+
+it erases the current $PATH content, so it should be replaced with the following. I checked it and with this modification it works:
+
+export PATH=$PATH:$JAVA_HOME/bin:$ANT_HOME/bin:$HADOOP_HOME/bin:$PIG_HOME/bin:$HIVE
+_HOME/bin:$MAVEN_HOME/bin:$PATH:$MAHOUT_HOME/bin??
+
+#==============================
+# Hive commands
+#==============================
+cd $HOME
+hive
+show tables; # no table
+# create a new table
+CREATE TABLE demo (last_name STRING, first_name STRING) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';
+show tables;
+quit; # quit the program
+
+#==============================
+# Pig commands
+#==============================
+pig -x local # to connect to the pig in local mode
+quit
+
+hdfs dfs -ls /mxh109420/Spring-2015-input/
+#users.dat
+#ratings.dat
+#==================================
+# hadoop commands
+#=====================================
+
+hdfs dfs -mkdir /mxh109420
+
+
+hdfs dfs -mkdir /mxh109420/input/
+
+
+hdfs dfs -put testinput.txt /mxh109420/input
+
+/testinput.txt
+hadoop jar /local/hadoop-2.4.1/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.4.1.jar wordcount /mxh109420/input /mxh109420_out
+
+
+Please use your netid so as to avoid clashing in the name of directories in hdfs.
+
+
+
+output the result.
+
+hdfs dfs -cat /mxh109420_out/*
+
+
+
+To compile your own jar file, please use hadoop2.4.1 version.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

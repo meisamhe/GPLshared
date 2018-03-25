@@ -1,0 +1,2 @@
+
+trainingset =  "C:\\Users\\MeisamHe\\Desktop\\Desktop\\BackupToRestoreComputerApril15\\DataScienceCompetition\\clickStream\train\\train.csv"

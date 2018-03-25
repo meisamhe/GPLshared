@@ -1,0 +1,41 @@
+#========================================================================================================
+# Try on cs6360
+#=========================================================================================================
+
+Login to the cs6360 cluster.
+
+
+cd ~
+
+#open the .bash_profile file.
+
+# replace the mahout and spark location with.
+
+export MAHOUT_HOME=/usr/local/mahout-1.0u
+export SPARK_HOME=/usr/local/spark-1.0.2-bin-hadoop2
+
+#also edit the PATH variable as follows
+
+export PATH=/usr/local/jdk1.7.0_60/bin:/usr/local/apache-ant-1.9.4/bin:/usr/local/hadoop-2.4.1/bin:/usr/local/pig-0.13.0/bin:/usr/local/apache-hive-0.13.1/bin:/usr/local/apache-maven-3.2.2/bin:/usr/local/jdk1.6.0_37/bin:/usr/local/hadoop-1.0.4/bin:/usr/local/pig-0.10.1/bin:/usr/local/hive-0.9.0/bin:/usr/local/apache-maven-2.2.1/bin:/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/mahout-1.0u/bin:/usr/local/spark-1.2.0-bin-hadoop2.4/bin:
+export JAVA_HOME=/usr/local/jdk1.7.0_51
+
+export PATH=$JAVA_HOME/bin:/usr/local/apache-cassandra-2.0.5/bin:$PATH
+
+
+save the file
+
+logout and Relogin.
+
+You will need to use the ratings.dat file in hdfs already.
+
+I have copied ratings.dat to /ratings.dat.
+
+I have supplied the input parameters with spark-similarity
+
+mahout spark-itemsimilarity --input /ratings.dat [Specify other parameters you need to complete the homework]
+
+# also the simplest work, I did it on cs6360ework
+
+/usr/local/mahout-1.0u/bin/mahout   spark-itemsimilarity --input hdfs:///mxh109420/input/ratings.dat --output  hdfs:///mxh109420/ioutput/HW4Q2Similarity --filter1 3 --inDelim "::" --itemIDColumn 1 --rowIDColumn 0 --filterColumn 2 
+
+hdfs dfs -get hdfs:///mxh109420/ioutput/HW4Q2Similarity HW4Q2Similarity

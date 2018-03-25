@@ -1,0 +1,654 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2012.11.26)  29 JUL 2013 10:29
+entering extended mode
+**FirstDraft.July26.2013.tex
+(C:\Users\MHE\Desktop\ActiveCourses\Projects\Noris\Deliverables\FirstDraft.July26.2013.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, arabic, armenian, assamese, basque, bengali
+, bokmal, bulgarian, catalan, coptic, croatian, czech, danish, dutch, esperanto, estonian, farsi, finnish, french, galic
+ian, german, german-x-2009-06-19, greek, gujarati, hindi, hungarian, icelandic, indonesian, interlingua, irish, italian,
+ kannada, kurmanji, lao, latin, latvian, lithuanian, malayalam, marathi, mongolian, mongolianlmc, monogreek, ngerman, ng
+erman-x-2009-06-19, nynorsk, oriya, panjabi, pinyin, polish, portuguese, romanian, russian, sanskrit, serbian, slovak, s
+lovenian, spanish, swedish, swissgerman, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usenglishm
+ax, welsh, loaded.
+(C:\Users\MHE\Desktop\ActiveCourses\Projects\Noris\Deliverables\informs3.cls
+
+LaTeX Warning: You have requested document class `informs3',
+               but the document class provides `informs2'.
+
+Document Class: informs2 2010/12/20 v0.94 LaTeX document class for articles submitted to INFORMS
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\ams\math\amsmath.sty"
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip41
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\ams\math\amstext.sty"
+Package: amstext 2000/06/29 v2.01
+
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\ams\math\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks14
+\ex@=\dimen102
+))
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\ams\math\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen103
+)
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\ams\math\amsopn.sty"
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count79
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count80
+\leftroot@=\count81
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count82
+\DOTSCASE@=\count83
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen104
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count84
+\c@MaxMatrixCols=\count85
+\dotsspace@=\muskip10
+\c@parentequation=\count86
+\dspbrk@lvl=\count87
+\tag@help=\toks15
+\row@=\count88
+\column@=\count89
+\maxfields@=\count90
+\andhelp@=\toks16
+\eqnshift@=\dimen105
+\alignsep@=\dimen106
+\tagshift@=\dimen107
+\tagwidth@=\dimen108
+\totwidth@=\dimen109
+\lineht@=\dimen110
+\@envbody=\toks17
+\multlinegap=\skip42
+\multlinetaggap=\skip43
+\mathdisplay@stack=\toks18
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2009/06/22 v3.00
+
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\amsfonts\amsfonts.sty"
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\base\ifthen.sty"
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+) ("C:\Program Files\MiKTeX 2.9.0\tex\latex\ltxmisc\url.sty"
+\Urlmuskip=\muskip11
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks19
+)
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+("C:\Program Files\MiKTeX 2.9.0\tex\generic\oberdiek\infwarerr.sty"
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+("C:\Program Files\MiKTeX 2.9.0\tex\generic\oberdiek\ltxcmds.sty"
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count91
+))
+\Gin@req@height=\dimen111
+\Gin@req@width=\dimen112
+)
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\graphics\color.sty"
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\00miktex\color.cfg"
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+) ("C:\Program Files\MiKTeX 2.9.0\tex\latex\tools\array.sty"
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
+\col@sep=\dimen113
+\extrarowheight=\dimen114
+\NC@list=\toks20
+\extratabsurround=\skip44
+\backup@length=\skip45
+) ("C:\Program Files\MiKTeX 2.9.0\tex\latex\tools\theorem.sty"
+Package: theorem 1995/11/23 v2.2c Theorem extension package (FMi)
+\theorem@style=\toks21
+\theorem@bodyfont=\toks22
+\theorempreskipamount=\skip46
+\theorempostskipamount=\skip47
+ ("C:\Program Files\MiKTeX 2.9.0\tex\latex\tools\thp.sty"
+File: thp.sty 1995/11/23 v2.2c Theorem extension package (FMi)
+))
+\symboperators=\mathgroup6
+\symbletters=\mathgroup7
+\symbsymbols=\mathgroup8
+\markwidth=\dimen115
+\blth=\dimen116
+\marklength=\dimen117
+\markdistance=\dimen118
+\trimwidth=\dimen119
+\trimheight=\dimen120
+\auxaaa=\dimen121
+\auxbbb=\dimen122
+\auxccc=\dimen123
+\auxddd=\dimen124
+\c@nowappendix=\count92
+\@bls=\dimen125
+\@em=\dimen126
+\tempbox=\box28
+\tempdim=\dimen127
+\tempdimht=\dimen128
+\adim=\dimen129
+\c@figure=\count93
+\c@table=\count94
+\adim=\dimen130
+\ABSwidth=\dimen131
+\clineHT=\dimen132
+\clineDP=\dimen133
+\labelwidthi=\dimen134
+\labelwidthii=\dimen135
+\labelwidthiii=\dimen136
+\labelwidthiv=\dimen137
+\@maxlistdepth=\count95
+\c@part=\count96
+\c@chapter=\count97
+\c@section=\count98
+\c@subsection=\count99
+\c@subsubsection=\count100
+\c@paragraph=\count101
+\c@subparagraph=\count102
+\@tempboxa=\box29
+\@tempboxb=\box30
+) ("C:\Program Files\MiKTeX 2.9.0\tex\latex\natbib\natbib.sty"
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+\bibhang=\skip48
+\bibsep=\skip49
+LaTeX Info: Redefining \cite on input line 694.
+\c@NAT@ctr=\count103
+)
+\c@theorem=\count104
+\c@lemma=\count105
+\c@proposition=\count106
+\c@corollary=\count107
+\c@claim=\count108
+\c@conjecture=\count109
+\c@hypothesis=\count110
+\c@assumption=\count111
+\c@remark=\count112
+\c@example=\count113
+\c@problem=\count114
+\c@definition=\count115
+\c@question=\count116
+\c@answer=\count117
+\c@exercise=\count118
+
+(C:\Users\MHE\Desktop\ActiveCourses\Projects\Noris\Deliverables\FirstDraft.July26.2013.aux
+
+LaTeX Warning: Label `fig:BasicStat1' multiply defined.
+
+
+LaTeX Warning: Label `litr' multiply defined.
+
+
+LaTeX Warning: Label `fig:BasicStat1' multiply defined.
+
+
+LaTeX Warning: Label `fig:BasicStat1' multiply defined.
+
+
+LaTeX Warning: Label `fig:BasicStat1' multiply defined.
+
+
+LaTeX Warning: Label `tab:ParameterEstimateSupplementaryProducts' multiply defined.
+
+
+LaTeX Warning: Label `tab:ParameterEstimateSupplementaryProducts' multiply defined.
+
+
+LaTeX Warning: Label `tab:ParameterEstimateSupplementaryProducts' multiply defined.
+
+
+LaTeX Warning: Label `tab:ParameterEstimateSupplementaryProducts' multiply defined.
+
+
+LaTeX Warning: Label `tab:ParameterEstimateSupplementaryProducts' multiply defined.
+
+
+LaTeX Warning: Label `tab:ParameterEstimateSupplementaryProducts' multiply defined.
+
+
+LaTeX Warning: Label `tab:ParameterEstimateSupplementaryProducts' multiply defined.
+
+
+LaTeX Warning: Label `tab:ParameterEstimateSupplementaryProducts' multiply defined.
+
+)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+ ("C:\Program Files\MiKTeX 2.9.0\tex\context\base\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count119
+\scratchdimen=\dimen138
+\scratchbox=\box31
+\nofMPsegments=\count120
+\nofMParguments=\count121
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count122
+\MPscratchDim=\dimen139
+\MPnumerator=\count123
+\makeMPintoPDFobject=\count124
+\everyMPtoPDFconversion=\toks24
+)
+<C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/BasicStat4PlugIns.png, id=1, 1028.34187pt x 490.83376p
+t>
+File: C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/BasicStat4PlugIns.png Graphic file (type png)
+ <use C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/BasicStat4PlugIns.png>
+Package pdftex.def Info: C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/BasicStat4PlugIns.png used on 
+input line 135.
+(pdftex.def)             Requested size: 483.69734pt x 284.53398pt.
+
+Overfull \hbox (13.94235pt too wide) in paragraph at lines 135--136
+ [][] 
+ []
+
+
+<C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/BasicStat4PlugIns2.png, id=2, 1028.34187pt x 490.83376
+pt>
+File: C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/BasicStat4PlugIns2.png Graphic file (type png)
+ <use C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/BasicStat4PlugIns2.png>
+Package pdftex.def Info: C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/BasicStat4PlugIns2.png used on
+ input line 142.
+(pdftex.def)             Requested size: 483.69734pt x 284.53398pt.
+
+Overfull \hbox (13.94235pt too wide) in paragraph at lines 142--143
+ [][] 
+ []
+
+! Display math should end with $$.
+<to be read again> 
+                   y
+l.154 			$y
+           _{it}=G_{it}+\beta_i*Z_{it}+\epsilon_{it}$, where $\epsilon_{it} ...
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.154 			$y_
+            {it}=G_{it}+\beta_i*Z_{it}+\epsilon_{it}$, where $\epsilon_{it} ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.155 		\end{equation}
+                      
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! You can't use `\eqno' in horizontal mode.
+\endmathdisplay@a ...\df@tag \@empty \else \veqno 
+                                                  \alt@tag \df@tag \fi \ifx ...
+l.155 		\end{equation}
+                      
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.155 		\end{equation}
+                      
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.155 		\end{equation}
+                      
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+[1
+
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2 <C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curv
+es/BasicStat4PlugIns.png (PNG copy)> <C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/BasicStat4PlugIns
+2.png (PNG copy)>]
+! Display math should end with $$.
+<to be read again> 
+                   G
+l.163 		$G
+          _{it}=\delta_iG_{it-1}+\gamma_i*X_{it}+\omega_{it}$, where $\omega...
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.163 		$G_
+           {it}=\delta_iG_{it-1}+\gamma_i*X_{it}+\omega_{it}$, where $\omega...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.164 	\end{equation}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! You can't use `\eqno' in horizontal mode.
+\endmathdisplay@a ...\df@tag \@empty \else \veqno 
+                                                  \alt@tag \df@tag \fi \ifx ...
+l.164 	\end{equation}
+                     
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.164 	\end{equation}
+                     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.164 	\end{equation}
+                     
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+! Display math should end with $$.
+<to be read again> 
+                   \protect 
+l.170 		$\{
+           \delta_i,\gamma_i\}=\Psi U_i+\xi_i$, where $\xi_i \sim N(0, M)$
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 170.
+("C:\Program Files\MiKTeX 2.9.0\tex\latex\base\omscmr.fd"
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <11> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 170.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.170 		$\{\delta
+                 _i,\gamma_i\}=\Psi U_i+\xi_i$, where $\xi_i \sim N(0, M)$
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+! LaTeX Error: Bad math environment delimiter.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.171 	\end{equation}
+                     
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! You can't use `\eqno' in horizontal mode.
+\endmathdisplay@a ...\df@tag \@empty \else \veqno 
+                                                  \alt@tag \df@tag \fi \ifx ...
+l.171 	\end{equation}
+                     
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.171 	\end{equation}
+                     
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Display math should end with $$.
+<to be read again> 
+                   \endgroup 
+l.171 	\end{equation}
+                     
+The `$' that I just saw supposedly matches a previous `$$'.
+So I shall assume that you typed `$$' both times.
+
+
+<C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-1.png, id=22, 1028.34187pt x 490.83
+376pt>
+File: C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-1.png Graphic file (type png)
+ <use C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-1.png>
+Package pdftex.def Info: C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-1.png used 
+on input line 202.
+(pdftex.def)             Requested size: 483.69734pt x 284.53398pt.
+
+Overfull \hbox (13.94235pt too wide) in paragraph at lines 202--203
+ [][] 
+ []
+
+
+<C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-2.png, id=23, 1028.34187pt x 490.83
+376pt>
+File: C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-2.png Graphic file (type png)
+ <use C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-2.png>
+Package pdftex.def Info: C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-2.png used 
+on input line 209.
+(pdftex.def)             Requested size: 483.69734pt x 284.53398pt.
+
+Overfull \hbox (13.94235pt too wide) in paragraph at lines 209--210
+ [][] 
+ []
+
+[3] [4 <C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-1.png (PNG copy)> <C:/Users/
+MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-2.png (PNG copy)>] [5]
+<C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/HetrogeneityHist.png, id=34, 1028.34187pt x 490.83376p
+t>
+File: C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/HetrogeneityHist.png Graphic file (type png)
+ <use C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/HetrogeneityHist.png>
+Package pdftex.def Info: C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/HetrogeneityHist.png used on i
+nput line 236.
+(pdftex.def)             Requested size: 483.69734pt x 284.53398pt.
+
+Overfull \hbox (13.94235pt too wide) in paragraph at lines 236--237
+ [][] 
+ []
+
+
+Overfull \hbox (14.9154pt too wide) in paragraph at lines 263--282
+ [][] 
+ []
+
+Missing character: There is no Â in font cmr10!
+Missing character: There is no   in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no   in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no   in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no   in font cmr10!
+
+LaTeX Warning: Float too large for page by 40.57936pt on input line 361.
+
+
+Overfull \hbox (32.69885pt too wide) in paragraph at lines 368--428
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 65.49934pt on input line 430.
+
+
+Overfull \hbox (32.69885pt too wide) in paragraph at lines 434--493
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 65.49934pt on input line 495.
+
+
+Overfull \hbox (32.69885pt too wide) in paragraph at lines 499--558
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 65.49934pt on input line 560.
+
+Missing character: There is no Â in font cmr10!
+Missing character: There is no   in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no   in font cmr10!
+
+Overfull \hbox (49.1989pt too wide) in paragraph at lines 564--624
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 65.49934pt on input line 626.
+
+Missing character: There is no Â in font cmr10!
+Missing character: There is no   in font cmr10!
+Missing character: There is no Â in font cmr10!
+Missing character: There is no   in font cmr10!
+
+Overfull \hbox (32.69885pt too wide) in paragraph at lines 630--689
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 65.49934pt on input line 691.
+
+
+Overfull \hbox (32.69885pt too wide) in paragraph at lines 695--755
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 78.15933pt on input line 757.
+
+
+Overfull \hbox (32.69885pt too wide) in paragraph at lines 761--819
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 52.83936pt on input line 821.
+
+
+Overfull \hbox (32.69885pt too wide) in paragraph at lines 825--884
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 65.49934pt on input line 886.
+
+
+Overfull \hbox (32.69885pt too wide) in paragraph at lines 890--931
+ [][] 
+ []
+
+(C:\Users\MHE\Desktop\ActiveCourses\Projects\Noris\Deliverables\FirstDraft.July26.2013.bbl
+
+Package natbib Warning: Empty `thebibliography' environment on input line 12.
+
+) [6 <C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/HetrogeneityHist.png (PNG copy)>] [7] [8]
+[9] [10] [11] [12] [13] [14] [15] [16] [17]
+(C:\Users\MHE\Desktop\ActiveCourses\Projects\Noris\Deliverables\FirstDraft.July26.2013.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 3411 strings out of 494045
+ 42022 string characters out of 3148392
+ 250081 words of memory out of 3000000
+ 6667 multiletter control sequences out of 15000+200000
+ 19430 words of font info for 71 fonts, out of 3000000 for 9000
+ 715 hyphenation exceptions out of 8191
+ 34i,15n,26p,967b,267s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9.0/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9.0/fonts/type1/pu
+blic/amsfonts/cm/cmbx7.pfb><C:/Program Files/MiKTeX 2.9.0/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/Mi
+KTeX 2.9.0/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9.0/fonts/type1/public/amsfonts/cm/cmr10.
+pfb><C:/Program Files/MiKTeX 2.9.0/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Program Files/MiKTeX 2.9.0/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9.0/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Program Files/MiKTe
+X 2.9.0/fonts/type1/public/amsfonts/cm/cmssbx10.pfb><C:/Program Files/MiKTeX 2.9.0/fonts/type1/public/amsfonts/cm/cmsy10
+.pfb><C:/Program Files/MiKTeX 2.9.0/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program Files/MiKTeX 2.9.0/fonts/type1/
+public/amsfonts/cm/cmti7.pfb><C:/Program Files/MiKTeX 2.9.0/fonts/type1/public/amsfonts/cm/cmti9.pfb>
+Output written on FirstDraft.July26.2013.pdf (17 pages, 334341 bytes).
+PDF statistics:
+ 114 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+

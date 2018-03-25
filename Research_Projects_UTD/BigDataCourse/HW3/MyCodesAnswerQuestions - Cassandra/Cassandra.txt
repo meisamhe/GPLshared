@@ -1,0 +1,149 @@
+#======================================================================================
+# Cassandra: Q10
+#======================================================================================
+
+# replication factor =1 
+# dataset in /cassandra-input/user.dat
+
+# Dataset:
+
+# command to run cassandra (cqlsh)
+/usr/local/apache-cassandra-2.0.5/bin/cassandra-cli --host csac0
+
+# create a key space with netID: mxh109420
+CREATE KEYSPACE mxh109420 WITH replication = {'replication_factor': 1} ;
+
+#CORRECTION
+CREATE KEYSPACE mxh109420 with placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy' and strategy_options = {replication_factor: 1};
+
+
+#Create a COLUMN FAMILY for this dataset
+USE mxh109420;
+
+#UserID:Gender:Age:Occupation:Zip-code
+# column family is a table: http://www.datastax.com/docs/1.1/references/cql/CREATE_COLUMNFAMILY
+# This is for CQL and not for CLI
+CREATE TABLE users( 
+   UserID int PRIMARY KEY,
+   Gender varchar, 
+   Age int,
+   Occupation int,
+   Zip-code int); 
+
+# another way to define column family
+CREATE COLUMN FAMILY users
+WITH comparator = UTF8Type
+AND key_validation_class=UTF8Type
+AND column_metadata = [
+{column_name: UserID, validation_class: LongType}
+{column_name: Gender, validation_class: AsciiType}
+{column_name: Age, validation_class: LongType}
+{column_name: Occupation, validation_class: LongType}
+{column_name: Zip-code, validation_class: LongType}
+];
+
+# the same for both column family and table FOR CQL
+INSERT INTO users(UserID,Gender,Age,Occupation,Zip-code) VALUES (13,'F',51,1,93334); 
+INSERT INTO users(UserID,Gender,Age,Occupation,Zip-code) VALUES (1471,'F',31,17,11116); 
+INSERT INTO users(UserID,Gender,Age,Occupation,Zip-code) VALUES (1496,'F',31,17,94118) USING TTL 300; 
+
+# correct command for cli
+SET users[13]['Gender']= 'F';
+SET users[13]['Age']= 51;
+SET users[13]['Occupation']= 1;
+SET users[13]['Zip-code']= 93334;
+
+SET users[1471]['Gender']= 'F';
+SET users[1471]['Age']= 31;
+SET users[1471]['Occupation']= 17;
+SET users[1471]['Zip-code']= 11116;
+
+SET users[1496]['Gender']= 'F' WITH ttl=300;
+SET users[1496]['Age']= 31 WITH ttl=300;
+SET users[1496]['Occupation']= 17 WITH ttl=300;
+SET users[1496]['Zip-code']= 94118 WITH ttl=300;
+
+
+#Show the following:
+#i. Get the Gender and Occupation for user with id 13 ?
+SELECT Gender,Occupation FROM users
+  WHERE UserID =13;
+
+# CLI
+GET users[13]['Gender'];
+GET users[13]['Occupation'];
+
+#ii. Retrieve all rows and columns.
+SELECT * FROM users;
+
+#CLI
+LIST users;
+
+#iii. Delete column Gender for the user id 1471.
+DELETE Gender FROM users where UserID  = 1471;
+
+#CLI
+DEL users[1471]['Gender'];
+
+#iv. Drop the column family.
+DROP COLUMNFAMILY users;
+
+#CLI
+DROP COLUMN FAMILY users;
+
+#Use describe keyspace command with your netid and show content.
+DESCRIBE mxh109420;
+
+# on CQL the correct command is:
+DESCRIBE KEYSPACE mxh109420;
+
+quit;
+
+#======================================================================================
+# Cassandra: Q11
+#======================================================================================
+
+# command for CQL
+/usr/local/apache-cassandra-2.0.5/bin/cqlsh csac0
+
+#Create a COLUMN FAMILY for this dataset
+USE mxh109420;
+
+#UserID:Gender:Age:Occupation:Zip-code
+# column family is a table: http://www.datastax.com/docs/1.1/references/cql/CREATE_COLUMNFAMILY
+# This is for CQL and not for CLI
+CREATE TABLE users( 
+   UserID varchar PRIMARY KEY,
+   Gender varchar, 
+   Age varchar,
+   Occupation varchar,
+   Zipcode varchar); 
+
+COPY users (userid, gender, age, occupation, zipcode) FROM '/home/004/m/mx/mxh109420/cassandra-input/users.dat' WITH DELIMITER = ':';
+
+INSERT INTO users(userid, gender, age, occupation, zipcode) VALUES ('6041','M','32','6','11120'); 
+
+SELECT * FROM users
+  WHERE userid='6020';
+
+# delete all rows in the table
+TRUNCATE mxh109420.users;
+
+#Drop the table
+DROP COLUMNFAMILY users;
+
+#======================================================================================
+# Cassandra: Q12
+#======================================================================================
+ /usr/local/apache-cassandra-2.0.5/bin/nodetool -host csac0 status
+ /usr/local/apache-cassandra-2.0.5/bin/nodetool -host csac1 status
+
+Datacenter: datacenter1
+=======================
+Status=Up/Down
+|/ State=Normal/Leaving/Joining/Moving
+--  Address       Load       Tokens  Owns   Host ID                               Rack
+UN  10.176.92.91  1.25 MB    256     25.0%  f402386c-f200-489c-ba35-d37b2b880b82  rack1
+UN  10.176.92.92  2.23 MB    256     26.3%  29838b5d-1523-43fe-b6ff-e357a8995861  rack1
+UN  10.176.92.93  212.17 KB  256     25.4%  67080a87-dbf3-4fe2-84a0-d3ad4a9d6585  rack1
+UN  10.176.92.94  207.69 KB  256     23.4%  d4b9544b-37ef-4421-ab65-026eb889e37d  rack1

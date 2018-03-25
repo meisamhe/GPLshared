@@ -1,0 +1,36 @@
+Machine Learning Project pipeline
+==========================================
+PrjTextExtraction.py => extract text from infographics
+lemmatization.py => use the extracted text and lemmatize it
+RGBHSVColordCodes.py => extract RGB and HSV of the cod
+PrjEMWeka.py => run kmean clustering
+dataExtractionkmeanWEka.py => extract result of kmean clustering of weka
+PrjDocTermMatrix.py => create a vector of terms in a hash table and then create doc-term matrix, also remove stop words, I also use synonoym set (create doc-doc file)
+PrjARFF4FeatureSelection.py => create ARFF file that combines both image and text data of each infographic to run feature selection over it => weka was not so good for this purpose, so I will build this in R (at the end I use the combination, R for matrix multiplication)
+
+Comparison could be based on log likelihood
+
+===============================================
+Total number of files:
+===============================================
+64+45+(82-47)+146+(213-148) = 355
+
+Sequence of files
+==========================
+1. Information is Beautiful
+2. hubspot
+3. Pinterest
+
+Packages to install
+==============================
+numpy
+scipy
+matplotlib
+# for open vc use this library
+cv2
+# for OCR use this library
+tesseract
+# use PyEnchant as a strong spell checking library
+enchant
+# for the lemmatization
+nltk

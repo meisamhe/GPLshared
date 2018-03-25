@@ -1,0 +1,970 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Author template for Marketing Science (mksc)
+%% Mirko Janc, Ph.D., INFORMS, mirko.janc@informs.org
+%% ver. 0.95, December 2010
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass[mksc,blindrev]{informs3} % current default for manuscript submission
+\documentclass[mksc,nonblindrev]{informs3}
+
+\OneAndAHalfSpacedXI % current default line spacing
+%%\OneAndAHalfSpacedXII
+%%\DoubleSpacedXII
+%%\DoubleSpacedXI
+
+% If hyperref is used, dvi-to-ps driver of choice must be declared as
+%   an additional option to the \documentclass. For example
+%\documentclass[dvips,mksc]{informs3}      % if dvips is used
+%\documentclass[dvipsone,mksc]{informs3}   % if dvipsone is used, etc.
+
+% Private macros here (check that there is no clash with the style)
+
+% Natbib setup for author-year style
+\usepackage{natbib}
+ \bibpunct[, ]{(}{)}{,}{a}{}{,}%
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\newblock{\ }%
+ \def\BIBand{and}%
+
+%% Setup of theorem styles. Outcomment only one. 
+%% Preferred default is the first option.
+\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
+
+%% Setup of the equation numbering system. Outcomment only one.
+%% Preferred default is the first option.
+\EquationsNumberedThrough    % Default: (1), (2), ...
+%\EquationsNumberedBy % (1.1), (1.2), ...
+
+% In the reviewing and copyediting stage enter the manuscript number.
+%\MANUSCRIPTNO{} % When the article is logged in and DOI assigned to it,
+                 %   this manuscript number is no longer necessary
+
+%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%
+
+% Outcomment only when entries are known. Otherwise leave as is and 
+%   default values will be used.
+%\setcounter{page}{1}
+%\VOLUME{00}%
+%\NO{0}%
+%\MONTH{Xxxxx}% (month or a similar seasonal id)
+%\YEAR{0000}% e.g., 2005
+%\FIRSTPAGE{000}%
+%\LASTPAGE{000}%
+%\SHORTYEAR{00}% shortened year (two-digit)
+%\ISSUE{0000} %
+%\LONGFIRSTPAGE{0001} %
+%\DOI{10.1287/xxxx.0000.0000}%
+
+% Author's names for the running heads
+% Sample depending on the number of authors;
+ \RUNAUTHOR{Meisam Hejazinia}
+% \RUNAUTHOR{Jones and Wilson}
+% \RUNAUTHOR{Jones, Miller, and Wilson}
+% \RUNAUTHOR{Jones et al.} % for four or more authors
+% Enter authors following the given pattern:
+%\RUNAUTHOR{}
+
+% Title or shortened title suitable for running heads. Sample:
+\RUNTITLE{Dynamic Effect of Supplementary Product Rating}
+% Enter the (shortened) title:
+%\RUNTITLE{}
+
+% Full title. Sample:
+ \TITLE{Dynamic Effect of Supplementary Product Rating}
+% Enter the full title:
+%\TITLE{}
+
+% Block of authors and their affiliations starts here:
+% NOTE: Authors with same affiliation, if the order of authors allows, 
+%   should be entered in ONE field, separated by a comma. 
+%   \EMAIL field can be repeated if more than one author
+\ARTICLEAUTHORS{
+\AUTHOR{Meisam Hejazinia}
+\AFF{University of Texas at Dallas, \EMAIL{mxh109420@utdallas.edu}, \URL{}}
+\AUTHOR{Advisor: Dr. Norris Bruce}
+\AFF{University of Texas at Dallas, \EMAIL{nxb018100@utdallas.edu}, \URL{}}
+%\AUTHOR{Author2}
+%\AFF{Author2 affiliation, \EMAIL{}, \URL{}}
+% Enter all authors
+} % end of the block
+
+\ABSTRACT{
+....
+}
+
+% Sample
+%\KEYWORDS{deterministic inventory theory; infinite linear programming duality; 
+%  existence of optimal policies; semi-Markov decision process; cyclic schedule}
+
+% Fill in data.
+\KEYWORDS{Supplementary Products, Experience Goods, Product Rating, Product Review, Uncetainty, Dynamic Effect, DLM, Kalman Filter, User Base, Platform, Firefox Addon}
+
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Samples of sectioning (and labeling) in MKSC
+% NOTE: (1) \section and \subsection do NOT end with a period
+%       (2) \subsubsection and lower need end punctuation
+%       (3) capitalization is as shown (title style).
+%
+%\section{Introduction.}\label{intro} %%1.
+%\subsection{Duality and the Classical EOQ Problem.}\label{class-EOQ} %% 1.1.
+%\subsection{Outline.}\label{outline1} %% 1.2.
+%\subsubsection{Cyclic Schedules for the General Deterministic SMDP.}
+%  \label{cyclic-schedules} %% 1.2.1
+%\section{Problem Description.}\label{problemdescription} %% 2.
+
+% Text of your paper here
+\section{INTRODUCTION}\label{intro} %%1.
+%\citep*{Klein+Ford:2003}
+%\indent Whether specific post has positive effect on consumer decision, and whether the corporate should allocate considerable amount of their resources monitoring myriad consumer reviews has appeared as a inextricable questions to marketers. Various effort has been put on perusing this question, yet the salient result is still work of \citep*{Chevalier+Mayzlin:06a} that attested the effect of star rating on sales. In this paper we tried to not only approbate the effect of star rating on sales, but also palliate citadel of research on product reviews, by unraveling the impact of content of product reviews on sales. We leveraged literature on product class knowledge on search behavior \citep*{Brucks:1985} and mapped it to the product reviews of one of Firefox plug ins called "DownloadThemAll".
+
+Several substantive questions arise on the effect of product reviews on demand for a supplementary product: How supplementary product rating affects its demand? How product rating of different supplementary products affects their demand? Whether share of platform affects persistency of product rating effect? Whether developer team size, observed by consumer, affects consumers evaluation of the supplementary product? How does uncertainty on product rating in the context of experience good affects consumers valuation of user base size signal?
+
+
+\section{LITRATURE}\label{litr} %%1.
+
+%insert basic statistics curves
+
+\begin{figure}
+	\centering
+		\includegraphics[height=10cm,width=17cm]{C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/BasicStat4PlugIns.png}
+	\caption{Examples of Demand, Rating Valence, Usage and Short term Economic Shock (Normalized)}
+	\label{fig:BasicStat1}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[height=10cm,width=17cm]{C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/BasicStat4PlugIns2.png}
+	\caption{Examples of Demand, Rating Valence, Usage and Short term Economic Shock (Normalized) Cont.}
+	\label{fig:BasicStat1}
+\end{figure}
+
+\section{MODEL DEVELOPMENT}\label{ModDevl} %%1.
+
+\subsection{Aggregate Demand and Goodwill Stock}
+
+\indent Given our interest in assessing the effect of product rating on demand, we excercise aggregated sales response model. The model is constructed on the discrete time analog of Nerlove and Arrow's (1962) model. Specifically, Nerlove and Arrow suggest the use of "goodwill stock," to capture persistent effect of advertising on demand. To demonstratet this more clearly in the supplementary product context, we assumed that product rating build the goodwill stock (G) of the supplementary product. In turn, this goodwill drives the demand for the supplementary product, oprationalized as the daily download divided by 1k ($y_{it}$).  That is,
+ \begin{center}
+		\begin{equation} 
+			$y_{it}=G_{it}+\beta_i*Z_{it}+\epsilon_{it}$, where $\epsilon_{it} \sim N(0, V_i)$
+		\end{equation}
+ \end{center}
+The vector $Z_{it}$ comprises control variable of weekend dummy.
+
+\indent Consistent with Nerlove and Arrow's specification, supplementary product's goodwill (G) decays in proportion to the lagged goodwill, while it is maintained by consumers rating, user base, short term economic shock, and versioning, represented by $X_{it}$, as follows:
+
+\begin{center}
+	\begin{equation} 
+		$G_{it}=\delta_iG_{it-1}+\gamma_i*X_{it}+\omega_{it}$, where $\omega_{it} \sim N(0, W_i)$
+	\end{equation}
+\end{center}
+\subsection{Heterogeneity}
+The effect of product rating, user base, short term economic shock and carryover may differ across products, as for example, need category and competition in the market of the supplementary good may be different. Thus, we also acknowledge such potential hetrogeneity by linking carryover rate, and effect of rating, user based, short term economic shock and versioning from Equation 1 and 2 to a set of supplementary product characteristics, such as platform share, and size of developer team. 
+\begin{center}
+	\begin{equation} 
+		$\{\delta_i,\gamma_i\}=\Psi U_i+\xi_i$, where $\xi_i \sim N(0, M)$
+	\end{equation}
+\end{center}
+
+\section{EMPIRICAL STUDY}\label{litr} %%1.
+
+
+\subsection{Data}
+\indent Our data are from 50 Add ons of firefox and span around five year period (1686 days) from 2008 to 2013. 
+
+\begin{table}
+	\centering
+		\begin{tabular}{lcccc}\hline \hline
+				&	Mean 	&	SD	&	Min	&	Max	\\ \hline
+				Share of Windows	&	0.86	&	0.15	&	0.03	&	1	\\ 
+				Number of Reviews	&	382.64	&	584.93	&	2	&	3686	\\ 
+				Variance of Rating	&	1.46	&	0.76	&	0.48	&	4.2	\\ 
+				Size of Developer Team	&	1.32	&	0.72	&	1	&	4	\\ \hline
+		\end{tabular}
+	\caption{Basic Statistics}
+	\label{tab:BasicStatistics}
+\end{table}
+
+
+\subsection{Estimation}
+
+
+
+\subsection{Model Comparison}
+
+\begin{figure}
+	\centering
+		\includegraphics[height=10cm,width=17cm]{C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-1.png}
+	\caption{Examples of Predicted Versus Actual Demand}
+	\label{fig:BasicStat1}
+\end{figure}
+
+\begin{figure}
+	\centering
+		\includegraphics[height=10cm,width=17cm]{C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/StepAheadForecast4-2.png}
+	\caption{Examples of Predicted Versus Actual Demand Cont.}
+	\label{fig:BasicStat1}
+\end{figure}
+
+
+\begin{table}
+	\centering
+		\begin{tabular}{llcc}\hline \hline
+			Model	&	Description	&	AIC	&	BIC	\\ \hline
+1	&	Proposed Model	&	9.78E+12	&	9.78E+12	\\ \hline
+		\end{tabular}
+	\caption{Model Comparison}
+	\label{tab:ModelComparison}
+\end{table}
+
+
+\subsection{Parameter Estimate}
+\indent Table \ref{tab:MeanElasticity} reports posterior mean, standard deviation, and 95\% highest probability density interval (HDPI) of the parameters in the proposed model averaged across all supplementary products. The parameter is significant if its HDPI does not include zero. Figure \ref{fig:BasicStat1} illustrates histogram of goodwill elasticity of carry over, user base size, mean of rating, versioning shock, and short term economic shocks. The histogram indicate that goodwill elasticities of supplementary products are heterogeneous. If the model does not account for this heterogeneity, the estimation will become bias. We then tried to explain this hetrogeneity based on plug in characteristics. \\
+\indent Table \ref{tab:PrmHetgnty} reports posterior mean, standard deviation and 95\% HDPI of parameters of characteristics of product that explain heterogeneity. First, consider estimate of carryover effect. As we expected when the share of a dominant platform, Windows, increases forgetting rate would be lower. This finding can be attributed to the diffusion process. As size of the population increases the probability of exposure to consumers of the same type increases. This higher exposure during time will decrease decay, which is interpreted to forgetting in our model. \\
+\indent Goodwill elasticity to user base size is negatively affected by variance of rating. In other word, as uncertainty increases goodwill elasticity to user base size decreases. User base size is useful to consumers when consumers have unanimous valuation of product. When consumers are not unanimous in their valuation, the product will become a niche product. Niche products become problematic for consumers more in the context of experience goods, as consumer can only evaluate experience good after using it. We assume consumers are risk averse. As a result when rating becomes uninformative, bigger user base results decreases the good will of supplementary product.
+\indent Developer team size affects goodwill elasticity to rating valence negatively. This negative effect can be attributed to innovation and product quality. In other word, when consumers observe that a product is developed in a bigger team, their valuation for the product increases. Based on litrature as the size of firm increases innovation will increase. Moreover, as firm size increases it will have access to more resources, for example due to economics of scale. As a result the products developed in larger teams are more innovative, and of higher quality. Innovative products are defined by the niche market they are belonging to. Niche markets on the other hand is defined by small number of product substitutes. When consumers face a product that have less substitute they are prone to discount the rating, due to not having any other choice. Therefore, developer team size negatively affects goodwill elasticity to rating.
+\indent Number of product reviews positively affects goodwill elasticity to short term economic shocks. This shocks either could be supply or demand shocks. Based on Litrature consumers self select themselves to review products that are important for them. Consequently, as products become important through short term economic shocks, consumers will review the product more, and this importance will affect goodwill elasticity to short term economic shocks positively. 
+
+
+\begin{figure}
+	\centering
+		\includegraphics[height=10cm,width=17cm]{C:/Users/MHE/Desktop/ActiveCourses/Projects/Noris/Results/Curves/HetrogeneityHist.png}
+	\caption{Histogram of Goodwill Elasticity across Supplementary Products}
+	\label{fig:BasicStat1}
+\end{figure}
+
+\begin{table}
+	\centering
+		\begin{tabular}{lcccc} \hline \hline
+					&	Estimate	&	SD	&	2.5th Percentile	&	97.5th 
+					Percentile	\\ \hline
+					Carry Over	&	0.878	&	0.158	&	0.835	&	0.921	\\
+					User Base Size	&	-0.307	&	1.064	&	-0.596	&	-0.018	\\
+					Mean of Rating	&	0.047	&	2.866	&	-0.732	&	0.826	\\
+					Mean of Rating Square	&	0.009	&	0.651	&	-0.168	&	0.186	\\
+					Version	&	0.629	&	2.986	&	-0.183	&	1.440	\\
+					Short term Economic Shock	&	0.012	&	0.023	&	0.006	&	0.018	\\
+					V	&	0.109	&	0.267	&	0.036	&	0.181	\\
+					Weekend Dummy	&	-39.799	&	0.000	&	-39.799	&	-39.798	\\
+					W	&	4.168	&	16.664	&	-0.361	&	8.697	\\ \hline
+		\end{tabular}
+	\caption{Mean Elasticity Parameter Estimate Across Supplementary Products}
+	\label{tab:MeanElasticity}
+\end{table}
+
+
+\begin{table}
+	\centering
+		\begin{tabular}{llcccc}\hline \hline
+			&		&	Estimate	&	SD	& 	2.5th Percentile	&	97.5th 
+Percentile	\\ \hline 
+			Carry Over	&	Intercept	&	0.239	&	0.107	&	0.062	&	0.412	\\ 
+				&	Share of Windows	&	0.746	&	0.122	&	0.541	&	0.948	\\
+			User Base Size	&	Intercept	&	0.402	&	0.400	&	-0.270	&	1.047	\\
+				&	Variance of Rating	&	-0.482	&	0.248	&	-0.889	&	-0.109	\\
+			Mean of Rating	&	Intercept	&	1.989	&	0.939	&	0.416	&	3.506	\\
+				&	Developer Team Size	&	-1.318	&	0.549	&	-2.253	&	-0.441	\\
+			Mean of Rating Square	&	Intercept	&	-0.426	&	0.201	&	-0.752	&	-0.076	\\
+				&	Developer Team Size	&	0.291	&	0.120	&	0.085	&	0.486	\\
+			Short term Economic	&	Intercept	&	0.004	&	0.008	&	-0.009	&	0.018	\\
+				Shock &	Number of Reviews	&	0.000	&	0.000	&	0.000	&	0.000	\\
+			M1	&		&	0.017	&	0.007	&	0.010	&	0.030	\\
+			M2	&		&	1.378	&	0.540	&	0.710	&	2.410	\\
+			M3	&		&	9.151	&	3.461	&	4.801	&	15.525	\\
+			M4	&		&	0.465	&	0.162	&	0.253	&	0.775	\\
+			M5	&		&	0.003	&	0.001	&	0.002	&	0.004	\\ \hline
+		\end{tabular}
+	\caption{Parameter Heterogeneity}
+	\label{tab:PrmHetgnty}
+\end{table}
+
+
+%good will evolution
+
+
+
+
+
+
+
+\section{MANAGERIAL IMPLICATION}\label{Mimplication} %%1
+
+
+
+\section{CONCLUSION}\label{Concl} %%1.
+
+
+\begin{table}
+	\centering
+		\begin{tabular}{lcc}\hline \hline
+		Supplementary Product	&	MAD	&	MSE	\\ \hline
+		Firebug	&	2.168	&	9.257	\\
+		Flagfox	&	0.729	&	2.097	\\
+		Web developer	&	0.260	&	0.246	\\
+		IE Tab	&	0.730	&	1.472	\\
+		Test Pilot	&	0.072	&	0.044	\\
+		User Agent Switcher	&	0.344	&	0.507	\\
+		Stylish	&	1.099	&	12.367	\\
+		Text Link	&	0.099	&	0.056	\\
+		DownThemAll	&	0.999	&	3.196	\\
+		FireFTP	&	0.599	&	0.863	\\
+		AllYouTubeDownload	&	0.025	&	0.007	\\
+		Personas Plus	&	3.329	&	104.469	\\
+		MinimizeToTray revived	&	0.108	&	0.051	\\
+		Status-4-Evar	&	0.069	&	0.078	\\
+		Classic Compact Options	&	0.019	&	0.001	\\
+		Scriptish	&	0.084	&	0.117	\\
+		Google Shortcuts	&	0.320	&	0.335	\\
+		Super Start	&	0.075	&	0.038	\\
+		 Print pages to Pdf	&	0.035	&	0.010	\\
+		SkipScreen	&	0.313	&	0.990	\\
+		ReminderFox	&	0.311	&	0.522	\\
+		AutoPager	&	0.515	&	2.380	\\
+		 Iplex to ALLPlayer	&	0.027	&	0.006	\\
+		Tilt 3D	&	0.038	&	0.029	\\
+		Cheevos for Firefox	&	0.017	&	0.003	\\
+		 ImTranslator 	&	1.171	&	5.030	\\
+		Google Translator for Firefox	&	0.098	&	0.054	\\
+		Quick Locale Switcher	&	0.070	&	0.012	\\
+		gTranslate	&	0.120	&	0.054	\\
+		New Tong Wen Tang	&	0.040	&	0.004	\\
+		 Romanian Language Pack	&	0.023	&	0.001	\\
+		Locale Switcher	&	0.026	&	0.001	\\
+		Adblock Plus	&	4.165	&	41.455	\\
+		Adblock Edge	&	0.063	&	0.199	\\
+		Password Exporter 	&	0.075	&	0.012	\\
+		Stealthy	&	0.133	&	0.129	\\
+		FEBE	&	0.184	&	0.215	\\
+		The Camelizer	&	0.022	&	0.005	\\
+		ChatZilla 	&	0.089	&	0.054	\\
+		Thumbnail Zoom Plus	&	0.035	&	0.013	\\
+		ProCon Latte Content Filter	&	0.049	&	0.005	\\
+		 New Tab Homepage	&	0.062	&	0.009	\\
+		Screengrab	&	0.027	&	0.005	\\
+		Greasemonkey	&	1.600	&	26.361	\\
+		Flashblock	&	0.277	&	0.220	\\
+		Session Manager	&	0.091	&	0.021	\\
+		PDF Viewer	&	0.056	&	0.021	\\
+		Add-on Compatibility Reporter	&	0.198	&	0.323	\\
+		Secure Login	&	0.051	&	0.008	\\
+		Nightly Tester Tools	&	0.128	&	0.106	\\
+		Translate This!	&	0.024	&	0.005	\\
+		Quick Maps	&	0.050	&	0.036	\\ \hline
+		\end{tabular}
+	\caption{Mean Absolute Deviation and Mean Square Error}
+	\label{tab:MeanAbsoluteDeviationAndMeanSquareError}
+\end{table}
+
+
+
+
+\begin{table}
+	\centering
+		\begin{tabular}{llcccc}\hline \hline
+Supplementary Product	&		&	Estimate	&	SD	&	2.5th 
+Percentile	&	97.5th 
+Percentile	\\ \hline
+Firebug	&	Carry Over	&	0.76	&	0.023	&	0.727	&	0.801	\\
+	&	User Base Size	&	0.05	&	0.135	&	-0.177	&	0.273	\\
+	&	Mean of Rating	&	-16.03	&	3.082	&	-20.992	&	-11.029	\\
+	&	Mean of Rating Square	&	3.72	&	0.667	&	2.625	&	4.769	\\
+	&	Version	&	1.36	&	0.357	&	0.756	&	1.916	\\
+	&	Short term Econ. Shock	&	0.10	&	0.019	&	0.071	&	0.135	\\
+	&	V	&	0.68	&	0.359	&	0.261	&	1.373	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.247	&	-38.450	\\
+	&	W	&	8.36	&	0.647	&	7.190	&	9.288	\\
+Flagfox	&	Carry Over	&	0.92	&	0.010	&	0.907	&	0.941	\\
+	&	User Base Size	&	0.36	&	0.179	&	0.075	&	0.649	\\
+	&	Mean of Rating	&	3.81	&	3.637	&	-2.340	&	9.730	\\
+	&	Mean of Rating Square	&	-0.85	&	0.779	&	-2.144	&	0.454	\\
+	&	Version	&	0.16	&	0.227	&	-0.217	&	0.531	\\
+	&	Short term Econ. Shock	&	0.00	&	0.003	&	-0.002	&	0.008	\\
+	&	V	&	0.05	&	0.023	&	0.021	&	0.097	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.247	&	-38.450	\\
+	&	W	&	2.33	&	0.099	&	2.176	&	2.489	\\
+Web developer	&	Carry Over	&	0.73	&	0.025	&	0.692	&	0.776	\\
+	&	User Base Size	&	-0.08	&	0.110	&	-0.242	&	0.121	\\
+	&	Mean of Rating	&	1.02	&	0.177	&	0.723	&	1.314	\\
+	&	Mean of Rating Square	&	-0.18	&	0.033	&	-0.237	&	-0.124	\\
+	&	Version	&	0.36	&	0.721	&	-0.889	&	1.502	\\
+	&	Short term Econ. Shock	&	0.04	&	0.005	&	0.032	&	0.047	\\
+	&	V	&	0.03	&	0.008	&	0.016	&	0.042	\\
+	&	Weekend Dummy	&	-39.33	&	0.547	&	-40.252	&	-38.450	\\
+	&	W	&	0.44	&	0.025	&	0.397	&	0.481	\\
+IE Tab	&	Carry Over	&	0.99	&	0.005	&	0.981	&	0.997	\\
+	&	User Base Size	&	-0.02	&	0.058	&	-0.115	&	0.072	\\
+	&	Mean of Rating	&	-7.05	&	2.529	&	-11.136	&	-3.009	\\
+	&	Mean of Rating Square	&	1.68	&	0.601	&	0.713	&	2.650	\\
+	&	Version	&	0.77	&	0.541	&	-0.120	&	1.718	\\
+	&	Short term Econ. Shock	&	0.00	&	0.003	&	-0.008	&	0.003	\\
+	&	V	&	0.36	&	0.062	&	0.265	&	0.473	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.238	&	-38.452	\\
+	&	W	&	0.87	&	0.094	&	0.711	&	1.021	\\
+Test Pilot	&	Carry Over	&	0.82	&	0.009	&	0.803	&	0.834	\\
+	&	User Base Size	&	0.01	&	0.003	&	0.007	&	0.016	\\
+	&	Mean of Rating	&	-0.04	&	0.026	&	-0.086	&	0.001	\\
+	&	Mean of Rating Square	&	0.01	&	0.006	&	0.005	&	0.024	\\
+	&	Version	&	0.34	&	0.049	&	0.266	&	0.425	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	-0.001	&	0.001	\\
+	&	V	&	0.04	&	0.002	&	0.041	&	0.048	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.248	&	-38.438	\\
+	&	W	&	0.01	&	0.001	&	0.005	&	0.007	\\
+User Agent	&	Carry Over	&	0.86	&	0.013	&	0.840	&	0.883	\\
+ Switcher	&	User Base Size	&	-0.31	&	0.217	&	-0.665	&	0.060	\\
+	&	Mean of Rating	&	0.21	&	0.230	&	-0.155	&	0.566	\\
+	&	Mean of Rating Square	&	-0.04	&	0.050	&	-0.113	&	0.045	\\
+	&	Version	&	-0.06	&	0.688	&	-1.217	&	1.103	\\
+	&	Short term Econ. Shock	&	0.02	&	0.002	&	0.017	&	0.026	\\
+	&	V	&	0.02	&	0.004	&	0.011	&	0.025	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.246	&	-38.438	\\
+	&	W	&	0.49	&	0.019	&	0.455	&	0.519	\\
+
+		\end{tabular}
+	\caption{Parameter Estimate Supplementary Products}
+	\label{tab:ParameterEstimateSupplementaryProducts}
+\end{table}
+
+\begin{table}
+	\centering
+		\begin{tabular}{llcccc}\hline \hline
+Supplementary Product	&		&	Estimate	&	SD	&	2.5th 
+Percentile	&	97.5th 
+Percentile	\\ \hline
+Stylish	&	Carry Over	&	0.69	&	0.018	&	0.658	&	0.718	\\
+	&	User Base Size	&	1.15	&	0.467	&	0.377	&	1.875	\\
+	&	Mean of Rating	&	3.82	&	1.332	&	1.644	&	6.110	\\
+	&	Mean of Rating Square	&	-0.85	&	0.299	&	-1.373	&	-0.370	\\
+	&	Version	&	0.96	&	0.687	&	-0.208	&	2.134	\\
+	&	Short term Econ. Shock	&	0.05	&	0.008	&	0.041	&	0.066	\\
+	&	V	&	0.26	&	0.100	&	0.107	&	0.426	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.263	&	-38.451	\\
+	&	W	&	12.20	&	0.445	&	11.469	&	12.987	\\
+Text Link	&	Carry Over	&	0.77	&	0.018	&	0.741	&	0.802	\\
+	&	User Base Size	&	0.03	&	0.023	&	-0.009	&	0.066	\\
+	&	Mean of Rating	&	-0.10	&	0.136	&	-0.327	&	0.126	\\
+	&	Mean of Rating Square	&	0.02	&	0.031	&	-0.028	&	0.075	\\
+	&	Version	&	0.20	&	0.055	&	0.110	&	0.293	\\
+	&	Short term Econ. Shock	&	0.00	&	0.001	&	0.003	&	0.005	\\
+	&	V	&	0.01	&	0.002	&	0.008	&	0.013	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.267	&	-38.454	\\
+	&	W	&	0.04	&	0.003	&	0.037	&	0.047	\\
+DownThemAll	&	Carry Over	&	0.97	&	0.006	&	0.959	&	0.980	\\
+	&	User Base Size	&	-0.30	&	0.150	&	-0.556	&	-0.050	\\
+	&	Mean of Rating	&	-1.31	&	2.485	&	-5.433	&	2.692	\\
+	&	Mean of Rating Square	&	0.32	&	0.543	&	-0.550	&	1.227	\\
+	&	Version	&	0.85	&	0.351	&	0.276	&	1.420	\\
+	&	Short term Econ. Shock	&	0.01	&	0.004	&	0.007	&	0.019	\\
+	&	V	&	0.37	&	0.091	&	0.245	&	0.530	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.245	&	-38.460	\\
+	&	W	&	2.57	&	0.182	&	2.263	&	2.853	\\
+FireFTP	&	Carry Over	&	0.92	&	0.011	&	0.899	&	0.936	\\
+	&	User Base Size	&	-0.47	&	0.122	&	-0.676	&	-0.280	\\
+	&	Mean of Rating	&	5.12	&	1.021	&	3.403	&	6.784	\\
+	&	Mean of Rating Square	&	-1.16	&	0.236	&	-1.553	&	-0.759	\\
+	&	Version	&	0.07	&	0.194	&	-0.238	&	0.384	\\
+	&	Short term Econ. Shock	&	0.03	&	0.004	&	0.024	&	0.039	\\
+	&	V	&	0.07	&	0.027	&	0.033	&	0.117	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.243	&	-38.453	\\
+	&	W	&	0.75	&	0.052	&	0.661	&	0.833	\\
+AllYouTubeDownload	&	Carry Over	&	0.97	&	0.008	&	0.960	&	0.985	\\
+	&	User Base Size	&	0.02	&	0.049	&	-0.064	&	0.094	\\
+	&	Mean of Rating	&	0.02	&	0.023	&	-0.021	&	0.057	\\
+	&	Mean of Rating Square	&	0.00	&	0.005	&	-0.011	&	0.005	\\
+	&	Version	&	-0.02	&	0.051	&	-0.104	&	0.067	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	-0.001	&	0.000	\\
+	&	V	&	0.00	&	0.000	&	0.002	&	0.002	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.247	&	-38.452	\\
+	&	W	&	0.01	&	0.001	&	0.009	&	0.011	\\
+Personas Plus	&	Carry Over	&	0.88	&	0.012	&	0.865	&	0.905	\\
+	&	User Base Size	&	-0.08	&	0.423	&	-0.769	&	0.636	\\
+	&	Mean of Rating	&	-2.81	&	1.036	&	-4.537	&	-1.043	\\
+	&	Mean of Rating Square	&	0.80	&	0.252	&	0.390	&	1.224	\\
+	&	Version	&	-0.31	&	2.176	&	-3.922	&	3.258	\\
+	&	Short term Econ. Shock	&	0.10	&	0.026	&	0.054	&	0.141	\\
+	&	V	&	0.10	&	0.100	&	0.011	&	0.299	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.249	&	-38.453	\\
+	&	W	&	112.61	&	4.044	&	105.940	&	119.417	\\
+		\end{tabular}
+	\caption{Parameter Estimate Supplementary Products Cont.}
+	\label{tab:ParameterEstimateSupplementaryProducts}
+\end{table}
+
+\begin{table}
+	\centering
+		\begin{tabular}{llcccc}\hline \hline
+Supplementary Product	&		&	Estimate	&	SD	&	2.5th 
+Percentile	&	97.5th 
+Percentile	\\ \hline
+MinimizeToTray	&	Carry Over	&	0.92	&	0.012	&	0.897	&	0.935	\\
+revived	&	User Base Size	&	0.14	&	0.121	&	-0.066	&	0.329	\\
+	&	Mean of Rating	&	0.38	&	0.133	&	0.153	&	0.602	\\
+	&	Mean of Rating Square	&	-0.08	&	0.029	&	-0.131	&	-0.033	\\
+	&	Version	&	0.19	&	0.070	&	0.075	&	0.303	\\
+	&	Short term Econ. Shock	&	0.00	&	0.001	&	0.001	&	0.005	\\
+	&	V	&	0.01	&	0.001	&	0.004	&	0.007	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.250	&	-38.458	\\
+	&	W	&	0.05	&	0.003	&	0.048	&	0.056	\\
+Status-4-Evar	&	Carry Over	&	0.86	&	0.015	&	0.838	&	0.885	\\
+	&	User Base Size	&	0.91	&	0.280	&	0.452	&	1.378	\\
+	&	Mean of Rating	&	0.47	&	0.193	&	0.152	&	0.781	\\
+	&	Mean of Rating Square	&	-0.12	&	0.040	&	-0.186	&	-0.055	\\
+	&	Version	&	0.13	&	0.062	&	0.029	&	0.237	\\
+	&	Short term Econ. Shock	&	0.01	&	0.002	&	0.009	&	0.016	\\
+	&	V	&	0.00	&	0.001	&	0.003	&	0.007	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.248	&	-38.457	\\
+	&	W	&	0.13	&	0.006	&	0.120	&	0.139	\\
+Classic Compact	&	Carry Over	&	0.92	&	0.011	&	0.902	&	0.937	\\
+ Options	&	User Base Size	&	0.03	&	0.016	&	0.007	&	0.060	\\
+	&	Mean of Rating	&	0.02	&	0.013	&	-0.005	&	0.037	\\
+	&	Mean of Rating Square	&	0.00	&	0.003	&	-0.008	&	0.001	\\
+	&	Version	&	0.03	&	0.012	&	0.008	&	0.047	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	0.000	&	0.000	\\
+	&	V	&	0.00	&	0.000	&	0.000	&	0.001	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.247	&	-38.458	\\
+	&	W	&	0.00	&	0.000	&	0.000	&	0.001	\\
+Scriptish	&	Carry Over	&	0.87	&	0.016	&	0.847	&	0.899	\\
+	&	User Base Size	&	0.26	&	0.421	&	-0.419	&	0.946	\\
+	&	Mean of Rating	&	-0.01	&	0.191	&	-0.338	&	0.301	\\
+	&	Mean of Rating Square	&	0.00	&	0.040	&	-0.063	&	0.071	\\
+	&	Version	&	-0.02	&	0.147	&	-0.260	&	0.215	\\
+	&	Short term Econ. Shock	&	0.00	&	0.001	&	0.002	&	0.007	\\
+	&	V	&	0.01	&	0.001	&	0.004	&	0.009	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.254	&	-38.456	\\
+	&	W	&	0.19	&	0.009	&	0.179	&	0.210	\\
+Google Shortcuts	&	Carry Over	&	0.96	&	0.007	&	0.943	&	0.967	\\
+	&	User Base Size	&	-0.21	&	0.188	&	-0.504	&	0.117	\\
+	&	Mean of Rating	&	0.84	&	0.194	&	0.524	&	1.161	\\
+	&	Mean of Rating Square	&	-0.21	&	0.045	&	-0.284	&	-0.134	\\
+	&	Version	&	0.27	&	0.077	&	0.147	&	0.392	\\
+	&	Short term Econ. Shock	&	0.01	&	0.001	&	0.004	&	0.009	\\
+	&	V	&	0.13	&	0.010	&	0.111	&	0.144	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.254	&	-38.445	\\
+	&	W	&	0.14	&	0.013	&	0.120	&	0.161	\\
+Super Start	&	Carry Over	&	0.94	&	0.013	&	0.923	&	0.966	\\
+	&	User Base Size	&	0.34	&	0.523	&	-0.543	&	1.221	\\
+	&	Mean of Rating	&	-0.40	&	0.122	&	-0.600	&	-0.199	\\
+	&	Mean of Rating Square	&	0.09	&	0.025	&	0.046	&	0.127	\\
+	&	Version	&	0.07	&	0.069	&	-0.044	&	0.181	\\
+	&	Short term Econ. Shock	&	0.00	&	0.003	&	0.000	&	0.009	\\
+	&	V	&	0.02	&	0.004	&	0.015	&	0.028	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.251	&	-38.447	\\
+	&	W	&	0.06	&	0.007	&	0.046	&	0.068	\\
+		\end{tabular}
+	\caption{Parameter Estimate Supplementary Products Cont.}
+	\label{tab:ParameterEstimateSupplementaryProducts}
+\end{table}
+
+\begin{table}
+	\centering
+		\begin{tabular}{llcccc}\hline \hline
+Supplementary Product	&		&	Estimate	&	SD	&	2.5th 
+Percentile	&	97.5th 
+Percentile	\\ \hline
+ Print pages	&	Carry Over	&	0.96	&	0.013	&	0.942	&	0.984	\\
+ to Pdf	&	User Base Size	&	-0.53	&	0.392	&	-1.165	&	0.090	\\
+	&	Mean of Rating	&	0.20	&	0.088	&	0.062	&	0.349	\\
+	&	Mean of Rating Square	&	-0.04	&	0.018	&	-0.073	&	-0.014	\\
+	&	Version	&	0.10	&	0.061	&	-0.001	&	0.209	\\
+	&	Short term Econ. Shock	&	0.00	&	0.001	&	-0.001	&	0.002	\\
+	&	V	&	0.01	&	0.001	&	0.006	&	0.010	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.253	&	-38.444	\\
+	&	W	&	0.02	&	0.002	&	0.019	&	0.026	\\
+SkipScreen	&	Carry Over	&	0.82	&	0.015	&	0.798	&	0.847	\\
+	&	User Base Size	&	-1.04	&	0.215	&	-1.392	&	-0.679	\\
+	&	Mean of Rating	&	0.24	&	0.359	&	-0.364	&	0.847	\\
+	&	Mean of Rating Square	&	-0.03	&	0.085	&	-0.171	&	0.113	\\
+	&	Version	&	-0.07	&	0.212	&	-0.417	&	0.271	\\
+	&	Short term Econ. Shock	&	0.03	&	0.004	&	0.021	&	0.034	\\
+	&	V	&	0.04	&	0.010	&	0.025	&	0.056	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.277	&	-38.443	\\
+	&	W	&	1.03	&	0.043	&	0.956	&	1.098	\\
+ReminderFox	&	Carry Over	&	0.88	&	0.012	&	0.863	&	0.904	\\
+	&	User Base Size	&	0.33	&	0.271	&	-0.125	&	0.763	\\
+	&	Mean of Rating	&	-0.05	&	0.863	&	-1.475	&	1.380	\\
+	&	Mean of Rating Square	&	0.01	&	0.195	&	-0.311	&	0.329	\\
+	&	Version	&	0.08	&	0.151	&	-0.158	&	0.328	\\
+	&	Short term Econ. Shock	&	0.01	&	0.001	&	0.006	&	0.010	\\
+	&	V	&	0.03	&	0.012	&	0.013	&	0.052	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.280	&	-38.456	\\
+	&	W	&	0.48	&	0.025	&	0.438	&	0.521	\\
+AutoPager	&	Carry Over	&	0.97	&	0.006	&	0.958	&	0.980	\\
+	&	User Base Size	&	-0.22	&	0.341	&	-0.795	&	0.350	\\
+	&	Mean of Rating	&	3.03	&	0.778	&	1.788	&	4.356	\\
+	&	Mean of Rating Square	&	-0.64	&	0.167	&	-0.929	&	-0.381	\\
+	&	Version	&	-0.82	&	0.242	&	-1.205	&	-0.420	\\
+	&	Short term Econ. Shock	&	0.00	&	0.003	&	0.000	&	0.009	\\
+	&	V	&	0.09	&	0.043	&	0.032	&	0.173	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.260	&	-38.455	\\
+	&	W	&	2.24	&	0.109	&	2.065	&	2.426	\\
+ Iplex to	&	Carry Over	&	0.82	&	0.024	&	0.781	&	0.860	\\
+ ALLPlayer	&	User Base Size	&	-0.09	&	0.045	&	-0.162	&	-0.015	\\
+	&	Mean of Rating	&	0.08	&	0.038	&	0.014	&	0.140	\\
+	&	Mean of Rating Square	&	-0.02	&	0.012	&	-0.038	&	0.002	\\
+	&	Version	&	-74.77	&	2531.072	&	-4078.763	&	4098.514	\\
+	&	Short term Econ. Shock	&	0.00	&	0.001	&	0.001	&	0.003	\\
+	&	V	&	0.00	&	0.000	&	0.002	&	0.004	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.260	&	-38.459	\\
+	&	W	&	0.01	&	0.001	&	0.011	&	0.014	\\
+Tilt 3D	&	Carry Over	&	0.78	&	0.044	&	0.704	&	0.847	\\
+	&	User Base Size	&	-0.47	&	1.163	&	-2.326	&	1.392	\\
+	&	Mean of Rating	&	-0.28	&	0.083	&	-0.424	&	-0.148	\\
+	&	Mean of Rating Square	&	0.05	&	0.016	&	0.026	&	0.080	\\
+	&	Version	&	0.12	&	0.172	&	-0.163	&	0.406	\\
+	&	Short term Econ. Shock	&	0.01	&	0.002	&	0.006	&	0.014	\\
+	&	V	&	0.03	&	0.006	&	0.023	&	0.042	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.275	&	-38.463	\\
+	&	W	&	0.03	&	0.007	&	0.022	&	0.046	\\
+
+		\end{tabular}
+	\caption{Parameter Estimate Supplementary Products Cont.}
+	\label{tab:ParameterEstimateSupplementaryProducts}
+\end{table}
+
+\begin{table}
+	\centering
+		\begin{tabular}{llcccc}\hline \hline
+Supplementary Product	&		&	Estimate	&	SD	&	2.5th 
+Percentile	&	97.5th 
+Percentile	\\ \hline
+Cheevos 	&	Carry Over	&	0.97	&	0.012	&	0.948	&	0.989	\\
+for Firefox	&	User Base Size	&	-1.31	&	1.318	&	-3.463	&	0.638	\\
+	&	Mean of Rating	&	0.08	&	0.056	&	-0.017	&	0.171	\\
+	&	Mean of Rating Square	&	-0.01	&	0.011	&	-0.033	&	0.005	\\
+	&	Version	&	-0.02	&	0.040	&	-0.083	&	0.051	\\
+	&	Short term Econ. Shock	&	0.00	&	0.002	&	-0.003	&	0.002	\\
+	&	V	&	0.00	&	0.000	&	0.002	&	0.003	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.267	&	-38.463	\\
+	&	W	&	0.01	&	0.001	&	0.005	&	0.007	\\
+ ImTranslator 	&	Carry Over	&	0.89	&	0.012	&	0.868	&	0.907	\\
+	&	User Base Size	&	0.18	&	0.260	&	-0.254	&	0.626	\\
+	&	Mean of Rating	&	1.60	&	0.451	&	0.868	&	2.340	\\
+	&	Mean of Rating Square	&	-0.34	&	0.089	&	-0.487	&	-0.197	\\
+	&	Version	&	1.32	&	0.361	&	0.710	&	1.911	\\
+	&	Short term Econ. Shock	&	0.01	&	0.005	&	-0.002	&	0.014	\\
+	&	V	&	0.05	&	0.024	&	0.021	&	0.097	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.259	&	-38.467	\\
+	&	W	&	5.02	&	0.182	&	4.729	&	5.329	\\
+Google Translator 	&	Carry Over	&	0.91	&	0.012	&	0.894	&	0.935	\\
+for Firefox	&	User Base Size	&	0.50	&	0.134	&	0.271	&	0.711	\\
+	&	Mean of Rating	&	0.32	&	0.081	&	0.194	&	0.462	\\
+	&	Mean of Rating Square	&	-0.05	&	0.015	&	-0.079	&	-0.029	\\
+	&	Version	&	0.05	&	0.084	&	-0.088	&	0.184	\\
+	&	Short term Econ. Shock	&	0.00	&	0.001	&	-0.007	&	-0.003	\\
+	&	V	&	0.01	&	0.002	&	0.006	&	0.011	\\
+	&	Weekend Dummy	&	-39.33	&	0.547	&	-40.256	&	-38.464	\\
+	&	W	&	0.06	&	0.004	&	0.051	&	0.062	\\
+Quick Locale 	&	Carry Over	&	0.82	&	0.329	&	0.003	&	0.969	\\
+Switcher	&	User Base Size	&	0.67	&	1.219	&	0.063	&	3.931	\\
+	&	Mean of Rating	&	-0.50	&	0.931	&	-2.869	&	-0.071	\\
+	&	Mean of Rating Square	&	0.11	&	0.204	&	0.015	&	0.625	\\
+	&	Version	&	-0.01	&	0.035	&	-0.064	&	0.041	\\
+	&	Short term Econ. Shock	&	0.00	&	0.005	&	0.000	&	0.017	\\
+	&	V	&	0.01	&	0.019	&	0.005	&	0.060	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.260	&	-38.474	\\
+	&	W	&	0.01	&	0.004	&	0.004	&	0.012	\\
+gTranslate	&	Carry Over	&	0.96	&	0.010	&	0.939	&	0.971	\\
+	&	User Base Size	&	-0.27	&	0.167	&	-0.539	&	-0.002	\\
+	&	Mean of Rating	&	0.04	&	0.045	&	-0.034	&	0.117	\\
+	&	Mean of Rating Square	&	0.00	&	0.010	&	-0.019	&	0.014	\\
+	&	Version	&	0.12	&	0.091	&	-0.025	&	0.278	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	0.000	&	0.000	\\
+	&	V	&	0.03	&	0.002	&	0.024	&	0.030	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.280	&	-38.477	\\
+	&	W	&	0.01	&	0.002	&	0.012	&	0.018	\\
+New Tong	&	Carry Over	&	0.97	&	0.006	&	0.957	&	0.977	\\
+ Wen Tang	&	User Base Size	&	0.42	&	0.145	&	0.181	&	0.646	\\
+	&	Mean of Rating	&	-0.02	&	0.009	&	-0.036	&	-0.007	\\
+	&	Mean of Rating Square	&	0.00	&	0.002	&	0.001	&	0.007	\\
+	&	Version	&	0.01	&	0.021	&	-0.022	&	0.048	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	0.000	&	0.001	\\
+	&	V	&	0.00	&	0.000	&	0.002	&	0.002	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.276	&	-38.474	\\
+	&	W	&	0.00	&	0.000	&	0.002	&	0.002	\\
+		\end{tabular}
+	\caption{Parameter Estimate Supplementary Products Cont.}
+	\label{tab:ParameterEstimateSupplementaryProducts}
+\end{table}
+
+\begin{table}
+	\centering
+		\begin{tabular}{llcccc}\hline \hline
+Supplementary Product	&		&	Estimate	&	SD	&	2.5th 
+Percentile	&	97.5th 
+Percentile	\\ \hline
+ Romanian	&	Carry Over	&	0.00	&	0.000	&	0.000	&	0.001	\\
+ Language Pack	&	User Base Size	&	0.90	&	0.060	&	0.804	&	1.000	\\
+	&	Mean of Rating	&	0.03	&	0.010	&	0.010	&	0.045	\\
+	&	Mean of Rating Square	&	-0.01	&	0.002	&	-0.010	&	-0.002	\\
+	&	Version	&	0.00	&	0.018	&	-0.025	&	0.032	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	0.000	&	0.000	\\
+	&	V	&	0.00	&	0.000	&	0.001	&	0.001	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.275	&	-38.473	\\
+	&	W	&	0.00	&	0.000	&	0.001	&	0.001	\\
+Locale Switcher	&	Carry Over	&	0.96	&	0.007	&	0.949	&	0.973	\\
+	&	User Base Size	&	0.15	&	0.078	&	0.022	&	0.273	\\
+	&	Mean of Rating	&	-0.01	&	0.007	&	-0.018	&	0.004	\\
+	&	Mean of Rating Square	&	0.00	&	0.002	&	-0.001	&	0.004	\\
+	&	Version	&	-0.01	&	0.039	&	-0.077	&	0.051	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	0.000	&	0.000	\\
+	&	V	&	0.00	&	0.000	&	0.001	&	0.001	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.275	&	-38.471	\\
+	&	W	&	0.00	&	0.000	&	0.001	&	0.001	\\
+Adblock Plus	&	Carry Over	&	0.91	&	0.011	&	0.889	&	0.924	\\
+	&	User Base Size	&	0.21	&	0.061	&	0.110	&	0.310	\\
+	&	Mean of Rating	&	5.57	&	6.138	&	-4.692	&	15.321	\\
+	&	Mean of Rating Square	&	-0.97	&	1.282	&	-2.978	&	1.179	\\
+	&	Version	&	3.48	&	1.194	&	1.474	&	5.386	\\
+	&	Short term Econ. Shock	&	0.05	&	0.016	&	0.024	&	0.077	\\
+	&	V	&	3.24	&	1.090	&	1.382	&	4.930	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.237	&	-38.450	\\
+	&	W	&	36.47	&	2.191	&	33.064	&	40.204	\\
+Adblock Edge	&	Carry Over	&	0.89	&	0.038	&	0.821	&	0.951	\\
+	&	User Base Size	&	-3.30	&	2.082	&	-6.745	&	0.230	\\
+	&	Mean of Rating	&	-0.40	&	0.406	&	-1.069	&	0.244	\\
+	&	Mean of Rating Square	&	0.17	&	0.083	&	0.033	&	0.301	\\
+	&	Version	&	0.21	&	0.566	&	-0.748	&	1.112	\\
+	&	Short term Econ. Shock	&	0.01	&	0.020	&	-0.020	&	0.046	\\
+	&	V	&	0.06	&	0.031	&	0.012	&	0.116	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.223	&	-38.447	\\
+	&	W	&	1.23	&	0.125	&	1.028	&	1.437	\\
+Password Exporter 	&	Carry Over	&	0.94	&	0.010	&	0.925	&	0.958	\\
+	&	User Base Size	&	0.04	&	0.091	&	-0.111	&	0.195	\\
+	&	Mean of Rating	&	0.07	&	0.037	&	0.016	&	0.135	\\
+	&	Mean of Rating Square	&	-0.02	&	0.010	&	-0.032	&	0.000	\\
+	&	Version	&	-0.04	&	0.047	&	-0.121	&	0.034	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	0.000	&	0.001	\\
+	&	V	&	0.00	&	0.000	&	0.004	&	0.005	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.220	&	-38.445	\\
+	&	W	&	0.00	&	0.001	&	0.004	&	0.006	\\
+Stealthy	&	Carry Over	&	0.73	&	0.034	&	0.670	&	0.786	\\
+	&	User Base Size	&	-2.62	&	0.542	&	-3.528	&	-1.737	\\
+	&	Mean of Rating	&	0.44	&	0.126	&	0.240	&	0.650	\\
+	&	Mean of Rating Square	&	-0.10	&	0.030	&	-0.149	&	-0.051	\\
+	&	Version	&	-0.08	&	0.158	&	-0.334	&	0.193	\\
+	&	Short term Econ. Shock	&	0.02	&	0.002	&	0.013	&	0.021	\\
+	&	V	&	0.05	&	0.017	&	0.027	&	0.084	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.213	&	-38.459	\\
+	&	W	&	0.18	&	0.025	&	0.137	&	0.222	\\
+	&	Carry Over	&	0.98	&	0.005	&	0.977	&	0.992	\\
+		\end{tabular}
+	\caption{Parameter Estimate Supplementary Products Cont.}
+	\label{tab:ParameterEstimateSupplementaryProducts}
+\end{table}
+
+\begin{table}
+	\centering
+		\begin{tabular}{llcccc}\hline \hline
+Supplementary Product	&		&	Estimate	&	SD	&	2.5th 
+Percentile	&	97.5th 
+Percentile	\\ \hline
+FEBE	&	User Base Size	&	-0.25	&	0.130	&	-0.463	&	-0.045	\\
+	&	Mean of Rating	&	0.81	&	0.358	&	0.241	&	1.394	\\
+	&	Mean of Rating Square	&	-0.19	&	0.084	&	-0.329	&	-0.058	\\
+	&	Version	&	-0.09	&	0.094	&	-0.249	&	0.059	\\
+	&	Short term Econ. Shock	&	0.00	&	0.001	&	0.001	&	0.004	\\
+	&	V	&	0.09	&	0.007	&	0.080	&	0.102	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.224	&	-38.459	\\
+	&	W	&	0.08	&	0.007	&	0.066	&	0.090	\\
+The Camelizer	&	Carry Over	&	0.56	&	0.172	&	0.052	&	0.658	\\
+	&	User Base Size	&	-4.02	&	1.360	&	-6.638	&	-2.069	\\
+	&	Mean of Rating	&	0.05	&	0.022	&	0.014	&	0.086	\\
+	&	Mean of Rating Square	&	0.00	&	0.004	&	-0.010	&	0.002	\\
+	&	Version	&	0.01	&	0.029	&	-0.036	&	0.059	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	-0.001	&	0.000	\\
+	&	V	&	0.00	&	0.000	&	0.001	&	0.003	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.227	&	-38.459	\\
+	&	W	&	0.00	&	0.001	&	0.004	&	0.007	\\
+ChatZilla 	&	Carry Over	&	0.96	&	0.006	&	0.947	&	0.966	\\
+	&	User Base Size	&	-0.13	&	0.135	&	-0.347	&	0.091	\\
+	&	Mean of Rating	&	-0.09	&	0.089	&	-0.234	&	0.057	\\
+	&	Mean of Rating Square	&	0.02	&	0.020	&	-0.011	&	0.055	\\
+	&	Version	&	-0.04	&	0.065	&	-0.151	&	0.060	\\
+	&	Short term Econ. Shock	&	0.00	&	0.001	&	0.002	&	0.004	\\
+	&	V	&	0.02	&	0.002	&	0.022	&	0.027	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.217	&	-38.462	\\
+	&	W	&	0.02	&	0.002	&	0.015	&	0.021	\\
+Thumbnail	&	Carry Over	&	0.95	&	0.015	&	0.922	&	0.974	\\
+ Zoom Plus	&	User Base Size	&	0.30	&	0.304	&	-0.190	&	0.832	\\
+	&	Mean of Rating	&	0.05	&	0.064	&	-0.055	&	0.156	\\
+	&	Mean of Rating Square	&	-0.01	&	0.013	&	-0.027	&	0.015	\\
+	&	Version	&	0.04	&	0.028	&	-0.011	&	0.082	\\
+	&	Short term Econ. Shock	&	0.00	&	0.002	&	-0.004	&	0.001	\\
+	&	V	&	0.01	&	0.002	&	0.009	&	0.016	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.210	&	-38.469	\\
+	&	W	&	0.02	&	0.003	&	0.012	&	0.020	\\
+ProCon Latte	&	Carry Over	&	0.96	&	0.008	&	0.950	&	0.975	\\
+ Content Filter	&	User Base Size	&	-0.22	&	0.097	&	-0.379	&	-0.060	\\
+	&	Mean of Rating	&	0.12	&	0.037	&	0.058	&	0.181	\\
+	&	Mean of Rating Square	&	-0.03	&	0.008	&	-0.039	&	-0.012	\\
+	&	Version	&	0.06	&	0.032	&	0.008	&	0.111	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	0.000	&	0.000	\\
+	&	V	&	0.00	&	0.000	&	0.002	&	0.003	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.209	&	-38.472	\\
+	&	W	&	0.00	&	0.000	&	0.002	&	0.002	\\
+ New Tab	&	Carry Over	&	0.95	&	0.009	&	0.939	&	0.967	\\
+ Homepage	&	User Base Size	&	0.09	&	0.079	&	-0.033	&	0.226	\\
+	&	Mean of Rating	&	0.07	&	0.032	&	0.017	&	0.125	\\
+	&	Mean of Rating Square	&	-0.01	&	0.007	&	-0.027	&	-0.003	\\
+	&	Version	&	0.10	&	0.056	&	0.012	&	0.195	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	0.000	&	0.001	\\
+	&	V	&	0.00	&	0.000	&	0.002	&	0.003	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.209	&	-38.473	\\
+	&	W	&	0.01	&	0.000	&	0.005	&	0.007	\\
+		\end{tabular}
+	\caption{Parameter Estimate Supplementary Products Cont.}
+	\label{tab:ParameterEstimateSupplementaryProducts}
+\end{table}
+
+\begin{table}
+	\centering
+		\begin{tabular}{llcccc}\hline \hline
+Supplementary Product	&		&	Estimate	&	SD	&	2.5th 
+Percentile	&	97.5th 
+Percentile	\\ \hline
+Screengrab	&	Carry Over	&	0.90	&	0.018	&	0.874	&	0.932	\\
+	&	User Base Size	&	0.37	&	0.223	&	-0.001	&	0.733	\\
+	&	Mean of Rating	&	-0.19	&	0.059	&	-0.286	&	-0.094	\\
+	&	Mean of Rating Square	&	0.04	&	0.013	&	0.016	&	0.058	\\
+	&	Version	&	0.08	&	0.032	&	0.029	&	0.135	\\
+	&	Short term Econ. Shock	&	0.00	&	0.001	&	0.003	&	0.005	\\
+	&	V	&	0.00	&	0.001	&	0.003	&	0.004	\\
+	&	Weekend Dummy	&	-39.33	&	0.549	&	-40.207	&	-38.466	\\
+	&	W	&	0.01	&	0.001	&	0.010	&	0.014	\\
+Greasemonkey	&	Carry Over	&	0.88	&	0.013	&	0.860	&	0.900	\\
+	&	User Base Size	&	-0.02	&	0.270	&	-0.461	&	0.435	\\
+	&	Mean of Rating	&	1.96	&	3.237	&	-3.429	&	6.985	\\
+	&	Mean of Rating Square	&	-0.38	&	0.744	&	-1.549	&	0.848	\\
+	&	Version	&	0.31	&	0.724	&	-0.879	&	1.521	\\
+	&	Short term Econ. Shock	&	0.05	&	0.009	&	0.034	&	0.063	\\
+	&	V	&	0.98	&	0.337	&	0.472	&	1.571	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.255	&	-38.453	\\
+	&	W	&	25.02	&	1.078	&	23.297	&	26.769	\\
+Flashblock	&	Carry Over	&	0.89	&	0.011	&	0.868	&	0.907	\\
+	&	User Base Size	&	-0.10	&	0.054	&	-0.193	&	-0.018	\\
+	&	Mean of Rating	&	-0.56	&	0.593	&	-1.581	&	0.421	\\
+	&	Mean of Rating Square	&	0.16	&	0.135	&	-0.062	&	0.392	\\
+	&	Version	&	0.28	&	0.120	&	0.080	&	0.471	\\
+	&	Short term Econ. Shock	&	0.00	&	0.002	&	0.001	&	0.008	\\
+	&	V	&	0.04	&	0.006	&	0.029	&	0.049	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.260	&	-38.459	\\
+	&	W	&	0.16	&	0.011	&	0.141	&	0.179	\\
+Session Manager	&	Carry Over	&	0.98	&	0.006	&	0.967	&	0.987	\\
+	&	User Base Size	&	-0.22	&	0.089	&	-0.374	&	-0.074	\\
+	&	Mean of Rating	&	-0.06	&	0.078	&	-0.190	&	0.061	\\
+	&	Mean of Rating Square	&	0.02	&	0.019	&	-0.012	&	0.048	\\
+	&	Version	&	0.01	&	0.012	&	-0.007	&	0.033	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	0.000	&	0.001	\\
+	&	V	&	0.01	&	0.001	&	0.009	&	0.011	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.262	&	-38.459	\\
+	&	W	&	0.01	&	0.001	&	0.006	&	0.008	\\
+PDF Viewer	&	Carry Over	&	0.97	&	0.011	&	0.956	&	0.993	\\
+	&	User Base Size	&	-0.35	&	0.251	&	-0.744	&	0.071	\\
+	&	Mean of Rating	&	0.17	&	0.072	&	0.047	&	0.284	\\
+	&	Mean of Rating Square	&	-0.04	&	0.013	&	-0.057	&	-0.012	\\
+	&	Version	&	0.21	&	0.072	&	0.089	&	0.322	\\
+	&	Short term Econ. Shock	&	0.00	&	0.003	&	-0.006	&	0.005	\\
+	&	V	&	0.01	&	0.001	&	0.004	&	0.008	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.264	&	-38.458	\\
+	&	W	&	0.05	&	0.004	&	0.048	&	0.061	\\
+Add-on	&	Carry Over	&	0.94	&	0.010	&	0.926	&	0.957	\\
+ Compatibility 	&	User Base Size	&	0.49	&	0.207	&	0.158	&	0.830	\\
+ Reporter	&	Mean of Rating	&	-0.01	&	0.090	&	-0.166	&	0.130	\\
+	&	Mean of Rating Square	&	-0.02	&	0.022	&	-0.054	&	0.019	\\
+	&	Version	&	0.19	&	0.120	&	-0.010	&	0.393	\\
+	&	Short term Econ. Shock	&	0.01	&	0.003	&	0.005	&	0.016	\\
+	&	V	&	0.01	&	0.005	&	0.006	&	0.022	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.257	&	-38.454	\\
+	&	W	&	0.39	&	0.017	&	0.364	&	0.420	\\
+		\end{tabular}
+	\caption{Parameter Estimate Supplementary Products Cont.}
+	\label{tab:ParameterEstimateSupplementaryProducts}
+\end{table}
+
+\begin{table}
+	\centering
+		\begin{tabular}{llcccc}\hline \hline
+Supplementary Product	&		&	Estimate	&	SD	&	2.5th 
+Percentile	&	97.5th 
+Percentile	\\ \hline
+Secure Login	&	Carry Over	&	0.98	&	0.005	&	0.973	&	0.989	\\
+	&	User Base Size	&	-0.11	&	0.091	&	-0.255	&	0.040	\\
+	&	Mean of Rating	&	0.06	&	0.040	&	-0.006	&	0.126	\\
+	&	Mean of Rating Square	&	-0.01	&	0.010	&	-0.030	&	0.002	\\
+	&	Version	&	0.03	&	0.028	&	-0.012	&	0.075	\\
+	&	Short term Econ. Shock	&	0.00	&	0.000	&	0.000	&	0.001	\\
+	&	V	&	0.00	&	0.000	&	0.004	&	0.004	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.258	&	-38.454	\\
+	&	W	&	0.00	&	0.000	&	0.002	&	0.003	\\
+Nightly 	&	Carry Over	&	0.81	&	0.015	&	0.784	&	0.833	\\
+Tester Tools	&	User Base Size	&	-0.82	&	0.622	&	-1.877	&	0.160	\\
+	&	Mean of Rating	&	0.12	&	0.071	&	0.005	&	0.239	\\
+	&	Mean of Rating Square	&	-0.04	&	0.017	&	-0.069	&	-0.011	\\
+	&	Version	&	0.29	&	0.077	&	0.163	&	0.419	\\
+	&	Short term Econ. Shock	&	0.01	&	0.001	&	0.008	&	0.013	\\
+	&	V	&	0.01	&	0.002	&	0.005	&	0.011	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.265	&	-38.455	\\
+	&	W	&	0.10	&	0.004	&	0.090	&	0.104	\\
+Translate	&	Carry Over	&	0.98	&	0.006	&	0.970	&	0.991	\\
+ This!	&	User Base Size	&	-2.57	&	0.516	&	-3.417	&	-1.730	\\
+	&	Mean of Rating	&	0.20	&	0.040	&	0.132	&	0.268	\\
+	&	Mean of Rating Square	&	-0.04	&	0.008	&	-0.050	&	-0.024	\\
+	&	Version	&	0.11	&	0.037	&	0.044	&	0.167	\\
+	&	Short term Econ. Shock	&	0.00	&	0.001	&	-0.003	&	0.000	\\
+	&	V	&	0.00	&	0.000	&	0.002	&	0.003	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.261	&	-38.455	\\
+	&	W	&	0.01	&	0.001	&	0.007	&	0.009	\\
+Quick Maps	&	Carry Over	&	0.95	&	0.014	&	0.928	&	0.975	\\
+	&	User Base Size	&	-2.46	&	1.252	&	-4.535	&	-0.352	\\
+	&	Mean of Rating	&	0.20	&	0.118	&	0.004	&	0.391	\\
+	&	Mean of Rating Square	&	-0.04	&	0.022	&	-0.072	&	0.003	\\
+	&	Version	&	0.02	&	0.194	&	-0.315	&	0.334	\\
+	&	Short term Econ. Shock	&	0.00	&	0.002	&	-0.002	&	0.004	\\
+	&	V	&	0.02	&	0.004	&	0.008	&	0.022	\\
+	&	Weekend Dummy	&	-39.33	&	0.548	&	-40.264	&	-38.459	\\
+	&	W	&	0.09	&	0.009	&	0.074	&	0.103	\\ \hline
+		\end{tabular}
+	\caption{Parameter Estimate Supplementary Products Cont.}
+	\label{tab:ParameterEstimateSupplementaryProducts}
+\end{table}
+
+% Acknowledgments here
+%\ACKNOWLEDGMENT{%
+% Enter the text of acknowledgments here
+%}% Leave this (end of acknowledgment)
+
+
+% Appendix here
+% Options are (1) APPENDIX (with or without general title) or 
+%             (2) APPENDICES (if it has more than one unrelated sections)
+% Outcomment the appropriate case if necessary
+%
+% \begin{APPENDIX}{<Title of the Appendix>}
+% \end{APPENDIX}
+%
+%   or 
+%
+% \begin{APPENDICES}
+% \section{<Title of Section A>}
+% \section{<Title of Section B>}
+% etc
+% \end{APPENDICES}
+
+% References here (outcomment the appropriate case) 
+
+% CASE 1: BiBTeX used to constantly update the references 
+%   (while the paper is being written).
+\bibliographystyle{ormsv080} % outcomment this and next line in Case 1
+\bibliography{FirefoxReview12162012} % if more than one, comma separated
+
+% CASE 2: BiBTeX used to generate mypaper.bbl (to be further fine tuned)
+%\input{mypaper.bbl} % outcomment this line in Case 2
+
+
+\end{document}
+
+

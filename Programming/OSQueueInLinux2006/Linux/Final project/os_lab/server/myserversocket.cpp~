@@ -1,0 +1,20 @@
+#include "myserversocket.h"
+#include "serverform.h"
+#include <qtextedit.h>
+#include <qgroupbox.h>
+
+
+MyServerSocket::MyServerSocket(ServerForm * _serverForm):QServerSocket(1025)
+{
+	this->serverForm= _serverForm;
+	clientHost = new QSocket;
+}
+	
+void MyServerSocket::newConnection ( int socket )
+{
+	serverForm->logEdit->append("<font color=#00ff66> A new connection accepted ... </font>");	
+	serverForm->groupBox1->setEnabled(true);
+	
+	clientHost->setSocket(socket);
+	connect(clientHost , SIGNAL(readyBytes()) , serverForm ,SLOT(socket_readyBytes));
+}

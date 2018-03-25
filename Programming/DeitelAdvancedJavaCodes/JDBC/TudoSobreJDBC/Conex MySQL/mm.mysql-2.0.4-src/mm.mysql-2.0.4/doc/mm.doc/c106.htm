@@ -1,0 +1,410 @@
+<HTML
+><HEAD
+><TITLE
+>Programming Information</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.33"><LINK
+REL="HOME"
+TITLE="Documentation for MM.MySQL"
+HREF="book1.htm"><LINK
+REL="PREVIOUS"
+TITLE="Installing MM.MySQL"
+HREF="x68.htm"><LINK
+REL="NEXT"
+TITLE="Working with Statements and PreparedStatements"
+HREF="x175.htm"></HEAD
+><BODY
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Documentation for MM.MySQL</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x68.htm"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x175.htm"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="AEN106"
+>Chapter 3. Programming Information</A
+></H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>Table of Contents</B
+></DT
+><DT
+><A
+HREF="c106.htm#AEN118"
+>Establishing a Connection</A
+></DT
+><DT
+><A
+HREF="x175.htm"
+>Working with Statements and PreparedStatements</A
+></DT
+><DT
+><A
+HREF="x199.htm"
+>Using MySQL specific functionality</A
+></DT
+></DL
+></DIV
+><P
+>This chapter contains information about using MM.MySQL in your software. It is assumed that the driver has been installed as outlined earlier, and that you understand how to use Java development tools as well as the JDBC API.</P
+><P
+>This chapter will not cover the JDBC API in detail. It stands to illustrate how you might use some of the simpler concepts in JDBC, along with the 
+information you need to know to use JDBC with MySQL.</P
+><P
+>To learn more about Java or the JDBC API in detail, please consult the following resources:</P
+><P
+></P
+><UL
+><LI
+><P
+><A
+HREF="http://www.javasoft.com/products/jdbc/"
+TARGET="_top"
+>The JDBC Homepage (at JavaSoft)</A
+></P
+></LI
+><LI
+><P
+><A
+HREF="http://www.javasoft.com/docs/books/tutorial/jdbc/index.html"
+TARGET="_top"
+>The JDBC Tutorial (at JavaSoft)</A
+></P
+></LI
+></UL
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN118"
+>Establishing a Connection</A
+></H1
+><P
+>       The first thing that needs to be done in order to work with JDBC is to obtain a Connection object that represents the network connection to the database that contains the information you want to work with.
+       </P
+><P
+>       With JDBC, the DriverManager manages the establishment of Connections. The DriverManager needs to be told which JDBC drivers it should try to make Connections with. The easiest way to do this is to use Class.forName() on the Class that implements the java.sql.Driver interface. With MM.MySQL, the name of this Class is org.gjt.mm.mysql.Driver.
+       </P
+><DIV
+CLASS="EXAMPLE"
+><P
+><B
+>Example 3-1. Registering the Driver with the DriverManager</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>         import java.sql.*;
+
+         // Notice, do not import org.gjt.mm.mysql.*
+         // or you will have problems!
+
+         public class LoadDriver
+         {
+             public static void main(String[] Args) 
+             {
+                try {
+
+                    // The newInstance() call is a work around for some
+                    // broken Java implementations
+
+                    Class.forName("org.gjt.mm.mysql.Driver").newInstance(); 
+
+                }
+                catch (Exception E) {
+                    System.err.println("Unable to load driver.");
+                    E.printStackTrace();
+                }
+
+                .....
+         </PRE
+></DIV
+><P
+>       Once the driver is registered, a Connection can be established. Obtaining a Connection requires a URL for the database. This URL is constructed using the following syntax, where items contained in sqaure brackets are optional:
+       </P
+><DIV
+CLASS="INFORMALEXAMPLE"
+><P
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>             jdbc:mysql://[hostname][:port]/dbname[?param1=value1][&amp;param2=value2]...
+         </PRE
+><P
+></P
+></DIV
+><P
+>       The following parameters can be specified after the "?" in the URL:
+       </P
+><DIV
+CLASS="TABLE"
+><P
+><B
+>Table 3-1. URL Parameters</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><TR
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>Name</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>Use</TH
+><TH
+ALIGN="LEFT"
+VALIGN="TOP"
+>Default Value</TH
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>user</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>The user to connect as</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>none</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>password</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>The password to use when connecting</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>none</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>autoReconnect</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>should the driver attempt to re-connect if the
+                        connection dies? (true/false)</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>false</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>maxReconnects</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>if autoReconnect is enabled, how many times
+                        should the driver attemt to reconnect?</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>3</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>initialTimeout</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>if autoReconnect is enabled, the initial time to wait between re-connects (seconds)</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>2</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>maxRows</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>The maximum number of rows to return (0 means return all rows)</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>0</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>useUnicode</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>should the driver use Unicode character encodings when handling strings? (true/false)</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>false</TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>characterEncoding</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>if useUnicode is true, what character encoding should the driver use when dealing with strings?</TD
+><TD
+ALIGN="LEFT"
+VALIGN="TOP"
+>none</TD
+></TR
+></TABLE
+></DIV
+><P
+>       Once the URL has been specified, it is passed to the DriverManager.getConnection() method to obtain a Connection Object:
+       </P
+><DIV
+CLASS="EXAMPLE"
+><P
+><B
+>Example 3-2. Obtaining a Connection from the DriverManager</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>            ...
+
+            try {
+                Connection C = DriverManager.getConnection(
+                  "jdbc:mysql://localhost/test?user=monty&amp;password=greatsqldb");
+                
+                // Do something with the Connection
+                
+                ....
+            }
+            catch (SQLException E) {
+              System.out.println("SQLException: " + E.getMessage());
+              System.out.println("SQLState:     " + E.getSQLState());
+              System.out.println("VendorError:  " + E.getErrorCode());
+            }
+          </PRE
+></DIV
+><P
+>       Once a Connection is established, it can be used to create Statements and PreparedStatements, as well as retrieve metadata about the database. These functions are explained in the next section.
+       </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x68.htm"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.htm"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x175.htm"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Installing MM.MySQL</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Working with Statements and PreparedStatements</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

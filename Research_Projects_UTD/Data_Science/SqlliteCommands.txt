@@ -1,0 +1,23 @@
+.open ./contentDiscovery.db
+select * from topics limit 10; #topic_id, name: Advertising, Auditing, Banks, ...
+select count(*) from topics; # 106
+select * from users limit 10;  # user_id, Email
+select count(*) from users; #20,000
+select * from types limit 10; #names of article type (type_id, name): topic names: code clip, chat, chart...
+select count(*) from types; #49
+pragma table_info(articles); # take the schema of the table
+select * from articles limit 10; #article_id, author_id, topic_id, type_id,  submission_time
+select count(*) from articles; #17,029
+select * from email_content limit 10; #content_id, email_id, user_id, article_id, send_time
+select count(*) from email_content; #1,0738,006
+
+# save to csv
+sqlite3 -header -csv contentDiscovery.db "select * from topics;" > topics.csv
+sqlite3 -header -csv contentDiscovery.db "select * from users;" > users.csv
+sqlite3 -header -csv contentDiscovery.db "select * from types;" > types.csv
+sqlite3 -header -csv contentDiscovery.db "select * from articles;" > articles.csv
+sqlite3 -header -csv contentDiscovery.db "select * from email_content;" > email_content.csv
+
+
+#number of responses in the log (access.log) file is: 1,770,781
+#time, article_id, user_id, status code = 200

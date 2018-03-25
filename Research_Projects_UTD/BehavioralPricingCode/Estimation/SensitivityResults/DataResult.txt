@@ -1,0 +1,401 @@
+BLP with No Regret,
+===================================================
+
+winner point based on Genetic Aglrithm
+---------------------------------------------------------------------------------------
+%found x:    [-9.5510   -0.3547]
+% fval: 660.1670
+%simple running likelihood gives: -288.2767 [still winner]
+
+Optimum point for GA is: -5.7020    0.3109   -2.5070    2.2127
+GA Likelihood of optimum is: 623.9690
+
+Starting point: Genetic Algorithm optimum: winner result
+-----------------------------------------------------------------------------------------
+estimation time is:
+Elapsed time is 2.404624 seconds.
+Result of simple regression for alpha, c, bp is (for the first segment):
+    0.0193    0.0159    0.3641
+
+Result of simple regression for alpha, c, bp is (for the second segment):
+    0.0193    0.0159    0.3641
+
+t-stat are:
+    3.7910    1.5984  190.0144
+
+parm estimates for heterogeneity (pi,bp) are:
+    0.0001   -0.3691
+
+t-stat for the heterogeneity parameter is:
+   1.0e+04 *
+
+   0.0000 + 0.0000i   0.0000 - 1.1725i
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6561    1.3183    1.3262
+
+Good result since one segment price sensitive and one segment not.
+
+Starting value: [0.1 0.1]
+----------------------------------------------------------------------------------
+estimation time is:
+Elapsed time is 3.164431 seconds.
+Result of simple regression for alpha, c, bp is (for the first segment):
+    0.0192    0.0159   -0.0051
+
+Result of simple regression for alpha, c, bp is (for the second segment):
+    0.0192    0.0159   -0.0051
+
+t-stat are:
+    3.7912    1.5999   -2.6415
+
+parm estimates for heterogeneity (pi,bp) are:
+    0.5264   -0.0000
+
+t-stat for the heterogeneity parameter is:
+   1.0e-03 *
+
+    0.7739   -0.1177
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6710    1.3479    1.3559
+
+Heterogeneity not significant. Price and ownership utility significant. Good result.
+
+Starting Value: [0 0]
+-----------------------------------------
+estimation time is:
+Elapsed time is 1.616026 seconds.
+Result of simple regression for alpha, c, bp is (for the first segment):
+    0.0192    0.0159   -0.0051
+
+Result of simple regression for alpha, c, bp is (for the second segment):
+    0.0192    0.0159   -0.0051
+
+t-stat are:
+    3.7912    1.5999   -2.6382
+
+Warning: Matrix is singular to working precision. 
+parm estimates for heterogeneity (pi,bp) are:
+    0.5000   -0.0000
+
+t-stat for the heterogeneity parameter is:
+   NaN   NaN
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6710    1.3479    1.3559
+
+Starting value: 0.5 0.5
+-------------------------------------
+estimation time is:
+Elapsed time is 8.435228 seconds.
+Result of simple regression for alpha, c, bp is (for the first segment):
+    0.0192    0.0159   -0.0051
+
+Result of simple regression for alpha, c, bp is (for the second segment):
+    0.0192    0.0159   -0.0051
+
+t-stat are:
+    3.7912    1.5999   -2.6542
+
+parm estimates for heterogeneity (pi,bp) are:
+    0.6251   -0.0000
+
+t-stat for the heterogeneity parameter is:
+   0.0000 + 0.0067i     -Inf + 0.0000i
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6710    1.3479    1.3559
+
+Starting value: [1 1]
+---------------------------------------------------------------------------------
+estimation time is:
+Elapsed time is 8.424409 seconds.
+Result of simple regression for alpha, c, bp is (for the first segment):
+    0.0193    0.0159   -0.0052
+
+Result of simple regression for alpha, c, bp is (for the second segment):
+    0.0193    0.0159   -0.0052
+
+t-stat are:
+    3.7916    1.5999   -2.7020
+
+Warning: Matrix is singular to working precision. 
+parm estimates for heterogeneity (pi,bp) are:
+    1.0000   -6.0764
+
+t-stat for the heterogeneity parameter is:
+     0     0
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6710    1.3479    1.3559
+
+Starting value: [-1 -1]
+---------------------------------------------------------------------------------
+estimation time is:
+Elapsed time is 6.733330 seconds.
+Result of simple regression for alpha, c, bp is (for the first segment):
+    0.0192    0.0159   -0.0050
+
+Result of simple regression for alpha, c, bp is (for the second segment):
+    0.0192    0.0159   -0.0050
+
+t-stat are:
+    3.7912    1.5999   -2.6160
+
+parm estimates for heterogeneity (pi,bp) are:
+    0.3267   -0.0000
+
+t-stat for the heterogeneity parameter is:
+   0.0000 + 0.0048i  -0.0018 + 0.0000i
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6710    1.3479    1.3559
+
+BLP with Regret,
+===================================================
+
+Starting value: [0.1 0.1 0.1 0.1]: winner result
+----------------------------------------------------------------------------------
+
+estimation time is:
+Elapsed time is 4.696102 seconds.
+Result of simple regression for alpha, c, bp, alphap, betar is (for the first segment):
+   -0.0012    0.0184   -0.0008   -0.0091   -0.6853
+
+Result of simple regression for alpha, c, bp, alphap, betar is (for the second segment):
+   -0.0012    0.0184   -0.0008   -0.0091   -0.6853
+
+t-stat are:
+   -0.2710    2.2407   -0.4661   -2.0181   -2.7569
+
+parm estimates for heterogeneity (pi,bp,alphap,betar) are:
+    0.4513    0.0095   -0.0305    6.6658
+
+t-stat for the heterogeneity parameter is:
+   1.0e+03 *
+
+   0.0171 + 0.0000i   0.0000 + 0.2600i  -1.1902 + 0.0000i   0.0007 + 0.0000i
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6192    1.2484    1.2617
+
+The only problem of this result is negative ownership utility and insignificance of price (but insignificance of price is not a big problem)
+
+
+Starting Value: [0 0 0 0]: Not winer
+-----------------------------------------
+estimation time is:
+Elapsed time is 1.672101 seconds.
+Result of simple regression for alpha, c, bp, alphap, betar is (for the first segment):
+   -0.0008    0.0134    0.0037   -0.0235    3.4063
+
+Result of simple regression for alpha, c, bp, alphap, betar is (for the second segment):
+   -0.0008    0.0134    0.0037   -0.0235    3.4063
+
+t-stat are:
+   -0.1748    1.6183    2.0678   -5.1951    2.1578
+
+parm estimates for heterogeneity (pi,bp,alphap,betar) are:
+    0.5000    0.0000   -0.0000    0.0001
+
+t-stat for the heterogeneity parameter is:
+   0.0014 + 0.0000i   0.0000 + 0.0004i  -0.0004 + 0.0000i   0.0001 + 0.0000i
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6282    1.2663    1.2796
+
+Starting value: [0.5 0.5 0.5 0.5]: Not winner but good result
+-------------------------------------
+
+estimation time is:
+Elapsed time is 14.997179 seconds.
+Result of simple regression for alpha, c, bp, alphap, betar is (for the first segment):
+   -0.0011    0.0162   -0.0011   -0.0093   -0.7003
+
+Result of simple regression for alpha, c, bp, alphap, betar is (for the second segment):
+   -0.0011    0.0162   -0.0011   -0.0093   -0.7003
+
+t-stat are:
+   -0.2415    1.9692   -0.6029   -2.0668   -2.4576
+
+parm estimates for heterogeneity (pi,bp,alphap,betar) are:
+    0.3117    0.0074   -0.0220    5.5317
+
+t-stat for the heterogeneity parameter is:
+   8.5258 + 0.0000i   6.0448 + 0.0000i -17.9256 + 0.0000i   0.0000 - 1.2853i
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6235    1.2571    1.2703
+
+Starting value: [1 1 1 1]: Not winner and Bad Result
+---------------------------------------------------------------------------------
+estimation time is:
+Elapsed time is 19.633525 seconds.
+Result of simple regression for alpha, c, bp, alphap, betar is (for the first segment):
+   -0.0008    0.0134    0.0037   -0.0235    3.4154
+
+Result of simple regression for alpha, c, bp, alphap, betar is (for the second segment):
+   -0.0008    0.0134    0.0037   -0.0235    3.4154
+
+t-stat are:
+   -0.1748    1.6183    2.0681   -5.1958    2.1586
+
+Warning: Matrix is singular to working precision. 
+parm estimates for heterogeneity (pi,bp,alphap,betar) are:
+    1.0000   -6.4560    0.1302 -385.7779
+
+t-stat for the heterogeneity parameter is:
+     0     0     0     0
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6282    1.2663    1.2796
+
+Starting value: [-1 -1 -1 -1]
+---------------------------------------------------------------------------------
+estimation time is:
+Elapsed time is 12.220000 seconds.
+Result of simple regression for alpha, c, bp, alphap, betar is (for the first segment):
+   -0.0015    0.0182    0.0069   -0.0343    4.6368
+
+Result of simple regression for alpha, c, bp, alphap, betar is (for the second segment):
+   -0.0015    0.0182    0.0069   -0.0343    4.6368
+
+t-stat are:
+   -0.3205    2.2258    3.8797   -7.6681    3.0680
+
+parm estimates for heterogeneity (pi,bp,alphap,betar) are:
+    0.7943   -0.0121    0.0423   -8.4515
+
+t-stat for the heterogeneity parameter is:
+    1.1853   -3.2138    1.2955   -4.6836
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+
+Starting value: [-1 -1 -1 -1]: Looser and not good
+---------------------------------------------------------------------------------
+
+estimation time is:
+Elapsed time is 38.433240 seconds.
+Result of simple regression for alpha, c, bp, alphap, betar is (for the first segment):
+   -0.0008    0.0134    0.0037   -0.0235    3.4154
+
+Result of simple regression for alpha, c, bp, alphap, betar is (for the second segment):
+   -0.0008    0.0134    0.0037   -0.0235    3.4154
+
+t-stat are:
+   -0.1748    1.6183    2.0681   -5.1958    2.1586
+
+Warning: Matrix is singular, close to singular or badly scaled. Results may be inaccurate.
+RCOND = NaN. 
+parm estimates for heterogeneity (pi,bp,alphap,betar) are:
+    1.0000   -2.8227   20.0429 -951.9112
+
+t-stat for the heterogeneity parameter is:
+   NaN   NaN   NaN   NaN
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6282    1.2663    1.2796
+   -0.6211    1.2523    1.2655
+
+
+Starting value: [-0.5 -0.1 -0.5 -0.5]
+-------------------------------------------------------------------------------------------------------------
+
+estimation time is:
+Elapsed time is 442.363319 seconds.
+Result of simple regression for alpha, c, bp, alphap, betar is (for the first segment):
+   -0.0017    0.0186    0.0071   -0.0361    4.5261
+
+Result of simple regression for alpha, c, bp, alphap, betar is (for the second segment):
+   -0.0017    0.0186    0.0071   -0.0361    4.5261
+
+t-stat are:
+   -0.3712    2.2744    3.9948   -8.0527    3.1281
+
+parm estimates for heterogeneity (pi,bp,alphap,betar) are:
+    0.8312   -0.0148    0.0566  -10.1977
+
+t-stat for the heterogeneity parameter is:
+   1.9156 + 0.0000i  -7.1503 + 0.0000i   3.6627 + 0.0000i   0.0000 + 0.8267i
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6248    1.2596    1.2729
+
+
+winner point based on Genetic Aglrithm
+---------------------------------------------------------------------------------------
+Optimum point for GA is: -5.7020    0.3109   -2.5070    2.2127
+GA Likelihood of optimum is: 623.9690
+% -628.8683
+
+
+Gradient based method starting from Genetic Algorithm winds up into a wrong point:
+---------------------------------------------------------------------------------------------------------
+Elapsed time is 8.976121 seconds.
+Result of simple regression for alpha, c, bp, alphap, betar is (for the first segment):
+   -0.0010    0.0133   -0.3110    2.4818 -163.2431
+
+Result of simple regression for alpha, c, bp, alphap, betar is (for the second segment):
+   -0.0010    0.0133   -0.3110    2.4818 -163.2431
+
+t-stat are:
+   -0.2098    1.5987 -172.7205  546.5732   -2.3992
+
+parm estimates for heterogeneity (pi,bp,alphap,betar) are:
+    0.0033    0.3149   -2.5065  166.7000
+
+t-stat for the heterogeneity parameter is:
+   1.0e+06 *
+
+   0.0000 + 0.0000i   0.0000 + 0.0060i   0.0000 - 7.8223i   0.0000 - 0.0000i
+
+Log Likelihood, AIC, BIC is:
+   1.0e+03 *
+
+   -0.6238    1.2577    1.2710
+
+
+Compare Likelihood, AIC, and BIC (Log Likelihood, AIC, BIC is:)
+===============================================
+Homogeneous No Regret:
+   1.0e+03 *
+   -0.6747    1.3554    1.3633
+
+Heterogeneous No Regret:
+   1.0e+03 *
+   -0.6710    1.3479    1.3559
+
+Homogeneous with Regret:
+   1.0e+03 *
+   -0.6319    1.2738    1.2871
+
+Heterogeneous with Regret:
+   1.0e+03 *
+   -0.6192    1.2484    1.2617

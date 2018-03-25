@@ -1,0 +1,222 @@
+<HTML
+><HEAD
+><TITLE
+>Working with Statements and PreparedStatements</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.33"><LINK
+REL="HOME"
+TITLE="Documentation for MM.MySQL"
+HREF="book1.htm"><LINK
+REL="UP"
+TITLE="Programming Information"
+HREF="c106.htm"><LINK
+REL="PREVIOUS"
+TITLE="Programming Information"
+HREF="c106.htm"><LINK
+REL="NEXT"
+TITLE="Using MySQL specific functionality"
+HREF="x199.htm"></HEAD
+><BODY
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Documentation for MM.MySQL</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="c106.htm"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 3. Programming Information</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="x199.htm"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN175"
+>Working with Statements and PreparedStatements</A
+></H1
+><P
+>       Statements and PreparedStatements are the classes that facilitate the manipulation of data in the JDBC API.
+       </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN178"
+>Working with Statements</A
+></H2
+><P
+>Statements allow you to execute basic SQL queries and retrieve the results through the ResultSet class which is described later.</P
+><P
+>To get a Statement object, you call the createStatement() method on the Connection object you have retrieved via the DriverManager.getConnection() method.</P
+><P
+>Once you have a Statement object, you can execute a SELECT query by calling the executeQuery(String SQL) method with the SQL you want to use.</P
+><P
+>To update data in the database use the executeUpdate(String SQL) method. This method returns the number of rows affected by the update statement.</P
+><P
+>If you don't know ahead of time whether the SQL statement will be a SELECT or an UPDATE/INSERT, then you can use the execute(String SQL) method. This method will return -1 if the SQL statement was a SELECT, or the number of rows affected by the UPDATE/INSERT statement. If the statement was a SELECT statement, you can retrieve the results via the getResultSet() method.</P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN185"
+>Working with ResultSets</A
+></H2
+><P
+>ResultSets represent the rows returned as an answer to a query. Once you have a ResultSet, you can get values for any field on the row, or move to the next row in the set.</P
+><P
+>ResultSets are always positioned before the first row (if it exists), so you need to call ResultSet.next() and check if it returns true (you are on the next row), or false (there are no more rows left).</P
+><DIV
+CLASS="EXAMPLE"
+><P
+><B
+>Example 3-3. Using Statements and ResultSets</B
+></P
+><PRE
+CLASS="PROGRAMLISTING"
+>          ...
+
+          try {
+          	// Use some connection we've already created
+
+                Statement Stmt = Conn.createStatement();
+
+                ResultSet RS = Stmt.executeQuery("SELECT field1 from Some_Table");
+
+		while (RS.next()) {
+			System.out.println(RS.getString(1));
+		}
+
+		// Clean up after ourselves
+                RS.close();
+                Stmt.close();
+                Conn.close();
+	   }
+	   catch (SQLException E) {
+        	System.out.println("SQLException: " + E.getMessage());
+                System.out.println("SQLState:     " + E.getSQLState());
+                System.out.println("VendorError:  " + E.getErrorCode());
+           }
+
+           ...
+        </PRE
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN192"
+>Working with PreparedStatements</A
+></H2
+><P
+>PreparedStatement inherits from Statement, but differs in the fact that the SQL you want to work with is specified only once, in the Connection.prepareStatement() method. When you create the PreparedStatement, you use question-marks ("?") as a placeholder for parameters that you will later set via the setXXX() methods.
+
+        </P
+><P
+>JavaSoft wrote PreparedStatement in order to make queries to databases that support pre-compilation of queries more efficient. MySQL does not support pre-compilation of queries, but other methods in PreparedStatement are useful.</P
+><P
+>For example, PreparedStatements allow you to send binary data to the database via the setXXXStream() methods. They also allow you to send arbitrary parameters to the database without worrying about escaping special characters, or using the correct quotation marks.</P
+><P
+>Since MySQL does not support Unicode directly, the MM.MySQL implementations of PreparedStatement.getXXXStream() expect that your JVM will be able to convert from the character set that MySQL uses to the default character set of your JVM, or the one you set using the useUnicode and encoding parameters.</P
+><P
+>When doing PreparedStatement.setObject(), the driver will send the string representation of any object to the database except for objects of type Types.OTHER. These will be serialized via the standard Java serialization mechanism before they are sent to the database.</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="c106.htm"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.htm"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x199.htm"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Programming Information</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c106.htm"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Using MySQL specific functionality</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,474 @@
+R shiney app tutorial
+==========================
+
+Open source web application framework for R, developed by Rstudio
+
+Easy to turn analytical analysis into stylish, interactive web apps, presentable to a winder audiance
+
+
+Link to few examples of interactive web apps made using Shiny:
+
+http://shiny.rstuido.com/gallery/
+http://www.showmeshiny.com
+
+
+
+#============================
+.Rmd: R mark down
+
+Shiney: platform for creating interactive R programs embeded into a web page
+
+Web input from calls R and predict algorithm and display results
+
+Using shiny, the time to create simple, yet powerful, web-based interactive data product in R is minimized
+
+- However, it lacks the flexibility of full featured (and more complex) solutions.
+
+required knowledge: html (page structure, sectioning), css (style), js (interactivity)
+
+Shiney: uses bootstrap style (render well on mobile platforms)
+
+
+Solution possible using client/server programming
+
+OpenCPU: provides an API for calling R from web documents
+
+Context
+===================
+Novel prediction algorithm to predict risk for developing diabetes.
+
+Patients and caregivers will be able to enter their data and, if needed take preventive measures
+
+Create a website so that users can input the relevant predictors and obtain their prediction
+
+
+(1) Download and install Rtools
+
+(2) follow:
+
+install.packages("shiny")
+
+library(shiny)
+
+diabetesRisk <- function(glucose) glucose/200
+
+(3) interactive plotting can be conducted by manipulate function in rstudio
+
+(4) rChart is also relevant
+
+Good source: http://rstudio.github.io/shiny/tutorial/
+
+#==========================================================================
+
+
+Shiny Project
+==================
+Directory containing two parts:
+(1) one named ui.R (user interface) controls how it looks
+(2) server.R controls what it does.
+
+ui.R
+#============
+library(shiny)
+shinyUI(pageWithSidebar(
+headerPanel("Data science FTW!"),
+sidebarPanel(
+h3('Sidebar text')
+),
+mainPanel(
+h3('Main Panel text')
+)
+))
+
+server.r
+================
+library(shiny)
+shinyServer(
+function(input, output) {
+}
+)
+
+To run
+=================
+
+In R, change to the directories with these files and type runApp()
+
+The app directory can be sent as an argument
+
+R functions for HTML markup
+===========================
+ui.R
+
+shinyUI(pageWithSidebar(
+headerPanel("Illustrating markup"),
+sidebarPanel(
+h1('Sidebar panel'),
+h1('H1 text'),
+h2('H2 Text'),
+h3('H3 Text'),
+h4('H4 Text')
+),
+mainPanel(
+h3('Main Panel text'),
+code('some code'),
+p('some ordinary text')
+)
+))
+
+illustrating inputs ui.R
+===========================
+shinyUI(pageWithSidebar(
+headerPanel("Illustrating inputs"),
+sidebarPanel(
+numericInput('id1', 'Numeric input, labeled id1', 0, min = 0, max = 10, step = 1),
+checkboxGroupInput("id2", "Checkbox",
+c("Value 1" = "1",
+"Value 2" = "2",
+"Value 3" = "3")),
+dateInput("date", "Date:")
+),
+mainPanel(
+)
+))
+
+Part of ui.R
+==================================
+mainPanel(
+h3('Illustrating outputs'),
+h4('You entered'),
+verbatimTextOutput("oid1"),
+h4('You entered'),
+verbatimTextOutput("oid2"),
+h4('You entered'),
+verbatimTextOutput("odate")
+)
+
+#====================================================
+# simple input and output pass example
+#====================================================
+ui.R
+-------
+#illustrating inputs ui.R (input)
+shinyUI(pageWithSidebar(
+  headerPanel("Illustrating inputs"),
+  sidebarPanel(
+    numericInput('id1', 'Numeric input, labeled id1', 0, min = 0, max = 10, step = 1),
+    checkboxGroupInput("id2", "Checkbox",
+                       c("Value 1" = "1",
+                         "Value 2" = "2",
+                         "Value 3" = "3")),
+    dateInput("date", "Date:")
+  ),
+  #part of ui.R (output)
+  mainPanel(
+    h3('Illustrating outputs'),
+    h4('You entered'),
+    verbatimTextOutput("oid1"),
+    h4('You entered'),
+    verbatimTextOutput("oid2"),
+    h4('You entered'),
+    verbatimTextOutput("odate")
+  )
+))
+
+
+server.R
+---------
+library(shiny)
+
+
+#recieving the input
+shinyServer(
+  function(input, output) {
+    output$oid1 <- renderPrint({input$id1})
+    output$oid2 <- renderPrint({input$id2})
+    output$odate <- renderPrint({input$date})
+  }
+)
+
+#================================================================
+# Define a client and server app that predicts the probability of diabetes given glocose
+#=================================================================
+server.R
+--------------
+diabetesRisk <- function(glucose) glucose / 200
+shinyServer(
+  function(input, output) {
+    output$inputValue <- renderPrint({input$glucose})
+    output$prediction <- renderPrint({diabetesRisk(input$glucose)})
+  }
+)
+
+ui.R
+---------------
+#Building a prediction function
+
+shinyUI(
+  pageWithSidebar(
+    # Application title
+    headerPanel("Diabetes prediction"),
+    sidebarPanel(
+      numericInput('glucose', 'Glucose mg/dl', 90, min = 50, max = 200, step = 5),
+      submitButton('Submit')
+    ),
+    mainPanel(
+      h3('Results of prediction'),
+      h4('You entered'),
+      verbatimTextOutput("inputValue"),
+      h4('Which resulted in a prediction of '),
+      verbatimTextOutput("prediction")
+    )
+  )
+)
+
+#===============================================
+#Image example
+#===============================================
+# built an example with an image
+# histogram of data
+# put slider on so that the user has to guess the mean
+
+
+server.R
+------------
+# visualization and guessing mean
+library(UsingR)
+data(galton)
+shinyServer(
+  function(input, output) {
+    output$newHist <- renderPlot({
+      hist(galton$child, xlab='child height', col='lightblue',main='Histogram')
+      mu <- input$mu
+      lines(c(mu, mu), c(0, 200),col="red",lwd=5)
+      mse <- mean((galton$child - mu)^2)
+      text(63, 150, paste("mu = ", mu))
+      text(63, 140, paste("MSE = ", round(mse, 2)))
+    })
+  }
+
+ui.R
+------------
+#image visualization so that user has to guess the mean
+shinyUI(pageWithSidebar(
+  headerPanel("Example plot"),
+  sidebarPanel(
+    sliderInput('mu', 'Guess at the mean',value = 70, min = 62, max = 74, step = 0.05,)
+  ),
+  mainPanel(
+    plotOutput('newHist')
+  )
+))
+
+#======================
+# Experiment with the shiny ui and server for reactive and non reactive
+#============================
+
+server.R
+#-----------------
+# Experiment code of running
+library(shiny)
+x <<- x + 1
+y <<- 0
+shinyServer(
+  function(input, output) {
+    y <<- y + 1
+    output$text1 <- renderText({input$text1})
+    output$text2 <- renderText({input$text2})
+    output$text3 <- renderText({as.numeric(input$text1)+1})
+    #reactive
+    output$text4 <- renderText(y)
+    #not reactive
+    output$text5 <- renderText(x)
+  }
+)
+
+
+ui.R
+---------------
+#code of testing refershing run
+shinyUI(pageWithSidebar(
+  headerPanel("Hello Shiny!"),
+  sidebarPanel(
+    textInput(inputId="text1", label = "Input Text1"),
+    textInput(inputId="text2", label = "Input Text2")
+  ),
+  mainPanel(
+    p('Output text1'),
+    textOutput('text1'),
+    p('Output text2'),
+    textOutput('text2'),
+    p('Output text3'),
+    textOutput('text3'),
+    p('Outside text'),
+    textOutput('text4'),
+    p('Inside text, but non-reactive'),
+    textOutput('text5')
+  )
+))
+
+
+# Non-reactive reactivity
+#--------------------
+(1) Sometimes you don't want shiny to immediately perform reactive calculations from widget inputs
+(2) In other words, you want something like a submit button
+
+
+#only when a button is pushed:
+#==============================
+Notice it doesn't display output text3 until the go button is pressed
+input$goButton (or whatever you named it) gets increased by one for every time pushed
+So, when in reactive code (such as render or reactive) you can use conditional statements
+like below to only execute code on the first button press or to not execute code until the first or
+subsequent button press
+if (input$goButton == 1){ Conditional statements }
+
+
+#not display third text until the go button is pushed
+# shinyServer(
+#   function(input, output) {
+#     output$text1 <- renderText({input$text1})
+#     output$text2 <- renderText({input$text2})
+#     output$text3 <- renderText({
+#       input$goButton
+#       isolate(paste(input$text1, input$text2))
+#     })
+#   }
+# )
+
+#not display until the button is pushed (any time a button is pressed the counter increases)
+shinyServer(
+  function(input, output) {
+    output$text1 <- renderText({input$text1})
+    output$text2 <- renderText({input$text2})
+    output$text3 <- renderText({
+      if (input$goButton == 0) "You have not pressed the button"
+      else if (input$goButton == 1) "you pressed it once"
+      else "OK quit pressing it"
+    })
+  }
+)
+
+#=====================
+# More style
+#======================
+The sidebar layout with a main panel is the easiest.
+Using shinyUI(fluidpage( is much more flexible and allows tighter access to the bootstrap
+styles
+Examples here (http://shiny.rstudio.com/articles/layout-guide.html)
+fluidRow statements create rows and then the column function from within it can create
+columns
+Tabsets, navlists and navbars can be created for more complex apps
+
+More complex layout, direct use of html:
+http://shiny.rstudio.com/articles/htmlui.html
+Have an index.html page in that directory
+Your named input variables will be passed to server.R <input type="number" name="n"
+value="500" min="1" max="1000" />
+Your server.R output will have class definitions of the form shiny- <pre id="summary"
+class="shiny-text-output"></pre>
+
+
+#==========================
+# Debugging techniques for Shiny
+#==========================
+
+We saw that runApp(displayMode = 'showcase') highlights execution while a shiny app
+runs
+Using cat in your code displays output to stdout (so R console)
+The browser() function can interupt execution and can be called conditionally
+(http://shiny.rstudio.com/articles/debugging.html)
+
+
+#==========================
+# Tighter control over style
+#==========================
+(1) all the style elements are handled through ui.R
+
+Instead, it is possible to create www directory and then an index.html file in that directory
+
+have specific js libraries and appropriately name ids and classes
+
+Other things Shiny can do
+---------------------------
+(1) Allow users to upload or download files
+(2) Have tabbed main panels
+(3) Have editable data tables
+(4) Have a dynamic UI
+(5) User defined inputs and outputs
+(6) Put a submit button so that Shiny only executes complex code after user hits it
+
+
+#================================
+# Distributing a Shiny app
+#================================
+
+Option 1:
+--------------
+put on github or gist or dropbox 
+
+send the app directory to the person and they can run runApp("path")
+
+Can create Rpackage and a wrapper that calls runApp (only if user knows R)
+
+Option 2:
+---------------
+run a shiny server
+
+sett up a shiny server (www.rstudio.com/shiny/server/)
+
+Use one of the virtual machines where they already have Shiny server running well (e.g. AWS)
+
+Set up Shiny server (linux server administration)
+
+Shiny hostings
+
+Don't put system calls in the code (introduces security concerns)
+
+
+#Best way to use Shiny: reuse the following codes
+#=========================
+http://shiny.rstuido.com/gallery/
+http://www.showmeshiny.com
+
+
+#==========================
+# input types
+#===========================
+# slide bar
+# check box
+# text box (textInput)
+# submit button
+# Numeric input (up and down arrow)
+
+#separation by: comma
+------------
+main structure of ui by shinyUI(...)
+
+#Also in presentation 
+# markup for code: code('something...')
+# h1...h4()
+# p('something to write ..')
+headerPanel("something here")
+
+#panels
+--------
+#sidebarPanel
+#mainPanel
+
+#output
+------
+# text(...)
+#verbatimTextOutput("nameofVar")
+
+#plot related
+-------------
+#renderPlot ({...})
+
+Refreshable code
+#-----------------------
+shinyServer(function(input, output){..})
+run repeatedly as needed, when new values entered "rendered"
+
+Recieving reactive error
+#========================
+include the item that is recieved from input into reactive(.) function

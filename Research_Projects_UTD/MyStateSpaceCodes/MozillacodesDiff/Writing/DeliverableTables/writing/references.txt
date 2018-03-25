@@ -1,0 +1,107 @@
+O'Mahony, Siobhán, and Fabrizio Ferraro. "The emergence of governance in an open source community." Academy of Management Journal 50, no. 5 (2007): 1079-1106.
+
+Rosen, Lawrence. Open source licensing. Prentice Hall, 2005.
+
+Bughin, Jacques, Michael Chui, and Brad Johnson. "The next step in open innovation." The McKinsey Quarterly 4, no. 6 (2008): 1-8.34.
+
+Lerner, Josh, and Jean Tirole. "Some simple economics of open source." The journal of industrial economics 50, no. 2 (2002): 197-234
+
+Bitzer, Jürgen, Wolfram Schrettl, and Philipp JH Schröder. "Intrinsic motivation in open source software development." Journal of Comparative Economics 35, no. 1 (2007): 160-169.
+
+Raymond, Eric. "The cathedral and the bazaar." Knowledge, Technology & Policy 12, no. 3 (1999): 23-49
+
+Feller, Joseph, and Brian Fitzgerald. "A framework analysis of the open source software development paradigm." In Proceedings of the twenty first international conference on Information systems, pp. 58-69. Association for Information Systems, 2000.
+
+Sharma, Srinarayan, Vijayan Sugumaran, and Balaji Rajagopalan. "A framework for creating hybrid-open source software communities." Information Systems Journal 12, no. 1 (2002): 7-25.
+
+Sawhney, Mohanbir, and Emanuela Prandelli. "Managing distributed innovation in turbulent markets." California management review 42, no. 4 (2000): 24-54.
+
+Rochet, Jean-Charles, and Jean Tirole. "Platform competition in two-sided markets." Journal of the European Economic Association 1, no. 4 (2003): 990-1029.
+
+Rochet, Jean-Charles, and Jean Tirole. "Two-sided markets: A progress report." The RAND Journal of Economics 37, no. 3 (2006): 645-667.
+
+Parker, Geoffrey G., and Marshall W. Van Alstyne. "Two-sided network effects: A theory of information product design." Management Science 51, no. 10 (2005): 1494-1504.
+
+Rochet, Jean-Charles, and Jean Tirole. Two-sided markets: an overview. Vol. 258. IDEI working paper, 2004.
+
+Economides, Nicholas, and Evangelos Katsamakas. "Two-sided competition of proprietary vs. open source technology platforms and the implications for the software industry." Management Science 52, no. 7 (2006): 1057-1071.
+
+Subramaniam, Chandrasekar, Ravi Sen, and Matthew L. Nelson. "Determinants of open source software project success: A longitudinal study." Decision Support Systems 46, no. 2 (2009): 576-585.
+
+Nair, Harikesh, Pradeep Chintagunta, and Jean-Pierre Dubé. "Empirical analysis of indirect network effects in the market for personal digital assistants." Quantitative Marketing and Economics 2, no. 1 (2004): 23-58.
+
+Katz, Michael L., and Carl Shapiro. "Systems competition and network effects." The Journal of Economic Perspectives (1994): 93-115.
+
+Bonaccorsi, Andrea, and Cristina Rossi. "Why open source software can succeed." Research policy 32, no. 7 (2003): 1243-1258.
+
+Shah, Sonali K. "Motivation, governance, and the viability of hybrid forms in open source software development." Management Science 52, no. 7 (2006): 1000-1014.
+
+Roberts, Jeffrey A., Il-Horn Hann, and Sandra A. Slaughter. "Understanding the motivations, participation, and performance of open source software developers: A longitudinal study of the Apache projects." Management science 52, no. 7 (2006): 984-999.
+
+O’Mahony, Siobhán. "The governance of open source initiatives: what does it mean to be community managed?." Journal of Management & Governance 11, no. 2 (2007): 139-150.
+
+Markus, M. Lynne. "The governance of free/open source software projects: monolithic, multidimensional, or configurational?." Journal of Management & Governance 11, no. 2 (2007): 151-163.
+
+Franck, Egon, and Carola Jungwirth. "Reconciling rent-seekers and donators–The governance structure of open source." Journal of Management and Governance 7, no. 4 (2003): 401-421.
+
+Kogut, Bruce, and Anca Metiu. "Open-source software development and distributed innovation." Oxford Review of Economic Policy 17, no. 2 (2001): 248-264.
+
+Bahrami, Homa. "People operations at mozilla corporation:: scaling a peer-to-peer global community." California management review 56, no. 1 (2013): 67-88.
+
+Hayagreeva Rao, Robert I. Sutton, David W. Hoyt. "Mozilla: Scaling Through a Community of Volunteers" Stanford Graduate School of Business. (2009): 1-30.
+
+Krishnamurthy, Sandeep. "The Launching of Mozilla Firefox-A Case Study in Community-Led Marketing." Online verfügbar unter: http://citeseerx. ist. psu. edu/viewdoc/download (2005).
+
+Wang, Lei, Ji Xiang, Jiwu Jing, and Lingchen Zhang. "Towards fine-grained access control on browser extensions." In Information Security Practice and Experience, pp. 158-169. Springer Berlin Heidelberg, 2012.
+
+Frey, Bruno S. "Publishing as prostitution?–Choosing between one's own ideas and academic success." Public Choice 116, no. 1-2 (2003): 205-223.
+
+Mockus, Audris, Roy T. Fielding, and James D. Herbsleb. "Two case studies of open source software development: Apache and Mozilla." ACM Transactions on Software Engineering and Methodology (TOSEM) 11, no. 3 (2002): 309-346.
+
+Lakhani, Karim R., and Eric Von Hippel. "How open source software works:“free” user-to-user assistance." Research policy 32, no. 6 (2003): 923-943.
+
+Moe, Wendy W., and Michael Trusov. "The value of social dynamics in online product ratings forums." Journal of Marketing Research 48, no. 3 (2011): 444-456.
+
+Chevalier, Judith A., and Dina Mayzlin. "The effect of word of mouth on sales: Online book reviews." Journal of marketing research 43, no. 3 (2006): 345-354.
+
+Çelen, Bogaçhan, and Shachar Kariv. "Observational learning under imperfect information." Games and Economic Behavior 47, no. 1 (2004): 72-86.
+
+Bikhchandani, Sushil, David Hirshleifer, and Ivo Welch. "Learning from the behavior of others: Conformity, fads, and informational cascades." The Journal of Economic Perspectives (1998): 151-170.
+
+Caillaud, Bernard, and Jean Tirole. "Party governance and ideological bias." European Economic Review 43, no. 4 (1999): 779-789.
+
+Schultz, Jason, and Jennifer Urban. "Protecting open innovation: The defensive patent license as a new approach to patent threats, transaction costs, and tactical disarmament." Harvard Journal of Law and Technology 26 (2012).
+
+Mallapragada, Girish, Rajdeep Grewal, and Gary Lilien. "User-generated open source products: Founder's social capital and time to product release." Marketing Science 31, no. 3 (2012): 474-492.
+
+Rochet, Jean-Charles, and Jean Tirole. "Platform competition in two-sided markets." Journal of the European Economic Association 1, no. 4 (2003): 990-1029.
+
+Sun, Monic. "How does the variance of product ratings matter?." Management Science 58, no. 4 (2012): 696-707.
+
+Chen, Yubo, Qi Wang, and Jinhong Xie. "Online social interactions: A natural experiment on word of mouth versus observational learning." Journal of Marketing Research 48, no. 2 (2011): 238-254.
+
+Golden, Bernard. Succeeding with open source. Addison-Wesley Professional, 2005.
+
+Hennig-Thurau, Thorsten, Kevin P. Gwinner, Gianfranco Walsh, and Dwayne D. Gremler. "Electronic word-of-mouth via consumer-opinion platforms: What motivates consumers to articulate themselves on the Internet?." Journal of interactive marketing 18, no. 1 (2004): 38-52.
+
+Waters, Sonia. "Getting More than You Paid For: The Parable of the Treasure and the Pearl as the Experience of Transformation." Pastoral Psychology 61, no. 4 (2012): 423-434.
+
+Dalle, Jean-Michel, and Nicolas Jullien. "‘Libre’software: turning fads into institutions?." Research policy 32, no. 1 (2003): 1-11.
+
+Godfrey, Michael W., and Qiang Tu. "Evolution in open source software: A case study." In Software Maintenance, 2000. Proceedings. International Conference on, pp. 131-142. IEEE, 2000.
+
+Fogel, Karl. Producing open source software: How to run a successful free software project. " O'Reilly Media, Inc.", 2005.
+
+Von Krogh, Georg, and Eric Von Hippel. "The promise of research on open source software." Management science 52, no. 7 (2006): 975-983.
+
+Hojat, Mohammadreza, Joseph S. Gonnella, and Addeane S. Caelleigh. "Impartial judgment by the “gatekeepers” of science: fallibility and accountability in the peer review process." Advances in Health Sciences Education 8, no. 1 (2003): 75-96.
+
+Dedrick, Jason, and Joel West. "An exploratory study into open source platform adoption." In System Sciences, 2004. Proceedings of the 37th Annual Hawaii International Conference on, pp. 10-pp. IEEE, 2004.
+
+Grewal, Rajdeep, Gary L. Lilien, and Girish Mallapragada. "Location, location, location: How network embeddedness affects project success in open source systems." Management Science 52, no. 7 (2006): 1043-1056.
+
+Shapiro, Carl, and Hal R. Varian. Information rules: a strategic guide to the network economy. Harvard Business Press, 2013.
+
+Cai, Y. L., A. Y. C. Nee, and W. F. Lu. "Platform differentiation plan for platform leverage across market niches." CIRP Annals-Manufacturing Technology 57, no. 1 (2008): 141-144.
+
+Johnson, Eric J., Steven Bellman, and Gerald L. Lohse. "Cognitive lock-in and the power law of practice." Journal of Marketing 67, no. 2 (2003): 62-75.

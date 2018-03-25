@@ -1,0 +1,43 @@
+Output File
+====================================================================
+Identifiying the dates in the file: C:\\Users\\MeisamHe\\Desktop\\Desktop\\BackupToRestoreComputerApril15\\NLPSpring2015\\HWs\\testNLPHW1.txt
+Code written by: Meisam Hejazi Nia
+Cause: NLP homework 1 of Dr. Moldovan's Class UTD
+Date: 02/1/2015
+====================================================================
+November 21st
+November 1915
+April 14, 1917
+July 24, 2002
+March 1927
+May 20th
+May 2, 1933
+July 7th, 1910
+September 3rd
+September 14, 2004
+November 1939
+January 9th, 1942;
+October 29th
+July 17, 1968
+Christmas
+Thanksgiving
+New Year's Day
+Martin Luther King Day
+Labour Day
+Memorial Day
+Columbus Day
+Veterans Day
+the 12th of August, 1914
+the 11th of November 1915
+the 11th of April
+the 29th of March 1927
+the 7th of August, 1930
+the 15th of May
+the 15th of September
+the 1st of August
+the 10th of November 1939
+the 4th of September, 1961
+
+====================================================================
+End of the File
+====================================================================

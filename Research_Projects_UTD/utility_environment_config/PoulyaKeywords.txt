@@ -1,0 +1,39 @@
+Variable Elimintation
+Variable Introduction
+Data
+List 
+Related Problem
+Unknowns
+Paraphrase
+Conditions
+Theory
+Understand the problem
+Greedy
+Divide and Conquer
+Small
+instances
+Table
+Pattern
+Diagram
+Equation
+Guess
+Taylor Expansion
+Change of Variable
+Chain Rule
+Guess and check 
+• Look for a pattern
+• Make an orderly list 
+• Draw a picture
+• Eliminate possibilities 
+• Solve a simpler problem
+• Use symmetry 
+• Use a model
+• Consider special cases 
+• Work backwards
+• Use direct reasoning 
+• Use a formula
+• Solve an equation 
+• Be ingeniousUnderstand the problem
+Devise a plan
+Carry out the plan
+ Look backTransformation

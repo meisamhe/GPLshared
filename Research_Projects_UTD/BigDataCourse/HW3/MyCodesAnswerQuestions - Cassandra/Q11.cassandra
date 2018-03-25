@@ -1,0 +1,28 @@
+# command for CQL
+/usr/local/apache-cassandra-2.0.5/bin/cqlsh csac0
+
+#Create a COLUMN FAMILY for this dataset
+USE mxh109420;
+
+#UserID:Gender:Age:Occupation:Zip-code
+# column family is a table: http://www.datastax.com/docs/1.1/references/cql/CREATE_COLUMNFAMILY
+# This is for CQL and not for CLI
+CREATE TABLE users( 
+   UserID varchar PRIMARY KEY,
+   Gender varchar, 
+   Age varchar,
+   Occupation varchar,
+   Zipcode varchar); 
+
+COPY users (userid, gender, age, occupation, zipcode) FROM '/home/004/m/mx/mxh109420/cassandra-input/users.dat' WITH DELIMITER = ':';
+
+INSERT INTO users(userid, gender, age, occupation, zipcode) VALUES ('6041','M','32','6','11120'); 
+
+SELECT * FROM users
+  WHERE userid='6020';
+
+# delete all rows in the table
+TRUNCATE mxh109420.users;
+
+#Drop the table
+DROP COLUMNFAMILY users;

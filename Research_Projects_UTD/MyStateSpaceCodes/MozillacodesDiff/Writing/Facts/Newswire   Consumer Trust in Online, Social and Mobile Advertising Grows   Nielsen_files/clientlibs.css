@@ -1,0 +1,9 @@
+/*--Fix for DISQUS ul li style, override Non-RTE  ul li style--*/
+#disqus_thread ul li{
+padding:0;
+list-style-type: none;
+list-style-image:none;
+background:none;
+margin:0;
+}
+

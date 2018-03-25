@@ -1,0 +1,73 @@
+# replication factor =1 
+# dataset in /cassandra-input/user.dat
+
+# Dataset:
+
+# command to run cassandra (cqlsh)
+/usr/local/apache-cassandra-2.0.5/bin/cassandra-cli --host csac0
+
+# create a key space with netID: mxh109420
+CREATE KEYSPACE mxh109420 WITH replication = {'replication_factor': 1} ;
+
+#CORRECTION
+CREATE KEYSPACE mxh109420 with placement_strategy = 'org.apache.cassandra.locator.SimpleStrategy' and strategy_options = {replication_factor: 1};
+
+
+#Create a COLUMN FAMILY for this dataset
+USE mxh109420;
+
+
+# another way to define column family
+CREATE COLUMN FAMILY users
+WITH comparator = UTF8Type
+AND key_validation_class=UTF8Type
+AND column_metadata = [
+{column_name: UserID, validation_class: LongType}
+{column_name: Gender, validation_class: AsciiType}
+{column_name: Age, validation_class: LongType}
+{column_name: Occupation, validation_class: LongType}
+{column_name: Zip-code, validation_class: LongType}
+];
+
+
+# correct command for cli
+SET users[13]['Gender']= 'F';
+SET users[13]['Age']= 51;
+SET users[13]['Occupation']= 1;
+SET users[13]['Zip-code']= 93334;
+
+SET users[1471]['Gender']= 'F';
+SET users[1471]['Age']= 31;
+SET users[1471]['Occupation']= 17;
+SET users[1471]['Zip-code']= 11116;
+
+SET users[1496]['Gender']= 'F' WITH ttl=300;
+SET users[1496]['Age']= 31 WITH ttl=300;
+SET users[1496]['Occupation']= 17 WITH ttl=300;
+SET users[1496]['Zip-code']= 94118 WITH ttl=300;
+
+
+#Show the following:
+#i. Get the Gender and Occupation for user with id 13 ?
+
+# CLI
+GET users[13]['Gender'];
+GET users[13]['Occupation'];
+
+#ii. Retrieve all rows and columns.
+
+#CLI
+LIST users;
+
+#iii. Delete column Gender for the user id 1471.
+
+#CLI
+DEL users[1471]['Gender'];
+
+#iv. Drop the column family.
+
+#CLI
+DROP COLUMN FAMILY users;
+
+#Use describe keyspace command with your netid and show content.
+DESCRIBE mxh109420;

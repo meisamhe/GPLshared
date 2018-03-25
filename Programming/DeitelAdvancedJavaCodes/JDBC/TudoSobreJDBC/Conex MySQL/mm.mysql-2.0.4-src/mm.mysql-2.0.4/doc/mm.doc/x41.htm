@@ -1,0 +1,178 @@
+<HTML
+><HEAD
+><TITLE
+>Known Limitations</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.33"><LINK
+REL="HOME"
+TITLE="Documentation for MM.MySQL"
+HREF="book1.htm"><LINK
+REL="UP"
+TITLE="Release Notes"
+HREF="c21.htm"><LINK
+REL="PREVIOUS"
+TITLE="Programming Notes"
+HREF="x30.htm"><LINK
+REL="NEXT"
+TITLE="Installation Instructions"
+HREF="c62.htm"></HEAD
+><BODY
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Documentation for MM.MySQL</TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="x30.htm"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+>Chapter 1. Release Notes</TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="c62.htm"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN41"
+>Known Limitations</A
+></H1
+><P
+>This section lists all known limitations of the MM.MySQL driver. 
+             Some of these items will get implemented some day, and others 
+             are due to shortcomings in the MySQL server.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN44"
+>JDBC-1.1 Methods not Implemented</A
+></H2
+><P
+>The following methods from the JDBC-1.1 API are not implemented</P
+><P
+></P
+><UL
+><LI
+><P
+>Connection.prepareCall() - MySQL does not support stored procedures, so this method can not be implemented. Once MySQL supports some sort of stored procedure, this can be implemented.</P
+></LI
+><LI
+><P
+>DatabaseMetaData.getColumnPrivileges(...) - MySQL doesn't have a permissions system that maps onto SQL92, so this method is not implemented.</P
+></LI
+><LI
+><P
+>DatabaseMetaData.getCrossReference(...) - MySQL does not support foreign keys, so this method is not implemented.</P
+></LI
+><LI
+><P
+>DatabaseMetaData.getExportedKeys(...) - MySQL does not support foreign keys, so this method is not implemented.</P
+></LI
+><LI
+><P
+>DatabaseMetaData.getProcedureColumns(...) - MySQL does not support stored procedures, so this method is not implemented.</P
+></LI
+><LI
+><P
+>DatabaseMetaData.getProcedures(...) - MySQL does not support stored procedures, so this method is not implemented.</P
+></LI
+><LI
+><P
+>DatabaseMetaData.getSchemas() - MySQL does not have schemas, so this method is not implemented.</P
+></LI
+></UL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x30.htm"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="book1.htm"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="c62.htm"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Programming Notes</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="c21.htm"
+>Up</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Installation Instructions</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

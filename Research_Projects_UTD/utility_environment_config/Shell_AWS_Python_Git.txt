@@ -1,0 +1,245 @@
+Virtual Box is like clean computer and I can install a CD image of linux on it
+
+Simply create an instance and select the image of linux on it
+
+For more information I can use vm.html
+
+Way to create share folder
+=====================================
+First I tell virtualBox main menue that I have a share folder
+
+sharename="MeisamHPC_shared"   
+sudo mkdir /mnt/$sharename
+sudo chmod 777 /mnt/$sharename
+sudo mount -t vboxsf -o uid=1000,gid=1000 $sharename /mnt/$sharename
+
+Always after rebooting to do to have access to shared directory:
+==================================
+sharename="MeisamHPC_shared"   
+sudo chmod 777 /mnt/$sharename
+sudo mount -t vboxsf -o uid=1000,gid=1000 $sharename /mnt/$sharename
+
+Command to remove a directory forcefully
+===================================
+rm -rf MeisamHPC_shared
+
+# some packages not installed on the VM 
+# that you might want to add:
+
+sudo apt-get install gitk               # to view git history
+sudo apt-get install xxdiff             # to compare two files
+sudo apt-get install python-sympy       # symbolic python
+sudo apt-get install imagemagick        # so you can "display plot.png"
+
+
+sudo apt-get install python-setuptools  # so easy_install is available
+sudo easy_install nose                  # unit testing framework
+sudo easy_install StarCluster           # to help manage clusters on AWS
+
+Bitbucket
+=====================================
+#Run Git Bash first
+mkdir /path/to/your/project 
+cd /path/to/your/project
+git init 
+git remote add origin https://meisamhe@bitbucket.org/meisamhe/textmining.git
+Ls
+Git status
+Git config user.name "meisamhe"
+Git config user.email meisam.hejazinia@utdallas.edu
+Git add textminingmarketing/
+Git commit -m "adding textminingmarketing instructions"
+Git push -u origin master
+
+
+Git Commands
+===========================================
+git status | more
+mate mysqrt.py   # a good python editor
+ipython                 # good python editor
+git init                   # in a folder to create version control
+quit                       # to quit an app
+git add mysqrt.py   # to stage before commit
+clear
+git commit -m "first version of script"
+prompted
+PS1 = ' $'
+workon claw
+git log
+git checkout 04d22..   --mysqrt.py # to take specific comitted branch
+vi mysqrt.py
+git checkout HEAD mysqrt.py # take out last version
+git clone https://github.com/ipython/ipython.git
+cd ipython
+sudo python setup.py install
+pwd
+export Junk=abc
+printenv Junk
+echo Junk = abc
+cp lecture3.mysqrt lecture4
+git add mysqrt.py
+git reset HEAD        .........py .......py # to not stage two files with py postfix
+git ls-files .        # which files are under version control
+git status .          # for current directory
+ipython -- pylab        # to also import numpy
+vi $HPCir/.gitignore # include files to be ignored by git
+# into the .gitignore at each line put:
+.pyc   # for python compiler
+.o       # for fortran compiler
+git log --author="John Smith" -p hello.py
+git log --stat
+nosetests -v mysqrt.py
+ipython notebook --pylab  inline
+ctrl + Z:  to get to command line
+ctrl + C: to break
+bg  # to send to background
+ipython notebook --pylab inline &
+mate Lecture5a.ipynb
+git add !$
+fg # to get to forward ground
+# Sagemath.org good source of online coding of python created by Washington Uni
+
+
+iPython
+================================
+history                 # copy the code
+history 5-13        # copy specific lines of code
+run mysqrt.py
+cd "./.."
+%20.15f
+import mysqrt
+Python ...py
+def sqrt:                # to define a function
+reload (mysqrt)
+?                 # to define
+??              # to see the script
+def sqrt2(x,debug=False)         # to define default
+from numpy import nan
+assert x>0., "should not get there"
+assert x>0. and type(x) is float, "should not get here!"
+assert abs(s-s_numpy)<1e-14, \
+       "Disagree for x=%20.15e" % x
+x=[7,8,9]
+print id(x), type(x)
+x.append(10)          # list is a mutable object (object oriented) so y=x the same address i.e. id(x)=id(y)
+y = list(x)                 # create a new object and not just a new reference
+x[0] # arrayes start from 0 index
+T = (3,4.5,'abc')       # tuple is like list but immutable
+
+# integer and floats are immutable
+import sys
+sys.path        # returns list of directories
+sys.path.append('newdirectory')
+x = linespace(0,5*pi,1000)
+print y[100]
+# Demo of plotting $y=cos(x)~~$ and $y= - \cos(x)$           # to put latex in the web format of ipython notebook
+
+# another way to add a new path is to add it in PYTHONPATH environment variable
+import modname       # to import a module i.e. a file of modname.py with many functions inside
+from numpy import sqrt
+from numpy import *
+import numpy
+import numpy as np
+x = linespace(0,5*pi,100)
+a = array(L)
+a
+2*a
+y = cos(x)
+plot(x,y)
+clf()
+plot(x,-y)
+plot (x,-y,'r--')
+# characters for figure styles: '-' solid line, '--' dashed line, '-.' dotted line, '.' point marker, ',' pixel marker, 'o' circle marker, 'v' triangle_down marker, '^' triangle_up marker, '>' triangle_left marker, '<' triangle right marker, '1' tri_down marker, '2' tri_up marker
+figure()
+subplot(2,2,1)
+quit()
+x = np.array([2.,3.])
+np.sqrt(x)*np.cos(x)*x**3          # the element wise operation *
+x = np.array([1,2,3],dtype=complex)
+(x+1.j)*2.j
+A = np.array([[1.,2],[3,4],[5,6]])
+A.shape     # dimensions
+A.T          # transpose
+np.dot(A,x) # matrix-vector product
+np.dot(A.T,A) # matrix-matrix product
+np.matrix([[1.,2], [3,4], [5,6]])
+A = np.matrix(1.,2;3,4; 5,6")       # Matlab style definition of matrix
+print x[0,0], x[1,0]
+np.linespace(0.,3.,100)            # returns an array
+#http://www.scipy.org/NumPy_for_Matlab_Users
+A= np.ones((4,4))
+np.rank(A)           # returns 2 as the number of dimensions not rank of the matrix
+np.array(7.)
+np.ones((2,2,2))         # returns an array of size 2*2*2
+T[0,0,0]
+A = np.array([[1.,2.],[3,4]])
+b = np.dot(A,np.array([8.,9.]))
+from numpy.linalg import solve
+solve (A,b)             # identical to A\b in MATLAB
+from numpy.linalg import eig
+eig(A)        # returns a tuple (evals, evecs)
+eval, evecs = eig(A)        # unpacks tuple
+evals
+evecs
+from scipy.integrate import quad
+def f(x):
+         return x**2
+quad (f, 0., 2.)           # return integrals from guassian quadrature
+# define definition directly in the quad function
+quad(lambda x: x**2, 0, 2.)
+if __name__ = "__main__"           # for hidden variables
+            # some code
+python filename.py
+execfile("filename.py")
+run filename.py
+time sqrt(2.)
+timeit sqrt(2.)
+%% timeit
+y = zeros (1000)
+y = zeros (1000)
+for i in range (1000):
+	y[i] = sqrt(i)
+
+
+Writing
+============================
+Rhetorical Appeals: Ethos (self credential, others referal), Pathos (tone, emotion), Logos (argument), Kairos (Timing)
+Conversant and conversation
+Connect to the threads of conversation and not create one
+BEAM: A Rhetorical Vocabulary for Teaching Research-based Writing by Joseph Bizup, Rhetoric Review (2008) 271, 72-86
+"BEAM" Abstract
+This article argues that writing teachers can encourage students to adopt a rhetorical perspective toward research-based writing by characterizing products of research in terms of how writers use them in their texts. It ... proposes an alternative [ to "standard nomenculture"]: Background for materials a writer relies on for general information or ... Factual evidence; Exhibit for materials a writer analyzes or interprets; Argument for materials whose claims a writer engages; and Methods for materials from which a writer takes a governing concept or derives a manner of working
+Background: Materials a writer relies on for general information or ... factual evidence, e.g. over the past several decades .... scholars have put forth ... valuable proposals ..., e.g. others have focused on ..., e.g. Brent similarity holds ..
+Exhibit: Materials a writer analyzes or interprets, There is a curious asymmetry in the way writing handbooks... introdouce the standard terms., "one popular handbook states", "another asserts", "while such statements help... they can also be problematic".
+Argument: "Materials whose claims a writer engages", "In his .. article .. Larson argues.. that because research practices vary so dramatically acrossfields and because research can inform almost any sort of writing 'English" teachers should stop  teaching the reserch paper as if it were a universla genre. ~~~While I agree with Larson on this point, the wider lesson I take from his article is that writing teachers have a special obligation to teach research-based writing."
+Method: "Materials from which a writer takes a governing concept or derives a manner of working" such as key terms, procedures, models, or perspectives 
+Rule of Thumb: If you start with an exhibit [something you analyze], look for argument sources to engage; if you start with argument sources, look for exhibit to interpret."
+
+Amazon webservice
+===============================
+# for windows download putty and use
+# also for windows (X-window forwarding) also need xming to get the new window opened by program in local computer
+# need to create an account and key-pair file
+# Public DNS to access (take it from the amazon website)
+cd ~/aws
+ls
+ssh -X -i keyfile.pem ubuntu@url.com
+pwd
+vil install.sh
+gfortran -fopenmp timings.f90
+./a.out         # you can select 2 threads
+plot(x,y,r-o')
+savefig('cosplot.png')
+quit
+display cosplot.png
+mkdir public
+chmod 755 public          # to create a public folder on the server
+ls -l
+sudo ln -s public /vr/www/public        # to create a link
+mv cosplot.png public   # to move to the folder
+exit        # to shut down server
+# to shut down server to not pay also go to the web interface and right click and stop
+
+
+
+

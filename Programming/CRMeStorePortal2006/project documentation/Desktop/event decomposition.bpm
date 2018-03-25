@@ -1019,7 +1019,7 @@ choosing
 <o:RectangleSymbol Id="o49">
 <a:Text>Process
 Check out</a:Text>
-<a:Rect>((-19307,-104962), (-13757,-108637))</a:Rect>
+<a:Rect>((26943,-13087), (32493,-16762))</a:Rect>
 <a:TextStyle>34</a:TextStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:FillColor>16777215</a:FillColor>
@@ -1086,7 +1086,7 @@ Report</a:Text>
 <a:Text>Generate
 Similar
 Recomandation</a:Text>
-<a:Rect>((-19532,-109537), (-13746,-113213))</a:Rect>
+<a:Rect>((26718,-17662), (32504,-21338))</a:Rect>
 <a:TextStyle>34</a:TextStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:FillColor>16777215</a:FillColor>
@@ -1165,7 +1165,7 @@ Products</a:Text>
 similar product
 saving
 </a:Text>
-<a:Rect>((-19993,-99112), (-14443,-102787))</a:Rect>
+<a:Rect>((26882,-69112), (32432,-72787))</a:Rect>
 <a:TextStyle>34</a:TextStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:FillColor>16777215</a:FillColor>
@@ -1183,7 +1183,7 @@ saving
 </o:NoteSymbol>
 <o:NoteSymbol Id="o64">
 <a:Text>5</a:Text>
-<a:Rect>((-25181,-77625), (-20381,-74025))</a:Rect>
+<a:Rect>((-25181,-77625), (-20382,-74026))</a:Rect>
 <a:TextStyle>4130</a:TextStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:FillColor>16777215</a:FillColor>
@@ -1240,7 +1240,7 @@ Sales</a:Text>
 <a:Text>Process
 Conceptual 
 Search</a:Text>
-<a:Rect>((-14232,-89737), (-8682,-93412))</a:Rect>
+<a:Rect>((32643,-59737), (38193,-63412))</a:Rect>
 <a:TextStyle>34</a:TextStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:FillColor>16777215</a:FillColor>
@@ -1251,7 +1251,7 @@ Search</a:Text>
 <a:Text>Process
 Structure
 Search</a:Text>
-<a:Rect>((-20232,-89662), (-14682,-93337))</a:Rect>
+<a:Rect>((26643,-59662), (32193,-63337))</a:Rect>
 <a:TextStyle>34</a:TextStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:FillColor>16777215</a:FillColor>
@@ -1273,7 +1273,7 @@ Services</a:Text>
 <a:Text>Process
 Update
 Interest Profile</a:Text>
-<a:Rect>((-13468,-99037), (-7918,-102712))</a:Rect>
+<a:Rect>((33407,-69037), (38957,-72712))</a:Rect>
 <a:TextStyle>34</a:TextStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:FillColor>16777215</a:FillColor>
@@ -1335,7 +1335,7 @@ Most Popular</a:Text>
 <a:Text>Process
 Intelligent
 Search</a:Text>
-<a:Rect>((-19032,-94687), (-13482,-98362))</a:Rect>
+<a:Rect>((27843,-64687), (33393,-68362))</a:Rect>
 <a:TextStyle>34</a:TextStyle>
 <a:LineColor>16711680</a:LineColor>
 <a:FillColor>16777215</a:FillColor>
