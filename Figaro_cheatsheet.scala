@@ -1,62 +1,569 @@
-#---------------------------
-# Simple hello word on Figaro
-#---------------------------
+scala> val hamlet = sc.textFile(“/Users/akuntamukkala/temp
+/gutenburg.txt”)
+scala> val topWordCount = hamlet.flatMap(str=>str.split(“
+“)). filter(!_.isEmpty).map(word=>(word,1)).reduceByKey(_+
+_).map{case (word, count) => (count, word)}.sortByKey(fals
+e)
+scala> topWordCount.take(5).foreach(x=>println(x))
+scala> topWordCount.toDebugString
+Commonly Used Transformations:
+TRANSFORMATION &
+PURPOSE
+EXAMPLE & RESULT
+filter(func) Purpose: new
+RDD by selecting those data
+elements on which func
+returns true
+scala> val rdd =
+sc.parallelize(List(“ABC”,”BCD”,”DEF”))
+scala> val filtered =
+rdd.filter(_.contains(“C”)) scala>
+filtered.collect() Result:
+Array[String] = Array(ABC, BCD)
+map(func) Purpose: return
+new RDD by applying func
+on each data element
+scala> val
+rdd=sc.parallelize(List(1,2,3,4,5)) scala>
+val times2 = rdd.map(_*2) scala>
+times2.collect() Result:
+Array[Int] = Array(2, 4, 6, 8, 10)
+flatMap(func) Purpose:
+Similar to map but func
+returns a Seq instead of a
+value. For example, mapping
+a sentence into a Seq of
+words
+scala> val rdd=sc.parallelize(List(“Spark
+is awesome”,”It is fun”)) scala> val
+fm=rdd.flatMap(str=>str.split(“ “))
+scala> fm.collect() Result:
+Array[String] = Array(Spark, is,
+awesome, It, is, fun)
+reduceByKey(func,
+[numTasks]) Purpose: To
+aggregate values of a key
+using a function.
+“numTasks” is an optional
+parameter to specify
+number of reduce tasks
+scala> val word1=fm.map(word=>
+(word,1)) scala> val
+wrdCnt=word1.reduceByKey(_+_)
+scala> wrdCnt.collect() Result:
+Array[(String, Int)] = Array((is,2), (It,1),
+(awesome,1), (Spark,1), (fun,1))
+groupByKey([numTasks])
+scala> val cntWrd = wrdCnt.map{case
+(word, count) => (count, word)} scala>
+cntWrd.groupByKey().collect() Result
+groupByKey([numTasks])
+Purpose: To convert (K,V)
+to (K,Iterable<V>)
+cntWrd.groupByKey().collect() Result:
+Array[(Int, Iterable[String])] =
+Array((1,ArrayBuffer(It, awesome,
+Spark, fun)), (2,ArrayBuffer(is)))
+distinct([numTasks])
+Purpose: Eliminate
+duplicates from RDD
+scala> fm.distinct().collect() Result:
+Array[String] = Array(is, It, awesome,
+Spark, fun)
+Commonly Used Set Operations
+TRANSFORMATION
+AND PURPOSE
+EXAMPLE AND RESULT
+union()
+Purpose: new RDD
+containing all elements
+from source RDD and
+argument.
+Scala> val rdd1=sc.parallelize(List(‘A’,’B’))
+scala> val rdd2=sc.parallelize(List(‘B’,’C’))
+scala> rdd1.union(rdd2).collect()
+Result:
+Array[Char] = Array(A, B, B, C)
+intersection()
+Purpose: new RDD
+containing only common
+elements from source
+RDD and argument.
+Scala> rdd1.intersection(rdd2).collect()
+Result:
+Array[Char] = Array(B)
+cartesian()
+Purpose: new RDD
+cross product of all
+elements from source
+RDD and argument
+Scala> rdd1.cartesian(rdd2).collect()
+Result:
+Array[(Char, Char)] = Array((A,B), (A,C),
+(B,B), (B,C))
+subtract()
+Purpose: new RDD
+created by removing
+data elements in source
+RDD in common with
+argument
+scala> rdd1.subtract(rdd2).collect() Result:
+Array[Char] = Array(A)
+join(RDD,[numTasks])
+Purpose: When
+invoked on (K,V) and
+(K,W), this operation
+creates a new RDD of (K,
+(V,W))
+scala> val personFruit =
+sc.parallelize(Seq((“Andy”, “Apple”), (“Bob”,
+“Banana”), (“Charlie”, “Cherry”),
+(“Andy”,”Apricot”)))
+scala> val personSE =
+sc.parallelize(Seq((“Andy”, “Google”),
+(“Bob”, “Bing”), (“Charlie”, “Yahoo”),
+(“Bob”,”AltaVista”)))
+scala> personFruit.join(personSE).collect()
+Result:
+Array[(String, (String, String))] =
+Array((Andy,(Apple,Google)), (Andy,
+(Apricot,Google)), (Charlie,(Cherry,Yahoo)),
+(Bob,(Banana,Bing)), (Bob,
+(Banana,AltaVista)))
+cogroup(RDD,
+[numTasks])
+Purpose: To convert
+(K,V) to (K,Iterable<V>)
+scala>
+personFruit.cogroup(personSe).collect()
+Result:
+Array[(String, (Iterable[String],
+Iterable[String]))] = Array((Andy,
+(ArrayBuffer(Apple,
+Apricot),ArrayBuffer(google))), (Charlie,
+(ArrayBuffer(Cherry),ArrayBuffer(Yahoo))),
+(Bob,
+(ArrayBuffer(Banana),ArrayBuffer(Bing,
+AltaVista))))
+ACTION &
+PURPOSE
+EXAMPLE & RESULT
+count() Purpose: get
+the number of data
+elements in the RDD
+scala> val rdd = sc.parallelize(list(‘A’,’B’,’c’))
+scala> rdd.count() Result:
+long = 3
+collect() Purpose: get
+all the data elements
+in an RDD as an array
+scala> val rdd = sc.parallelize(list(‘A’,’B’,’c’))
+scala> rdd.collect() Result:
+Array[char] = Array(A, B, c)
+reduce(func)
+Purpose: Aggregate
+the data elements in
+an RDD using this
+function which takes
+two arguments and
+returns one
+scala> val rdd = sc.parallelize(list(1,2,3,4))
+scala> rdd.reduce(_+_) Result:
+Int = 10
+take (n) Purpose: :
+fetch first n data
+elements in an RDD.
+computed by driver
+program.
+Scala> val rdd = sc.parallelize(list(1,2,3,4))
+scala> rdd.take(2) Result:
+Array[Int] = Array(1, 2)
+foreach(func)
+Purpose: execute
+function for each data
+element in RDD.
+usually used to update
+an
+accumulator(discussed
+later) or interacting
+with external systems.
+Scala> val rdd = sc.parallelize(list(1,2,3,4))
+scala> rdd.foreach(x=>println(“%s*10=%s”.
+format(x,x*10))) Result:
+1*10=10 4*10=40 3*10=30 2*10=20
+first() Purpose:
+retrieves the first data
+element in RDD.
+Similar to take(1)
+scala> val rdd = sc.parallelize(list(1,2,3,4))
+scala> rdd.first() Result:
+Int = 1
+saveAsTextFile(path)
+Purpose: Writes the
+content of RDD to a
+text file or a set of text
+files to local file
+system/ HDFS
+scala> val hamlet =
+sc.textFile(“/users/akuntamukkala/
+temp/gutenburg.txt”) scala>
+hamlet.filter(_.contains(“Shakespeare”)).
+saveAsTextFile(“/users/akuntamukkala/temp/
+filtered”) Result:
+akuntamukkala@localhost~/temp/filtered$ ls
+_SUCCESS part00000
+part00001
+
+RDD Persistence
+guide.html//actions)
+One of the key capabilities in Apache Spark is
+persisting/caching RDD in cluster memory. This speeds up
+iterative computation.
+The following table shows the various options Spark for the
+same.
+STORAGE LEVEL PURPOSE
+MEMORY_ONLY (Default
+level)
+This option stores RDD in available
+cluster memory as deserialized Java
+objects. Some partitions may not be
+cached if there is not enough cluster
+memory. Those partitions will be
+recalculated on the fly as needed.
+MEMORY_AND_DISK
+This option stores RDD as deserialized
+Java objects. If RDD does not fit in
+cluster memory, then store those
+partitions on the disk and read them
+as needed.
+MEMORY_ONLY_SER
+This options stores RDD as serialized
+Java objects (One byte array per
+partition). This is more CPU intensive
+but saves memory as it is more space
+efficient. Some partitions may not be
+cached. Those will be recalculated on
+the fly as needed.
+MEMORY_ONLY_DISK_SER
+This option is same as above except
+that disk is used when memory is not
+sufficient.
+DISC_ONLY
+This option stores the RDD only on
+the disk
+MEMORY_ONLY_2,
+MEMORY_AND_DISK_2,
+etc.
+Same as other levels but partitions are
+replicated on 2 slave nodes
+The above storage levels can be accessed through persist()
+operation on RDD. cache() operation is a convenient way
+of specifying MEMORY_ONLY option
+
+scala> val map = sc.parallelize(Seq((“ground”,1),(“med”,2)
+, (“priority”,5),(“express”,10))).collect().toMap
+
+scala> val bcMailRates = sc.broadcast(map)
+
+scala> val shippingCost=sc.accumulator(0.0)
+scala> pts.map(x=>(x,1)).reduceByKey(_+_).map{case (x,y)=>
+(x,y*bcMailRates.value(x))}.foreach(v=>shippingCost+=v._2)
+scala> shippingCost.value
+
+val sparkConf = new SparkConf().setAppName(“Customers”)
+val sc = new SparkContext(sparkConf)
+val sqlContext = new SQLContext(sc)
+val r = sc.textFile(“/Users/akuntamukkala/temp/customers.t
+xt”) val records = r.map(_.split(‘|’))
+val c = records.map(r=>Customer(r(0),r(1).trim.toInt,r(2),
+r(3))) c.registerAsTable(“customers”)
+sqlContext.sql(“select * from customers where gender=’M’ a
+nd age < 30”).collect().foreach(println)
+val sparkConf = new SparkConf().setAppName(“TwitterPopular
+Tags”)
+val ssc = new StreamingContext(sparkConf, Seconds(2))
+val stream = TwitterUtils.createStream(ssc, None, filters)
+val hashTags = stream.flatMap(status => status.getText.spl
+it(“ “).filter(_.startsWith(“//”)))
+val topCounts60 = hashTags.map((_, 1)).reduceByKeyAndWindo
+w(_ + _, Seconds(60)).map{case (topic, count) => (count, t
+opic)}. transform(_.sortByKey(false))
+val topList = rdd.take(10)
+ssc.start()
+val lines = ssc.socketTextStream(“localhost”, 9999, Storage
+Level.MEMORY_AND_DISK_SER)
+
+
+Spark Some moare
+-----------------
+Quick Tour of Scala
+--------
+Declaring variables:
+var x: Int = 7
+var x = 7 // type inferred
+val y = "hi" //read-only
+Functions:
+def square(x: Int): Int = x*x
+def square(x: Int): Int = { x*x }
+def announce( text: string) = {println(text)}
+
+Java equivalent:
+int x = 7;
+final string y = "hi";
+int square (int x){
+	return x*x;
+}
+void announce (String text){
+	System.out.println(text);
+}
+
+Scala functions (closures):
+(x: Int) => x + 2 // full version
+x => x + 2 // type inferred
+_+ 2 //placeholder syntax (each argument must be used exactly once)
+x ={ // body is a block of code
+	val numberToAdd = 2
+	x + numberToAdd
+}
+// Regular functions
+def addTwo(x: Int): Int = x + 2
+
+val lst = List(1, 2, 3)
+list.foreach(x => println(x)) // prints 1, 2, 3
+list.foreach(println) //same
+list.map(x => x+2) // return a new list (3, 4, 5)
+list.map(_ + 2) // same
+list.filter( x => x % 2 ==1) // returns a new list (1, 33)
+list.filter(_ % 2 == 1) // same
+list.reduce((x, y) => x + y) // => 6
+lis.reduce(_ + _) // same
+
+// All of those leave the list unchanged as it is immutable
+
+map(f: T =>): Seq[u] // each element is result of f
+flatMap(f: T => seq[u]): Seq[U] //one to many map
+filter(f: T => Boolean): Seq[T] // Keep elements passing f
+exists(f: T => Boolean): Boolean // True if one element passes f
+forall(f: T => Boolean): Boolean // True if all element passes f
+reduce(f: (T, T) => T): T // Merge elements using f
+groupBy(f: T => K): Map[K, List[T]] // Group elements by f
+sortBy(f: T => K): Seq[T] // Sort elements
+
+Log mining example in Scala
+----------
+val lines = spark.textFile("hdfs://...")
+val errors = lines.filter(_.startsWith("Error"))
+val messages = errors.map(_.split('\t')(2))
+messages.cache()
+messages.filter(_.contains("mysql")).count()
+messages.filter(_.contains("php")).count()
+
+In memory caching, operator graphs in sparks
+Data partitions read from RAM instead of disk
+Scheduling optimization and fault tolerant by operator graphs
+
+Easy expressive functions in Spark: 
+------------
+map, reduce, sample, filter, count, take, groupBy, fold, first, sort, reduceByKey, partitionBy, union, groupByKey, mapWith,
+join, cogroup, pipe, leftOuterJoin, cross, save, rightOuterJoin, zip
+
+Creating RDD's:
+// python
+sc.parallelize([1, 2, 3])
+// scala
+sc.parallelize(List(1,2, 3)) 
+// Load text file from FS, HDFS, or S3 
+sc.textFile("file.txt")
+sc.textFile("directory/*.txt")
+sc.textFile("hdfs://nnamenode:9000/path/file")
+// Use existing Hadoop InputFormat (Java/Scala only)
+sc.hadoopFile(keyClass, valClass, inputFmt, conf)
+
+Basic transformation in Scala:
+--
+val nums = sc.parallelize(List(1,2,3))
+// Pass each element through a function
+val squares = nums.map(x: x*x) //{1,4,9}
+// Keep elements passing a predicate
+val even = squares.filter(x => x %2 ==0) //{4}
+//Map each element to zero or more others
+nums.flatMap(x => 0.to(x))
+
+//Pass each partition through a function
+val squares = nums.mapPartition(x.map(x*x))// {1,4,9}
+
+// Set operations
+this.union(rdd) // reduces a new RDD with elements from both rdds (fast!)
+this.interesect*(rdd) // suprisingly slow
+this.cartesian(rdd) // produce an RDD with the cartesian product from both RDDs (possibly not very fast)
+
+Basic Actions (Scala)
+--
+val nums = sc.parallelize(List(1,2,3))
+// Retrieve RDD contents as a local collection
+nums.collect() // => List(1,2,3)
+// Return first K elements
+nums.take(2) // => List(1,2)
+// Count number of elements
+nums.count() //=> 3
+// Merge elements with an associative function
+nums.reduce{case (x,y) => x+y} //=> 6
+//Write elements to a text file
+nums.saveAsTextFile("hdfs://file.txt")
+
+Basic Transformation (python)
+-----
+nums = sc.parallelize([1, 2, 3])
+// Pass each element through a function
+squares = nums.map(lambda x: x*x) // {1,4,9}
+// Keep elements passing a predicate
+even = squares.filter(lambda x: x%2 ==0)// {4}
+// Map each element to zero or more others
+nums.flatMap(lambda x: => range (x)) // => {0, 0, 1, 0, 1, 2}
+// Retrieve RDD contents as a local collection
+nums.collect() // => [1, 2, 3]
+// Return first K elements
+nums.take(2) // => [1, 2]
+// Count number of elements
+nums.count() // => 3
+// Merge elements with an associative function
+nums.reduce(lambda x, y: x + y) // => 6
+// Write elements to a text file
+nums.saveAsTextFile("hdfs://file.txt")
+
+Working with Key-Value Pairse
+---
+Python: pair = (a, b), 
+	pair[0] # => a
+	pair[1] # => b
+Scala:	val pair = (a, b)
+	pair._1 // => a
+	pair._2 // => b
+Java:	Tuple2 pair = new Tuple2(a,b);
+	pair._1 // => a
+	pair._2 // => b
+
+Some key-value operations in Scala:
+pets = sc.parallelize( List(("cat", 1), ("dog", 1) , ("cat", 2)))
+pets.reduceByKey(_ + _) // => ((cat, 3), (dog,1))
+pets.groupByKey() // => {(cat, [1,2]), (dog, [1]))}
+pets.sortByKey() // => {(cat, 1), (cat, 2), (dog, 1)}
+// reduceByKey also automatically implements combiner on the map side
+
+
+Some key-value operations in Python:
+pets = sc.parallelize( [("cat", 1), ("dog", 1) , ("cat", 2)])
+pets.reduceByKey(lambda x, y: x+y) # => ((cat, 3), (dog,1))
+pets.groupByKey() # => {(cat, [1,2]), (dog, [1]))}
+pets.sortByKey() # => {(cat, 1), (cat, 2), (dog, 1)}
+# reduceByKey also automatically implements combiner on the map side
+
+- it is possible to use wild-cards
+
+Other Key-Value Operations
+visits = sc.parallelize(List(("index.html", "1.2.3.4"), ("about.html", "3.4.5.6"), ("index.html", "1.3.3.1")))
+pageNames = sc.parallelize(List("index.html", "Home"), ("about.html", "About")))
+visits.join(pageNames)
+// ("index.html", ("1.2.3.4", "Home"))
+// ("index.html", ("1.3.3.1", "Home"))
+// ("about.html", ("3.4.5.6", "About"))
+visits.cogroup(pageNames)
+// ("index.html", (Seq("1.2.3.4", "1.3.3.1"), Seq("Home")))
+// ("about.html", (Seq("3.4.5.6"), Seq("About")))
+
+// All the pair RDD operations take an optional second parameters of number of tasks
+words.reduceByKey(_ + _, 5)
+words.groupByKey(5)
+visits.join(pageViews, 5)
+
+// Any external variables used in closure will automatically be shipped to the cluster
+val query = "pandas"
+pages.filter(_.contains(query)).count()
+
+// Complete App in Scala
+import org.apache.spark._
+import org.apache.spark.SparkContext._
+object WordCount{
+	def main(args: Array[String]){
+		val sc = SparkContext(arg(0), "BasicMap", System.getenv("SPARK_HOME"))
+		val input = sc.textFile(args(1))
+		val counts = input.flatMap(_.split(" ")).map((_, 1)).reduceByKey(_ + _)
+		counts.saveAsTextFile(args(2))
+	}
+}
+
+// Spark Shell
+./spark-shell
+pyspark (IPYTHON=1)
+
+// Word count in Scala
+val lines = sc.textFile("hamlet.txt")
+val counts = lines.flatMap(_.split(" ")).map((_, 1)).reduceByKey(_ + _)
+
+# Word count in Python
+lines = sc.textFile("hamlet.txt")
+counts = lines.flatMap(lambda line: line.split(" ")).map(lamda word =>  (word, 1)).reduceByKey(lambda x, y: x+y)
+
+
+//---------------------------
+// Simple hello word on Figaro
+//---------------------------
 spark-shell
 Tutorial:
-#---------
+//---------
 https://www.cra.com/sites/default/files/pdf/Figaro_Tutorial.pdf
-# on Hyper we have scala so
-#-----------------------
-# download the file into the current directory
+// on Hyper we have scala so
+//-----------------------
+// download the file into the current directory
 wget  "https://www.cra.com/sites/default/files/files/figaro-4.1.0.0-linux-x64-installer.run"
 chmod +x figaro-4.1.0.0-linux-x64-installer.run
 ./figaro-4.1.0.0-linux-x64-installer.run
-# Quick start instructions
-#-----------------------
+// Quick start instructions
+//-----------------------
 https://www.cra.com/sites/default/files/pdf/Figaro_Quick_Start_Guide.pdf
 
-# Use simple Built tool
+// Use simple Built tool
 ---------------------------
 Download the version of the SBT installer you need from http://www.scala-sbt.org/download.html
 wget https://dl.bintray.com/sbt/native-packages/sbt/0.13.13/sbt-0.13.13.tgz
 tar xvzf sbt-0.13.13.tgz
-# or a better approach: http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Linux.html
+// or a better approach: http://www.scala-sbt.org/0.13/docs/Installing-sbt-on-Linux.html
 echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
 sudo apt-get update
 sudo apt-get install sbt
 
-# Note that ~/.bash_rc is not read by any program, and ~/.bashrc is the configuration file of interactive instances of bash. You should not define environment variables in ~/.bashrc. The right place to define environment variables such as PATH is ~/.profile (or ~/.bash_profile if you don't care about shells other than bash). See What's the difference between them and which one should I use?
+// Note that ~/.bash_rc is not read by any program, and ~/.bashrc is the configuration file of interactive instances of bash. You should not define environment variables in ~/.bashrc. The right place to define environment variables such as PATH is ~/.profile (or ~/.bash_profile if you don't care about shells other than bash). See What's the difference between them and which one should I use?
 \
 
-# Add the sbt\bin directory to your system Path variable using the appropriate method for your operating system.
+// Add the sbt\bin directory to your system Path variable using the appropriate method for your operating system.
 echo $PATH
 PATH=~/sbt-launcher-packaging-0.13.13/bin:$PATH
 export PATH=~/sbt-launcher-packaging-0.13.13/bin:$PATH
 echo $PATH
 
-# Run SBT to download the necessary files from the internet and test the installation. Enter: sbt
-# You can also double-click the sbt.bat file in Windows to display the SBT console window.
-# SBT will provide information messages as it downloads files, then it will display the SBT prompt.
+// Run SBT to download the necessary files from the internet and test the installation. Enter: sbt
+// You can also double-click the sbt.bat file in Windows to display the SBT console window.
+// SBT will provide information messages as it downloads files, then it will display the SBT prompt.
 
 Exit SBT. Enter:
 exit
 
-# To verify the Simple Build Tool installation
-# 1 Create a HiWorld directory.
-# 2 Create a HiWorld.scala file that contains the following:
+// To verify the Simple Build Tool installation
+// 1 Create a HiWorld directory.
+// 2 Create a HiWorld.scala file that contains the following:
 object Hi {
  def main(args: Array[String]) = println("Hi!")
 }
-# 3 Open a command prompt.
-# 4 Change directory to the HiWorld directory. For example, enter:
+// 3 Open a command prompt.
+// 4 Change directory to the HiWorld directory. For example, enter:
 cd C:\Figaro\HiWorld
-# 5 Start SBT. Enter:
+// 5 Start SBT. Enter:
 sbt
 SBT will provide information messages as it sets the project to the current directory. The command
 prompt will look like:
 >
-# 6 Run the HiWorld project. Enter:
+// 6 Run the HiWorld project. Enter:
 run
 SBT will provide information messages as it updates files, resolves sources, and compiles the
 HiWorld.scala file.
@@ -65,12 +572,12 @@ You will see a result similar to:
 [info] Running Hi
 Hi!
 [success] Total time: 10 s, completed Sept 26, 2015 11:40:06 AM
-# 7 Exit SBT. Enter:
+// 7 Exit SBT. Enter:
 exit
 
-#------------------------------------
-# Further configuration
-#------------------------------------
+//------------------------------------
+// Further configuration
+//------------------------------------
 http://alvinalexander.com/scala/scala-how-add-jar-file-scala-repl-classpath-command-line
 
 scala
@@ -79,41 +586,41 @@ scala> :require figaro_2.11-4.1.0.0.jar
 scala -cp ~/Figaro/figaro-4.1.0.0/lib/figaro_2.11-4.1.0.0.jar
 
 
-#------------------------------------
-# Downloading the FigaroWork project
-#------------------------------------
-# To download the Figaro Work project
-# 1 Navigate to http://www.cra.com/figaro.
-# 2 Click the Figaro Work link in the Figaro Work section to download the FigaroWork.zip file.
-# wget  "https://www.cra.com/sites/default/files/files/FigaroWork.zip"
-# 3 Extract the files to a folder on your local computer.
-# unzip FigaroWork.zip
-# This will create a top-level FigaroWork directory, with two subdirectories: FigaroWork and target.
-# To verify your environment is configured properly
-# 1 Open a command prompt.
-# 2 Change directory to the FigaroWork/FigaroWork directory.
-# cd FigaroWork/
-# 3 Test SBT on the FigaroWork project. For example, on Windows, enter:
-# sbt "runMain Test"
-# SBT will provide information messages as it updates files, resolves sources, and compiles the
-# Test.scala file included in the FigaroWork download. This process may take a few minutes.
-# 4 Check that the following output is created:
-# [info] Running Test
-# 1.0
-#[success] Total time: 200 s, completed Sept 26, 2015 12:40:06 AM
-# If the output is not created, check that you ran SBT from the correct FigaroWork directory
+//------------------------------------
+// Downloading the FigaroWork project
+//------------------------------------
+// To download the Figaro Work project
+// 1 Navigate to http://www.cra.com/figaro.
+// 2 Click the Figaro Work link in the Figaro Work section to download the FigaroWork.zip file.
+// wget  "https://www.cra.com/sites/default/files/files/FigaroWork.zip"
+// 3 Extract the files to a folder on your local computer.
+// unzip FigaroWork.zip
+// This will create a top-level FigaroWork directory, with two subdirectories: FigaroWork and target.
+// To verify your environment is configured properly
+// 1 Open a command prompt.
+// 2 Change directory to the FigaroWork/FigaroWork directory.
+// cd FigaroWork/
+// 3 Test SBT on the FigaroWork project. For example, on Windows, enter:
+// sbt "runMain Test"
+// SBT will provide information messages as it updates files, resolves sources, and compiles the
+// Test.scala file included in the FigaroWork download. This process may take a few minutes.
+// 4 Check that the following output is created:
+// [info] Running Test
+// 1.0
+//[success] Total time: 200 s, completed Sept 26, 2015 12:40:06 AM
+// If the output is not created, check that you ran SBT from the correct FigaroWork directory
 
-#------------------------------------
-# Downloading Figaro
-#------------------------------------
-# To download Figaro
-# 1 Navigate to http://www.cra.com/figaro from a browser.
-# 2 Click the Figaro zip file in the Download Figaro section.
-# 3 Extract the files from the zip file.
-#    The zip file contains the compiled Figaro code as a JAR file, examples, documentation, Scaladoc, and source code.
-# 4 Add the directory that contains the Figaro JAR file to your system Path variable using the appropriate
-# method for your operating system. For example, if you extracted the Figaro files to a Figaro folder on your C drive, add:
-# C:\Figaro\figaro_3.3.0.0
+//------------------------------------
+// Downloading Figaro
+//------------------------------------
+// To download Figaro
+// 1 Navigate to http://www.cra.com/figaro from a browser.
+// 2 Click the Figaro zip file in the Download Figaro section.
+// 3 Extract the files from the zip file.
+//    The zip file contains the compiled Figaro code as a JAR file, examples, documentation, Scaladoc, and source code.
+// 4 Add the directory that contains the Figaro JAR file to your system Path variable using the appropriate
+// method for your operating system. For example, if you extracted the Figaro files to a Figaro folder on your C drive, add:
+// C:\Figaro\figaro_3.3.0.0
  
 echo $PATH
 PATH=~/Figaro/figaro-4.1.0.0/lib:$PATH
@@ -122,9 +629,9 @@ PATH=~/Figaro/figaro-4.1.0.0/fat-jar:$PATH
 export PATH=~/Figaro/figaro-4.1.0.0/fat-jar:$PATH
 echo $PATH
 
-#----------------------------------
+//----------------------------------
 Creating a model
-#----------------------------------
+//----------------------------------
 1 Create a HelloWorldTest.scala file in the FigaroWork/src/main/scala directory.
 SBT requires that your source code be placed in this directory.
 If you cannot find this directory, follow the instructions in Installing the Simple Build Tool and
@@ -159,15 +666,15 @@ object HelloWorldTest{
          }
 }
 
-# Load the portion of the Figaro package that contains the definition of the sampling algorithm.
-# To determine which package you need to import, open http://www.cra.com/figaro, scroll to the
-# Download Figaro section, and click the link to the documentation of the Figaro library interface
-#    https://www.cra.com/Figaro_Scaladoc/index.html
+// Load the portion of the Figaro package that contains the definition of the sampling algorithm.
+// To determine which package you need to import, open http://www.cra.com/figaro, scroll to the
+// Download Figaro section, and click the link to the documentation of the Figaro library interface
+//    https://www.cra.com/Figaro_Scaladoc/index.html
 
-#--------------------------------
-# Slightly complicated example with Select rather than Constant
-# and do Variable Elimination: exact algorithm
-#----------------------------------
+//--------------------------------
+// Slightly complicated example with Select rather than Constant
+// and do Variable Elimination: exact algorithm
+//----------------------------------
 cd /src/main/scala
 vim HelloWorldTest1
 
@@ -187,65 +694,65 @@ object HelloWorldTest1{
 cd ~/Figaro/FigaroWork
 sbt "runMain HelloWorldTest1"
 
-#--------------------------------
-# Producing results from queries
-#--------------------------------
-# 11 Open a command prompt.
-# 12 Change directory to the FigaroWork/FigaroWork directory. For example, enter:
-# cd c:\Program Files (x86)\sbt\FigaroWork
-# SBT requires that you run your source code from the top-level FigaroWork directory (the same directory that contains the project, src, and target directories).
-# 13 Enter the following to run your project:
-# sbt "runMain HelloWorldTest"
-# Figaro executes the program, running the reasoning algorithm and querying the model defined within
-# the program. Running the program instantiates an Importance sampler, which takes 1000 samples from
-# the model and saves each sample. Then it computes the probability of each string you queried within that result set.
-# 14 Your HelloWorldTest project should produce the following output:
-# [info] Running HelloWorldTest
-# Probability of Hello world:
-# 1.0
-# Probability of Goodbye world:
-# 0.0
-# That is, helloWorldElement produced the string “Hello world!” 1000 times and never
-# produced the string “Goodbye world!”
+//--------------------------------
+// Producing results from queries
+//--------------------------------
+// 11 Open a command prompt.
+// 12 Change directory to the FigaroWork/FigaroWork directory. For example, enter:
+// cd c:\Program Files (x86)\sbt\FigaroWork
+// SBT requires that you run your source code from the top-level FigaroWork directory (the same directory that contains the project, src, and target directories).
+// 13 Enter the following to run your project:
+// sbt "runMain HelloWorldTest"
+// Figaro executes the program, running the reasoning algorithm and querying the model defined within
+// the program. Running the program instantiates an Importance sampler, which takes 1000 samples from
+// the model and saves each sample. Then it computes the probability of each string you queried within that result set.
+// 14 Your HelloWorldTest project should produce the following output:
+// [info] Running HelloWorldTest
+// Probability of Hello world:
+// 1.0
+// Probability of Goodbye world:
+// 0.0
+// That is, helloWorldElement produced the string “Hello world!” 1000 times and never
+// produced the string “Goodbye world!”
 
-#----------------------------------
-# Possible reasoning algorithms:
-#-----------------------------------
+//----------------------------------
+// Possible reasoning algorithms:
+//-----------------------------------
 1. VariableElimination: exact algorithm (expand all elements, elements --> factors)
 2. BeliefPropagation: approximate inference, possible world expansion, messaging passing b/w factor and variable nodes
-3. Importance Sampling: probability of evidence by forward sampling, multiply weight of sample by value of constraint (atomic continuous, infinite # elements)
+3. Importance Sampling: probability of evidence by forward sampling, multiply weight of sample by value of constraint (atomic continuous, infinite // elements)
 4. MetropolisHastings: proposal distribution (ProposalScheme object), passed to this object and new state each step (accept, reject proposal)
 5. ProbEvidenceSampler: compute the probability of all the evidence (not conditional on evidence), so constraint can be expluded or included
 6. MPEVariableElimination or MetropolisHastingsAnnealer: most likely of value given available evidence using variable elimination and simulated annealing
 7. ParticleFilter: dynamic model using an initial model, transition model, number of particles to produce at each step
 8. ExpectationMaximization: parameter learning from data using expectation maximization
 
-#----------------- 
-# Creating sample example
-#-----------------
+//----------------- 
+// Creating sample example
+//-----------------
 val sampleHelloWorld = Importance(1000, HelloWorld)
 sampleHelloWorld.start()
 
-#----------------
-# Example of query of the probability
-#----------------
+//----------------
+// Example of query of the probability
+//----------------
 sampleHelloWorld.probability(helloWorldElement, “Hello world!”)
 sampleHelloWorld.probability(helloWorldElement, “Goodbye world!”)
 
-#----------------
+//----------------
 Burglary example in Figaro
-#----------------
+//----------------
 https://www.cra.com/sites/default/files/pdf/Figaro_Quick_Start_Guide.pdf
 
 
-#--------------------------------------------------------------
-# Hello World in Figaro
-#--------------------------------------------------------------
-# Import Figaro constructs
+//--------------------------------------------------------------
+// Hello World in Figaro
+//--------------------------------------------------------------
+// Import Figaro constructs
 import com.cra.figaro.language.{Flip, Select}
 import com.cra.figaro.library.compound.If
 import com.cra.figaro.algorithm.factored.VariableElimination
-# Define the model
+// Define the model
 object HelloWorld {
   val sunnyToday = Flip(0.2)
   val greetingToday = If(sunnyToday,
@@ -255,20 +762,20 @@ object HelloWorld {
   val greetingTomorrow = If(sunnyTomorrow,
        Select(0.6 -> "Hello, world!", 0.4 -> "Howdy, universe!"),
        Select(0.2 -> "Hello, world!", 0.8 -> "Oh no, not again"))
- # Predict today’s greeting using an inference algorithm
+ // Predict today’s greeting using an inference algorithm
   def predict() {
     val result = VariableElimination.probability(greetingToday,
                    "Hello, world!")
     println("Today’s greeting is \"Hello, world!\" " + "with probability " + result + ".")
 	}
-	# Use an inference algorithm to infer today’s weather, given the observation that today’s greeting is “Hello, world!”
+	// Use an inference algorithm to infer today’s weather, given the observation that today’s greeting is “Hello, world!”
 	def infer() {
 	  greetingToday.observe("Hello, world!")
 	  val result = VariableElimination.probability(sunnyToday, true)
 	  println("If today's greeting is \"Hello, world!\", today’s " +
 	          "weather is sunny with probability " + result + ".")
 	}
-# Learn from observing that today’s greeting is “Hello, world!” to predict tomorrow’s greeting using an inference algorithm
+// Learn from observing that today’s greeting is “Hello, world!” to predict tomorrow’s greeting using an inference algorithm
 	def learnAndPredict() {
 	  greetingToday.observe("Hello, world!")
 	  val result = VariableElimination.probability(greetingTomorrow,
@@ -278,7 +785,7 @@ object HelloWorld {
 	￼"tomorrow's greeting will be \"Hello, world!\" " +
 	"with probability " + result + ".")
 	}
-# Main method that performs all the tasks
+// Main method that performs all the tasks
 	  def main(args: Array[String]) {
 	    predict()
 	    infer()
@@ -287,19 +794,19 @@ object HelloWorld {
 }
 
 
-#----------------
+//----------------
 Burglary example in Figaro
-# An example of Bayesian Network
-#----------------
-# Bayesian Network to model scenarios
-# It models the likelihood that a burglar set off a burglar alarm as opposed to an earthquake
-# Measure probabilities using variable elimination algorithm
-# Query the model using the algorithm to determine the cause
+// An example of Bayesian Network
+//----------------
+// Bayesian Network to model scenarios
+// It models the likelihood that a burglar set off a burglar alarm as opposed to an earthquake
+// Measure probabilities using variable elimination algorithm
+// Query the model using the algorithm to determine the cause
 
-# 1. Create a BurglaryExample.scala file in the FigaroWork/src/main/scala directory
-# do the following on Hyper:
-# cd Figaro/FigaroWork/src/main/scala
-# vim BurglaryExample.scala
+// 1. Create a BurglaryExample.scala file in the FigaroWork/src/main/scala directory
+// do the following on Hyper:
+// cd Figaro/FigaroWork/src/main/scala
+// vim BurglaryExample.scala
 2. The code and including conditional probability
 	import com.cra.figaro.algorithm.factored._
 	import com.cra.figaro.language._
@@ -329,151 +836,151 @@ Burglary example in Figaro
   cd ~/Figaro/FigaroWork
   sbt "runMain Burglary"
 
-#------------------------------
-# Figaro Representation
-#------------------------------
-# Elements:
-# atomic:
-Constant(6) # it's probability is 1, which is instance of Element[Int]
-# Figaro classes are capitalized, while Scala reserved words are not
-Constant("Hello") # this is an instance of Element[String]
-# value type is the value that is generated by the probabilistic model that could be Int, Strig, etc.
-# Scala uses type inference, so the value type of the parameter can often be omitted at class creation 
-#	(the compiler will determine the type)
-# All figaro Elements are instances of Element class
-# Element class is parameterized by value types
+//------------------------------
+// Figaro Representation
+//------------------------------
+// Elements:
+// atomic:
+Constant(6) // it's probability is 1, which is instance of Element[Int]
+// Figaro classes are capitalized, while Scala reserved words are not
+Constant("Hello") // this is an instance of Element[String]
+// value type is the value that is generated by the probabilistic model that could be Int, Strig, etc.
+// Scala uses type inference, so the value type of the parameter can often be omitted at class creation 
+//	(the compiler will determine the type)
+// All figaro Elements are instances of Element class
+// Element class is parameterized by value types
 
-#other elements:
-# Flip(0.7) is an Element[Boolean] that represents the probabilistic
-#	model that produces true with probability 0.7 and false with probability 0.3.
-# Select(0.2 -> 1, 0.3 -> 2, 0.5 -> 3) is an Element[Int] that
-#	represents the probabilistic model that produces 1 with probability
-#	0.2, 2 with probability 0.3, and 3 with probability 0.5.
-#	Select can select between elements of any type, so we may also
-#	have Select(0.4 -> "a", 0.6 -> "b"), which is an Element[String].
-# The continuous Uniform(0.0, 2.0) is an Element[Double] that
-#	represents the continuous uniform probability distribution between 0 and 2.
-#   It is int he package called: import com.cra.figaro.library.atomic.continuous._
+//other elements:
+// Flip(0.7) is an Element[Boolean] that represents the probabilistic
+//	model that produces true with probability 0.7 and false with probability 0.3.
+// Select(0.2 -> 1, 0.3 -> 2, 0.5 -> 3) is an Element[Int] that
+//	represents the probabilistic model that produces 1 with probability
+//	0.2, 2 with probability 0.3, and 3 with probability 0.5.
+//	Select can select between elements of any type, so we may also
+//	have Select(0.4 -> "a", 0.6 -> "b"), which is an Element[String].
+// The continuous Uniform(0.0, 2.0) is an Element[Double] that
+//	represents the continuous uniform probability distribution between 0 and 2.
+//   It is int he package called: import com.cra.figaro.library.atomic.continuous._
 
-# The _ is the Scala version of Java’s * for imports
+// The _ is the Scala version of Java’s * for imports
 
 
-# continuous atomic classes in the following package are:
-#	library.atomic.continuous
-#		Normal, Exponential, Gamma, Beta, and Dirichlet
+// continuous atomic classes in the following package are:
+//	library.atomic.continuous
+//		Normal, Exponential, Gamma, Beta, and Dirichlet
 
-# discrete elements included in the following package are:
-#	library.atomic.discrete
-#		Uniform, Geometric, Binomial, and Poisson
+// discrete elements included in the following package are:
+//	library.atomic.discrete
+//		Uniform, Geometric, Binomial, and Poisson
 
-# Compound Elements:
-# 	Flip(Uniform(0.0, 1.0))  # which is of type Element[Double].
+// Compound Elements:
+// 	Flip(Uniform(0.0, 1.0))  // which is of type Element[Double].
 
-# Conditional compound elements (in library.compound package package):
-# If(Flip(0.7), Constant(1), Select(0.4 -> 2, 0.6 -> 3))
-#	 Note If is a Figaro class, not the Scala if reserved word
-# 	The first argument to If must be an Element[Boolean], 
-# 	while the other two arguments must have the same value type, which also becomes the value type of the If.
+// Conditional compound elements (in library.compound package package):
+// If(Flip(0.7), Constant(1), Select(0.4 -> 2, 0.6 -> 3))
+//	 Note If is a Figaro class, not the Scala if reserved word
+// 	The first argument to If must be an Element[Boolean], 
+// 	while the other two arguments must have the same value type, which also becomes the value type of the If.
 
-# chain as a form of Compound element
-#	Chain(Flip(0.7), (b: Boolean) =>
-#		if (b) Constant(1); else Select(0.4 -> 2, 0.6 -> 3))
-# a Chain[T,U] is an Element[U], so the first element is the parnet, and the second one U is the child
-# this is a generative process of child given parent
-# If more parents are required for a Chain, multiple Chains can be nested together.
+// chain as a form of Compound element
+//	Chain(Flip(0.7), (b: Boolean) =>
+//		if (b) Constant(1); else Select(0.4 -> 2, 0.6 -> 3))
+// a Chain[T,U] is an Element[U], so the first element is the parnet, and the second one U is the child
+// this is a generative process of child given parent
+// If more parents are required for a Chain, multiple Chains can be nested together.
 
-# Scala notation for the type of a function is: inType => outType
-# Anonymous functions in Scala are created by defining an
-#	argument list and the body of the function. The return type is inferred by the compiler
+// Scala notation for the type of a function is: inType => outType
+// Anonymous functions in Scala are created by defining an
+//	argument list and the body of the function. The return type is inferred by the compiler
 
-# Apply
-# Figaro Apply is a class, different than the Scala apply which is a method defined on many classes
-# Apply(Select(0.2 -> 1, 0.8 -> 2), (i: Int) => i + 5) # first generates numbers then adds five to them
+// Apply
+// Figaro Apply is a class, different than the Scala apply which is a method defined on many classes
+// Apply(Select(0.2 -> 1, 0.8 -> 2), (i: Int) => i + 5) // first generates numbers then adds five to them
 
-# variety of operators that can be defined using Apply:
-#	^^ creates tuples. For example, ^^(x, y) where x and y are elements,
-#		creates an element of pairs. ^^ is defined for up to five
-#		arguments. The arguments can have different value types.
-#	If x is an element whose value type is a tuple, x._1 is an element
-#		that corresponds to extracting the first component of x.
-#		Similarly for _2, _3, _4, and _5.
-# 	x === y, where x and y have the same value type, is the element
-#		that produces true whenever they are equal. Similarly for !=.
+// variety of operators that can be defined using Apply:
+//	^^ creates tuples. For example, ^^(x, y) where x and y are elements,
+//		creates an element of pairs. ^^ is defined for up to five
+//		arguments. The arguments can have different value types.
+//	If x is an element whose value type is a tuple, x._1 is an element
+//		that corresponds to extracting the first component of x.
+//		Similarly for _2, _3, _4, and _5.
+// 	x === y, where x and y have the same value type, is the element
+//		that produces true whenever they are equal. Similarly for !=.
 
-# Sequences in Scala are similar to Java. Seq is the superclass in Scala for many
-#		types of data structures, such as List.
+// Sequences in Scala are similar to Java. Seq is the superclass in Scala for many
+//		types of data structures, such as List.
 
-# Processes
-#-------------------
-# infinite collection of random variables
-# Formally, a Process is a mapping from an index set to an element. 
-# A Process is parameterized by two types: the type of the indices and the type of the values of the elements in the collection.
-# The Process is an extremely general class that can be used to represent things like Gaussian processes or continuous time Markov processes.
-# When creating a Process, you need to specify how elements in the collection are generated given an index
+// Processes
+//-------------------
+// infinite collection of random variables
+// Formally, a Process is a mapping from an index set to an element. 
+// A Process is parameterized by two types: the type of the indices and the type of the values of the elements in the collection.
+// The Process is an extremely general class that can be used to represent things like Gaussian processes or continuous time Markov processes.
+// When creating a Process, you need to specify how elements in the collection are generated given an index
 
-# Not only that, in some collections, the elements are dependent. Therefore, the Process class contains a method to generate elements for many indices simultaneously,
-#	including the dependencies between them. 
-# This method must also be provided by the user. If all the elements are independent, you can use the IndependentProcess trait to specify this method.
+// Not only that, in some collections, the elements are dependent. Therefore, the Process class contains a method to generate elements for many indices simultaneously,
+//	including the dependencies between them. 
+// This method must also be provided by the user. If all the elements are independent, you can use the IndependentProcess trait to specify this method.
 
-# Getting the element at an index. If p is a Process[Int, Double], p(5) gets the Element[Double] at index 5. This method throws
-#		IndexOutOfRangeException if no element is defined at index 5.
+// Getting the element at an index. If p is a Process[Int, Double], p(5) gets the Element[Double] at index 5. This method throws
+//		IndexOutOfRangeException if no element is defined at index 5.
 
-# Getting elements at many indices simultaneously, for example, using p(List(4,5,6)). This method can also throw IndexOutOfRangeException.
-#		The method creates a Scala Map from indices to elements. Any elements representing dependencies between
-#		the elements at these indices are also created but they are not returned by this method
+// Getting elements at many indices simultaneously, for example, using p(List(4,5,6)). This method can also throw IndexOutOfRangeException.
+//		The method creates a Scala Map from indices to elements. Any elements representing dependencies between
+//		the elements at these indices are also created but they are not returned by this method
 
-# Safely getting an optional element at an index. p.get(5) will return an Element[Option[Double]]. This element will always
-#		have value None if no element is defined at index 5.
+// Safely getting an optional element at an index. p.get(5) will return an Element[Option[Double]]. This element will always
+//		have value None if no element is defined at index 5.
 
-# Safely getting an optional element at many indices.
+// Safely getting an optional element at many indices.
 
-# Mapping the values of every element in the process through a function. For example, p.map(_ > 0) will produce a Process[Int, Boolean].
+// Mapping the values of every element in the process through a function. For example, p.map(_ > 0) will produce a Process[Int, Boolean].
 
-# Chaining the value of every element in the process through a function that returns an element. For example, 
-#	p.chain(Normal(_,1)) will produce a new collection in which every element is normally distributed with mean equal to the value of the corresponding
-#	element in the original process.
+// Chaining the value of every element in the process through a function that returns an element. For example, 
+//	p.chain(Normal(_,1)) will produce a new collection in which every element is normally distributed with mean equal to the value of the corresponding
+//	element in the original process.
 
-# Containers:
-#	If you have a finite index set, you can use a Container, which takes a sequence of indices. Because they are finite, containers have many
-#	more operations defined on them, including a variety of folds and aggregates. 
-# FixedSizeArray: A specific kind of container 
-#	takes the number of elements as the first argument and a function that generates an element for a given index as the second argument. 
-#	new FixedSizeArray(10, (i: Int) => Flip(1.0 / (i + 1))) creates a container of ten Boolean elements.
-# Container constructor:
-#	takes any number of elements and produces a container with those elements. 
-#	Container(Flip(0.2), Flip(0.4)) creates a container consisting of the two elements.
+// Containers:
+//	If you have a finite index set, you can use a Container, which takes a sequence of indices. Because they are finite, containers have many
+//	more operations defined on them, including a variety of folds and aggregates. 
+// FixedSizeArray: A specific kind of container 
+//	takes the number of elements as the first argument and a function that generates an element for a given index as the second argument. 
+//	new FixedSizeArray(10, (i: Int) => Flip(1.0 / (i + 1))) creates a container of ten Boolean elements.
+// Container constructor:
+//	takes any number of elements and produces a container with those elements. 
+//	Container(Flip(0.2), Flip(0.4)) creates a container consisting of the two elements.
 
-# You can, naturally, have elements whose values are processes or containers. 
-# Figaro provides the ProcessElement and ContainerElement classes to represent these. 
-# Similar operations are defined for ProcessElement and ContainerElement as for processes and containers.
+// You can, naturally, have elements whose values are processes or containers. 
+// Figaro provides the ProcessElement and ContainerElement classes to represent these. 
+// Similar operations are defined for ProcessElement and ContainerElement as for processes and containers.
 
-# VariableSizeArray represents a collection of an unknown number of elements, where the number is itself defined by an element. 
-# It takes two arguments, the number element, and a function that generates an element for a given index, like a fixed size array. 
-# For example, VariableSizeArray(Binomial(20, 0.5), (i: Int) => Flip(1.0 / (i+ 1)) creates a container of between 0 and 20 Boolean elements.
+// VariableSizeArray represents a collection of an unknown number of elements, where the number is itself defined by an element. 
+// It takes two arguments, the number element, and a function that generates an element for a given index, like a fixed size array. 
+// For example, VariableSizeArray(Binomial(20, 0.5), (i: Int) => Flip(1.0 / (i+ 1)) creates a container of between 0 and 20 Boolean elements.
 
-# val in Figaro represents an immutable value. When a thing is assigned to a val, data inside the thing can change but the reference stored in
-#	the val is constant
+// val in Figaro represents an immutable value. When a thing is assigned to a val, data inside the thing can change but the reference stored in
+//	the val is constant
 
-# element defines a process that probabilistically produces a value.
+// element defines a process that probabilistically produces a value.
 
-# in the following y produces the value true with probability 1.0
+// in the following y produces the value true with probability 1.0
 val x = Flip(0.5)
 val y = x === x
 
-# in the following the left and right hand sides are distinct elements (each call produces a new Flip), so they need not produce the same value. 
+// in the following the left and right hand sides are distinct elements (each call produces a new Flip), so they need not produce the same value. 
 val y = Flip(0.5) === Flip(0.5)
 
-# Scala statements can be written on multiple lines 
+// Scala statements can be written on multiple lines 
 
-# CPD:
-# 	every single combination of values of the parents needs today’s be listed
+// CPD:
+// 	every single combination of values of the parents needs today’s be listed
 
-# RichCPD:
-# a more flexible format that allows for specification of structures such as context specific independence
-# each clause consists of a tuple of cases, one for each parent
-# case can be OneOf a set of values, NoneOf a set of values (meaning that it matches all values except for the ones listed), or *, meaning that it
-#		accepts all values.
-# All possible values of the parent still need to be accounted for in the argument list using a combination of OneOf, NoneOf and *.
+// RichCPD:
+// a more flexible format that allows for specification of structures such as context specific independence
+// each clause consists of a tuple of cases, one for each parent
+// case can be OneOf a set of values, NoneOf a set of values (meaning that it matches all values except for the ones listed), or *, meaning that it
+//		accepts all values.
+// All possible values of the parent still need to be accounted for in the argument list using a combination of OneOf, NoneOf and *.
 
 import com.cra.figaro.language._
 import com.cra.figaro.library.compound._
@@ -487,171 +994,171 @@ val y = RichCPD(x1, x2, x3, x4,
 (*, *, NoneOf(6, 7), OneOf(true)) -> Flip(0.9),
 (*, *, *, OneOf(false)) -> Constant(true))
 
-# It is also possible to influence the values of elements by imposing conditions or constraints on them
-# A condition represents something the value of the element must satisfy.
-# Only values that satisfy the condition are possible. 
-# Every element has a condition, which is a function from a value of the element to a Boolean. 
-# If the element is of type Element[T], the condition is of type T => Boolean. 
-# Conditions can have multiple purposes. One is to assert evidence, by specifying something that is known about an element. 
-# Alternatively, a condition can specify a structural property of a model, for example, that only one of two teams playing a game can be the winner.
-# The default condition of an element returns true for all values.
+// It is also possible to influence the values of elements by imposing conditions or constraints on them
+// A condition represents something the value of the element must satisfy.
+// Only values that satisfy the condition are possible. 
+// Every element has a condition, which is a function from a value of the element to a Boolean. 
+// If the element is of type Element[T], the condition is of type T => Boolean. 
+// Conditions can have multiple purposes. One is to assert evidence, by specifying something that is known about an element. 
+// Alternatively, a condition can specify a structural property of a model, for example, that only one of two teams playing a game can be the winner.
+// The default condition of an element returns true for all values.
 
-# change condition using setCondition
+// change condition using setCondition
 val x1 = Select(0.1 -> 1, 0.2 -> 2, 0.3 -> 3, 0.4 -> 4)
 x1.setCondition((i: Int) => i == 1 || i == 4)
-# which says that x1 must have value 1 or 4.
+// which says that x1 must have value 1 or 4.
 
-# Adding condition:
-# the following code says that not only must x1 equal 1 or 4, it must also be odd:
+// Adding condition:
+// the following code says that not only must x1 equal 1 or 4, it must also be odd:
 x1.addCondition((i: Int) => i % 2 == 1)
 
-# observe method: specify condition that allows a single value: removes all previous conditions on an element
+// observe method: specify condition that allows a single value: removes all previous conditions on an element
 x1.observe(2)
 
-# A constraint provides a way to specify a potential or weighting over an element
-# It is function from a value of the element to a Double, so if the element has type Element[T], the constraint is of type T => Double
-# constraint values should always be non-negative
-# constraint value shall be at most 1
-# Constraints serve multiple purposes in Figaro. One is to specify soft evidence on an element. 
+// A constraint provides a way to specify a potential or weighting over an element
+// It is function from a value of the element to a Double, so if the element has type Element[T], the constraint is of type T => Double
+// constraint values should always be non-negative
+// constraint value shall be at most 1
+// Constraints serve multiple purposes in Figaro. One is to specify soft evidence on an element. 
 
-# For example, if in the above Bayesian network we think we heard John call but we’re not sure, we might introduce the constraint:
+// For example, if in the above Bayesian network we think we heard John call but we’re not sure, we might introduce the constraint:
 johnCalls.setConstraint((b: Boolean) => if (b) 1.0; else 0.1)
-# This line will have the effect of making John calling 10 times more likely than not, all else being equal.
+// This line will have the effect of making John calling 10 times more likely than not, all else being equal.
 
-# Another purpose of constraints is to define some probabilistic relationships conveniently that are more difficult to express without them
+// Another purpose of constraints is to define some probabilistic relationships conveniently that are more difficult to express without them
 
-# firms: _* explanation:
-# Since firms is a single field representing an array, we must convert it into a sequence of arguments, which is accomplished using the :_* notation
+// firms: _* explanation:
+// Since firms is a single field representing an array, we must convert it into a sequence of arguments, which is accomplished using the :_* notation
 
-# winningBid.setConstraint((d: Double) => 20 - d)
-# Finally, we introduce the constraint, which says that a winning bid of d has weight 20 − d. This means that a winning bid of 5 is 15
-#		times more likely than a winning bid of 19.
-# The effect is to make the winning bid more likely to be low.
-# Note that in this model, the winning bid is not necessarily the lowest bid. For various reasons, the lowest bidder might not win the contract, perhaps because they
-#		offer a poor quality service or they don’t have the right connections.
+// winningBid.setConstraint((d: Double) => 20 - d)
+// Finally, we introduce the constraint, which says that a winning bid of d has weight 20 − d. This means that a winning bid of 5 is 15
+//		times more likely than a winning bid of 19.
+// The effect is to make the winning bid more likely to be low.
+// Note that in this model, the winning bid is not necessarily the lowest bid. For various reasons, the lowest bidder might not win the contract, perhaps because they
+//		offer a poor quality service or they don’t have the right connections.
 
-# Constraints are useful for expressing undirected models such as relational Markov networks or Markove logic
-# friends and smokers example: number of people and their smoking habit, people have propensity to smoke, 
-#		and people are likely to have the same smoking habit as their firends
+// Constraints are useful for expressing undirected models such as relational Markov networks or Markove logic
+// friends and smokers example: number of people and their smoking habit, people have propensity to smoke, 
+//		and people are likely to have the same smoking habit as their firends
 
-# Single line function definitions in Scala do not need bracketing
+// Single line function definitions in Scala do not need bracketing
 
-# Package definition structure in Scala and Figaro:
+// Package definition structure in Scala and Figaro:
 package com.cra.figaro.example
-# in case of Class Not found problem, the package definition might be the source
+// in case of Class Not found problem, the package definition might be the source
 
-# Abstract classes in Scala are similar as in Java; they cannot be instantiated
+// Abstract classes in Scala are similar as in Java; they cannot be instantiated
 
-# Defining class contents at instantiation time will override undefined values
+// Defining class contents at instantiation time will override undefined values
 
-# The ’ in front of a string creates a Scala symbol, which are treated like String constants
+// The ’ in front of a string creates a Scala symbol, which are treated like String constants
 
-# The _.award notation is Scala shorthand to retrieve the award value of each element of the map
+// The _.award notation is Scala shorthand to retrieve the award value of each element of the map
 
-# val is for immutable case
-# functional makes it inconvenient to represent situation in which different entities refer to each other, so this is non-function style that is supported in scala
+// val is for immutable case
+// functional makes it inconvenient to represent situation in which different entities refer to each other, so this is non-function style that is supported in scala
 
-# ::= is Scala shorthand for list concatenation
+// ::= is Scala shorthand for list concatenation
 
-# var is mutbable, and val is immutable
+// var is mutbable, and val is immutable
 
-# Side effects and unintended consequences can occur if a lazy element declared outside a Chain is first required (i.e., created) during the execution of a Chain.
+// Side effects and unintended consequences can occur if a lazy element declared outside a Chain is first required (i.e., created) during the execution of a Chain.
 
-# universe
-# A central concept in Figaro is a universe. A universe is simply a collection of elements. 
-# Reasoning algorithms operate on a universe (or, as we shall see for dependent universe reasoning, on multiple connected universes). 
-# Most of the time while using Figaro, you will not need to create a new universe and can rely on the default universe, which is just called universe. 
-# It can be accessed using:
+// universe
+// A central concept in Figaro is a universe. A universe is simply a collection of elements. 
+// Reasoning algorithms operate on a universe (or, as we shall see for dependent universe reasoning, on multiple connected universes). 
+// Most of the time while using Figaro, you will not need to create a new universe and can rely on the default universe, which is just called universe. 
+// It can be accessed using:
 import com.cra.figaro.language._
 import com.cra.figaro.language.Universe._
 
-# if you need a different universe you can call
+// if you need a different universe you can call
 Universe.createNew()
-# then this becomes the default universe
+// then this becomes the default universe
 
-# to need the old default universe, you can refer to it by:
+// to need the old default universe, you can refer to it by:
 val u1 = Universe.universe
 val u2 = Universe.createNew()
 
-# u1 is old universe, and u2 is the new one
-# when an element is created it is assigned to the current default universe
-# in element collection, we can assigne a particular element to a different universe from the current default
+// u1 is old universe, and u2 is the new one
+// when an element is created it is assigned to the current default universe
+// in element collection, we can assigne a particular element to a different universe from the current default
 
-# activate and deactivate an element
-# the elements that are deactivated are not operated on by the reasoning algorithms
-# elements are active when created
-# to deactivate an element use:
+// activate and deactivate an element
+// the elements that are deactivated are not operated on by the reasoning algorithms
+// elements are active when created
+// to deactivate an element use:
 e.deactivate();
 
-# to reactivate an element use:
+// to reactivate an element use:
 e.activate()
 
-# when a compound element is created that uses a parent element, the parent must already be active
+// when a compound element is created that uses a parent element, the parent must already be active
 
-# you can get the list of all active elements in universe u using:
+// you can get the list of all active elements in universe u using:
 u.activeElements
 
-# documation of Universe.scala for details
+// documation of Universe.scala for details
 
-# every element in Figaro has a name and belongs to an element collection
-# universe are element collections
+// every element in Figaro has a name and belongs to an element collection
+// universe are element collections
 
-# an element collection, like a universe, is simply a set of elements
-# universe is a set of elements on which a reasoning algorithm operates
-# an element collection provides the ability to refer to an element by name
-#		e.g. if car is instance of car use car.get[Engine]("engine") to get element named "engine"
-#		the get method takes a type parameter, which is the value type of the element being refered to
-#		the notation [Engine] specifies this type of parameter, and serves to make sure that expression car.get[Engine]("engine") has type Element[Engine]
+// an element collection, like a universe, is simply a set of elements
+// universe is a set of elements on which a reasoning algorithm operates
+// an element collection provides the ability to refer to an element by name
+//		e.g. if car is instance of car use car.get[Engine]("engine") to get element named "engine"
+//		the get method takes a type parameter, which is the value type of the element being refered to
+//		the notation [Engine] specifies this type of parameter, and serves to make sure that expression car.get[Engine]("engine") has type Element[Engine]
 
-# element collection ability:
-# ability to get element embeded int he value (by using references)
-# a reference is a series of names separated by dots
-# e.g. "engine.power" is a reference, so car.get[Symbol]("egine.power") refers to the element named "engine" within the car
-# 		returns ReferenceElement that captures the uncertainty about which power element is actually being referred to
-#		in particular state of the world, ie., an assignment of values to all elements, determine the value of engine and which power element is being referred to
-#		ReferenceElement is a deterministic element that defines a way to get its value in any possible world
+// element collection ability:
+// ability to get element embeded int he value (by using references)
+// a reference is a series of names separated by dots
+// e.g. "engine.power" is a reference, so car.get[Symbol]("egine.power") refers to the element named "engine" within the car
+// 		returns ReferenceElement that captures the uncertainty about which power element is actually being referred to
+//		in particular state of the world, ie., an assignment of values to all elements, determine the value of engine and which power element is being referred to
+//		ReferenceElement is a deterministic element that defines a way to get its value in any possible world
 
-# PRM allows for multi-valued relationships, where an entity is related to multiple entities via an attribute 
-#		in Figaro multi-valued references and aggregate are for these kinds of situations
+// PRM allows for multi-valued relationships, where an entity is related to multiple entities via an attribute 
+//		in Figaro multi-valued references and aggregate are for these kinds of situations
 
-# The body of the sum function is shorthand notation for Scala’s fold function. 
-# Fold iterates through a sequence and applies a function to the previous result and each new entry in turn. 
-# The (_ + _ ) notation will add the previous value to each value in xs.
-#		it is used to "fold" a function through the list
-#		we begin with 0 and then repeatedly add the current result to the next element of the list until the list is exhausted
-#		this notation is shorthand for the function that takes two arguments and adds them
+// The body of the sum function is shorthand notation for Scala’s fold function. 
+// Fold iterates through a sequence and applies a function to the previous result and each new entry in turn. 
+// The (_ + _ ) notation will add the previous value to each value in xs.
+//		it is used to "fold" a function through the list
+//		we begin with 0 and then repeatedly add the current result to the next element of the list until the list is exhausted
+//		this notation is shorthand for the function that takes two arguments and adds them
 
-# The notation (0 : xs) means theat this function should be folded through xs, starting from 0
+// The notation (0 : xs) means theat this function should be folded through xs, starting from 0
 
-# Reasoning in Figaro:
-# 1. Algorithm that computes the range of possible values of all elements in a universe
-# 2. Three algorithms for computing the conditional probability of query element given evidence (conditions and constraints) on elements:
-#	- Variable elimination
-#	- Importance sampling
-#	- Markov chain Monte Carlo
-# 3. Algorithm for computing the most likely values of elements given the evidence:
-#	- Variable elimination
-#	- Simulated annealing
-# 4. Additional features of reasoning:
-#	- the ability to reason across multiple universes
-#	- a way to use abstraction in reasoning algorithms
+// Reasoning in Figaro:
+// 1. Algorithm that computes the range of possible values of all elements in a universe
+// 2. Three algorithms for computing the conditional probability of query element given evidence (conditions and constraints) on elements:
+//	- Variable elimination
+//	- Importance sampling
+//	- Markov chain Monte Carlo
+// 3. Algorithm for computing the most likely values of elements given the evidence:
+//	- Variable elimination
+//	- Simulated annealing
+// 4. Additional features of reasoning:
+//	- the ability to reason across multiple universes
+//	- a way to use abstraction in reasoning algorithms
 
-# Compute the set of possible values of elements in the universe (computing ranges), 
-#		as long as expanding the probabilistic model of the universe does not:
-#	(1) result in generating an infinite number of elements
-#		- computing the possible values of a chain requires computing the possible values of the arguments
-#		- for each value generating the appropriate element and computing all its possible values
-#		- if the generated element also contains a chain, it will require recursively generating new elements for all possible values of the contained chains' argument
-#		- this coule potentially lead to an infinite recursion, in which case computing ranges will not terminate
-#	(2) result in an infinite number of values for an element
-#		- most built in element classes have a finite number of possible values, except atomic continuous classes like Uniform and Normal
-#	(3) involves an element class for which getting the range has not been implemented
+// Compute the set of possible values of elements in the universe (computing ranges), 
+//		as long as expanding the probabilistic model of the universe does not:
+//	(1) result in generating an infinite number of elements
+//		- computing the possible values of a chain requires computing the possible values of the arguments
+//		- for each value generating the appropriate element and computing all its possible values
+//		- if the generated element also contains a chain, it will require recursively generating new elements for all possible values of the contained chains' argument
+//		- this coule potentially lead to an infinite recursion, in which case computing ranges will not terminate
+//	(2) result in an infinite number of values for an element
+//		- most built in element classes have a finite number of possible values, except atomic continuous classes like Uniform and Normal
+//	(3) involves an element class for which getting the range has not been implemented
 
-# to compute the values of elements in universe u, first create a Values object using:
+// to compute the values of elements in universe u, first create a Values object using:
 import com.cra.figaro.algorithm._
 val values = Values(u)
 
-# create a Values object for the current universe simply with
+// create a Values object for the current universe simply with
 val values = Values()
 // values can be used to get the possible values of any object, e.g.:
 val e1 = Flip(0.7)
@@ -668,23 +1175,23 @@ val values = Values()
 // this is because within Values object, computing the range of an element is memoized(cached), 
 //		meaning the range is only computed once for each object, and then sorted for future use
 
-# Asserting Evidence
-# Figaro reasoning involves drawing conclusion from evidence by two ways:
-# 1. conditions and contraints
-# 2. providing named evidence, in which the evidence is associated with an element with a particular name or reference
-#	Benefits of using named evidence:
-#		- situation where the actual element refered to by reference is uncertain, so can't directly specify a condition or constraint on the element
-#		-    but associating the evidence with the reference can ensure it is applied correctly
-#		- Names allow us to keep track of and apply evidence to elements that correspond to the same object in different universe, as will be seen in dynamic reasoning
-#		- associating evidence with names and references allows us to keep the evidence separate from the definition of the probabilistic model 
-#		-		which is not achievable by conditions and constraints
+// Asserting Evidence
+// Figaro reasoning involves drawing conclusion from evidence by two ways:
+// 1. conditions and contraints
+// 2. providing named evidence, in which the evidence is associated with an element with a particular name or reference
+//	Benefits of using named evidence:
+//		- situation where the actual element refered to by reference is uncertain, so can't directly specify a condition or constraint on the element
+//		-    but associating the evidence with the reference can ensure it is applied correctly
+//		- Names allow us to keep track of and apply evidence to elements that correspond to the same object in different universe, as will be seen in dynamic reasoning
+//		- associating evidence with names and references allows us to keep the evidence separate from the definition of the probabilistic model 
+//		-		which is not achievable by conditions and constraints
 
-# Named evidence specification:
+// Named evidence specification:
 NamedEvidence(reference, evidence)
 // evidence is instance of Evidence class
 // reference is a reference
 
-# three concrete subclasses of Evidence:
+// three concrete subclasses of Evidence:
 Condition
 Constraint
 Observation
@@ -693,24 +1200,24 @@ setCondition
 setConstraint
 observe
 
-# examples of NamedEvidence
+// examples of NamedEvidence
 NamedEvidence("car.size", Condition((s: Symbol) => s != 'small))
 // represents the evidence that the element refered to by "car.size" does not have value 'small
 
-# Exact inference using variable elimination Algorithm in Figaro:
-# 1. Expand the universe to include all elements generated in any possible world
-#	- requires that the expansion of the universe terminate in a finite amount of time (like for range computation)
-# 2. Convert each element into a factor
-#	- requires each element be of a class that can be converted into a set of factors (every built in class can be converted)
-#	- Atomic continous elements with infinite range are handled in one of two ways
-#		- Abstractions can be used to make variable elimination work for continuous classes
-# 		- if no abstractions are defined for continuous elements, then each continuous element is sampled and a factor is created from the samples
-#		-	(Figaro outputs a warning in this instance to ensure the user intended to use a continuous variable in a factored algorithm)
-#		-   (also there is a way to specify to convert a new class into a set of factors for a new element class)
-# 3. Apply variable elimination to all the factors
+// Exact inference using variable elimination Algorithm in Figaro:
+// 1. Expand the universe to include all elements generated in any possible world
+//	- requires that the expansion of the universe terminate in a finite amount of time (like for range computation)
+// 2. Convert each element into a factor
+//	- requires each element be of a class that can be converted into a set of factors (every built in class can be converted)
+//	- Atomic continous elements with infinite range are handled in one of two ways
+//		- Abstractions can be used to make variable elimination work for continuous classes
+// 		- if no abstractions are defined for continuous elements, then each continuous element is sampled and a factor is created from the samples
+//		-	(Figaro outputs a warning in this instance to ensure the user intended to use a continuous variable in a factored algorithm)
+//		-   (also there is a way to specify to convert a new class into a set of factors for a new element class)
+// 3. Apply variable elimination to all the factors
 
-# To use variable Elimination, specify a set of query elements whose conditional probability you want to compute given the evidence
-# e.g.
+// To use variable Elimination, specify a set of query elements whose conditional probability you want to compute given the evidence
+// e.g.
 import com.cra.figaro.language._
 import com.cra.figaro.algorithm.factored._
 val e1 = Select(0.25 -> 0.3, 0.25 -> 0.5, 0.25 -> 0.7, 0.25 -> 0.9)
@@ -761,47 +1268,47 @@ expectation()
 VariableElimination.probability(element, value)
 // takes care of instantiating the algorithm and running inference, and returning the probability that the element has the given value
 
-# Approximate Inference Using Belief Propagation
-# Factored inference algorithm in Figaro is called Belief Propagation (BP)
-# * On factor graph with no loop (loopy factor graph), BP can be used to perform approximate inference on the target variables
-# 	- In Figaro, the way that Chains are converted to factors always produces a loopy factor graph, even if the actual definition of the model contains no loops
-#	=> most inference with BP in Figaro is approximate
+// Approximate Inference Using Belief Propagation
+// Factored inference algorithm in Figaro is called Belief Propagation (BP)
+// * On factor graph with no loop (loopy factor graph), BP can be used to perform approximate inference on the target variables
+// 	- In Figaro, the way that Chains are converted to factors always produces a loopy factor graph, even if the actual definition of the model contains no loops
+//	=> most inference with BP in Figaro is approximate
 
-# Algorithm for Belief Propagation (BP) works as follows:
-# 1. Expand the universe to include all elements generated in any possible world.
-# 2. Convert each element into a factor and create a factor graph from the factors.
-#		- step 1 and 2 operate in the same manner as variable elimination (the same restrictions on factors applies)
-# 3. Pass message between the factor nodes and available nodes for the specified number of iterations.
-# 4. Queries are answered on the targets using the posterior distributions computed at each variable node.
+// Algorithm for Belief Propagation (BP) works as follows:
+// 1. Expand the universe to include all elements generated in any possible world.
+// 2. Convert each element into a factor and create a factor graph from the factors.
+//		- step 1 and 2 operate in the same manner as variable elimination (the same restrictions on factors applies)
+// 3. Pass message between the factor nodes and available nodes for the specified number of iterations.
+// 4. Queries are answered on the targets using the posterior distributions computed at each variable node.
 
-# a factor graph is a bipartite graph with variable and factor nodes, so adjacent to variable nodes should be only factors and vise versa
-# factors clusters with Jurisdications over each of the couple of variables
-# evidence or belief as psi functions (factors)
-# 1. initialize with uninformative message (one: delta = 1)
-#	- each cluster or node represents the subset of variables
-#	- edge between clusters depend on the membership of varaibles in those clusters (so the nodes between clusters have variables at the middle)
-#	- we give information to the clusters by assigning one factor to each cluster
-#	- initial belief of a particular cluster is the product of all factors that are assigned to that cluster (initial potentials) 
-#		- as some clusters might have several factors assigned to them
-#	- so although each factor is assigned to one cluster
-# 2. Integrate over the variable that the node does not care about (so it takes the evidence and sums over the variable that is not of interested)
-#	- the message is sent across the clusters (i.e. clusters or factors connect variables)
-#	- so incoming message is integrated (is summed over) by the weights (i.e. weighted average) of variable that new cluster don't care about
-#   - multiply all incoming messages from the variables that connect to cluster (some variables might appear on multiple edges) and 
-#			weight by the factor assigned to the cluster and then sum (integrate out) the variables that are not of interest
-# 3. we don't want to re-inforce, so when a cluster (or factor) wants to send a message to another cluster (or factor), 
-#	- it does not include the message that it has already heard from that cluster
-#	- so there is no rumor re-inforcement of the message that is already heard from the same person
-#	- at the end it takes all the messages and multiplies to initial potential and it forms the beliefs
-#	- the order can be round robin (prespecified order) and the number of iteration could be until convergence of the probability (approximate NP hard)
+// a factor graph is a bipartite graph with variable and factor nodes, so adjacent to variable nodes should be only factors and vise versa
+// factors clusters with Jurisdications over each of the couple of variables
+// evidence or belief as psi functions (factors)
+// 1. initialize with uninformative message (one: delta = 1)
+//	- each cluster or node represents the subset of variables
+//	- edge between clusters depend on the membership of varaibles in those clusters (so the nodes between clusters have variables at the middle)
+//	- we give information to the clusters by assigning one factor to each cluster
+//	- initial belief of a particular cluster is the product of all factors that are assigned to that cluster (initial potentials) 
+//		- as some clusters might have several factors assigned to them
+//	- so although each factor is assigned to one cluster
+// 2. Integrate over the variable that the node does not care about (so it takes the evidence and sums over the variable that is not of interested)
+//	- the message is sent across the clusters (i.e. clusters or factors connect variables)
+//	- so incoming message is integrated (is summed over) by the weights (i.e. weighted average) of variable that new cluster don't care about
+//   - multiply all incoming messages from the variables that connect to cluster (some variables might appear on multiple edges) and 
+//			weight by the factor assigned to the cluster and then sum (integrate out) the variables that are not of interest
+// 3. we don't want to re-inforce, so when a cluster (or factor) wants to send a message to another cluster (or factor), 
+//	- it does not include the message that it has already heard from that cluster
+//	- so there is no rumor re-inforcement of the message that is already heard from the same person
+//	- at the end it takes all the messages and multiplies to initial potential and it forms the beliefs
+//	- the order can be round robin (prespecified order) and the number of iteration could be until convergence of the probability (approximate NP hard)
 
-# summary: message is multiply all incoming message and weight them by the potential (i.e. joint factor), 
-#		then sum over all variables that the node is not interested about
-#	what MCMC does is actually give close form for this sum after recieving all the messages (i.e. combine data and prior for posterior)
-#	also the way continuous case is handled is to take sample from the potential range
+// summary: message is multiply all incoming message and weight them by the potential (i.e. joint factor), 
+//		then sum over all variables that the node is not interested about
+//	what MCMC does is actually give close form for this sum after recieving all the messages (i.e. combine data and prior for posterior)
+//	also the way continuous case is handled is to take sample from the potential range
 
-#	just like in variable elimination, specify a set of query elements whose conditional probability you want to compute given evidence
-# e.g. 
+//	just like in variable elimination, specify a set of query elements whose conditional probability you want to compute given evidence
+// e.g. 
 
 import com.cra.figaro.language._
 import com.cra.figaro.algorithm.factored._
@@ -818,35 +1325,35 @@ val bp = BeliefPropagation(100, e2)
 // to perform BP
 bp.start()
 
-# factored inference algorithms like variable elimination and belief propagation conannot be applied to infinitely recursive models
-#	it is easy to define such models, such as probabilistic grammars for natural language, in Figaro
-# Figaro provides lazy factored inference algorithms that expand the factor graph to a bounded depth and 
-#		precisely quantify the effect of unexplored part of the graph on the query
-#		it uses this information to compute lower and upper bounds on the probability of the query
-# To use lazy variable elimination, create an instance of LazyVariable-Elimination
+// factored inference algorithms like variable elimination and belief propagation conannot be applied to infinitely recursive models
+//	it is easy to define such models, such as probabilistic grammars for natural language, in Figaro
+// Figaro provides lazy factored inference algorithms that expand the factor graph to a bounded depth and 
+//		precisely quantify the effect of unexplored part of the graph on the query
+//		it uses this information to compute lower and upper bounds on the probability of the query
+// To use lazy variable elimination, create an instance of LazyVariable-Elimination
 LazyVariable-Elimination
 
-# to increase the depth of expansion by 1 use pump method
+// to increase the depth of expansion by 1 use pump method
 pump
 
-# to expand to the given depth:
+// to expand to the given depth:
 run(depth)
 
-# lazy belief propagation is also possible
+// lazy belief propagation is also possible
 
-# Importance Sampling
-# - it is a combination of importance and rejection sampling
-# - it uses a simple forward sampling approach
-# - when it encounters a condition, it checks to see if the condition is satisfied and rejects if it is not
-# - when it encounters a constraint, it multiplies the weight of the sample by the value of the constraint
-# - unlike variable elimination, it can be applied to models whose expansion produces an infinite number of elements, 
-#		- provided any particular possible world only requires a finite number of elements to be generated
-# - it works for atomic continuous models
-# - As an approximate algorithm, it can produce reasonably accurate answers much more quickly than the exact variable elimination
+// Importance Sampling
+// - it is a combination of importance and rejection sampling
+// - it uses a simple forward sampling approach
+// - when it encounters a condition, it checks to see if the condition is satisfied and rejects if it is not
+// - when it encounters a constraint, it multiplies the weight of the sample by the value of the constraint
+// - unlike variable elimination, it can be applied to models whose expansion produces an infinite number of elements, 
+//		- provided any particular possible world only requires a finite number of elements to be generated
+// - it works for atomic continuous models
+// - As an approximate algorithm, it can produce reasonably accurate answers much more quickly than the exact variable elimination
 
-# The basic idea of importance sampling is to sample the states from a different distribution to lower the variance of the estimation of E[X;P], 
-#		or when sampling from P is difficult. 
-# summary: importance sampling is actually the sample we get by accept reject algorithm
+// The basic idea of importance sampling is to sample the states from a different distribution to lower the variance of the estimation of E[X;P], 
+//		or when sampling from P is difficult. 
+// summary: importance sampling is actually the sample we get by accept reject algorithm
 
 import com.cra.figaro.language._
 import com.cra.figaro.algorithm.sampling._
@@ -877,31 +1384,31 @@ imp.stop()
 println(imp.probability(e2, (b: Boolean) => b ))
 imp.kill()
 
-# Importance sampling provides a one-line query shortcut
-# there is parallel version of Importance sampling that uses Scala's built in parallel collections. The difference in Interface:
-#	1. this version sampling uses a model generator, which is a functiont hat produces a universe 
-#			- Importance sampling is run in parallel on separate but identical universe
-#	2. the user must indicate the number of threads to use
-#	3. instead of taking a set of elements to query, the algorithm takes in a set of references, 
-#			- where each reference refers to the same element on each of the parallel universes
+// Importance sampling provides a one-line query shortcut
+// there is parallel version of Importance sampling that uses Scala's built in parallel collections. The difference in Interface:
+//	1. this version sampling uses a model generator, which is a functiont hat produces a universe 
+//			- Importance sampling is run in parallel on separate but identical universe
+//	2. the user must indicate the number of threads to use
+//	3. instead of taking a set of elements to query, the algorithm takes in a set of references, 
+//			- where each reference refers to the same element on each of the parallel universes
 
-# Metrapolis-Hasting Markov Chain Monte Carlo
-#----------------------
-# uses a proposal distribution to propose a new state at each step of the algorithm
-# either accepts or rejects the proposal
-# proposal involves proposing new randomness for any number of elements
-# after proposing new randomnesses, any element that depends on those randomness must have its value updated
-# the value of an element is a deterministic function of its randomness and the value of its arguments
-# this update process is a deterministic result of the randomness proposal
-# Proposing the randomness of an element involves calling the next Randomness method of the element (takes the current value of the randomness as the argument)
+// Metrapolis-Hasting Markov Chain Monte Carlo
+//----------------------
+// uses a proposal distribution to propose a new state at each step of the algorithm
+// either accepts or rejects the proposal
+// proposal involves proposing new randomness for any number of elements
+// after proposing new randomnesses, any element that depends on those randomness must have its value updated
+// the value of an element is a deterministic function of its randomness and the value of its arguments
+// this update process is a deterministic result of the randomness proposal
+// Proposing the randomness of an element involves calling the next Randomness method of the element (takes the current value of the randomness as the argument)
 nextRandomness // implemented for all the built-in model classes (so need to be defined for your own class)
 
-# Computing the acceptance probability requires computing the ratio of the element's constrant of the new value deivided by the constraint of the old value
-#		- achieved by applying the constraint to the new and old value separately and take the ratio
-#		- sometimes we want to apply the constraint on a large data structure, and applying it either on new and old causes overflow or underflow (not well defined)
-#		-  the ratio might be well defined even though the constraints are large, since only a small part of the dat
+// Computing the acceptance probability requires computing the ratio of the element's constrant of the new value deivided by the constraint of the old value
+//		- achieved by applying the constraint to the new and old value separately and take the ratio
+//		- sometimes we want to apply the constraint on a large data structure, and applying it either on new and old causes overflow or underflow (not well defined)
+//		-  the ratio might be well defined even though the constraints are large, since only a small part of the dat
 
-# 1. variables in Figaro
+// 1. variables in Figaro
 val rembrandt: Element[Boolean] = // definition goes here
 val size: Element[Symbol] = // definition goes here
 val height: Element[Double] = // definition goes here
@@ -909,14 +1416,14 @@ val lastYearSold: Element[Int] = // definition goes here
 val allYearsSold: Element[List[Integer]] = // definition goes here
 
 
-# 2. defining dependancies between variables in Figaro
-#conditional probabilities in figaro
+// 2. defining dependancies between variables in Figaro
+//conditional probabilities in figaro
 val size = CPD(subject,
   'people -> Select(p1 -> 'small, p2 -> 'medium, p3 -> 'large),
   'landscape -> Select(p4 -> 'small, p5 -> 'medium, p6 -> 'large)
 )
 
-# complete table is required
+// complete table is required
 val price = CPD(rembrandt, subject,
   (false, 'people) -> Flip(p1),
   (false, 'landscape) -> Flip(p2),
@@ -924,8 +1431,8 @@ val price = CPD(rembrandt, subject,
   (true, 'landscape) -> Flip(p4)
 )
 
-# Rich CPD for the possible cases: all possible values
-# you can use a “default” clause at the end that uses * for each parent
+// Rich CPD for the possible cases: all possible values
+// you can use a “default” clause at the end that uses * for each parent
 val x1 = Select(0.1 -> 1, 0.2 -> 2, 0.3 -> 3, 0.4 -> 4)
 val x2 = Flip(0.6)
 val y = RichCPD(x1, x2,
@@ -933,32 +1440,32 @@ val y = RichCPD(x1, x2,
 	(NoneOf(4), OneOf(false)) -> Flip(0.7),
 	(*, *) -> Flip(0.9))
 
-# other ways to identify dependancies
+// other ways to identify dependancies
 Apply
 Chain
 If // defined using Chain
 Normal // defined using Chain
 
-# 3. Defining Numerical Parameters
-# Learn parameters from data
-# Prior with minimal assumptions
-# Use expert knowledge to affect learning
+// 3. Defining Numerical Parameters
+// Learn parameters from data
+// Prior with minimal assumptions
+// Use expert knowledge to affect learning
 
-# 4. Generative models
-# Probabilistic programming relies on an analogy between probabilistic models and programs in a programming language
+// 4. Generative models
+// Probabilistic programming relies on an analogy between probabilistic models and programs in a programming language
 
-# Beta binomial model in Figaro
+// Beta binomial model in Figaro
 val bias = Beta(?,?)
 val numberOfHeads = Binomial(100, bias)
 val toss101 = Flip(bias)
 
-#Building a probabilistic model requires specifying variables and their types, dependencies between the variables in the form of a network, 
-# 	and a functional form and numerical parameters for each variable.
+//Building a probabilistic model requires specifying variables and their types, dependencies between the variables in the form of a network, 
+// 	and a functional form and numerical parameters for each variable.
 
-# Chain: underlies directed dependencies 
-# Conditions and Constraints: basis for undirected dependencies
+// Chain: underlies directed dependencies 
+// Conditions and Constraints: basis for undirected dependencies
 
-# Printer down and power botton modeling
+// Printer down and power botton modeling
 val printerPowerButtonOn = Flip(0.95)
 val printerState =
   Chain(printerPowerButtonOn,
@@ -978,28 +1485,28 @@ val printerState =
 ￼￼￼OneOf(false) -> Constant('down),
 	* -> Select(0.2 -> 'down, 0.8 -> 'up))
 
-# another example of asymmetric relationship between bias of coin and results
+// another example of asymmetric relationship between bias of coin and results
 val toss = Chain(bias, (d: Double) => Flip(d))
 val toss = Flip(bias)
 
-# Expressing undirected dependencies in Figaro
-# You can express asymmetric relationships in Figaro in two ways: using 
-# (1) constraints and using 
-# (2) conditions. E
-# advantage and a disadvantage: 
-#	The advantage of the constraints method is that it’s conceptually simpler.  (simple but not accessible for learning algorithm)
-#		But the numbers that go in the constraints are hardcoded and can’t be learned in Figaro because they aren’t accessible to a learning algorithm. 
-#	The advantage of the method that uses conditions is that the numbers can be learned. (learn numbers)
+// Expressing undirected dependencies in Figaro
+// You can express asymmetric relationships in Figaro in two ways: using 
+// (1) constraints and using 
+// (2) conditions. E
+// advantage and a disadvantage: 
+//	The advantage of the constraints method is that it’s conceptually simpler.  (simple but not accessible for learning algorithm)
+//		But the numbers that go in the constraints are hardcoded and can’t be learned in Figaro because they aren’t accessible to a learning algorithm. 
+//	The advantage of the method that uses conditions is that the numbers can be learned. (learn numbers)
 
-# Logic behind constraint modeling undirected dependencies
-# (preference of values or weights) When an undirected dependency exists between two variables, some joint values of the two variables are preferred to others. 
-# This can be achieved by assigning weights to the different joint values. 
-# A constraint encodes the weights by specifying a function from a joint value of the two variables to a real number representing the weight of that value.
-# => constraint encods the weight by specifying a function from joint value to real number representing weight [Joint value => weight]
-# the interpretation is that all else equal there is higher probability of same color of two adjacent pixels
+// Logic behind constraint modeling undirected dependencies
+// (preference of values or weights) When an undirected dependency exists between two variables, some joint values of the two variables are preferred to others. 
+// This can be achieved by assigning weights to the different joint values. 
+// A constraint encodes the weights by specifying a function from a joint value of the two variables to a real number representing the weight of that value.
+// => constraint encods the weight by specifying a function from joint value to real number representing weight [Joint value => weight]
+// the interpretation is that all else equal there is higher probability of same color of two adjacent pixels
 
 
-# Example of image segmentation
+// Example of image segmentation
 import com.cra.figaro.library.compound.^^
 val pair = ^^(color1, color2)
 def sameColorConstraint(pair: (Boolean, Boolean)) =
@@ -1007,7 +1514,7 @@ def sameColorConstraint(pair: (Boolean, Boolean)) =
 pair.setConstraint(sameColorConstraint _)
 // underline means you want the function itself and not to apply it
 
-# conditioned approach to explain the undirected graph
+// conditioned approach to explain the undirected graph
 // define an auxiliary bollean element 
 // define it in the way that the probability that it comes true is equal to the probability of the constraint: 
 //		so defining random variable as outcome rather than explicit number
@@ -1017,328 +1524,328 @@ val sameColorConstraintValue =
           if (b1 == b2) Flip(0.3); else Flip(0.1))
 sameColorConstraintValue.observe(true)
 
-# so condition actually puts the likelihood in, and says I have observed this likelihood 
-#		by specifying the generative process that incorporates data
-#		the parameters can be defined at top level and it can be incorporated into this observation => observation specification not by matrix, but the process
+// so condition actually puts the likelihood in, and says I have observed this likelihood 
+//		by specifying the generative process that incorporates data
+//		the parameters can be defined at top level and it can be incorporated into this observation => observation specification not by matrix, but the process
 
-# Markove Networks:
-# A set of potentials—These potentials provide the numerical parameters of the model. I’ll explain what potentials are in detail in a moment.
+// Markove Networks:
+// A set of potentials—These potentials provide the numerical parameters of the model. I’ll explain what potentials are in detail in a moment.
 
-# Intuitively, these edges encode the fact that, all else being equal, two adjacent pixels are more likely to have the same value than different values.
-# 	- I call this locality principle
+// Intuitively, these edges encode the fact that, all else being equal, two adjacent pixels are more likely to have the same value than different values.
+// 	- I call this locality principle
 
-# The specific knowledge expressed by the edge between pixel 11 and pixel 12 is represented by the potential on that edge.
+// The specific knowledge expressed by the edge between pixel 11 and pixel 12 is represented by the potential on that edge.
 
-# Joint states with high weights are more likely than joint states with low weights, all else being equal. 
+// Joint states with high weights are more likely than joint states with low weights, all else being equal. 
 
-# The rel- ative probability of the two joint states is equal to the ratio between their weights, again, all else being equal.
+// The rel- ative probability of the two joint states is equal to the ratio between their weights, again, all else being equal.
 
-# Mathematically, a potential is simply a function from the values of variables to real numbers. 
-# How do potential functions interact with the graph structure? There are two rules:
+// Mathematically, a potential is simply a function from the values of variables to real numbers. 
+// How do potential functions interact with the graph structure? There are two rules:
 	- A potential function can mention only variables that are connected in the graph.
 	- If two variables are connected in the graph, they must be mentioned together by some potential function.
 - In our image-recovery example, every variable will have a copy of the unary potential in table 5.2, and every pair of adjacent pixels, either horizontally or vertically, will have a copy of the binary potential in table 5.2. You can see that the two rules are respected by this assignment of potentials.
 
-# you multiply the potential values of all of the potentials to get the “probabil- ity” of a possible world
+// you multiply the potential values of all of the potentials to get the “probabil- ity” of a possible world
 
-# To get the probability of any possible world, you normalize the “probabilities” computed by multiplying the potential values. You call these the unnor- malized probabilities. The sum of these unnormalized probabilities is called the normaliz- ing factor and is usually denoted by the letter Z. So you take the unnormalized probabilities and divide them by Z to get the probabilities. 
+// To get the probability of any possible world, you normalize the “probabilities” computed by multiplying the potential values. You call these the unnor- malized probabilities. The sum of these unnormalized probabilities is called the normaliz- ing factor and is usually denoted by the letter Z. So you take the unnormalized probabilities and divide them by Z to get the probabilities. 
 
-# All else being equal relationship is the key.
-# Learn parameters from data.
+// All else being equal relationship is the key.
+// Learn parameters from data.
 
-# Difference between Bayesian network and Markov network:
-# In a Bayesian network, you could compute the probability of a possible world by multiplying the relevant CPD entries. 
-# In a Markov network, you can’t determine the probability of any possible world without considering all possible worlds.
+// Difference between Bayesian network and Markov network:
+// In a Bayesian network, you could compute the probability of a possible world by multiplying the relevant CPD entries. 
+// In a Markov network, you can’t determine the probability of any possible world without considering all possible worlds.
 	- You need to compute the unnormalized probability of every possible world to calculate the normalizing factor.
 
 - A Markov network has no notion of induced dependencies. You can reason from one variable to another variable along any path, as long as that path isn’t blocked by a variable that has been observed. 
 
 - Two variables are dependent if there’s a path between them, and they become conditionally independent given a set of variables if those variables block all paths between the two variables.
 
-# there is no notion of past and future, cause and effect in Markov Network:
-# - because all edges in a Markov network are undirected, there’s no notion of cause and effect or past and future.
-# - You don’t usually think of tasks such as predicting future outcomes or inferring past causes of current observations.
-# - you simply infer the values of some variables, given other variables.
+// there is no notion of past and future, cause and effect in Markov Network:
+// - because all edges in a Markov network are undirected, there’s no notion of cause and effect or past and future.
+// - You don’t usually think of tasks such as predicting future outcomes or inferring past causes of current observations.
+// - you simply infer the values of some variables, given other variables.
 
-#---------------------------------------------------------------------------------------------------------
-# Scala symbol definition
-#---------------------------------------------------------------------------------------------------------
-# ->    // Automatically imported method
-# ||=   // Syntactic sugar
-# ++=   // Syntactic sugar/composition or common method
-# <=    // Common method
-# _._   // Typo, though it's probably based on Keyword/composition
-# ::    // Common method
-# :+=   // Common method
-# // Keywords
-# <-  // Used on for-comprehensions, to separate pattern from generator
-# =>  // Used for function types, function literals and import renaming
+//---------------------------------------------------------------------------------------------------------
+// Scala symbol definition
+//---------------------------------------------------------------------------------------------------------
+// ->    // Automatically imported method
+// ||=   // Syntactic sugar
+// ++=   // Syntactic sugar/composition or common method
+// <=    // Common method
+// _._   // Typo, though it's probably based on Keyword/composition
+// ::    // Common method
+// :+=   // Common method
+// // Keywords
+// <-  // Used on for-comprehensions, to separate pattern from generator
+// =>  // Used for function types, function literals and import renaming
 
-# // Reserved
-# ( )        // Delimit expressions and parameters
-# [ ]        // Delimit type parameters
-# { }        // Delimit blocks
-# .          // Method call and path separator
-# // /* */   // Comments
-# #          // Used in type notations
-# :          // Type ascription or context bounds
-# <: >: <%   // Upper, lower and view bounds
-# <? <!      // Start token for various XML elements
-# " """      // Strings
-# '          // Indicate symbols and characters
-# @          // Annotations and variable binding on pattern matching
-# `          // Denote constant or enable arbitrary identifiers
-# ,          // Parameter separator
-# ;          // Statement separator
-# _*         // vararg expansion
-# _          // Many different meanings
-# import scala._    // Wild card -- all of Scala is imported
-# import scala.{ Predef => _, _ } // Exception, everything except Predef
-# def f[M[_]]       // Higher kinded type parameter
-# def f(m: M[_])    // Existential type
-# _ + _             // Anonymous function placeholder parameter
-# m _               // Eta expansion of method into method value
-# m(_)              // Partial function application
-# _ => 5            // Discarded parameter
-# case _ =>         // Wild card pattern -- matches anything
-# f(xs: _*)         // Sequence xs is passed as multiple parameters to f(ys: T*)
-# case Seq(xs @ _*) // Identifier xs is bound to the whole matched sequence
+// // Reserved
+// ( )        // Delimit expressions and parameters
+// [ ]        // Delimit type parameters
+// { }        // Delimit blocks
+// .          // Method call and path separator
+// // /* */   // Comments
+// //          // Used in type notations
+// :          // Type ascription or context bounds
+// <: >: <%   // Upper, lower and view bounds
+// <? <!      // Start token for various XML elements
+// " """      // Strings
+// '          // Indicate symbols and characters
+// @          // Annotations and variable binding on pattern matching
+// `          // Denote constant or enable arbitrary identifiers
+// ,          // Parameter separator
+// ;          // Statement separator
+// _*         // vararg expansion
+// _          // Many different meanings
+// import scala._    // Wild card -- all of Scala is imported
+// import scala.{ Predef => _, _ } // Exception, everything except Predef
+// def f[M[_]]       // Higher kinded type parameter
+// def f(m: M[_])    // Existential type
+// _ + _             // Anonymous function placeholder parameter
+// m _               // Eta expansion of method into method value
+// m(_)              // Partial function application
+// _ => 5            // Discarded parameter
+// case _ =>         // Wild card pattern -- matches anything
+// f(xs: _*)         // Sequence xs is passed as multiple parameters to f(ys: T*)
+// case Seq(xs @ _*) // Identifier xs is bound to the whole matched sequence
 
-#----------------------------
-#	Inference
-#	two main families of inference algorithms: 
-#		1. factored algorithms and 
-#		2. sampling algorithms. 
-#----------------------------
-# 1. The chain rule lets you turn a set of conditional probability distributions into a joint probability distribution. 
+//----------------------------
+//	Inference
+//	two main families of inference algorithms: 
+//		1. factored algorithms and 
+//		2. sampling algorithms. 
+//----------------------------
+// 1. The chain rule lets you turn a set of conditional probability distributions into a joint probability distribution. 
 	- lets you go from simple (local con- ditional probability distributions over individual variables) to complex (a full joint probability distribution over all variables).
-# 2. The total probability rule lets you take a joint probability distribution over a set of variables and produce a distribution over a single variable. 
+// 2. The total probability rule lets you take a joint probability distribution over a set of variables and produce a distribution over a single variable. 
 	- goes from complex (a full joint distribution) back to simple (a distribution over a single variable).
-# 3. Bayes’ rule lets you “invert” a conditional probability distribution over an effect, given a cause, into a conditional probability distribution over the cause, given the effect.
-#	- Bayes’ rule lets you “flip” the direction of the dependencies, turning a conditional distribution over an effect, given a cause, into a distribution over a cause, given an effect. Bayes’ rule is essential to incorporating evidence, which is often an observation of an effect, and inferring a cause.
+// 3. Bayes’ rule lets you “invert” a conditional probability distribution over an effect, given a cause, into a conditional probability distribution over the cause, given the effect.
+//	- Bayes’ rule lets you “flip” the direction of the dependencies, turning a conditional distribution over an effect, given a cause, into a distribution over a cause, given an effect. Bayes’ rule is essential to incorporating evidence, which is often an observation of an effect, and inferring a cause.
 
-# COMPARING THE METHODS
+// COMPARING THE METHODS
 Having seen these three methods, let’s compare them:
-#	1. The MLE method provides the best fit to the data, but is also liable to overfit the data. Overfitting is a problem in machine learning whereby the learner fits the pattern found in the data too closely, in a way that’s unable to be general- ized. This can especially be a problem with only a few coin tosses. For example, if there are only 10 coin tosses and 7 of them come out heads, should you immediately conclude that the bias is 0.7? Even a fair coin will come out heads 7 times out of 10 a fair percentage of times, so the coin tosses don’t provide con- clusive evidence that the coin isn’t fair.
+//	1. The MLE method provides the best fit to the data, but is also liable to overfit the data. Overfitting is a problem in machine learning whereby the learner fits the pattern found in the data too closely, in a way that’s unable to be general- ized. This can especially be a problem with only a few coin tosses. For example, if there are only 10 coin tosses and 7 of them come out heads, should you immediately conclude that the bias is 0.7? Even a fair coin will come out heads 7 times out of 10 a fair percentage of times, so the coin tosses don’t provide con- clusive evidence that the coin isn’t fair.
 The MLE method has two advantages that make it popular. First, it tends to be relatively efficient, because it doesn’t require integrating over all parameter values to predict the next instance. Second, it doesn’t require specifying a prior, which can be difficult when you don’t have any basis for one. Nevertheless, the susceptibility to overfitting can be a significant problem with this method.
 
-#	2. The MAP method can be a good compromise. Including a prior can serve two pur- poses. One is to encode prior beliefs that you have. The other is to counteract overfitting. For example, if you start with a beta(11, 11) prior, you aren’t biasing the results toward heads or tails in any way, but the effect of the data will be dampened by adding 10 imaginary heads and tails to the result. To see this, sup- pose you toss the coin 10 times and 7 of them come up heads. Remember that a beta(11, 11) prior means that you’ve seen 10 imaginary heads and 10 imaginary tails. Adding 7 more heads and 3 more tails gives you 17 heads and 13 tails in total. So the MAP estimate for the bias is 17 / (17 + 13) = 17/30 􏰏 0.5667. You can also see this from the formula for the mode of a beta distribution given ear- lier, which is..
+//	2. The MAP method can be a good compromise. Including a prior can serve two pur- poses. One is to encode prior beliefs that you have. The other is to counteract overfitting. For example, if you start with a beta(11, 11) prior, you aren’t biasing the results toward heads or tails in any way, but the effect of the data will be dampened by adding 10 imaginary heads and tails to the result. To see this, sup- pose you toss the coin 10 times and 7 of them come up heads. Remember that a beta(11, 11) prior means that you’ve seen 10 imaginary heads and 10 imaginary tails. Adding 7 more heads and 3 more tails gives you 17 heads and 13 tails in total. So the MAP estimate for the bias is 17 / (17 + 13) = 17/30 􏰏 0.5667. You can also see this from the formula for the mode of a beta distribution given ear- lier, which is..
 
-#	3. The full Bayesian approach, where feasible, can be superior to the other approaches, because it uses the full distribution. In particular, when the mode of the distribution isn’t representative of the full distribution, the other approaches can be misleading. For a beta distribution, this isn’t a serious issue; the MAP and full Bayesian predictions are close to each other in our example. Specifically, with a beta(11, 11) prior and seven observed heads and three observed tails, you get a beta(18, 14) posterior. The Bayesian estimate of the probability that the next toss will be 18 / (18 + 14) = 18/32 = 0.5625, or just slightly less than the MAP estimate. For other distributions, especially those with multiple peaks, however, the full Bayesian approach can produce significantly better estimates than the MAP approach. Even the MAP approach, which uses a prior, will settle on one of the peaks, and completely ignore an important part of the distribution. But the Bayesian approach is more difficult to execute com- putationally.
+//	3. The full Bayesian approach, where feasible, can be superior to the other approaches, because it uses the full distribution. In particular, when the mode of the distribution isn’t representative of the full distribution, the other approaches can be misleading. For a beta distribution, this isn’t a serious issue; the MAP and full Bayesian predictions are close to each other in our example. Specifically, with a beta(11, 11) prior and seven observed heads and three observed tails, you get a beta(18, 14) posterior. The Bayesian estimate of the probability that the next toss will be 18 / (18 + 14) = 18/32 = 0.5625, or just slightly less than the MAP estimate. For other distributions, especially those with multiple peaks, however, the full Bayesian approach can produce significantly better estimates than the MAP approach. Even the MAP approach, which uses a prior, will settle on one of the peaks, and completely ignore an important part of the distribution. But the Bayesian approach is more difficult to execute com- putationally.
 
-# So now you know the basic rules of inference, and you understand how Bayesian modeling uses Bayes’ rule to learn from data and use the learned knowledge for future predictions. In the forthcoming chapters, you’ll learn specific algorithms for inference. Two main families of inference algorithms are used in probabilistic pro- gramming: factored algorithms and sampling algorithms. These two families are the subjects of the next two chapters.
+// So now you know the basic rules of inference, and you understand how Bayesian modeling uses Bayes’ rule to learn from data and use the learned knowledge for future predictions. In the forthcoming chapters, you’ll learn specific algorithms for inference. Two main families of inference algorithms are used in probabilistic pro- gramming: factored algorithms and sampling algorithms. These two families are the subjects of the next two chapters.
 
 
 
-# Summary
-#	1. The chain rule lets you take the conditional probability distributions of individ- ual variables and construct a joint probabilistic model over all variables.
-#	2. The total probability rule lets you take a joint probabilistic model over a set of variables and reduce it to get a probability distribution over individual variables.
-#	3. The network arrows in a probabilistic model typically follow the process by which the data is generated, but inference in the model can go in any direction.
+// Summary
+//	1. The chain rule lets you take the conditional probability distributions of individ- ual variables and construct a joint probabilistic model over all variables.
+//	2. The total probability rule lets you take a joint probabilistic model over a set of variables and reduce it to get a probability distribution over individual variables.
+//	3. The network arrows in a probabilistic model typically follow the process by which the data is generated, but inference in the model can go in any direction.
 Bayes’ rule lets you do this.
-#	4. Bayesian modeling uses Bayes’ rule to infer causes from observations of their
+//	4. Bayesian modeling uses Bayes’ rule to infer causes from observations of their
 effects, and uses those inferences to predict future outcomes.
-#	5. In Bayesian inference, the posterior probability of a value of a variable is pro- portional to the prior probability of the value times the likelihood of the value,
+//	5. In Bayesian inference, the posterior probability of a value of a variable is pro- portional to the prior probability of the value times the likelihood of the value,
 which is the probability of the evidence given the value.
-#	6. In the MAP estimation approach, the most likely posterior value of a parameter
+//	6. In the MAP estimation approach, the most likely posterior value of a parameter
 is used to predict future instances.
-#	7. In the MLE approach, the prior is ignored, and the parameter value that maxi-
+//	7. In the MLE approach, the prior is ignored, and the parameter value that maxi-
 mizes the likelihood is used for prediction. This is the simplest approach but
 can overfit the data.
-#	8. In the full Bayesian approach, the full posterior probability distribution over
+//	8. In the full Bayesian approach, the full posterior probability distribution over
 the parameter value is used to predict future instances. This is the most accu- rate approach but can be computationally difficult.
 
 
-#----------------------------
-#	Modeling dynamic systems:
-# 	how to model and reason about an important special case—a dynamic model of a situation that changes over time.
-#	Using different kinds of dynamic models including:
-#		 Markov chains, 
-#		 hidden Markov models, and 
-#		 dynamic Bayesian networks
-#	Using probabilistic models to create new kinds of dynamic models, 
-#		such as models with time-varying structure
-#	Monitoring a dynamic system in an ongoing manner
-#----------------------------
-#	a dynamic system whose state varies over time.
-#	starting from fixed length time, but then enabling modeling systems that go on indefinitely. 
-#	This requires a new Figaro concept, the universe
+//----------------------------
+//	Modeling dynamic systems:
+// 	how to model and reason about an important special case—a dynamic model of a situation that changes over time.
+//	Using different kinds of dynamic models including:
+//		 Markov chains, 
+//		 hidden Markov models, and 
+//		 dynamic Bayesian networks
+//	Using probabilistic models to create new kinds of dynamic models, 
+//		such as models with time-varying structure
+//	Monitoring a dynamic system in an ongoing manner
+//----------------------------
+//	a dynamic system whose state varies over time.
+//	starting from fixed length time, but then enabling modeling systems that go on indefinitely. 
+//	This requires a new Figaro concept, the universe
 
 
-# Three kinds of queries could be answered with a probabilistic reasoning system:
-# 1. Outcome: Predicting the outcome of a corner kick, given factors such as the wind, height of the center forward, and so on
-# 2. Inferring parameter: Inferring properties that may have led to the observed outcome, such as the skill level of the goalie
-# 3. Predicting generalized case: Using the outcome of one corner kick to infer properties that can influence the outcome of a second corner kick, and then predicting the second corner kick accordingly
+// Three kinds of queries could be answered with a probabilistic reasoning system:
+// 1. Outcome: Predicting the outcome of a corner kick, given factors such as the wind, height of the center forward, and so on
+// 2. Inferring parameter: Inferring properties that may have led to the observed outcome, such as the skill level of the goalie
+// 3. Predicting generalized case: Using the outcome of one corner kick to infer properties that can influence the outcome of a second corner kick, and then predicting the second corner kick accordingly
 
-# you’ll move from modeling individual corner kicks as isolated events 
-#	to modeling an entire soccer match as a sequence of connected events. 
-# A soccer match is an example of a dynamic system. This means two things:
-#	1. A soccer match has a state at every point in time. 
-#		This state can include things such as the score, who has possession, and 
-#		how confident each team is feeling.
-#	2. The state at any point in time is dependent on earlier states. 
-#		For example, in a soccer match, the score at any point in time is dependent on the previous score and 
-#		whether a goal was just scored; 
-#		the possession is dependent on the previous possession, because a team in possession has a chance to maintain possession; and 
-#		the confidence of a team also depends on their previous confidence, 
-#		because confidence doesn’t usually fluctuate wildly and suddenly.
+// you’ll move from modeling individual corner kicks as isolated events 
+//	to modeling an entire soccer match as a sequence of connected events. 
+// A soccer match is an example of a dynamic system. This means two things:
+//	1. A soccer match has a state at every point in time. 
+//		This state can include things such as the score, who has possession, and 
+//		how confident each team is feeling.
+//	2. The state at any point in time is dependent on earlier states. 
+//		For example, in a soccer match, the score at any point in time is dependent on the previous score and 
+//		whether a goal was just scored; 
+//		the possession is dependent on the previous possession, because a team in possession has a chance to maintain possession; and 
+//		the confidence of a team also depends on their previous confidence, 
+//		because confidence doesn’t usually fluctuate wildly and suddenly.
 
-# a dynamic system is:
-#	1. a system that has a state at every point in time, and 
-#	2. those states at different time points are dependent.
-#	e.g. Whether, business performance, traffic on a highway are dynamic systems
+// a dynamic system is:
+//	1. a system that has a state at every point in time, and 
+//	2. those states at different time points are dependent.
+//	e.g. Whether, business performance, traffic on a highway are dynamic systems
 
-# In a dynamic probabilistic model, the state is represented by random variables. 
+// In a dynamic probabilistic model, the state is represented by random variables. 
 
-# For the performance of a business you might have variables representing
-# 		levels of revenues and profits at any given time point (state variables)
+// For the performance of a business you might have variables representing
+// 		levels of revenues and profits at any given time point (state variables)
 
-#	The probabilistic model defines probabilistic dependencies between the values of state variables at different time points
+//	The probabilistic model defines probabilistic dependencies between the values of state variables at different time points
 
-# Use cases of the probabilistic graphical model:
-# 1. Predicting the state of the system at a future time point, taking into account the current state and the dependencies between states over time. 
-#		For example, you might predict the final score of the soccer match 
-#		by considering the current score and confi- dence of the teams.
-# 2. Inferring the past causes of the current state. 
-#		For example, if your team lost the soccer match, 
-#		you can try to determine which decisions during the game led to the bad result.
-# 3. Monitoring the state of the system over time, based on observations that you get over time. 
-#		For example, you might continually estimate the confidence and quality of the two teams based on what you observe to be happening on the field over time. 
-#		You can then use these estimates to predict what will happen in the rest of the game.
+// Use cases of the probabilistic graphical model:
+// 1. Predicting the state of the system at a future time point, taking into account the current state and the dependencies between states over time. 
+//		For example, you might predict the final score of the soccer match 
+//		by considering the current score and confi- dence of the teams.
+// 2. Inferring the past causes of the current state. 
+//		For example, if your team lost the soccer match, 
+//		you can try to determine which decisions during the game led to the bad result.
+// 3. Monitoring the state of the system over time, based on observations that you get over time. 
+//		For example, you might continually estimate the confidence and quality of the two teams based on what you observe to be happening on the field over time. 
+//		You can then use these estimates to predict what will happen in the rest of the game.
 
-#----------------------------
-# Markov Chains
-# state that varies over time, such that 
-# the states at different times are dependent.
-# Characterised by two things:
-#	1. the state consists of a single variable. 
-#	2. the state variable at each point in time depends probabilistically on the variable at the previous point in time, but not on any prior state variables.
+//----------------------------
+// Markov Chains
+// state that varies over time, such that 
+// the states at different times are dependent.
+// Characterised by two things:
+//	1. the state consists of a single variable. 
+//	2. the state variable at each point in time depends probabilistically on the variable at the previous point in time, but not on any prior state variables.
 
-# Example Markov chain model of Possessions in a soccer match:
-#	The state at a time point consists of a single variable, which depends on the variable at the previous time. 
-# Possession(1) depends directly on Possession(0), 
-# Possession(2) depends directly on Possession(1), and so on through to 
-# Possession(n) depending directly on Possession(n – 1).
+// Example Markov chain model of Possessions in a soccer match:
+//	The state at a time point consists of a single variable, which depends on the variable at the previous time. 
+// Possession(1) depends directly on Possession(0), 
+// Possession(2) depends directly on Possession(1), and so on through to 
+// Possession(n) depending directly on Possession(n – 1).
 
-# Possession(2) is conditionally independent of Posses- sion(0), given Possession(1)
+// Possession(2) is conditionally independent of Posses- sion(0), given Possession(1)
 
-# Markov Assumption:
-# the possession at any point in time is conditionally independent of the possession at all earlier times, given the possession at the immediately previous time. 
+// Markov Assumption:
+// the possession at any point in time is conditionally independent of the possession at all earlier times, given the possession at the immediately previous time. 
 
-# MARKOV ASSUMPTION 
-# A dynamic probabilistic model satisfies the Markov assumption if the state at any time point depends only on the directly previous state; 
-# the state at any time point is conditionally independent of all earlier states given the directly previous state.
-
-
-# SPECIFYING A MARKOV CHAIN:
-#	1. Decide on the set of values for the state variable. 
-#		These consist of all of the val- ues of the variable that you consider to be relevant at any point in time. 
-#	not include more values than is neces- sary.
-#		 the size of the Markov chain representation is quadratic in the number of values of the state variable, so you want to avoid it getting too large.
-#		e.g only restrict the score differential state to the range –5 to +5 in soccer that  
-#			as the difference in leading by 15 and 5 is inconsequential, as overcoming 5 is rare
-#	2. Specify one of the following:
-#		2.1. initial value for the Markov chain. This means the value of the first state variable. 
-#			e.g. score differential at the start of a soccer match is 0.
-#		2.2. distribution over the initial value.  This is needed if you don’t know the exact value. 
-#			e.g. the possession at the start of the game depends on the coin toss, 
-#				so the probability of each team having possession is 0.5.
-#	3. Specify the transition model. 
-#		The transition model defines how the state at one time point depends on the state at the previous time point.
-#		transition model specifies P(Possession(t) | Possession(t – 1)) for any t 􏰉 1.
-#		transtion probabilities can be defined the same across time
+// MARKOV ASSUMPTION 
+// A dynamic probabilistic model satisfies the Markov assumption if the state at any time point depends only on the directly previous state; 
+// the state at any time point is conditionally independent of all earlier states given the directly previous state.
 
 
-# dynamic models can become expensive to work with:
-#	 The complexity of representing and reasoning about dynamic models depends 
-#			crucially on the number of states. 
-#	In a Markov chain, the number of parameters in the transition model is quadratic in the number of values of the state variable.
+// SPECIFYING A MARKOV CHAIN:
+//	1. Decide on the set of values for the state variable. 
+//		These consist of all of the val- ues of the variable that you consider to be relevant at any point in time. 
+//	not include more values than is neces- sary.
+//		 the size of the Markov chain representation is quadratic in the number of values of the state variable, so you want to avoid it getting too large.
+//		e.g only restrict the score differential state to the range –5 to +5 in soccer that  
+//			as the difference in leading by 15 and 5 is inconsequential, as overcoming 5 is rare
+//	2. Specify one of the following:
+//		2.1. initial value for the Markov chain. This means the value of the first state variable. 
+//			e.g. score differential at the start of a soccer match is 0.
+//		2.2. distribution over the initial value.  This is needed if you don’t know the exact value. 
+//			e.g. the possession at the start of the game depends on the coin toss, 
+//				so the probability of each team having possession is 0.5.
+//	3. Specify the transition model. 
+//		The transition model defines how the state at one time point depends on the state at the previous time point.
+//		transition model specifies P(Possession(t) | Possession(t – 1)) for any t 􏰉 1.
+//		transtion probabilities can be defined the same across time
 
-#----------------------------
-# Markov chain specification
-#  if you know the total number of time steps
-#----------------------------
-# Length of the chain
+
+// dynamic models can become expensive to work with:
+//	 The complexity of representing and reasoning about dynamic models depends 
+//			crucially on the number of states. 
+//	In a Markov chain, the number of parameters in the transition model is quadratic in the number of values of the state variable.
+
+//----------------------------
+// Markov chain specification
+//  if you know the total number of time steps
+//----------------------------
+// Length of the chain
 val length = 90
 
-# Array of state variables, one for each time step
-# This initial value is unimport- ant because you’ll overwrite it explicitly in a moment.
+// Array of state variables, one for each time step
+// This initial value is unimport- ant because you’ll overwrite it explicitly in a moment.
 val ourPossession: Array[Element[Boolean]] =
   Array.fill(length)(Constant(false))
 
-# Sets the distribution for the initial state of the sequence
+// Sets the distribution for the initial state of the sequence
 ourPossession(0) = Flip(0.5)
 
-# Transition model defining a distribution for each state variable based on the one before in the sequence
-# Next comes a loop that goes through all of the time points 1 through 89. 
-# At each time point, it defines whether you have possession at that time point based on whether you had possession at the previous time point. 
-# Specifically, if you did have possession, you continue to have it with probability 0.6, but if you didn’t have possession, you take it with probability 0.3.
+// Transition model defining a distribution for each state variable based on the one before in the sequence
+// Next comes a loop that goes through all of the time points 1 through 89. 
+// At each time point, it defines whether you have possession at that time point based on whether you had possession at the previous time point. 
+// Specifically, if you did have possession, you continue to have it with probability 0.6, but if you didn’t have possession, you take it with probability 0.3.
 for { minute <- 1 until length } {
   ourPossession(minute) =
     If(ourPossession(minute - 1), Flip(0.6), Flip(0.3))
 }
 
-# You can query this Markov model for the probability distribution over the state variable at any time point, given observations at any time points.
+// You can query this Markov model for the probability distribution over the state variable at any time point, given observations at any time points.
 VariableElimination.probability(ourPossession(5), true)
 ourPossession(4).observe(true)
 
-# you can reason not only forward through the Markov chain to predict the future, 
-#		but also backward to infer previous states from future observations. 
+// you can reason not only forward through the Markov chain to predict the future, 
+//		but also backward to infer previous states from future observations. 
 
-#----------------------------
-# Hidden Markov models
-# A hidden Markov model (HMM) is an extension of a Markov chain in which two variables exist at each time point, one representing a “hidden” state and the other representing an observation.
-# e.g.:
-#		The hidden state represents whether your team is confident at each time point
-#		You can never truly know whether your team is confident
-#		You have to infer it based on what’s happening on the pitch.
-#		A hidden Markov model. Confident is a hidden state variable, and Possession represents an observation. 
-#		The hidden state variables make a Markov chain, and the observation depends only on the hidden state at that time point.
-#		HMM satisfies two conditions:
-#		1. The hidden states form a Markov chain that satisfies the Markov assumption.
-#		2. The observation at a point in time depends only on the hidden state at that point in time. 
-#			The observation is independent of all previous hidden states 
-#				and observations, given the hidden state at that time point.
-#		the hidden state at a particular time point is independent of all previous observations given the previous hidden state.
-# The current hidden state isn’t independent of previous observations 
-#		if you don’t know the previous hidden state.
-#		e.g. Possession(0) isn’t independent of Confident(2) 
-#			if you don’t observe Confident(0) or Confident(1).
-#----------------------------
-# Steps in specifying HMM in Figaro:
-#	1. Define the set of values of the hidden state variable.e.g. Confident might be a Boolean var.
-#	2. Define the set of values of the observation variable. 
-#		e.g.  Boolean variable representing whether our team has possession at a particular time point. 
-#		Because the observation variable depends on the hidden state but not on previous observations,
-#		 the size of the representation will be proportional to the number of values of the hidden 
-#			state times the number of values of the observation.
-#	3. Define a probability distribution over the initial hidden state. 
-#		This is known as the initial model. In our example, this specifies P(Confident(0)).
-#	4. Define the transition model for the hidden state variables, 
-#		representing the conditional distribution over the state variable at one time point given the previous time point. 
-#		In our example, this specifies P(Confident(t) | Confident(t – 1)).
-#	5. Define the observation model that specifies the conditional probability distribution 
-#		over the observation variable at any time point, given the hidden state variable at that time point. 
-#		e.g. , this specifies P(Possession(t) | Confident(t )).
+//----------------------------
+// Hidden Markov models
+// A hidden Markov model (HMM) is an extension of a Markov chain in which two variables exist at each time point, one representing a “hidden” state and the other representing an observation.
+// e.g.:
+//		The hidden state represents whether your team is confident at each time point
+//		You can never truly know whether your team is confident
+//		You have to infer it based on what’s happening on the pitch.
+//		A hidden Markov model. Confident is a hidden state variable, and Possession represents an observation. 
+//		The hidden state variables make a Markov chain, and the observation depends only on the hidden state at that time point.
+//		HMM satisfies two conditions:
+//		1. The hidden states form a Markov chain that satisfies the Markov assumption.
+//		2. The observation at a point in time depends only on the hidden state at that point in time. 
+//			The observation is independent of all previous hidden states 
+//				and observations, given the hidden state at that time point.
+//		the hidden state at a particular time point is independent of all previous observations given the previous hidden state.
+// The current hidden state isn’t independent of previous observations 
+//		if you don’t know the previous hidden state.
+//		e.g. Possession(0) isn’t independent of Confident(2) 
+//			if you don’t observe Confident(0) or Confident(1).
+//----------------------------
+// Steps in specifying HMM in Figaro:
+//	1. Define the set of values of the hidden state variable.e.g. Confident might be a Boolean var.
+//	2. Define the set of values of the observation variable. 
+//		e.g.  Boolean variable representing whether our team has possession at a particular time point. 
+//		Because the observation variable depends on the hidden state but not on previous observations,
+//		 the size of the representation will be proportional to the number of values of the hidden 
+//			state times the number of values of the observation.
+//	3. Define a probability distribution over the initial hidden state. 
+//		This is known as the initial model. In our example, this specifies P(Confident(0)).
+//	4. Define the transition model for the hidden state variables, 
+//		representing the conditional distribution over the state variable at one time point given the previous time point. 
+//		In our example, this specifies P(Confident(t) | Confident(t – 1)).
+//	5. Define the observation model that specifies the conditional probability distribution 
+//		over the observation variable at any time point, given the hidden state variable at that time point. 
+//		e.g. , this specifies P(Possession(t) | Confident(t )).
 
 val length = 90
 
-# Array of hidden state variables, one for each time step
+// Array of hidden state variables, one for each time step
 val confident: Array[Element[Boolean]] =
   Array.fill(length)(Constant(false))
 
-# Array of observation variables, one for each hidden state variable
+// Array of observation variables, one for each hidden state variable
 val ourPossession: Array[Element[Boolean]] =
   Array.fill(length)(Constant(false))
 
-# Sets the distribution for the initial hidden state of the sequence
+// Sets the distribution for the initial hidden state of the sequence
 confident(0) = Flip(0.4)
 
-# Transition model defining a distribution for each hidden state variable based on the one before in the sequence
+// Transition model defining a distribution for each hidden state variable based on the one before in the sequence
 for { minute <- 1 until length } {
   confident(minute) = If(confident(minute - 1), Flip(0.6), Flip(0.3))
 ￼￼} //
 
-# Observation model defining a distribution for each observation variable given its corresponding hidden state variable
+// Observation model defining a distribution for each observation variable given its corresponding hidden state variable
 for { minute <- 0 until length } {
   ourPossession(minute) = If(confident(minute), Flip(0.7), Flip(0.3))
 } //
@@ -1365,81 +1872,81 @@ println("After observing future possession at time step 4: " +
   VariableElimination.probability(confident(2), true))
 // You see that every observation adds to your belief that you are confident at time step 2.
 
-#----------------------------
-# Dynamic Bayesian Networks (DBN)
-#	In general, there might be many variables you’re interested in, and 
-#		they might be dependent on each other in a variety of ways. 
-#	Dynamic Bayesian networks (DBNs) are a generalization of HMMs that serve this need. 
-#	They operate on the same principle as HMMs of modeling a sequence of variables over time, 
-#	but there can be many variables and they can be dependent on each other in interesting ways.
-#
-#	A dynamic Bayesian network. Several variables exist at each point in time. 
-#	A variable at a time point can depend on other variables at that time point or 
-#		on variables at the previous time point.
-#----------------------------
-# A DBN has the following content:
-# 1 A set of state variables at each time point.
-#	e.g.:
-#		 Winning, representing which team is currently winning the match
-#		 Confident, representing whether your team is confident
-#		 Possession, representing whether your team has possession
-#		 Goal, representing whether a goal is scored at that time point
-#		 coreDiff, representing the score differential between the two teams
+//----------------------------
+// Dynamic Bayesian Networks (DBN)
+//	In general, there might be many variables you’re interested in, and 
+//		they might be dependent on each other in a variety of ways. 
+//	Dynamic Bayesian networks (DBNs) are a generalization of HMMs that serve this need. 
+//	They operate on the same principle as HMMs of modeling a sequence of variables over time, 
+//	but there can be many variables and they can be dependent on each other in interesting ways.
+//
+//	A dynamic Bayesian network. Several variables exist at each point in time. 
+//	A variable at a time point can depend on other variables at that time point or 
+//		on variables at the previous time point.
+//----------------------------
+// A DBN has the following content:
+// 1 A set of state variables at each time point.
+//	e.g.:
+//		 Winning, representing which team is currently winning the match
+//		 Confident, representing whether your team is confident
+//		 Possession, representing whether your team has possession
+//		 Goal, representing whether a goal is scored at that time point
+//		 coreDiff, representing the score differential between the two teams
 
-# 2 For each variable, a set of possible values. 
-#		e.g.:
-#		 Winning could be “us”, “them”, or “none”
-#		 Confident is Boolean
-#		 Possession is Boolean
-#		 Goal is Boolean
-#		 ScoreDiff is an integer from –5 to 5
+// 2 For each variable, a set of possible values. 
+//		e.g.:
+//		 Winning could be “us”, “them”, or “none”
+//		 Confident is Boolean
+//		 Possession is Boolean
+//		 Goal is Boolean
+//		 ScoreDiff is an integer from –5 to 5
 
-#	3. A transition model, consisting of the following:
+//	3. A transition model, consisting of the following:
 
-# *	For each variable, a set of parents. 
-#	These parents could be other variables at the same time step or variables at the previous time step. 
-#	The only restrictions on the parents:
-#		 (1) edges can’t cross more than one time step, and 
-#		 (2) the edges can’t make directed cycles, just as in a Bayesian network. 
-#	e.g. the following dependencies:
-#		– Whether you’re Winning at one time point depends on the ScoreDiff at the previous time point.
-#		– Whether you’re Confident at one time point depends on who is currently Winning and 
-#			whether you were previously Confident.
-#		– Whether you have Possession depends on whether you’re currently Confident.
-#		– Whether a Goal is scored (by either team) depends on whether 
-#			you have Possession and on your Confidence.
-#		– The new ScoreDiff is determined by the previous ScoreDiff, whether a Goal was scored, and 
-#			who scored the goal if it was scored, determined by whether you had Possession.
+// *	For each variable, a set of parents. 
+//	These parents could be other variables at the same time step or variables at the previous time step. 
+//	The only restrictions on the parents:
+//		 (1) edges can’t cross more than one time step, and 
+//		 (2) the edges can’t make directed cycles, just as in a Bayesian network. 
+//	e.g. the following dependencies:
+//		– Whether you’re Winning at one time point depends on the ScoreDiff at the previous time point.
+//		– Whether you’re Confident at one time point depends on who is currently Winning and 
+//			whether you were previously Confident.
+//		– Whether you have Possession depends on whether you’re currently Confident.
+//		– Whether a Goal is scored (by either team) depends on whether 
+//			you have Possession and on your Confidence.
+//		– The new ScoreDiff is determined by the previous ScoreDiff, whether a Goal was scored, and 
+//			who scored the goal if it was scored, determined by whether you had Possession.
 
-# * For each variable, a conditional probability distribution (CPD) that specifies, for each variable, 
-#		the probability distribution over the variable for each value of the parents. 
-#	e.g., the CPDs are as follows:
-# 		– Winning is determined by the previous ScoreDiff in the obvious way.
-#		– The CPD of Confident specifies that you’re more likely to be Confident 
-#			if you’re Winning and if you were previously Confident.
-#		– The CPD of Possession specifies that you’re more likely to have Possession if you’re Confident.
-#		– The CPD of Goal makes a Goal more likely 
-#			if the team that has possession also has favorable confidence. 
-#			That means that if you have Possession and are Confident, or 
-#			you don’t have Possession and aren’t Confident, a Goal is more likely to be scored.
-#		– The new ScoreDiff is a deterministic function of the previous ScoreDiff, 
-#			whether a Goal was scored, and whether you had Possession 
-#			(which deter- mines whether you or they scored the goal).
+// * For each variable, a conditional probability distribution (CPD) that specifies, for each variable, 
+//		the probability distribution over the variable for each value of the parents. 
+//	e.g., the CPDs are as follows:
+// 		– Winning is determined by the previous ScoreDiff in the obvious way.
+//		– The CPD of Confident specifies that you’re more likely to be Confident 
+//			if you’re Winning and if you were previously Confident.
+//		– The CPD of Possession specifies that you’re more likely to have Possession if you’re Confident.
+//		– The CPD of Goal makes a Goal more likely 
+//			if the team that has possession also has favorable confidence. 
+//			That means that if you have Possession and are Confident, or 
+//			you don’t have Possession and aren’t Confident, a Goal is more likely to be scored.
+//		– The new ScoreDiff is a deterministic function of the previous ScoreDiff, 
+//			whether a Goal was scored, and whether you had Possession 
+//			(which deter- mines whether you or they scored the goal).
 
-# 4. An initial model that specifies a probability distribution over variables at the initial time point.
-#		this is an ordinary Bayesian network over the initial variables. 
-#		But you need the distribution only over variables that have an effect on the next time point to get the DBN going. 
-#		In our DBN, these are the variables Confident(0) and ScoreDiff(0).
+// 4. An initial model that specifies a probability distribution over variables at the initial time point.
+//		this is an ordinary Bayesian network over the initial variables. 
+//		But you need the distribution only over variables that have an effect on the next time point to get the DBN going. 
+//		In our DBN, these are the variables Confident(0) and ScoreDiff(0).
 
-# The main content of the DBN specification is in the transition model. 
-# rather than show the sequence of variables over time, 
-#		it’s typical to show the relationship between a time step and the previous time step. 
-# A two-time-step Bayesian network (2TBN) for our example. 
-#		The 2TBN shows the variables at time step t and their dependence on time step t – 1.
-# The only difference is that the variables at time step t – 1 have no parents and no CPDs; 
-#		only the dependencies and distributions of the variables at time step t are defined.
+// The main content of the DBN specification is in the transition model. 
+// rather than show the sequence of variables over time, 
+//		it’s typical to show the relationship between a time step and the previous time step. 
+// A two-time-step Bayesian network (2TBN) for our example. 
+//		The 2TBN shows the variables at time step t and their dependence on time step t – 1.
+// The only difference is that the variables at time step t – 1 have no parents and no CPDs; 
+//		only the dependencies and distributions of the variables at time step t are defined.
 
-# Create arrays of the five state variables at each point in time
+// Create arrays of the five state variables at each point in time
 val length = 91
 val winning: Array[Element[String]] = Array.fill(length)(Constant(""))
 val confident: Array[Element[Boolean]] =
@@ -1451,13 +1958,13 @@ val goal: Array[Element[Boolean]] =
 val scoreDifferential: Array[Element[Int]] =
   Array.fill(length)(Constant(0))
 
-# Create Figaro elements to represent the initial values of confident and scoreDifferential
+// Create Figaro elements to represent the initial values of confident and scoreDifferential
 confident(0) = Flip(0.4)
 scoreDifferential(0) = Constant(0)
 
-# The loop defines the transitions at every time point. 
-#	The transition model specifies how the five state variables depend on the previous state of confident and score- Differential. 
-# Each variable can also depend on earlier variables in the loop. For example, confident depends on winning at the same time point.  
+// The loop defines the transitions at every time point. 
+//	The transition model specifies how the five state variables depend on the previous state of confident and score- Differential. 
+// Each variable can also depend on earlier variables in the loop. For example, confident depends on winning at the same time point.  
 
 for { minute <- 1 until length } {
   winning(minute) =
@@ -1486,29 +1993,29 @@ scoreDifferential(minute) =
 scoreDifferential(minute - 1))
 }
 
-#----------------------------
-# Models with variable structure over time
-# e.g. a restaurant owner who wants to know how full her restaurant will be on a given night; 
-#	this might help her decide various things like how much food to make, whether to encourage her patrons to linger or leave quickly, and so on. 
-#	The restaurant is a dynamic system involving guests arriving, eating their dinners, and leaving. 
-#	The state of the system might consist of the number of guests currently at the restaurant and 
-#		the amount of time they’ve been there, as well as the number of people waiting to be seated. 
-#	Because the number of guests changes over time, the structure of the state varies. 
-#	Furthermore, you don’t know in advance what the structure will be at any point in time; 
-#		at any given time point, you must consider many possible structures.
-#	The easiest way to model this kind of system using probabilistic programming is to create a set of state variables whose types are data structures that can vary. 
-#----------------------------
-#	e.g.
-#	1. Seated represents the guests who are currently seated at the restaurant and 
-#			the amount of time they’ve been there. 
-#		Its data type is a list of integers. 
-#		The length of the list is the current number of guests seated, and 
-#		each integer represents the amount of time a particular guest has been seated.
-#	2. Waiting represents the number of guests currently waiting to be seated. It’s a simple integer.
+//----------------------------
+// Models with variable structure over time
+// e.g. a restaurant owner who wants to know how full her restaurant will be on a given night; 
+//	this might help her decide various things like how much food to make, whether to encourage her patrons to linger or leave quickly, and so on. 
+//	The restaurant is a dynamic system involving guests arriving, eating their dinners, and leaving. 
+//	The state of the system might consist of the number of guests currently at the restaurant and 
+//		the amount of time they’ve been there, as well as the number of people waiting to be seated. 
+//	Because the number of guests changes over time, the structure of the state varies. 
+//	Furthermore, you don’t know in advance what the structure will be at any point in time; 
+//		at any given time point, you must consider many possible structures.
+//	The easiest way to model this kind of system using probabilistic programming is to create a set of state variables whose types are data structures that can vary. 
+//----------------------------
+//	e.g.
+//	1. Seated represents the guests who are currently seated at the restaurant and 
+//			the amount of time they’ve been there. 
+//		Its data type is a list of integers. 
+//		The length of the list is the current number of guests seated, and 
+//		each integer represents the amount of time a particular guest has been seated.
+//	2. Waiting represents the number of guests currently waiting to be seated. It’s a simple integer.
 
 
-# Assume that the restaurant has ten tables of equal size, and each group of guests occupies one table, so the capacity is 10. 
-#	In addition, assume that you’ll be reasoning in time steps of 5 minutes each, for a period of 1 hour, so the number of steps is 12.
+// Assume that the restaurant has ten tables of equal size, and each group of guests occupies one table, so the capacity is 10. 
+//	In addition, assume that you’ll be reasoning in time steps of 5 minutes each, for a period of 1 hour, so the number of steps is 12.
 val numSteps = 12
 val capacity = 10
 
@@ -1516,25 +2023,25 @@ val seated: Array[Element[List[Int]]] =
   Array.fill(numSteps)(Constant(List()))
 val waiting: Array[Element[Int]] = Array.fill(numSteps)(Constant(0))
 
-# This example assumes that the restaurant owner is starting at a particular point in the evening with a known state
-# At the initial time point, the res- taurant is already full and three people are waiting.
+// This example assumes that the restaurant owner is starting at a particular point in the evening with a known state
+// At the initial time point, the res- taurant is already full and three people are waiting.
 seated(0) = Constant(List(0, 5, 15, 15, 25, 30, 40, 60, 65, 75))
    waiting(0) = Constant(3)
 
-# Representing the Transition Model
-#	Dynamic model with variable structure—code skeleton
-# Define a transition function that takes the previous state variables, and returns a joint probability distribution over the new state variables
-# The next state is an element over the pair of seated and waiting values.
-# It defines a joint distribution over the seated and waiting variables at the new time step. 
-# In the transition function, this element is constructed by using Figaro’s ^^ constructor, which creates elements over pairs (or larger tuples) from individual elements. 
-# In this transition function, these are the elements allSeated and newWaiting. 
+// Representing the Transition Model
+//	Dynamic model with variable structure—code skeleton
+// Define a transition function that takes the previous state variables, and returns a joint probability distribution over the new state variables
+// The next state is an element over the pair of seated and waiting values.
+// It defines a joint distribution over the seated and waiting variables at the new time step. 
+// In the transition function, this element is constructed by using Figaro’s ^^ constructor, which creates elements over pairs (or larger tuples) from individual elements. 
+// In this transition function, these are the elements allSeated and newWaiting. 
 def transition(seated: List[Int], waiting: Int):
   (Element[(List[Int], Int)]) = {
   // details go here
   ^^(allSeated, newWaiting)
 }
 
-# Produce the joint distribution over the new state variables from the distributions over the previous state variables
+// Produce the joint distribution over the new state variables from the distributions over the previous state variables
 for { step <- 1 until numSteps } {
   val newState =
     Chain(seated(step - 1), waiting(step - 1),
@@ -1544,12 +2051,12 @@ for { step <- 1 until numSteps } {
      waiting(step) = newState._2
 }
 
-# So to get the distribution over possession(t), you can write this:
+// So to get the distribution over possession(t), you can write this:
 Chain(possession(t – 1), transitionModel)
 
-# Dynamic model with variable structure—detailed transition function
-# Determine the new amount of time each guest is at the table.
-# 	–1 indicates that they're leaving, which happens with probability time / 80
+// Dynamic model with variable structure—detailed transition function
+// Determine the new amount of time each guest is at the table.
+// 	–1 indicates that they're leaving, which happens with probability time / 80
 def transition(seated: List[Int], waiting: Int):
   (Element[(List[Int], Int)]) = {
   val newTimes: List[Element[Int]] =
@@ -1557,17 +2064,17 @@ def transition(seated: List[Int], waiting: Int):
     yield Apply(Flip(time / 80.0),
     (b: Boolean) => if (b) -1 else time + 5)
 
-# newTimes is a list of Element[Int]. You need to turn it into an Element [List[Int]], which is achieved by Inject.
+// newTimes is a list of Element[Int]. You need to turn it into an Element [List[Int]], which is achieved by Inject.
 val newTimesListElem: Element[List[Int]] = Inject(newTimes:_*)
 
-# Determine the number of people who are leaving by removing all those whose seated time is less than 0
+// Determine the number of people who are leaving by removing all those whose seated time is less than 0
 val staying = Apply(newTimesListElem,
                       (l: List[Int]) => l.filter(_ >= 0))
-# Determine the number of people who arrive at the restaurant and the resulting number that are waiting
+// Determine the number of people who arrive at the restaurant and the resulting number that are waiting
 val arriving = Poisson(2)
 val totalWaiting = Apply(arriving, (i: Int) => i + waiting)
 
-# Determine the number of waiting people that can be newly seated
+// Determine the number of waiting people that can be newly seated
 val placesOccupied =
   Apply(staying, (l: List[Int]) => l.length.min(capacity))
 val placesAvailable =
@@ -1577,208 +2084,208 @@ val numNewlySeated =
          (tw: Int, pa: Int) => tw.min(pa))
 
 
-# Determine the new list of seated guests
+// Determine the new list of seated guests
 val newlySeated =
   Apply(numNewlySeated, (i: Int) => List.fill(i)(0))
 val allSeated =
   Apply(newlySeated, staying,
           (l1: List[Int], l2: List[Int]) => l1 ::: l2)
 
-# Determine the new number of waiting guests
+// Determine the new number of waiting guests
 val newWaiting = Apply(totalWaiting, numNewlySeated,
                         (tw: Int, ns: Int) => tw - ns)
 
 
-# Return an element over a pair of the new list of seated guests and number of waiting guests
+// Return an element over a pair of the new list of seated guests and number of waiting guests
 ^^(allSeated, newWaiting)
 }
 
-# Figaro’s Inject element can turn a list of elements into an element of lists. 
-#  What does that mean? Suppose you have a list consisting of three Element[Int]s. 
-#  One possible set of values is that the first is 5, the second is 10, and the third is 15. 
-# You can make this into a list consisting of the values 5, 10, and 15. 
-# In this case, the value of Inject(l) will be List(5, 10, 15).
+// Figaro’s Inject element can turn a list of elements into an element of lists. 
+//  What does that mean? Suppose you have a list consisting of three Element[Int]s. 
+//  One possible set of values is that the first is 5, the second is 10, and the third is 15. 
+// You can make this into a list consisting of the values 5, 10, and 15. 
+// In this case, the value of Inject(l) will be List(5, 10, 15).
 
-# Why is this useful? Some operations in our model, namely, determining the new amount of time a guest is seated and whether the guest is leaving, are applied to individual elements. 
-# Other operations, such as determining the list of guests who are stay- ing, are applied to the list of guests as a whole. 
-# You need an element over lists, and Inject gives you that.
+// Why is this useful? Some operations in our model, namely, determining the new amount of time a guest is seated and whether the guest is leaving, are applied to individual elements. 
+// Other operations, such as determining the list of guests who are stay- ing, are applied to the list of guests as a whole. 
+// You need an element over lists, and Inject gives you that.
 
-# In general, you probably won’t use a factored algorithm such as variable elimination or belief propagation for these variable structure models. 
-# The number of possible values of the state variables is enormous. 
-# In the restaurant example, each possible seated time is a number between 0 and 75 that’s divisible by 5. 
-# (Once the seated time reaches 75, the guest will definitely leave at the next time step.) 
-# This produces 16 pos- sible values. 
-# The number of possible lists of 10 seated times is 1610. 
-# You also need to consider cases where the number of guests is less than 10. 
-# This results in far too many possibilities to enumerate.
+// In general, you probably won’t use a factored algorithm such as variable elimination or belief propagation for these variable structure models. 
+// The number of possible values of the state variables is enormous. 
+// In the restaurant example, each possible seated time is a number between 0 and 75 that’s divisible by 5. 
+// (Once the seated time reaches 75, the guest will definitely leave at the next time step.) 
+// This produces 16 pos- sible values. 
+// The number of possible lists of 10 seated times is 1610. 
+// You also need to consider cases where the number of guests is less than 10. 
+// This results in far too many possibilities to enumerate.
 
-# Therefore, a sampling algorithm will work better. 
-#  This example uses importance sampling to predict the number of people waiting to get into the restaurant at the end of the next hour. 
+// Therefore, a sampling algorithm will work better. 
+//  This example uses importance sampling to predict the number of people waiting to get into the restaurant at the end of the next hour. 
 val alg = Importance(10000, waiting(numSteps - 1))
 alg.start()
 println(alg.probability(waiting(numSteps - 1), (i: Int) => i > 4))
 
-# example query to answer: more than four people will be waiting at the end of the hour.
+// example query to answer: more than four people will be waiting at the end of the hour.
 
-# A limitation of all of the programs I’ve shown so far is that you have to define the number of time steps in advance. 
+// A limitation of all of the programs I’ve shown so far is that you have to define the number of time steps in advance. 
 
-#----------------------------
-# Modeling systems that go on indefinitely
-#		dynamic probabilistic models that can go on for any length of time.
-#		These models can be used to monitor the state of the system in an
-#			ongoing fashion based on evidence that’s accumulated over time. 
-#		you’ll need a new Figaro concept, the universe.
-#		A universe is a special type of element collection 
-#			that also provides services that are useful to inference algorithms, 
-#			such as memory management and dependency analysis. 
-#		Universe ane Element collection: 
-#			1. Every universe is an element collection, but not every element collection is a universe.
-#			2. Every element collection is associated with a universe. 
-#				In the case of an element collection that is also a universe, 
-#				the associated universe is itself.
-#			3. When you place an element in an element collection, 
-#				its universe is the uni- verse associated with the element collection.
-#----------------------------
-# Because a universe is an element collection, 
-#	you can place an element directly in a universe 
-#		by supplying the universe as the second optional argument, for example:
+//----------------------------
+// Modeling systems that go on indefinitely
+//		dynamic probabilistic models that can go on for any length of time.
+//		These models can be used to monitor the state of the system in an
+//			ongoing fashion based on evidence that’s accumulated over time. 
+//		you’ll need a new Figaro concept, the universe.
+//		A universe is a special type of element collection 
+//			that also provides services that are useful to inference algorithms, 
+//			such as memory management and dependency analysis. 
+//		Universe ane Element collection: 
+//			1. Every universe is an element collection, but not every element collection is a universe.
+//			2. Every element collection is associated with a universe. 
+//				In the case of an element collection that is also a universe, 
+//				the associated universe is itself.
+//			3. When you place an element in an element collection, 
+//				its universe is the uni- verse associated with the element collection.
+//----------------------------
+// Because a universe is an element collection, 
+//	you can place an element directly in a universe 
+//		by supplying the universe as the second optional argument, for example:
 Flip(0.5)("coin", universe)
 
-# default universe is held in the Scala variable Universe.universe in the com.cra.figaro.language package.
+// default universe is held in the Scala variable Universe.universe in the com.cra.figaro.language package.
 
-# Algorithms also operate on a universe. 
-# 	A different universe can be specified by providing an optional additional argument in its own argument list. 
-#	For example, VariableElimination (target) creates a variable elimination algorithm on the default universe with the given target. 
+// Algorithms also operate on a universe. 
+// 	A different universe can be specified by providing an optional additional argument in its own argument list. 
+//	For example, VariableElimination (target) creates a variable elimination algorithm on the default universe with the given target. 
 VariableElimination(target)(u2) 
-# 	creates a variable elimination algorithm on universe u2 with the given target. 
+// 	creates a variable elimination algorithm on universe u2 with the given target. 
 
-# You can get a new universe in two ways. One is to call
+// You can get a new universe in two ways. One is to call
 new Universe
-#	which creates a fresh universe with no elements in it. The other is to call
+//	which creates a fresh universe with no elements in it. The other is to call
 Universe.createNew()
-# 	which, in addition to creating a fresh universe, also sets the default universe to this new universe.
+// 	which, in addition to creating a fresh universe, also sets the default universe to this new universe.
 
 Universe.createNew()
 val x = Beta(1, 2)
 val y = Flip(x)
 println(VariableElimination.probability(y, true))
 
-# The elements x and y will be placed in the new universe, 
-#		and the variable elimination algorithm will be run on it.       
+// The elements x and y will be placed in the new universe, 
+//		and the variable elimination algorithm will be run on it.       
 
-# Using universes to model ongoing systems
-# To represent a dynamic probabilistic model with no time limit in Figaro, 
-#	you create a universe for every time step that contains all of the variables at that time step. 
-#	The model is normally specified in two pieces:
-#		1. An initial universe
-#		2. A function from one universe to the next universe
+// Using universes to model ongoing systems
+// To represent a dynamic probabilistic model with no time limit in Figaro, 
+//	you create a universe for every time step that contains all of the variables at that time step. 
+//	The model is normally specified in two pieces:
+//		1. An initial universe
+//		2. A function from one universe to the next universe
 
-# These two pieces define a dynamic probabilistic model, shown in figure 8.6, as follows:
-#	1 Begin with a probability distribution over the initial state at time 0 as specified by all elements in the initial universe.
-#	2 Apply the function to the initial universe to get a time 1 universe. 
-#		The elements in the new universe define a probability distribution over the time 1 state.
-#	3 Apply the function to the time 1 universe to get a time 2 universe. 
-#		The elements in the new universe define a probability distribution over the time 2 state.
-#	4 Continue for as long as desired.
+// These two pieces define a dynamic probabilistic model, shown in figure 8.6, as follows:
+//	1 Begin with a probability distribution over the initial state at time 0 as specified by all elements in the initial universe.
+//	2 Apply the function to the initial universe to get a time 1 universe. 
+//		The elements in the new universe define a probability distribution over the time 1 state.
+//	3 Apply the function to the time 1 universe to get a time 2 universe. 
+//		The elements in the new universe define a probability distribution over the time 2 state.
+//	4 Continue for as long as desired.
 
-# Progression of a dynamic model through a series of universes. 
-#	Each universe contains the state variables at a given time point. 
-#	The first universe is defined by the initial model, and 
-#		subsequent universes are created by applying the nextUniverse function to the previous universe.
+// Progression of a dynamic model through a series of universes. 
+//	Each universe contains the state variables at a given time point. 
+//	The first universe is defined by the initial model, and 
+//		subsequent universes are created by applying the nextUniverse function to the previous universe.
 
-#	Any element in a time step that directly influences an element at the next time step must be given a name. 
-#	This name enables the program to refer to the element in the previous universe. 
-#	In the restaurant example, the number of guests waiting for a seat at the end of a time step influences the state at the next time step. 
-#	You need to give the element representing this number the name waiting.
+//	Any element in a time step that directly influences an element at the next time step must be given a name. 
+//	This name enables the program to refer to the element in the previous universe. 
+//	In the restaurant example, the number of guests waiting for a seat at the end of a time step influences the state at the next time step. 
+//	You need to give the element representing this number the name waiting.
 
-#	Now, the transition function takes the previous universe as an argument. 
-#	Let’s say this universe is contained in a Scala variable named previous. 
-#	You can write to get the element named waiting in the previous universe. 
+//	Now, the transition function takes the previous universe as an argument. 
+//	Let’s say this universe is contained in a Scala variable named previous. 
+//	You can write to get the element named waiting in the previous universe. 
 previous.get[Int]("waiting")
-#	you had to tell Scala the value type of this element (Int), 
-#		because otherwise the get method would have no idea what kind of element to return.
+//	you had to tell Scala the value type of this element (Int), 
+//		because otherwise the get method would have no idea what kind of element to return.
 
-# Any element that you want to query or observe also needs to be given a name. 
-#	That way, you can refer to the element consistently at every time step.
+// Any element that you want to query or observe also needs to be given a name. 
+//	That way, you can refer to the element consistently at every time step.
 
-# The transition function is unchanged, except that you also include the number of people arriving in the returned element because you’ll observe it.
+// The transition function is unchanged, except that you also include the number of people arriving in the returned element because you’ll observe it.
 def transition(seated: List[Int], waiting: Int):
   (Element[(List[Int], Int, Int)]) = {
     // details are the same as before
     ^^(allSeated, newWaiting, arriving)
 }
 
-# Define a function from the previous universe to the next universe
+// Define a function from the previous universe to the next universe
 def nextUniverse(previous: Universe): Universe = {
-# Create the new universe, make it the default, and assign it to a Scala variable
+// Create the new universe, make it the default, and assign it to a Scala variable
 	val next = Universe.createNew()
-	# Get the previous state variables from the previous universe
+	// Get the previous state variables from the previous universe
 	val previousSeated = previous.get[List[Int]]("seated")
 	val previousWaiting = previous.get[Int]("waiting")
-	#	Use Chain to get the element representing the new state
+	//	Use Chain to get the element representing the new state
 	val state = Chain(previousSeated, previousWaiting, transition _)
-	# Get the elements representing the individual state variables out of this element and 
-	#		give each a name in the next universe
+	// Get the elements representing the individual state variables out of this element and 
+	//		give each a name in the next universe
 	Apply(state, (s: (List[Int], Int, Int)) => s._1)("seated", next)
 	Apply(state, (s: (List[Int], Int, Int)) => s._2)("waiting", next)
 	Apply(state, (s: (List[Int], Int, Int)) => s._3)("arriving", next)
-	# return the next universe
+	// return the next universe
 	next
 }
 
-# Running a monitoring application
-# Your goal is to begin with an initial belief about the state of the system and 
-#	repeatedly update your beliefs about the state, given evidence that you receive at every time step.
-#	1 Begin with a distribution over the state of the system at time 0.
-#	2 Incorporate observations received at time 1 to produce a distribution over the state of the system at time 1.
-#	3 Incorporate observations received at time 2 to produce a distribution over the state of the system at time 2.
-#	4 Repeat for as long as desired.
+// Running a monitoring application
+// Your goal is to begin with an initial belief about the state of the system and 
+//	repeatedly update your beliefs about the state, given evidence that you receive at every time step.
+//	1 Begin with a distribution over the state of the system at time 0.
+//	2 Incorporate observations received at time 1 to produce a distribution over the state of the system at time 1.
+//	3 Incorporate observations received at time 2 to produce a distribution over the state of the system at time 2.
+//	4 Repeat for as long as desired.
 
-# Propagate dynamics and condition on Observations
-#	The filtering process. 
-#	Figaro maintains a probability distribution over the state of the system at each time point. 
-#	From one time point to the next, Figaro takes into account the dynamics of the model and 
-#		conditions on the new observations to produce a probability distribution over the new state.
+// Propagate dynamics and condition on Observations
+//	The filtering process. 
+//	Figaro maintains a probability distribution over the state of the system at each time point. 
+//	From one time point to the next, Figaro takes into account the dynamics of the model and 
+//		conditions on the new observations to produce a probability distribution over the new state.
 
-# This process goes by various names, including monitoring, state estimation, and filtering. 
-#	All are different names for the same thing. 
-#	Algorithms for achieving this process are often called filtering algorithms, and 
-#		this is the name used in Figaro. Probably the most popular filtering algorithm is called particle filtering. 
-#	This is a sampling algorithm that represents the distribution over the state of the system at each time point by using a set of samples or “particles.” 
+// This process goes by various names, including monitoring, state estimation, and filtering. 
+//	All are different names for the same thing. 
+//	Algorithms for achieving this process are often called filtering algorithms, and 
+//		this is the name used in Figaro. Probably the most popular filtering algorithm is called particle filtering. 
+//	This is a sampling algorithm that represents the distribution over the state of the system at each time point by using a set of samples or “particles.” 
 
-# To create a particle-filtering algorithm in Figaro, you pass it three arguments:
-# 	1. The initial universe
-#	2. The function that takes the previous universe to the next universe
-#	3. The number of particles to use at every time step
+// To create a particle-filtering algorithm in Figaro, you pass it three arguments:
+// 	1. The initial universe
+//	2. The function that takes the previous universe to the next universe
+//	3. The number of particles to use at every time step
 
 val alg = ParticleFilter(initial, nextUniverse, 10000)
 alg.start()
-# For a particle filter, this produces the probability distribution over the initial state.
+// For a particle filter, this produces the probability distribution over the initial state.
 
-# Most of the work of the particle filter is accomplished by the advanceTime method, 
-#	which advances the system from one time step to the next while taking into account the new evidence.
+// Most of the work of the particle filter is accomplished by the advanceTime method, 
+//	which advances the system from one time step to the next while taking into account the new evidence.
 alg.advanceTime(evidence)
 
-# The way the evidence is specified is different from what you’ve seen before. 
-#	Through- out the book, you’ve seen evidence specified by adding conditions or constraints to elements. 
-#	You can’t do that here, because you have no direct handle on the elements representing the state of the system at any time point; 
-#	they’re internal to the next- Universe function. 
-#	Instead, you refer to these elements by name. 
-#	So you have to tell the particle filter the names of the elements you have evidence for as well as the nature of that evidence.
+// The way the evidence is specified is different from what you’ve seen before. 
+//	Through- out the book, you’ve seen evidence specified by adding conditions or constraints to elements. 
+//	You can’t do that here, because you have no direct handle on the elements representing the state of the system at any time point; 
+//	they’re internal to the next- Universe function. 
+//	Instead, you refer to these elements by name. 
+//	So you have to tell the particle filter the names of the elements you have evidence for as well as the nature of that evidence.
 NamedEvidence("arriving", Observation(3))
 
-# This is an instance of the NamedEvidence class, which pairs a name (arriving) with a piece of evidence 
-# (in this case, the observation that the element named arriving has value 3). 
-# The piece of evidence could also be a more general condition or constraint. 
-# The argument to the particle filter’s advanceTime method is a list of these Named- Evidence items, 
-#		which specify all evidence newly received at the time point.
+// This is an instance of the NamedEvidence class, which pairs a name (arriving) with a piece of evidence 
+// (in this case, the observation that the element named arriving has value 3). 
+// The piece of evidence could also be a more general condition or constraint. 
+// The argument to the particle filter’s advanceTime method is a list of these Named- Evidence items, 
+//		which specify all evidence newly received at the time point.
 
-# In our restaurant example, let’s assume that the restaurant owner intermittently observed the number of people arriving at the restaurant in a time step. 
-#	So she may or may not get evidence at any particular time step. 
-#	You can accomplish this in Scala by making her get an Option[Int], 
-#		which could be None or could be a particular observed number of people.
+// In our restaurant example, let’s assume that the restaurant owner intermittently observed the number of people arriving at the restaurant in a time step. 
+//	So she may or may not get evidence at any particular time step. 
+//	You can accomplish this in Scala by making her get an Option[Int], 
+//		which could be None or could be a particular observed number of people.
 
-# You then translate this optional observation into the argument to advanceTime. 
+// You then translate this optional observation into the argument to advanceTime. 
 val evidence = {
   arrivingObservation(time) match {
     case None => List()
@@ -1787,71 +2294,71 @@ val evidence = {
 }
 alg.advanceTime(evidence)
 
-# to get the probability that more than 4 people are waiting
+// to get the probability that more than 4 people are waiting
 alg.currentProbability("waiting", (i: Int) => i > 4)
 
-# To get the expected (average) number of guests seated at the restaurant, you can call
+// To get the expected (average) number of guests seated at the restaurant, you can call
 alg.currentExpectation("seated", (l: List[Int]) => l.length)
 
-# To summarize, here are the steps you take to run a particle filter, 
-#	given the initial universe and the function that takes the previous universe and 
-#	 returns the next universe:
-# 1 Create the particle filter.
-# 2 Start the particle filter to get the initial distribution.
-# 3 Do the following for each time step:
-# 	a Collect the evidence at that time step.
-#	b Call advanceTime with that evidence to get the distribution over the new state.
-#	c Query the new distribution.
+// To summarize, here are the steps you take to run a particle filter, 
+//	given the initial universe and the function that takes the previous universe and 
+//	 returns the next universe:
+// 1 Create the particle filter.
+// 2 Start the particle filter to get the initial distribution.
+// 3 Do the following for each time step:
+// 	a Collect the evidence at that time step.
+//	b Call advanceTime with that evidence to get the distribution over the new state.
+//	c Query the new distribution.
 
-# Summary
-#	1. A dynamic system consists of state that varies over time; the states at different time points are dependent.
-#	2. Many dynamic probabilistic models implement the Markov assumption that the current state is conditionally independent of all earlier states, given the directly previous state.
-#	3. Even though a hidden Markov model implements the Markov assumption, all previous evidence must be considered when inferring the current state, because the previous state is unobserved.
-#	4. A dynamic Bayesian network is like an extension of a hidden Markov model that has multiple state variables; by making the types of these variables rich data structures, you can model systems with structure that varies over time.
-#	5. Monitoring or filtering is the process of keeping track of the state of the system over time, given observations that are received; this process is achieved by using algorithms such as particle filtering.
-#	6. Filtering in Figaro is accomplished by creating an initial universe and a function that maps the previous universe to the next universe.
-#	7. When filtering in Figaro, elements that influence the next time step, as well as evidence and query elements, are referred to by name.
+// Summary
+//	1. A dynamic system consists of state that varies over time; the states at different time points are dependent.
+//	2. Many dynamic probabilistic models implement the Markov assumption that the current state is conditionally independent of all earlier states, given the directly previous state.
+//	3. Even though a hidden Markov model implements the Markov assumption, all previous evidence must be considered when inferring the current state, because the previous state is unobserved.
+//	4. A dynamic Bayesian network is like an extension of a hidden Markov model that has multiple state variables; by making the types of these variables rich data structures, you can model systems with structure that varies over time.
+//	5. Monitoring or filtering is the process of keeping track of the state of the system over time, given observations that are received; this process is achieved by using algorithms such as particle filtering.
+//	6. Filtering in Figaro is accomplished by creating an initial universe and a function that maps the previous universe to the next universe.
+//	7. When filtering in Figaro, elements that influence the next time step, as well as evidence and query elements, are referred to by name.
 
-#----------------------------
-# Object orientation in Figaro
-# Two types of uncertainty:
-#		(1) Object type uncertainty
-#		(2) Relational uncertainty
-#	element collections and references
-#	concepts from relational DBs
-#----------------------------
+//----------------------------
+// Object orientation in Figaro
+// Two types of uncertainty:
+//		(1) Object type uncertainty
+//		(2) Relational uncertainty
+//	element collections and references
+//	concepts from relational DBs
+//----------------------------
 
-# An example of cornor kick
-# modeling a cor- ner kick in a game of soccer, taking into account information such as:
-#		the skill of the attacking and defending teams, 
-#		environmental conditions such as the wind, and so on. 
-# Players are objects. 
-# Players belong on teams, which are also objects. 
-# Players do things like move or kick the ball. 
-# Different kinds of players, like center forwards and goalies, can be modeled using subclasses of the Player class. 
-# Players interact with other players, as well as the ball, which is also an object. 
-# The environment, which can also be modeled as an object, also interacts with the ball and the players.
+// An example of cornor kick
+// modeling a cor- ner kick in a game of soccer, taking into account information such as:
+//		the skill of the attacking and defending teams, 
+//		environmental conditions such as the wind, and so on. 
+// Players are objects. 
+// Players belong on teams, which are also objects. 
+// Players do things like move or kick the ball. 
+// Different kinds of players, like center forwards and goalies, can be modeled using subclasses of the Player class. 
+// Players interact with other players, as well as the ball, which is also an object. 
+// The environment, which can also be modeled as an object, also interacts with the ball and the players.
 
-# Two main advantages of object oriented programming
-# (1) coherent units that capture set of data and behavior
-#		- unifrom interface of an object for dat and behavior
-#		- encapsulation of internal objects
-#		- allows modification of object internals in modular way, without affecting the rest of the program
-# (2) Enabling reuse of code
-#		- reuse internal structure for all instanses of the class
-#		- inheritence: common aspect of different class
+// Two main advantages of object oriented programming
+// (1) coherent units that capture set of data and behavior
+//		- unifrom interface of an object for dat and behavior
+//		- encapsulation of internal objects
+//		- allows modification of object internals in modular way, without affecting the rest of the program
+// (2) Enabling reuse of code
+//		- reuse internal structure for all instanses of the class
+//		- inheritence: common aspect of different class
 
-# Both probabilistic programming and object oriented explain real world in terms of objects
+// Both probabilistic programming and object oriented explain real world in terms of objects
 
-# Object oriented in the context of probabilistic models:
-#  - A probabilistic class model defines a general process for generating the values of random variables. e.g.:
-#		- general process for generating whether the power is on, 
-#		- whether the paper is stuck, 
-#		- the overall state of the printer, and so on.
-#  - An instance is a specific instantiation of this general class model that describes a process to generate the values of random variables that pertain to this specific instance.
-#		- a process to generate values for variables representing whether this particular printer’s power is on
-#		- this printer’s paper is stuck, and 
-#		- the overall state of this printer
+// Object oriented in the context of probabilistic models:
+//  - A probabilistic class model defines a general process for generating the values of random variables. e.g.:
+//		- general process for generating whether the power is on, 
+//		- whether the paper is stuck, 
+//		- the overall state of the printer, and so on.
+//  - An instance is a specific instantiation of this general class model that describes a process to generate the values of random variables that pertain to this specific instance.
+//		- a process to generate values for variables representing whether this particular printer’s power is on
+//		- this printer’s paper is stuck, and 
+//		- the overall state of this printer
 
 // a generative process over the val- ues of the attributes of myPrinter.
  class Printer {
@@ -1861,21 +2368,21 @@ alg.currentExpectation("seated", (l: List[Int]) => l.length)
         }
 val myPrinter = new Printer
 
-# Classes:
-# User
-# Printer
-# User Experience
-# Software
-# Network
+// Classes:
+// User
+// Printer
+// User Experience
+// Software
+// Network
 
-# Steps in writing object oriented Figaro model
-# 1 Define the class models.
-# 2 Create instances of those classes.
-# 3 Reason with the instances.
+// Steps in writing object oriented Figaro model
+// 1 Define the class models.
+// 2 Create instances of those classes.
+// 3 Reason with the instances.
 
-# the instances are used to infer whether the printer’s power button is on, given the summary of the print experience
+// the instances are used to infer whether the printer’s power button is on, given the summary of the print experience
 
-# Class models
+// Class models
 package chap07
 import com.cra.figaro.language._
 import com.cra.figaro.library.compound._
@@ -2120,25 +2627,25 @@ class LaserPrinter extends Printer {
 	//		So the probability that the laser printer’s power button is on goes up, as does the probability that the network is down.
 
 
-#----------------------------
-# Relational probability models 
-# model users on a social media site like Fac and want to infer their interests and relationships 
-#		by observing their posts and comments. 
-# classes for people, posts, and comments
-# 	relationships also exist between people and their posts and comments
-# 	relationship between a post and a comment to that post
-#	A relational probability model is nothing more than an OO model in which 
-#	relationships are made an explicit and central part of the representation.
-# Languages: robabilistic Relational Models and Markov Logic.
-# Programming style
-# Class probability models purpose:
-#	1. describe the structure of the model, including the classes in the model, their attributes, and relationships between classes
-#	2. define the probabilistic dependencies, functional forms, and numerical param- eters that govern the probabilistic model
-#----------------------------
-# High level method and steps:
-#		First, you decide on the variables describing the situation. 
-#		Next, you specify the dependencies. 
-#		Finally, you specify the functional forms and numerical parameters characteriz- ing each of these dependencies.
+//----------------------------
+// Relational probability models 
+// model users on a social media site like Fac and want to infer their interests and relationships 
+//		by observing their posts and comments. 
+// classes for people, posts, and comments
+// 	relationships also exist between people and their posts and comments
+// 	relationship between a post and a comment to that post
+//	A relational probability model is nothing more than an OO model in which 
+//	relationships are made an explicit and central part of the representation.
+// Languages: robabilistic Relational Models and Markov Logic.
+// Programming style
+// Class probability models purpose:
+//	1. describe the structure of the model, including the classes in the model, their attributes, and relationships between classes
+//	2. define the probabilistic dependencies, functional forms, and numerical param- eters that govern the probabilistic model
+//----------------------------
+// High level method and steps:
+//		First, you decide on the variables describing the situation. 
+//		Next, you specify the dependencies. 
+//		Finally, you specify the functional forms and numerical parameters characteriz- ing each of these dependencies.
 
 
 // model has four classes: Person, Connection, Post, and Comment
@@ -2296,41 +2803,41 @@ println("Probability Cheryl is Brian's family = " +
 	"family"))
 
 
-#---------------------------
-# Modeling relational and type uncertainty
-# at any given time, some topics are hot, which makes them more likely to be posted.
-#	topics objects instead of strings, creating a Topic class with a hot attribute. 
-# The topic attribute of the Post class will now be a complex attribute that points to the Topic class.
-#	don’t know the topic of a given post p. 
-# Maybe you’re using natu- ral language processing to identify the topic, 
-#		and your algorithms aren’t perfect.
-#  You have uncertainty about the value of p.topic, which is a complex attribute
-# Relational uncertainty (reference uncertainty):
-#		uncertainty about the relationship between the post and its topic, 
-#		which could be one of a number of instances of Topic
-# 		not knowing to which object p.topic refers to
-# Type uncertaint (special case of relational uncertainty): printer example:
-#		not know what type of printer you have. 
-#		Maybe you’re working at a help desk and a user has called in and 
-#			not told you what kind of printer he’s using. 
-#		you can handle it by creating putative printers of each possible class, 
-#			with uncertainty over which is the printer
-# Solution is element collections and references Machinery:
-#		1. Handling relational uncertainty
-#		2. Working with dynamic models
-#---------------------------
-# Element collection:
-#		every Figaro element has a name and belongs to an element collection
-#		is a Figaro collection in which an element is indexed by a string, which is its name
-#		By default, an element’s name is the empty string
-#		there’s a default element col- lection that every element goes into, unless told otherwise
-#		Element collections are useful because they give you a way to identify elements other than through Scala variables.
-#		 If ec is an element collection, you can get the ele- ment associated with the name n using ec.get(n)
-#				it is like compile time versus runtime type checking
-#		Sometimes, you can’t fully determine the type of a variable at compile time, 
-#				so you have to perform a runtime check.
-#		you might not know how to get at a particular element at compile time, and 
-#				element collections give you a way to get the variable dynamically at runtime.
+//---------------------------
+// Modeling relational and type uncertainty
+// at any given time, some topics are hot, which makes them more likely to be posted.
+//	topics objects instead of strings, creating a Topic class with a hot attribute. 
+// The topic attribute of the Post class will now be a complex attribute that points to the Topic class.
+//	don’t know the topic of a given post p. 
+// Maybe you’re using natu- ral language processing to identify the topic, 
+//		and your algorithms aren’t perfect.
+//  You have uncertainty about the value of p.topic, which is a complex attribute
+// Relational uncertainty (reference uncertainty):
+//		uncertainty about the relationship between the post and its topic, 
+//		which could be one of a number of instances of Topic
+// 		not knowing to which object p.topic refers to
+// Type uncertaint (special case of relational uncertainty): printer example:
+//		not know what type of printer you have. 
+//		Maybe you’re working at a help desk and a user has called in and 
+//			not told you what kind of printer he’s using. 
+//		you can handle it by creating putative printers of each possible class, 
+//			with uncertainty over which is the printer
+// Solution is element collections and references Machinery:
+//		1. Handling relational uncertainty
+//		2. Working with dynamic models
+//---------------------------
+// Element collection:
+//		every Figaro element has a name and belongs to an element collection
+//		is a Figaro collection in which an element is indexed by a string, which is its name
+//		By default, an element’s name is the empty string
+//		there’s a default element col- lection that every element goes into, unless told otherwise
+//		Element collections are useful because they give you a way to identify elements other than through Scala variables.
+//		 If ec is an element collection, you can get the ele- ment associated with the name n using ec.get(n)
+//				it is like compile time versus runtime type checking
+//		Sometimes, you can’t fully determine the type of a variable at compile time, 
+//				so you have to perform a runtime check.
+//		you might not know how to get at a particular element at compile time, and 
+//				element collections give you a way to get the variable dynamically at runtime.
 
 // Relational uncertainty handling:
 //		unsure about the value of the topic attribute of Post.
@@ -2348,26 +2855,26 @@ println("Probability Cheryl is Brian's family = " +
 //		each subsequent name in the reference is defined in an element collection 
 //			that’s a possible value of the previous element.
 
-# in summary: Post is an element collection, and "topic" is the name, and 
-#		when we get the corresponding item to this name int he element dictionary 
-#		i.e. Element identified by the name, we have Topic as an element collection that is value type
-#		of previous element, and "hot" is a string, and in the Element dictionary it has an element
+// in summary: Post is an element collection, and "topic" is the name, and 
+//		when we get the corresponding item to this name int he element dictionary 
+//		i.e. Element identified by the name, we have Topic as an element collection that is value type
+//		of previous element, and "hot" is a string, and in the Element dictionary it has an element
 
-# think about them in a principled way as defining random processes
-#		Suppose that there are two possible topics, sports and politics. 
-#		Each of these is an instance of the Topic class.
-#		Topic is an element collec- tion, and it has an attribute hot whose name is "hot". 
-#		post1 is an instance of Post, which is also an element collection, 
-#			with poster and topic attributes
-#		 The name of the topic attribute is "topic". 
-#		Calling post1.get("topic.hot") defines a random process,
+// think about them in a principled way as defining random processes
+//		Suppose that there are two possible topics, sports and politics. 
+//		Each of these is an instance of the Topic class.
+//		Topic is an element collec- tion, and it has an attribute hot whose name is "hot". 
+//		post1 is an instance of Post, which is also an element collection, 
+//			with poster and topic attributes
+//		 The name of the topic attribute is "topic". 
+//		Calling post1.get("topic.hot") defines a random process,
 
-# an element in Figaro represents a random process
-#	use an element to represent the random process defined by post1.get("topic.hot")
+// an element in Figaro represents a random process
+//	use an element to represent the random process defined by post1.get("topic.hot")
 
-#----------------------------
-# Social media model with relational uncertainty
-#----------------------------
+//----------------------------
+// Social media model with relational uncertainty
+//----------------------------
 // uncertainty over the topics of posts.
 // an instance of Topic is also an ElementCollection
 class Topic() extends ElementCollection {
@@ -2376,10 +2883,10 @@ class Topic() extends ElementCollection {
      val hot = Flip(0.1)("hot", this)
 }
 
-# These arguments are optional and can usually be omitted. 
-#	You need them only if you want to give your element a name or put it in a specific element collection. 
+// These arguments are optional and can usually be omitted. 
+//	You need them only if you want to give your element a name or put it in a specific element collection. 
 
-# In general, all of Figaro’s built-in element constructors allow you to specify a name and element collection for the element.
+// In general, all of Figaro’s built-in element constructors allow you to specify a name and element collection for the element.
 
 // define two instances of the Topic class
 val sports = new Topic()
@@ -2411,15 +2918,15 @@ class Comment(val post: Post, val commenter: Person) {
   // type as before
 }
 
-# you have to specify the value type of the element (Boolean, in this case). 
-#	generally you have to specify the value type. 
-#	There’s no way for the Scala compiler to know, just from the name of the element, what the value type of the element is. 
-#	But to be able to use isHot, you have to know its value type. 
-#	Specifying the value type as a type argument to get, in square brackets, tells the Scala compiler what it needs.
+// you have to specify the value type of the element (Boolean, in this case). 
+//	generally you have to specify the value type. 
+//	There’s no way for the Scala compiler to know, just from the name of the element, what the value type of the element is. 
+//	But to be able to use isHot, you have to know its value type. 
+//	Specifying the value type as a type argument to get, in square brackets, tells the Scala compiler what it needs.
 
-# assert evidence about a complex attribute is exactly the same as for a simple attribute
+// assert evidence about a complex attribute is exactly the same as for a simple attribute
 post1.topic.observe(politics) 
-# to observe that the value of the topic attribute is the politics instance of Topic.
+// to observe that the value of the topic attribute is the politics instance of Topic.
 
 // Queries and inference:
 // 		query for the interests of people and topics of posts, which are instances of the Topic class
@@ -2445,99 +2952,99 @@ println("Probability Amy is Brian's family = " +
 //		where there are two alternative explanations for the same observation, and 
 //		observing one explanation discounts the other explanation.
 
-#----------------------------
-#	Printer model with type uncertainty
-# 	type uncertainty using the printer model with a printer of unknown type.
-#	The principles are similar: you use element collections and references.
-#		create multiple printer instances, one for each possible type, and 
-#		create an element whose value is one of the printer instances to represent the unknown printer.
-#	First, you’ll be asserting evidence on and querying elements whose identity is uncertain. 
-#		So you use get within the query and observation.
-#	The second wrinkle is that:
-#		you’re not going to fundamentally change the original definition of PrintExperience, which took Printer as an argument. 
-#		You don’t have a specific printer—instead, 
-#		you have an Element[Printer] representing an unknown printer, and 
-#		you have to create a PrintExperience and access its attributes. 
-#		You’ll use Figaro’s Apply to achieve this. 
-#		Given an unknown printer, represented by an Element[Printer], 
-#			you use Apply to create an Element[PrintExperience], 
-#			where the PrintExperience is based on whatever printer the printer is.
-#----------------------------
-# Changes are:
+//----------------------------
+//	Printer model with type uncertainty
+// 	type uncertainty using the printer model with a printer of unknown type.
+//	The principles are similar: you use element collections and references.
+//		create multiple printer instances, one for each possible type, and 
+//		create an element whose value is one of the printer instances to represent the unknown printer.
+//	First, you’ll be asserting evidence on and querying elements whose identity is uncertain. 
+//		So you use get within the query and observation.
+//	The second wrinkle is that:
+//		you’re not going to fundamentally change the original definition of PrintExperience, which took Printer as an argument. 
+//		You don’t have a specific printer—instead, 
+//		you have an Element[Printer] representing an unknown printer, and 
+//		you have to create a PrintExperience and access its attributes. 
+//		You’ll use Figaro’s Apply to achieve this. 
+//		Given an unknown printer, represented by an Element[Printer], 
+//			you use Apply to create an Element[PrintExperience], 
+//			where the PrintExperience is based on whatever printer the printer is.
+//----------------------------
+// Changes are:
 object PrinterProblemTypeUncertainty extends ElementCollection { 
-#	We place the entire model in an element collection.
+//	We place the entire model in an element collection.
 
-# A printer is an element collection.
+// A printer is an element collection.
 abstract class Printer extends ElementCollection {
 
-# powerButtonOn, which is an attribute you’ll query, 
-#		is given a name and placed in the element collection of the printer to which it belongs.
+// powerButtonOn, which is an attribute you’ll query, 
+//		is given a name and placed in the element collection of the printer to which it belongs.
 val powerButtonOn = Flip(0.95)("power button on", this)
 
-# A print experience is also an element collection.
+// A print experience is also an element collection.
 class PrintExperience(printer: Printer, software: Software, network: Network, user: User) extends 		ElementCollection {
 
-# You’ll observe evidence about the print summary, 
-#		so you give it a name and put it in the print experience element collection.
+// You’ll observe evidence about the print summary, 
+//		so you give it a name and put it in the print experience element collection.
 val summary = Apply(...)("summary", this)
 
-# Now you describe a specific situation. 
-#	Here’s where the type uncertainty comes in. You proceed as follows. 
-#		First you define myPrinter to be a random choice among printers of different types, 
-#			give myPrinter a name, and put it in the element collection of the entire model:
-#	my printer here is the name of the printer instance I have uncertainty about
+// Now you describe a specific situation. 
+//	Here’s where the type uncertainty comes in. You proceed as follows. 
+//		First you define myPrinter to be a random choice among printers of different types, 
+//			give myPrinter a name, and put it in the element collection of the entire model:
+//	my printer here is the name of the printer instance I have uncertainty about
 val myPrinter =
     Select(0.3 -> new LaserPrinter,
            0.7 -> new InkjetPrinter)("my printer", this)
 
-# Next, you create instances of Software, Network, and User, just like before:
+// Next, you create instances of Software, Network, and User, just like before:
 val mySoftware = new Software
 val myNetwork = new Network
 val me = new User
 
-#	Finally, to create myExperience, you use Apply and the existing PrintExperience class, 
-#		which takes a particular printer, software, network, and user as arguments. 
-#	Again, you give myExperience a name and put it in the top-level element collection:
-# print experience here is the name of an instance of my experience
+//	Finally, to create myExperience, you use Apply and the existing PrintExperience class, 
+//		which takes a particular printer, software, network, and user as arguments. 
+//	Again, you give myExperience a name and put it in the top-level element collection:
+// print experience here is the name of an instance of my experience
 val myExperience =
   Apply(myPrinter,(p: Printer) =>
     new PrintExperience(p, mySoftware, myNetwork, me))("print experience",
                                                        this)
 
-# observe evidence on the summary of the print experience. 
-#	But myExperience is an Element [PrintExperience], 
-#		so how do you get at its summary? 
-#	You use a reference, of course! 
-#	You gave the summary element a name and put it in the PrintExperience element collection, and 
-#	you gave myExperience a name and put it in the top-level element col- lection so you could do this.
+// observe evidence on the summary of the print experience. 
+//	But myExperience is an Element [PrintExperience], 
+//		so how do you get at its summary? 
+//	You use a reference, of course! 
+//	You gave the summary element a name and put it in the PrintExperience element collection, and 
+//	you gave myExperience a name and put it in the top-level element col- lection so you could do this.
 val summary = get[Symbol]("print experience.summary")
 summary.observe('none)
 
-# Based on the evidence that nothing was printed, you’ll query two things. 
-#	One is whether the printer’s power button is on. 
-#	Again, myPrinter is an element, so you can’t query it directly, but you can use a reference:
+// Based on the evidence that nothing was printed, you’ll query two things. 
+//	One is whether the printer’s power button is on. 
+//	Again, myPrinter is an element, so you can’t query it directly, but you can use a reference:
 val powerButtonOn = get[Boolean]("my printer.power button on")
 
 
-# Imagine that you’re at the help desk wondering what type of printer the user has. 
-#	After the user starts telling you things about the print experience, 
-#	you might develop hypotheses about the type of printer. 
-#	You can query your model for the type of the printer based on the evidence. 
-#	You use Scala’s runtime type-checking method isInstanceOf to achieve this. 
-#	Specifically, you can define an element whose value is true if the myPrinter is a laser printer as follows:
+// Imagine that you’re at the help desk wondering what type of printer the user has. 
+//	After the user starts telling you things about the print experience, 
+//	you might develop hypotheses about the type of printer. 
+//	You can query your model for the type of the printer based on the evidence. 
+//	You use Scala’s runtime type-checking method isInstanceOf to achieve this. 
+//	Specifically, you can define an element whose value is true if the myPrinter is a laser printer as follows:
 val isLaser =
           Apply(myPrinter, (p: Printer) => p.isInstanceOf[LaserPrinter])
 
-# To represent relational or type certainty, 
-#		you create an element whose value is an unknown element collection and 
-#		use a reference to refer to attributes of that element collection.
+// To represent relational or type certainty, 
+//		you create an element whose value is an unknown element collection and 
+//		use a reference to refer to attributes of that element collection.
 
 
-#----------------------------
-# Figaro collections: keep elements that define probability distribution over values
-#		they let you reach inside the elements and work with operations on the values
-# 		which can help you product new elements and new collections
-#----------------------------
+//----------------------------
+// Figaro collections: keep elements that define probability distribution over values
+//		they let you reach inside the elements and work with operations on the values
+// 		which can help you product new elements and new collections
+//----------------------------
 // generate equivalent element by transformming or mappligy Apply(e, (i:Int) => i*2)
 // c is the Figaro cllection of Integer Elements
 c.map((i:Int) => i*2)
@@ -2582,10 +3089,10 @@ c.foldleft(_+_)
 // 	a. allow representing unknown number of objects by using variable-size collections
 // 	b. enable you to represents infinitely many vairables, or even a continuum of variables
 
-#-----------------------------
-# Hierarchical model of coin toss from the bag
-# Figaro collection
-#-----------------------------
+//-----------------------------
+// Hierarchical model of coin toss from the bag
+// Figaro collection
+//-----------------------------
 // Use FixedSizeArray(number of elemens, an element generator)
 // An element generator is a function that takes Integer argument representing an index into the array
 //		and represents an element that may depend on the index
@@ -2644,9 +3151,9 @@ object HierarchicalContainers {
 	}
 }
 
-#----------------------------
-# Converting to and From scala and Figaro collections
-#-----------------------------
+//----------------------------
+// Converting to and From scala and Figaro collections
+//-----------------------------
 // Container:
 //		a general class of collection containing a finite number of elements
 //		the constructor takes vairable number of elements, each over the same value type
@@ -2676,14 +3183,14 @@ Container(toss1, toss2, toss3).elements
 // so you can turn container into Scala Map from indices to values
 toMap
 
-#-----------------------------
-# Sales Prediction
-# you have a number of products, each with a product quality; 
-#	and a number of regions, each with a degree of region penetration. 
-#	You’ll observe the sales of each product in each region last year and 
-#	predict the sales of each product in each region in the coming year. 
-#	You’ll further predict the number of new people your company might hire to support each product line and each region’s sales force.
-#-----------------------------
+//-----------------------------
+// Sales Prediction
+// you have a number of products, each with a product quality; 
+//	and a number of regions, each with a degree of region penetration. 
+//	You’ll observe the sales of each product in each region last year and 
+//	predict the sales of each product in each region in the coming year. 
+//	You’ll further predict the number of new people your company might hire to support each product line and each region’s sales force.
+//-----------------------------
 // Define one dimensional Scala arrays of products and regions
 val productQuality = Array.fill(numProducts)(Beta(2,2))
 val regionPenetration = Array.fill(numRegions)(Beta(2,2))
@@ -2732,18 +3239,18 @@ val algorithm = Importance(targets:_*)
 
 // take aways doing count in Scala is not trivial, but multidimensional arrays in Scala is easy
 
-#---------------------------
-# Modeling situations with an unknown number of objects
-# Situation: 
-# Traffic camera at specific points
-# Preict Viehcle passing a specific point, Traffic Jam prediction, 
-# A situation in which you don’t know the number of objects is known as an open-universe situation 
-# 1. Not know the exact number of objects, e.g. number of vehicles: number uncertainty.
-# 2. Uncertain about the identity of the objects: identity uncertainty
-#	e.g. uncertain whether two vehicle images at different sites belong to the same vehicle
-#---------------------------
-# Negation by failure is a form of closed-universe reasoning (if I don't know, it does not exist).
-# In contrast, full first-order logic is open universe. To prove that there’s no green vehi- cle in your image, you have to prove that there can’t possibly be such a vehicle, even if you don’t know about it. 
+//---------------------------
+// Modeling situations with an unknown number of objects
+// Situation: 
+// Traffic camera at specific points
+// Preict Viehcle passing a specific point, Traffic Jam prediction, 
+// A situation in which you don’t know the number of objects is known as an open-universe situation 
+// 1. Not know the exact number of objects, e.g. number of vehicles: number uncertainty.
+// 2. Uncertain about the identity of the objects: identity uncertainty
+//	e.g. uncertain whether two vehicle images at different sites belong to the same vehicle
+//---------------------------
+// Negation by failure is a form of closed-universe reasoning (if I don't know, it does not exist).
+// In contrast, full first-order logic is open universe. To prove that there’s no green vehi- cle in your image, you have to prove that there can’t possibly be such a vehicle, even if you don’t know about it. 
 
 
 VariableSizeArray(Binomial(20, 0.3), i => Beta(1, i + 1))
@@ -2777,12 +3284,12 @@ vsa.count (_.length > 2)
 // returns Element[Int] representing the number of strings whose length is greater than 2.
 
 
-#----------------------------
-# predicting sales of an unknown number of new products
-# planning the research and development (R&D) investment of your company in the coming year.
-# Higher R&D investment leads to more new products being developed, which leads to higher sales.
-# But at the time of making the investment, you don’t know exactly how many new products will be devel- oped for a given level of investment.
-#----------------------------
+//----------------------------
+// predicting sales of an unknown number of new products
+// planning the research and development (R&D) investment of your company in the coming year.
+// Higher R&D investment leads to more new products being developed, which leads to higher sales.
+// But at the time of making the investment, you don’t know exactly how many new products will be devel- oped for a given level of investment.
+//----------------------------
 // use a variable-size array to represent the new products
 // rNDLevel: Double, level of R&D investment
 
@@ -2813,11 +3320,11 @@ val productSales = productSalesRaw.map(_.max(0))
 // Finally, you get the total sales by folding the sum function through the product- Sales variable-size array.
 val totalSales = productSales.foldLeft(0.0)(_ + _)
 
-#----------------------------
-# Woring with infinite  processes
-#----------------------------
-#	elements in the collection are defined only implicitly. 
-#	You never access infinitely many elements. But they’re all available to you should you need them.
+//----------------------------
+// Woring with infinite  processes
+//----------------------------
+//	elements in the collection are defined only implicitly. 
+//	You never access infinitely many elements. But they’re all available to you should you need them.
 Process
 // The Process trait is Figaro’s general representation of collections, which could be finite or infinite. 
 // Like array, you can access items by index, but index can be any type you want
@@ -2857,15 +3364,15 @@ Process
 // 		2. the elements in FixedSizeArray are assumed to be independent
 //			no dependency encoded
 
-#-----------------------------
-# 	Example: a temporal health process
-# 	the value that varies over time
-#	process models the health of a patient over time.
-#	Two approaches modeling temporal process
-#		(1) set up discrete time points at regular intervals (for example, every minute) and define a random variable to repre- sent the health of the patient at each discrete time point.
-#		(2) treat time as continuous, with a health variable defined at every time point. 
-#			- This lets you access the health variables at exactly the time points you want. 
-#-----------------------------
+//-----------------------------
+// 	Example: a temporal health process
+// 	the value that varies over time
+//	process models the health of a patient over time.
+//	Two approaches modeling temporal process
+//		(1) set up discrete time points at regular intervals (for example, every minute) and define a random variable to repre- sent the health of the patient at each discrete time point.
+//		(2) treat time as continuous, with a health variable defined at every time point. 
+//			- This lets you access the health variables at exactly the time points you want. 
+//-----------------------------
 // HealthProcess object: a Process whose indices are doubles representing time points and whose elements are Boolean elements representing whether the patient is healthy at each point in time. 
 object HealthProcess extends Process[Double, Boolean]
 
@@ -3005,17 +3512,17 @@ algorithm.kill()
 // Figaro processes let you model collections over an infinite set of indices, such as time or space.
 
 
-#----------------------------
-# Bayesian Network for two-dimensional sales model
-# Sales of a product in each region depends on the product quality and region penetration
-# Despite the simplicity of the network, reasoning can be camplicated: 
-#	e.g. inferring product quality and region penetration by observing product 1, 
-#	but predicting product 2
-#	This inference power comes from comparison within each area
-# reasoning pattern: As the path is not blocked it is active
-# Collective inference: 
-#		- infer the quality of all of the products and the penetration of all regions simultaneously. 
-#----------------------------
+//----------------------------
+// Bayesian Network for two-dimensional sales model
+// Sales of a product in each region depends on the product quality and region penetration
+// Despite the simplicity of the network, reasoning can be camplicated: 
+//	e.g. inferring product quality and region penetration by observing product 1, 
+//	but predicting product 2
+//	This inference power comes from comparison within each area
+// reasoning pattern: As the path is not blocked it is active
+// Collective inference: 
+//		- infer the quality of all of the products and the penetration of all regions simultaneously. 
+//----------------------------
 // Two Dimensional sales model in Figaro
 import com.cra.figaro.library.atomic.continuous.Beta
 import com.cra.figaro.language.Flip
@@ -3066,14 +3573,14 @@ object Sales {
 }
 
 
-#----------------------------
-# Example of multiple coins in a single bag
-# Hierarchical Models in Figaro
-# Sequences of sequences
-# toss of coin which is one of many coins in the bag,
-# 	which is one of many bags in a box, so on.
-# two levels of sequences
-#----------------------------
+//----------------------------
+// Example of multiple coins in a single bag
+// Hierarchical Models in Figaro
+// Sequences of sequences
+// toss of coin which is one of many coins in the bag,
+// 	which is one of many bags in a box, so on.
+// two levels of sequences
+//----------------------------
 // property of a toss (namely, whether it came up heads) depended on 
 //		a property of the coin (namely, its bias). 
 // coin’s bias depends on a property of the bag.
@@ -3123,9 +3630,9 @@ println("Average fairness probability: " + averageFairProbability)
 println("First coin average bias: " + firstCoinAverageBias)
 algorithm.kill()
 
-#----------------------------
-# Coin Toss as an example of Figaro collections
-#----------------------------
+//----------------------------
+// Coin Toss as an example of Figaro collections
+//----------------------------
 //Create an array of size numTosses in which each item is a different instantiation of Flip(bias). Each element of this array represents a separate coin toss.
 val outcomes = args(0)
 val numTosses = outcomes.length
@@ -3164,15 +3671,15 @@ algorithm.kill()
 
 
 
-#----------------------------
-# Image recovery model in Figaro
-# you’ll assume that some of the pixels are observed and the rest are unobserved.
-# You want to recover the unobserved pixels.
-# Specifies both the potential value for each pixel being on and the potential value for adjacent pixels having the same value.
-# Pixels are either dark or bright, so either True or False
-# There are two methods for specifying symmetric relationships, a constraints method and a conditions method. 
-# This code uses the constraints method:
-#----------------------------
+//----------------------------
+// Image recovery model in Figaro
+// you’ll assume that some of the pixels are observed and the rest are unobserved.
+// You want to recover the unobserved pixels.
+// Specifies both the potential value for each pixel being on and the potential value for adjacent pixels having the same value.
+// Pixels are either dark or bright, so either True or False
+// There are two methods for specifying symmetric relationships, a constraints method and a conditions method. 
+// This code uses the constraints method:
+//----------------------------
 // Set uniry constraint on each variable
 // array and fills every element of the array with a different instance of Flip(0.4).
 val pixels = Array.fill(10, 10)(Flip(0.4))
@@ -3270,10 +3777,10 @@ val data =
 
 
 
-#------------------------------
-# General Print Fault Model in Figaro
-#  chap05/PrinterProb- lem.scala
-#------------------------------
+//------------------------------
+// General Print Fault Model in Figaro
+//  chap05/PrinterProb- lem.scala
+//------------------------------
 val printerState = ...
 val softwareState =
   Select(0.8 -> 'correct, 0.15 -> 'glitchy, 0.05 -> 'crashed)
@@ -3412,9 +3919,9 @@ println("Probability software state is correct given prints "
         + softwareStateCorrectGivenPrintsSlowlyAndNetworkUp)
 
 
-#-------------------------------
-# Using probabilistic programming to extend Bayesian networks: predicting product success
-#-------------------------------
+//-------------------------------
+// Using probabilistic programming to extend Bayesian networks: predicting product success
+//-------------------------------
 class Network(popularity: Double) {
   val numNodes = Poisson(popularity)
 }
@@ -3471,9 +3978,9 @@ result
 }
 
 
-#------------------------------
-# Firms – Models firms bidding for a contract and the likelihood that one will be selected as the winner using constraints. 
-#------------------------------
+//------------------------------
+// Firms – Models firms bidding for a contract and the likelihood that one will be selected as the winner using constraints. 
+//------------------------------
 /*
  * Firms.scala
  * An example with rich constraints.
@@ -3523,10 +4030,10 @@ object Firms {
   cd ~/Figaro/FigaroWork
   sbt "runMain Firms"
 
-#-----------------------------
-# Smokers: People have some propensity to smoke, and people are likely to have the same smoking habit as their friends.
-# Models the likelihood that someone will smoke based on their friends’ smoking habits using a Markov network/Markov random field.
-#-----------------------------
+//-----------------------------
+// Smokers: People have some propensity to smoke, and people are likely to have the same smoking habit as their friends.
+// Models the likelihood that someone will smoke based on their friends’ smoking habits using a Markov network/Markov random field.
+//-----------------------------
 /*
  * Smokers.scala
  * A Markov logic example.
@@ -3579,12 +4086,12 @@ object Smokers {
 
 
 
-#-----------------------------
-# Sources: n two possible sources and a sample that came from one of the sources, and want to determine which
-#		source the sample came from based on the strength of the match
-#		with each source.
-# Sources – Models the distance between a point and its source using dependent universes. 
-#-----------------------------
+//-----------------------------
+// Sources: n two possible sources and a sample that came from one of the sources, and want to determine which
+//		source the sample came from based on the strength of the match
+//		with each source.
+// Sources – Models the distance between a point and its source using dependent universes. 
+//-----------------------------
  /*
  * Sources.scala
  * An example of dependent universe reasoning.
@@ -3678,15 +4185,15 @@ object Sources {
 }
 
 
-#----------------------------
-# SimpleMovie.scala
-# Actor and Movie
-# Probabilistic Relational Models (PRM)
-# SimpleMovie – Models the likelihood of an actor receiving an award for their appearance in a movie using a Metropolois-Hastings Markov chain Monte Carlo algorithm. 
-# There are three classes: actors, movies, and appearances relating actors to movies.
-# Whether an actor receives an award for an appearance depends on
-# 	(1) the fame of the actor and (2) the quality of the movie. 
-#----------------------------
+//----------------------------
+// SimpleMovie.scala
+// Actor and Movie
+// Probabilistic Relational Models (PRM)
+// SimpleMovie – Models the likelihood of an actor receiving an award for their appearance in a movie using a Metropolois-Hastings Markov chain Monte Carlo algorithm. 
+// There are three classes: actors, movies, and appearances relating actors to movies.
+// Whether an actor receives an award for an appearance depends on
+// 	(1) the fame of the actor and (2) the quality of the movie. 
+//----------------------------
 /*
  * SimpleMovie.scala
  * A simple probabilistc relational model example with single-valued attributes.
@@ -3816,10 +4323,10 @@ object SimpleMovie {
 }
 
 
-#-------------------------------------------
-# Mutable Movie: non functional programming
-# MutableMovie – Models the quality of a movie based on the skill of its actors using a non-functional style of programming, mutable variables, and Figaro collections. 
-#-------------------------------------------
+//-------------------------------------------
+// Mutable Movie: non functional programming
+// MutableMovie – Models the quality of a movie based on the skill of its actors using a non-functional style of programming, mutable variables, and Figaro collections. 
+//-------------------------------------------
 /*
  * MutableMovie.scala
  * A probabilistic relational model example with multi-valued attributes.
@@ -3977,11 +4484,11 @@ object MutableMovie {
 }
 
 
-#------------------------------
-# CarAndEngine.scala
-# CarAndEngine – Models the speed of a car based on the power of its engine using a probabilistic relational model (PRM). 
-# PRM in which we are uncertaint about the value of an attribute whose value is itself an instance of another class (which is called reference uncertainty) 
-#------------------------------
+//------------------------------
+// CarAndEngine.scala
+// CarAndEngine – Models the speed of a car based on the power of its engine using a probabilistic relational model (PRM). 
+// PRM in which we are uncertaint about the value of an attribute whose value is itself an instance of another class (which is called reference uncertainty) 
+//------------------------------
 /*
  * CarAndEngine.scala
  * A probabilistic relational model example with reference uncertainty.
@@ -4053,9 +4560,9 @@ object CarAndEngine {
   }
 }
 
-#-----------------------------
-# Spam and Normal email classification
-#-----------------------------
+//-----------------------------
+// Spam and Normal email classification
+//-----------------------------
 /*
  * Dictionary.scala 
  * Book example unit test.
@@ -4755,9 +5262,9 @@ class ReasoningComponentTest extends WordSpec with Matchers {
   }
 }
 
-#------------------------------------------------------------
+//------------------------------------------------------------
 MultiValuedReferenceUncertainty – Models the sum over a container of integers using multi-valued references and aggregates. 
-#------------------------------------------------------------
+//------------------------------------------------------------
 /*
  * MultiValuedReferenceUncertainty.scala
  * A simple model example with multi-valued reference uncertainty and aggregates.
@@ -4820,9 +5327,9 @@ object MultiValuedReferenceUncertainty {
   }
 }
 
-#------------------------------
+//------------------------------
 LazyList – Models the likelihood that an infinite list of symbols contains a particular symbol using lazy variable elimination. 
-#------------------------------
+//------------------------------
 /*
  * LazyList.scala
  * A lazy list.
@@ -4915,20 +5422,20 @@ object LazyList {
 
 
 
-#------------------------------
-# Annealing Smokers
-#  Models the likelihood that someone will smoke, based on their friends’ smoking habits, using a simulated annealing algorithm. 
-#------------------------------
-# Constraints are also useful for expressing undirected models such
-# as relational Markov networks or Markov logic networks. To illustrate,
-# we will use a version of the friends and smokers example. This
-# example involves a number of people and their smoking habits. People
-# have some propensity to smoke, and people are likely to have the
-# same smoking habit as their friends.
-# function takes pair of boolean and returns 3.0 if they are the same, and 1.0 if different: 
-#		compare smoking habit of two friends and say same smoking habit three times likely than different smoking habbit
-# Iterates through all pairs of people in the friend list and executes "do something" for each pair
-#    do something is add constraint on smoking habits to the pair of friends
+//------------------------------
+// Annealing Smokers
+//  Models the likelihood that someone will smoke, based on their friends’ smoking habits, using a simulated annealing algorithm. 
+//------------------------------
+// Constraints are also useful for expressing undirected models such
+// as relational Markov networks or Markov logic networks. To illustrate,
+// we will use a version of the friends and smokers example. This
+// example involves a number of people and their smoking habits. People
+// have some propensity to smoke, and people are likely to have the
+// same smoking habit as their friends.
+// function takes pair of boolean and returns 3.0 if they are the same, and 1.0 if different: 
+//		compare smoking habit of two friends and say same smoking habit three times likely than different smoking habbit
+// Iterates through all pairs of people in the friend list and executes "do something" for each pair
+//    do something is add constraint on smoking habits to the pair of friends
 
 import com.cra.figaro.language.Flip
 import com.cra.figaro.library.compound.^^
@@ -4949,16 +5456,16 @@ def smokingInfluence(pair: (Boolean, Boolean)) =
 
 
 
-#======================================
-# An example of PGM in Java
-#=====================================
-# Define the greetings
+//======================================
+// An example of PGM in Java
+//=====================================
+// Define the greetings
 class HelloWorldJava {
   static String greeting1 = "Hello, world!";
   static String greeting2 = "Howdy, universe!";
   static String greeting3 = "Oh no, not again";
 ￼￼static Double pSunnyToday = 0.2;
-# Specify the numerical parameters of the model
+// Specify the numerical parameters of the model
 	static Double pNotSunnyToday = 0.8;
 	static Double pSunnyTomorrowIfSunnyToday = 0.8;
 	static Double pNotSunnyTomorrowIfSunnyToday = 0.2;
@@ -4974,13 +5481,13 @@ class HelloWorldJava {
 	static Double pGreeting3TomorrowIfNotSunnyTomorrow = 0.95;
 	static void predict() {
    Double pGreeting1Today =
-# Predict today’s greeting using the rules of probabilistic inference
+// Predict today’s greeting using the rules of probabilistic inference
        pSunnyToday * pGreeting1TodayIfSunnyToday +
        pNotSunnyToday * pGreeting1TodayIfNotSunnyToday;
 	System.out.println("Today's greeting is " + greeting1 +
 	   "with probability " + pGreeting1Today + ".");
 }
-# Infer today’s weather given the observation that today’s greeting is “Hello, world!” using the rules of probabilistic inference
+// Infer today’s weather given the observation that today’s greeting is “Hello, world!” using the rules of probabilistic inference
 static void infer() {
    Double pSunnyTodayAndGreeting1Today =
           pSunnyToday * pGreeting1TodayIfSunnyToday;
@@ -4994,7 +5501,7 @@ static void infer() {
        ", today's weather is sunny with probability " +
        pSunnyTodayGivenGreeting1Today + ".");
 }
-# Learn from observing that today’s greeting is “Hello, world!” to predict tomorrow’s greeting using the rules of probabilistic inference
+// Learn from observing that today’s greeting is “Hello, world!” to predict tomorrow’s greeting using the rules of probabilistic inference
 static void learnAndPredict() {
    Double pSunnyTodayAndGreeting1Today =
           pSunnyToday * pGreeting1TodayIfSunnyToday;
@@ -5023,10 +5530,496 @@ static void learnAndPredict() {
 	" with probability " +
 	pGreeting1TomorrowGivenGreeting1Today);
 	}
-# Main method that performs all the tasks
+// Main method that performs all the tasks
   public static void main(String[] args) {
     predict();
     infer();
     learnAndPredict();
 } }
+
+Scala Cheat Sheet
+------------------------
+PACKAGE
+Java style:
+package com.mycompany.mypkg
+applies across the entire file scope
+Package "scoping" approach: curly brace delimited
+package com
+{
+package mycompany
+{
+package scala
+{
+package demo
+{
+object HelloWorld
+{
+import java.math.BigInteger
+// just to show nested importing
+def main(args : Array[String]) :
+Unit =
+{ Console.println("Hello there!")
+}
+}
+}
+}
+}
+}
+
+IMPORT
+import p._ // imports all members of p
+// (this is analogous to import p.* in Java)
+import p.x // the member x of p
+import p.{x => a} // the member x of p renamed
+// as a
+import p.{x, y} // the members x and y of p
+import p1.p2.z // the member z of p2,
+// itself member of p1
+import p1._, p2._ // is a shorthand for import
+// p1._; import p2._
+implicit imports:
+the package java.lang
+the package scala
+and the object scala.Predef
+Import anywhere inside the client Scala file, not just
+at the top of the file, for scoped relevance, see
+example in Package section.
+VARIABLE
+var var_name: type = init_value;
+eg. var i : int = 0;
+default values:
+private var myvar: T = _ // "_" is a default
+value
+scala.Unit is similar to void in Java, except
+Unit can be assigned the () value.
+unnamed2: Unit = ()
+default values:
+0 for numeric types
+false for the Boolean type
+() for the Unit type
+null for all object types
+CONSTANT
+Prefer val over var.
+form: val var_name: type = init_value;
+val i : int = 0;
+STATIC
+No static members, use Singleton, see Object
+CLASS
+Every class inherits from scala.Any
+2 subclass categories:
+scala.AnyVal (maps to java.lang.Object)
+scala.AnyRef
+form: abstract class(pName: PType1,
+pName2: PType2...) extends SuperClass
+with optional constructor in the class definition:
+class Person(name: String, age: int) extends
+Mammal {
+// secondary constructor
+def this(name: String) {
+// calls to the "primary" constructor
+this(name, 1);
+}
+// members here
+}
+predefined function classOf[T] returns Scala
+class type T
+OBJECT
+A concrete class instance and is a singleton.
+object RunRational extends Application
+{
+// members here
+}
+MIXIN CLASS COMPOSITION
+Mixin:
+trait RichIterator extends AbsIterator {
+def foreach(f: T => Unit) {
+while (hasNext) f(next)
+}
+}
+Mixin Class Composition:
+The first parent is called the superclass of Iter,
+whereas the second (and every other, if present)
+parent is called a mixin.
+object StringIteratorTest {
+def main(args: Array[String]) {
+class Iter extends StringIterator(args(0))
+with RichIterator
+val iter = new Iter
+iter foreach println
+}
+}
+note the keyword "with" used to create a mixin
+composition of the parents StringIterator and
+RichIterator.
+TRAITS
+Like Java interfaces, defines object types by
+specifying method signatures, can be partially
+implemented. See example in Mixin.
+GENERIC CLASS
+class Stack[T] {
+// members here
+}
+Usage:
+object GenericsTest extends Application {
+val stack = new Stack[Int]
+// do stuff here
+}
+note: can also define generic methods
+INNER CLASS
+example:
+class Graph {
+class Node {
+var connectedNodes: List[Node] = Nil
+def connectTo(node: Node) {
+if
+(connectedNodes.find(node.equals).isEmpty) {
+connectedNodes = node :: connectedNodes
+}
+}
+}
+// members here
+}
+usage:
+object GraphTest extends Application {
+val g: Graph = new Graph
+val n1: g.Node = g.newNode
+val n2: g.Node = g.newNode
+n1.connectTo(n2) // legal
+val h: Graph = new Graph
+val n3: h.Node = h.newNode
+n1.connectTo(n3) // illegal!
+}
+Inner classes are bound to the outer object, so a
+node type is prefixed with its outer instance and
+can't mix instances.
+CASE CLASSES
+See http://www.scala-lang.org/node/107 for info.
+METHODS/FUNCTIONS
+Methods are Functional Values and Functions are
+Objects
+form: def name(pName: PType1, pName2:
+PType2...) : RetType
+use override to override a method
+override def toString() = "" + re + (if (im <
+0) "" else "+") + im + "i"
+Can override for different return type.
+“=>” separates the function's argument list from its
+body
+def re = real // method without arguments
+Anonymous:
+(function params) | rt. arrow | function body
+(x : int, y : int) => x + y
+OPERATORS
+All operators are functions on a class.
+Have fixed precedences and associativities:
+(all letters)
+|
+^
+&
+< >
+= !
+:
++ -
+/ %
+*
+(all other special characters)
+Operators are usually left-associative, i.e. x + y + z
+is interpreted as (x + y) + z,
+except operators ending in colon ':' are treated as
+right-associative.
+An example is the list-consing operator “::”. where,
+x :: y :: zs is interpreted as x :: (y ::
+zs).
+eg.
+def + (other: Complex) : Complex = {
+//....
+}
+Infix Operator:
+Any single parameter method can be used :
+System exit 0
+Thread sleep 10
+unary operators - prefix the operator name with
+"unary_"
+def unary_~ : Rational = new Rational(denom,
+numer)
+The Scala compiler will try to infer some meaning
+out of the "operators" that have some
+predetermined meaning, such as the += operator.
+ARRAYS
+arrays are classes
+Array[T]
+access as function:
+a(i)
+parameterize with a type
+val hellos = new Array[String](3)
+MAIN
+def main(args: Array[String])
+return type is Unit
+ANNOTATIONS
+See http://www.scala-lang.org/node/106
+ASSIGNMENT
+=
+protected var x = 0
+<-
+val x <- xs is a generator which produces a
+sequence of values
+SELECTION
+The else must be present and must result in the
+same kind of value that the if block does
+val filename =
+if (options.contains("configFile"))
+options.get("configFile")
+else
+"default.properties"
+ITERATION
+Prefer recursion over looping.
+while loop: similar to Java
+for loop:
+// to is a method in Int that produces a Range
+object
+for (i <- 1 to 10; i % 2 == 0) // the leftarrow
+means "assignment" in Scala
+System.out.println("Counting " + i)
+i <- 1 to 10 is equivalent to:
+for (i <- 1.to(10))
+i % 2 == 0 is a filter, optional
+for (val arg <- args)
+maps to args foreach (arg => ...)
+More to come...
+functions
+GOOD def f(x: Int) = { x*x
+}
+BAD def f(x: Int) { x*x }
+define function
+hidden error: without = it’s a Unitreturning
+procedure; causes havoc
+GOOD def f(x: Any) =
+println(x)
+BAD def f(x) = println(x)
+define function
+syntax error: need types for every arg.
+type R = Double type alias
+def f(x: R) vs.
+def f(x: => R)
+callbyvalue
+callbyname
+(lazy parameters)
+(x:R) => x*x anonymous function
+(1 to 5).map(_*2) vs.
+(1 to 5).reduceLeft( _+_ )
+anonymous function: underscore is positionally matched arg.
+(1 to 5).map( x => x*x ) anonymous function: to use an arg twice, have to name it.
+GOOD (1 to 5).map(2*)
+BAD (1 to 5).map(*2)
+anonymous function: bound infix method. Use 2*_ for sanity’s sake instead.
+(1 to 5).map { x => val
+y=x*2; println(y); y }
+anonymous function: block style returns last expression.
+(1 to 5) filter {_%2 == 0}
+map {_*2}
+anonymous functions: pipeline style. (or parens too).
+def compose(g:R=>R, h:R=>R)
+= (x:R) => g(h(x))
+val f = compose({_*2},
+{_1})
+anonymous functions: to pass in multiple blocks, need outer parens.
+val zscore = (mean:R, sd:R)
+=> (x:R) => (xmean)/
+sd
+currying, obvious syntax.
+def zscore(mean:R, sd:R) =
+(x:R) => (xmean)/
+sd
+currying, obvious syntax
+def zscore(mean:R, sd:R)
+(x:R) = (xmean)/
+sd
+currying, sugar syntax. but then:
+val normer = zscore(7, 0.4)
+_
+need trailing underscore to get the partial, only for the sugar version.
+def mapmake[T](g:T=>T)(seq:
+List[T]) = seq.map(g)
+generic type.
+5.+(3); 5 + 3
+(1 to 5) map (_*2)
+infix sugar.
+def sum(args: Int*) =
+args.reduceLeft(_+_)
+varargs.
+packages
+import scala.collection._ wildcard import.
+import
+scala.collection.Vector
+import scala.collection.
+{Vector, Sequence}
+selective import.
+import scala.collection.
+{Vector => Vec28}
+renaming import.
+import java.util.{Date =>
+_, _}
+import all from java.util except Date.
+package pkg at start of file
+package pkg { ... }
+declare a package.
+data structures
+(1,2,3) tuple literal. ( Tuple3 )
+var (x,y,z) = (1,2,3) destructuring bind: tuple unpacking via pattern matching.
+BAD var x,y,z = (1,2,3) hidden error: each assigned to the entire tuple.
+var xs = List(1,2,3) list (immutable).
+xs(2) paren indexing. (slides)
+1 :: List(2,3) cons.
+1 to 5 same as 1 until 6
+1 to 10 by 2
+range sugar.
+() (empty parens) sole member of the Unit type (like C/Java void).
+control
+constructs
+if (check) happy else sad conditional.
+if (check) happy same as
+if (check) happy else ()
+conditional sugar.
+while (x < 5) { println(x);
+x += 1}
+while loop.
+do { println(x); x += 1}
+while (x < 5)
+do while loop.
+import
+scala.util.control.Breaks._
+breakable {
+for (x <xs)
+{
+if (Math.random < 0.1)
+break
+}}
+break. (slides)
+for (x <xs
+if x%2 == 0)
+yield x*10 same as
+xs.filter(_%2 ==
+0).map(_*10)
+for comprehension: filter/map
+for ((x,y) <xs
+zip ys)
+yield x*y same as
+(xs zip ys) map { case
+(x,y) => x*y }
+for comprehension: destructuring bind
+for (x <xs;
+y <ys)
+yield x*y same as
+xs flatMap {x => ys map {y
+=> x*y}}
+for comprehension: cross product
+for (x <xs;
+y <ys)
+{ for comprehension: imperativeish
+println("%d/%d =
+%.1f".format(x,y, x*y))
+}
+sprintfstyle
+for (i <1
+to 5) {
+println(i)
+}
+for comprehension: iterate including the upper bound
+for (i <1
+until 5) {
+println(i)
+}
+for comprehension: iterate omitting the upper bound
+pattern
+matching
+GOOD (xs zip ys) map {
+case (x,y) => x*y }
+BAD (xs zip ys) map( (x,y)
+=> x*y )
+use case in function args for pattern matching.
+BAD
+val v42 = 42
+Some(3) match {
+case Some(v42) =>
+println("42")
+case _ => println("Not
+42")
+}
+“v42” is interpreted as a name matching any Int value, and “42” is printed.
+GOOD
+val v42 = 42
+Some(3) match {
+case Some(`v42`) =>
+println("42")
+case _ => println("Not
+42")
+}
+”`v42`” with backticks is interpreted as the existing val v42 , and “Not 42” is printed.
+GOOD
+val UppercaseVal = 42
+Some(3) match {
+case Some(UppercaseVal) =>
+println("42")
+case _ => println("Not
+42")
+}
+UppercaseVal is treated as an existing val, rather than a new pattern variable, because it
+starts with an uppercase letter. Thus, the value contained within UppercaseVal is
+checked against 3 , and “Not 42” is printed.
+object
+orientation
+class C(x: R) same as
+class C(private val x: R)
+var c = new C(4)
+constructor params private
+class C(val x: R)
+var c = new C(4)
+c.x
+constructor params public
+class C(var x: R) {
+assert(x > 0, "positive
+please")
+var y = x
+val readonly = 5
+private var secret = 1
+def this = this(42)
+constructor is class body
+declare a public member
+declare a gettable but not settable member
+declare a private member
+alternative constructor
+}
+new{ ... } anonymous class
+abstract class D { ... } define an abstract class. (noncreateable)
+class C extends D { ... } define an inherited class.
+class D(var x: R)
+class C(x: R) extends D(x)
+inheritance and constructor params. (wishlist: automatically passup
+params by default)
+object O extends D { ... } define a singleton. (modulelike)
+trait T { ... }
+class C extends T { ... }
+class C extends D with T {
+... }
+traits.
+interfaceswithimplementation.
+no constructor params. mixinable.
+trait T1; trait T2
+class C extends T1 with T2
+class C extends D with T1
+with T2
+multiple traits.
+class C extends D {
+override def f = ...}
+must declare method overrides.
+new java.io.File("f") create object.
+BAD new List[Int]
+GOOD List(1,2,3)
+type error: abstract type
+instead, convention: callable factory shadowing the type
+classOf[String] class literal.
+x.isInstanceOf[String] type check (runtime)
+x.asInstanceOf[String] type cast (runtime)
+x: String ascription (compile time)
+
 
