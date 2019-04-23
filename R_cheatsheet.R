@@ -12522,7 +12522,1760 @@ adapt1 <- function(simulateP,nsims,postcut,hypothesisP,nCuts){.
  0.095770 96.455625 12.247579  0.059165  0.023445  0.917390.
 
  
-	 
+allH = data.table(allH)
+# str(allH)
+# dim(allH)
+# unqiue(allH$Property_Location)
 
+#number of unique locations
+t(t(table(allH$Property_Location)))
+
+#only for cleaning purpose
+allH[is.na(Count...),Count...:=0]
+
+#aggregate number of observations within each location
+aggregate(allH$Count..., by=list(Category=allH$Property_Location), FUN=sum)
+
+#check
+#allH[as.character(Property_Location)=="Telangana",Count...]
+
+
+#ROC diagram
+library(pROC)
+interMediateData= cbind(designMatrixSample,predictedValue)
+g <- roc(c_indicator ~ predictedValue, data = interMediateData)
+plot(g) 
+
+loginCount = designMatrixSample[,list(login_count,
+                         login_count_last_0,
+                         login_count_last_7,
+                         login_count_last_7.14,
+                         login_count_last_14,
+                         login_count_last_14.21,
+                         login_count_last_21,
+                         login_count_last_21.30,
+                         login_count_last_30)]
+
+cedIndex = designMatrix[c_indicator==1,]
+noNcedIndex = designMatrix[c_indicator==0,]
+sampleSize =floor(min(nrow(cedIndex),nrow(noNcedIndex))*0.40)
+sample = c(sample(cedIndex[,..I],sampleSize), sample(noNcedIndex[,..I],sampleSize))
+designMatrixSample = designMatrix[..I%in%sample,]
+designMatrixTest =  designMatrix[!(..I%in%sample),]						 
+
+quantile(inputData$l,c(0,0.25,0.50,0.75,.80,.90, .95, 1.000))
+inputData[l>100000 ,l_bucket:='l.100KAbove']
+hist(inputData$l_count_last_30)
+
+library(MASS)
+fit <- stepAIC(fitOriginal, trace = TRUE)
+
+predictedValue<-predict(fit, designMatrixSample, type="response")
+confusion_matrix <- function(dataframe, cutoff = 0.2, plot.it = TRUE,
+                             xlab = c("dep_var = 0", "dep_var = 1"),
+                             ylab = c("score = 0", "score = 1"), title = NULL) {
+  stopifnot(is.data.frame(dataframe) &&
+              all(c('score', 'dep_var') %in% colnames(dataframe)))
+  stopifnot(is.numeric(dataframe$score) && is.numeric(dataframe$dep_var))
+  
+  
+  dataframe$score <- ifelse(dataframe$score <= cutoff, 0, 1)
+  categories <- dataframe$score * 2 + dataframe$dep_var
+  confusion <- matrix(tabulate(1 + categories, 4), nrow = 2)
+  colnames(confusion) <- ylab
+  rownames(confusion) <- xlab
+  if (plot.it) fourfoldplot(confusion, color = c("#CC6666", "#99CC99"),
+                            conf.level = 0, margin = 1, main = title)
+  confusion
+  
+}
+pred_df <- data.frame(dep_var = designMatrixSample$c, score = predictedValue)
+#threshold = quantile(predictedValue,  probs = c(50)/100)
+threshold = 0.5
+confusion_matrix(pred_df, cutoff = threshold)
+confusion_matrix(pred_df, cutoff = threshold)/length(predictedValue)
+
+library(pROC)
+interMediateData= cbind(designMatrixSample,predictedValue)
+g <- roc(c ~ predictedValue, data = interMediateData)
+plot(g) 
 	 
-	 
+#------------------------------
+# check the tree method for defining the bins
+#-----------------------------
+# decision tree did not work
+#install.packages("rpart")
+# library(rpart)
+# 
+# # grow tree 
+# fit <- rpart(factor(churn_indicator) ~current_platform+login_count,
+#           #   method="class", 
+#              data=inputData)
+# fit <- rpart(Kyphosis ~ Age, data = kyphosis)
+# 
+# printcp(fit) # display the results 
+# plotcp(fit) # visualize cross-validation results 
+# summary(fit) # detailed summary of splits
+# 
+# # plot tree 
+# plot(fit, uniform=TRUE, 
+#      main="Classification Tree for Kyphosis")
+# text(fit, use.n=TRUE, all=TRUE, cex=.8)
+
+setwd(codeFolder)
+#getwd()
+
+
+cRoot = getwd()
+# Sourcing the code that picks the latest version of any source file we wish to use
+# unless of course, the version number is actually specified
+source(paste0(cRoot, '/sourceLatestVersion.R'))
+
+# sourcing some common functions
+cCommonFuncFileName = sourceLatestVersion(
+  path = paste0(cRoot, '/'),
+  pattern = 'CommonFunction'
+)
+
+source(cCommonFuncFileName)
+
+
+# Determine number of clusters
+wss <- (nrow(clusteringData)-1)*sum(apply(clusteringData,2,var))
+for (i in 2:15) wss[i] <- sum(kmeans(clusteringData, 
+                                     centers=i)$withinss)
+modelSel=as.data.frame(cbind(1:15,wss))
+names(modelSel)=c('NumClust','WithinGroupSumSq')
+library(ggplot2) 
+# Separate regressions of mpg on weight for each number of cylinders
+qplot(NumClust, WithinGroupSumSq, data=modelSel, geom=c("point", "smooth"), 
+      main="Number of Cluster Selection based on Within Group Sum of Square", 
+      xlab="Number of Clusters", ylab="Within Groups Sum of Squares")+theme_set(theme_grey(base_size = 24)) 
+
+# plot(1:15, wss, type="b", xlab="Number of Clusters",
+#      ylab="Within groups sum of squares")
+
+fit <- glm(c ~ p + DoW , data=designMatrix, family=binomial())
+
+summary(fit) 
+sink("Results/logitRegressionGainLoss.txt")
+summary(fit) 
+sink()	
+
+#function to seprate day and month
+parseDayMonth = function(DateList){
+  parsedDate=data.table(sapply(lapply(DateList,function(x) return(strsplit(x,"/")[[1]])), "[[", 1),
+                        sapply(lapply(DateList,function(x) return(strsplit(x,"/")[[1]])), "[[", 2))
+  parsedDate[,V1:=as.numeric(V1)]
+  parsedDate[,V2:=as.numeric(V2)]
+  setnames(parsedDate,"V1","month")
+  setnames(parsedDate,"V2","day")
+  return(parsedDate)
+}
+
+HData[,Checkout.Day:=as.numeric(getDay(Checkout_Dt))] 
+
+HDtCheckinNonWorking = merge(
+  HData[,list(Confirm_Nbr,Checkin.Day,Checkin.Month)],
+  nonWorkingHollidaysDt[, 
+                        list(
+                          Checkin.Month = month, 
+                          Checkin.Day = day)
+                        ],
+  by = c('Checkin.Month','Checkin.Day')
+)
+
+starRating[,StarRating:=ceiling(mean(StarRating)),by=SynXis_Property_ID]
+
+starRating[is.na(StarRating),StarRating:=3]
+
+starRating <-subset(starRating,select=c("SynXis_Property_ID","StarRating"))
+
+#======================================================
+#function to generate bar chart by normalizing the frequencies (percentages)
+#======================================================
+GenerateOVerallSummaryPlotsPercentage<-function(dtData,feature1,ID,FileName=NULL){
+  dtDataSubset<-subset(dtData,select=c(feature1,ID))
+  dtDataSubset[,dummy1:=get(feature1)]
+  dtDataSubset<-dtDataSubset[,.N,by=c("dummy1")]
+  dtDataSubset[,PCT:=N*100/sum(N)]
+  
+  if (!is.null(FileName)){
+    plot<-
+      ggplot(data=dtDataSubset,aes(x=dummy1,y=PCT,fill=dummy1))+ geom_bar(stat="identity")+
+      ggtitle(feature1) +xlab("") + ylab("PCT")+ theme_bw()+guides(fill=FALSE)+
+      scale_y_continuous(breaks=seq(0,max(dtDataSubset$PCT),10),limits=c(0,max(dtDataSubset$PCT)))+
+      theme(text = element_text(size=20),
+            axis.text.x = element_text(angle=90, vjust=1)) 
+    ggsave(plot,filename=paste0(FileName, '.png'))  
+  }else{
+    ggplot(data=dtDataSubset,aes(x=dummy1,y=PCT,fill=dummy1))+ geom_bar(stat="identity")+
+      ggtitle(feature1) +xlab("") + ylab("PCT")+ theme_bw()+guides(fill=FALSE)+
+      scale_y_continuous(breaks=seq(0,max(dtDataSubset$PCT),10),limits=c(0,max(dtDataSubset$PCT)))+
+      theme(text = element_text(size=20),
+            axis.text.x = element_text(angle=90, vjust=1)) 
+  }
+}
+#======================================================
+# function to generate bar chart based on the frequencies
+#======================================================
+GenerateOVerallSummaryPlotsFreq<-function(dtData,feature1,ID,FileName=NULL){
+  dtDataSubset<-subset(dtData,select=c(feature1,ID))
+  dtDataSubset[,dummy1:=get(feature1)]
+  dtDataSubset<-dtDataSubset[,.N,by=c("dummy1")]
+  dtDataSubset[,PCT:=N]
+  
+  if (!is.null(FileName)){
+    plot<-
+      ggplot(data=dtDataSubset,aes(x=dummy1,y=PCT,fill=dummy1))+ geom_bar(stat="identity")+
+      ggtitle(feature1) +xlab("") + ylab("PCT")+ theme_bw()+guides(fill=FALSE)+
+      scale_y_continuous(breaks=seq(0,max(dtDataSubset$PCT),round(max(dtDataSubset$PCT)/10),0),limits=c(0,max(dtDataSubset$PCT)))+
+      theme(text = element_text(size=20),
+            axis.text.x = element_text(angle=90, vjust=1)) +
+      ggsave(filename=paste0(FileName, '.png'))  
+  }else{
+    ggplot(data=dtDataSubset,aes(x=dummy1,y=PCT,fill=dummy1))+ geom_bar(stat="identity")+
+      ggtitle(feature1) +xlab("") + ylab("PCT")+ theme_bw()+guides(fill=FALSE)+
+      scale_y_continuous(breaks=seq(0,max(dtDataSubset$PCT),round(max(dtDataSubset$PCT)/10,0)),limits=c(0,max(dtDataSubset$PCT)))+
+      theme(text = element_text(size=20),
+            axis.text.x = element_text(angle=90, vjust=1)) 
+  }
+}
+
+#======================================================
+# stacked bar chart
+#======================================================
+GenerateStackkedBarChart<-function(dtData,feature1,segment,ID,FileName=NULL){
+  dtDataSubset<-subset(dtData,select=c(feature1,segment,ID))
+  dtDataSubset[,dummy1:=get(feature1)]
+  dtDataSubset[,Segments:=get(segment)]
+  
+  
+  if (!is.null(FileName)){
+    ggplot(dtDataSubset, aes(dummy1, fill=Segments)) + geom_bar()+ ylab("Freq.")+xlab("")+
+      ggtitle(feature1) +theme(text = element_text(size=20),axis.text.x = element_text(angle=90, vjust=1)) 
+    ggsave(filename=paste0(FileName, '.png'))  
+  }else{
+    ggplot(dtDataSubset, aes(dummy1, fill=Segments)) + geom_bar()+ ylab("Freq.")+xlab("")+
+      ggtitle(feature1) +theme(text = element_text(size=20),axis.text.x = element_text(angle=90, vjust=1)) 
+  }
+}
+
+#create the Histogram for the numerical features
+#========================================================================
+
+#function to draw a histogram of feature1 distribution, it recieves the min and max and step to visualize
+histogramDraw<-function(dtData,feature1,ID, MinValueDraw, MaxValueDraw, stepSizeDraw, FileName=NULL){
+  dtDataSubset<-subset(dtData,select=c(feature1,ID))
+  dtDataSubset[,dummy1:=get(feature1)]
+  
+  if (!is.null(FileName)){
+    ggplot(data=dtDataSubset, aes(as.numeric(dtDataSubset$dummy1))) + 
+      geom_histogram( 
+        breaks=seq(MinValueDraw, MaxValueDraw, by = stepSizeDraw), 
+        col="blue", 
+        aes(fill=..count..), 
+        alpha = .2) + 
+      labs(title=paste0("Histogram for ",feature1)) +
+      labs(x=paste0(feature1), y="Freq.")
+    
+    ggsave(filename=paste0(FileName, '.png'))  
+  }else{
+    ggplot(data=dtDataSubset, aes(as.numeric(dtDataSubset$dummy1))) + 
+      geom_histogram( 
+        breaks=seq(MinValueDraw, MaxValueDraw, by = stepSizeDraw), 
+        col="blue", 
+        aes(fill=..count..), 
+        alpha = .2) + 
+      labs(title=paste0("Histogram for ",feature1)) +
+      labs(x=paste0(feature1), y="Freq.")
+  }
+}
+
+#===============================================================================
+#function to draw a histogram of feature1 distribution only for segment SegInstance, it recieves the min and max and step to visualize
+
+histogramSegmentDraw<-function(dtData,feature1,segmentVarName, SegInstance, MinValueDraw, MaxValueDraw, stepSizeDraw, ID,FileName=NULL){
+  dtDataSubset<-subset(dtData,select=c(feature1,segmentVarName,ID))
+  dtDataSubset[,dummy1:=get(feature1)]
+  dtDataSubset[,Segments:=get(segmentVarName)]
+  dtDataSubset = dtDataSubset[Segments==SegInstance,]
+  
+  if (!is.null(FileName)){
+    ggplot(data=dtDataSubset, aes(as.numeric(dtDataSubset$dummy1))) + 
+      geom_histogram( 
+        breaks=seq(MinValueDraw, MaxValueDraw, by = stepSizeDraw), 
+        col="blue", 
+        aes(fill=..count..), 
+        alpha = .2) + 
+      labs(title=paste0("Histogram of ",feature1, "for ", SegInstance, "Segment")) +
+      labs(x=paste0(feature1), y="Freq.")
+    
+    ggsave(filename=paste0(FileName, '.png'))  
+  }else{
+    ggplot(data=dtDataSubset, aes(as.numeric(dtDataSubset$dummy1))) + 
+      geom_histogram( 
+        breaks=seq(MinValueDraw, MaxValueDraw, by = stepSizeDraw), 
+        col="blue", 
+        aes(fill=..count..), 
+        alpha = .2) + 
+      labs(title=paste0("Histogram of ",feature1, "for ", SegInstance, "Segment")) +
+      labs(x=paste0(feature1), y="Freq.")
+  }
+}
+
+toPlotData = copy(HData)
+toPlotData[,dayTypeObservence:=ifelse(observence.days,"Observence Days", "Other days")]
+setnames(toPlotData,"Profile_Type_Nm","Profile.Class")
+
+GenerateStackkedBarChart(dtData=toPlotData,feature1="dayTypeObservence",segment="Profile.Class",ID="Confirm_Nbr",
+                         paste0(getwd(),"/imagesForPresentation/ObservenceDaysVs.Others"))
+						 
+gc()
+
+library(data.table)
+library(stringr)
+library(ggplot2)
+library(gdata)
+
+unique(HData[,Room_Cnt])
+
+cat(as.character(unique(HData[,PMS_Room_Type_Cd])),sep=", ")
+
+sort(unique(HData[,Checkin_Dt]))
+length(unique(HData[,Checkin_Dt]))
+
+# LDA method
+
+#=======================================================
+# Run Latent Dirichlet Allocation (LDA) to benchmark
+#=======================================================
+#install the package first
+#install.packages("topicmodels")
+library(topicmodels)
+
+
+print ('Starting LDA...............................................\n')
+
+#the number of clusters is set to 7 for tractability, but it can be benchmarked based on log likelihood
+k = 7
+
+print ('the number of clusters is:')
+print(k)
+
+control_LDA_VEM <- list(estimate.alpha = TRUE, alpha = 50/k, estimate.beta = TRUE,
+                        verbose = 1, prefix = tempfile(), save = 0, keep = 0,
+                        seed = as.integer(Sys.time()), nstart = 1, best = TRUE,
+                        var = list(iter.max = 500, tol = 10^-6),
+                        em = list(iter.max = 1000, tol = 10^-4),
+                        initialize = "random")
+
+#Note 1: The variational Bayesian approach is selected here for estimation, but Gibbs sampling is another option
+#Note 2: for now I have run it once, but the correct approach is to run it multiple times and select the one with
+#        the highest log likelihood, as it is using Expectation Maximization, so it might fall into local maxima
+lda = LDA(x = inputMatrix, k, method = "VEM", control = control_LDA_VEM , model = NULL)
+
+#sum(lda@loglikelihood)   # because it gives likelihood for each individual
+#posterior prediction for the data (it can be used for out of sample prediction as well)
+lda_inf <- posterior(lda, inputMatrix)
+
+
+#lda_inf$terms identifies weight of each of the ancilliaries for each cluster [nclusters x nfeatures]
+#lda_inf$topics identifies the membership weight for each of the clusters [nObs x nclusters] 
+
+#identify each of the clusters (hard here means which one has the maximum weight and assign accordingly)
+hardCluster = max.col (lda_inf$topics)  #[nObs]
+
+#maximum loading of each of the features in each cluster
+featuresMaxCluster = max.col(t(lda_inf$terms)) #[nfeatures]
+ClustersMaxFeature = max.col(lda_inf$terms) #[ncluster]
+
+#==================================================
+#save the result into a csv file
+#===================================================
+# the weight of membership of each observation (PNR) in each of the clusters (and the maximum cluster)
+outputLDAObsClustPath = "C://LDA.ClusterWeightEachObs.csv"
+write.csv(cbind(lda_inf$topics,hardCluster),file=outputLDAObsClustPath)
+
+# the weight of each ancillary (feature) in each of the clusters (and the maximum ancillary per cluster, and maximum cluster per ancillary)
+outputAncillaryCluster = cbind(t(lda_inf$terms),featuresMaxCluster)
+# add cluster max at the end
+outputAncillaryCluster = rbind (outputAncillaryCluster,c(ClustersMaxFeature,0))
+#set the last row name to clusters Max feature
+row.names(outputAncillaryCluster)=c(row.names(outputAncillaryCluster)[1:(nrow(outputAncillaryCluster)-1)],"Cluster's max feature")
+outputLDAFeatureClustPath = "C://LDA.ClusterFeatureWeight.csv"
+write.csv(outputAncillaryCluster,file=outputLDAFeatureClustPath)
+
+
+#=========================================================================
+# run Non-negative matrix factorization
+#=========================================================================
+# install pcakge 
+#install.packages("NMF")
+
+library(NMF)
+
+kNMF = 7 #use the same number of clusters to allow comparison with other methods
+
+
+# perform a 3-rank NMF using the default algorithm (run in verbose form)
+
+#in my run there has been an error of final objective value is NA in couple of runs when default algorithm is used
+
+#for now I will only run with 'lee' algorithm, but later on we can test all the following list of algorithm
+#available algorithms are:
+#'.M#brunet', '.R#brunet', '.R#lee', '.R#nsNMF', '.R#offset', '.siNMF', 'brunet','Frobenius', 'KL', 'lee', 'ls-nmf', 'nsNMF', 'offset', 'pe-nmf', 'siNMF', 'snmf/l', 'snmf/r'
+
+methodNMF = "lee"
+#using lee algorithm 
+res <- nmf(inputMatrix, kNMF, methodNMF , .options = 'v3')  
+
+
+#res@fit@H identifies weight of each of the ancilliaries for each cluster [nclusters x nfeatures]
+#res@fit@W identifies the membership weight for each of the clusters [nObs x nclusters] 
+
+#identify each of the clusters (hard here means which one has the maximum weight and assign accordingly)
+hardClusterNMF = max.col (res@fit@W)  #[nObs]
+
+#maximum loading of each of the features in each cluster
+featuresMaxClusterNMF = max.col(t(res@fit@H)) #[nfeatures]
+ClustersMaxFeatureNMF = max.col(res@fit@H) #[ncluster]
+
+
+#==================================================
+#save the result into a csv file
+#===================================================
+# the weight of membership of each observation (PNR) in each of the clusters (and the maximum cluster)
+outputLDAObsClustPathNMF = "C://NMF.ClusterWeightEachObs.csv"
+outputW = res@fit@W
+colnames(outputW) <- c(1:kNMF)
+write.csv(cbind(outputW,hardClusterNMF),file=outputLDAObsClustPathNMF)
+
+# the weight of each ancillary (feature) in each of the clusters (and the maximum ancillary per cluster, and maximum cluster per ancillary)
+outputH = t(res@fit@H)
+colnames(outputH)<-c(1:kNMF)
+outputAncillaryClusterNMF = cbind(outputH,featuresMaxClusterNMF)
+# add cluster max at the end
+outputAncillaryClusterNMF = rbind (outputAncillaryClusterNMF,c(ClustersMaxFeatureNMF,0))
+#set the last row name to clusters Max feature
+row.names(outputAncillaryClusterNMF)=c(row.names(outputAncillaryClusterNMF)[1:(nrow(outputAncillaryClusterNMF)-1)],"Cluster's max feature")
+outputLDAFeatureClustPathNMF = "C://NMF.ClusterFeatureWeight.csv"
+write.csv(outputAncillaryClusterNMF,file=outputLDAFeatureClustPathNMF)
+
+
+
+#=========================================================================================================
+# Restricted Boltzman Machine
+#there is another code in 
+#            http://www.r-bloggers.com/restricted-boltzmann-machines-in-r/
+#=========================================================================================================
+#install the package
+#install.packages("deepnet")
+library(deepnet)
+
+# the number of clusters is set like above for better comparison, but it should be experimented to 
+# wee which number generates more reasonable results
+nClustRBM = 7
+
+
+# I used the learning rate that the mentioned source used, but actually it has to be experimented 
+# (the same applies to  momentum, batchsize and number of iterations)
+# As I had to have number of test cases divisable by batch size I discarded couple of observations
+inputMatrixRBM = inputMatrix[1:(nrow(inputMatrix)-(nrow(inputMatrix)%%100)),]
+
+#number of gibbs iteration is set to 10, but again it can be changed to see how does the performance change
+rbmOutput <- rbm.train(inputMatrixRBM, nClustRBM, numepochs = 20, 
+                       batchsize = 100, learningrate = 0.8, 
+                       learningrate_scale = 1, momentum = 0.5, visible_type = "bin", hidden_type = "bin",cd = 10)
+
+# the output is not explained in the document, so I guessed the weights are in variable w of the output, but it could be vw
+
+weights=rbmOutput$W
+
+#Note: I also don't know which one is the bias term B or VB
+# the weight of each ancillary (feature) in each of the clusters (and the maximum ancillary per cluster, and maximum cluster per ancillary)
+outputRBM = t(weights)
+colnames(outputRBM)<-c(1:nClustRBM)
+
+# add cluster max at the end
+outputAncillaryClusterRBM = outputRBM
+#set the last row name to clusters Max feature
+row.names(outputAncillaryClusterRBM)=colnames(inputMatrixRBM)
+outputLDAFeatureClustPathRBM = "C://RBM.ClusterFeatureWeight.csv"
+write.csv(outputAncillaryClusterRBM,file=outputLDAFeatureClustPathRBM) 
+
+
+# Determine Number of Factors to Extract
+dim(mydata) # 996  61
+mydata = inputDTForFactAnalysis
+library(nFactors)
+ev <- eigen(cor(mydata)) # get eigenvalues
+ap <- parallel(subject=nrow(mydata),var=ncol(mydata),
+               rep=100,cent=.05)
+nS <- nScree(x=ev$values, aparallel=ap$eigen$qevpea)
+plotnScree(nS)
+
+# Principal Axis Factor Analysis
+library(psych)
+fit <- principal(mydata, nfactors=10, rotate="varimax")
+fit # print results
+str(fit)
+write.csv(fit$loadings,file='/principleCompAnalysisWeights.csv')
+
+library(data.table)
+
+inputDTForFactAnalysis= subset(clustOutput[clustSize>30,],,featuresOfInterest)
+
+library("RPostgreSQL")
+con <- dbConnect(drv, host="<<REDSHIFT ENDPOINT>>", port="<<PORT NUMBER>>", dbname="<<DBNAME>>", user="<<USERNAME>>", password="<<PASSWORD>>")
+
+t <- dbGetQuery(con, "
+SELECT
+\"ti_orderid\" AS \"transaction_id\",
+\"ti_name\" AS \"sku\"
+FROM
+\"events\"
+WHERE
+\"event\" = 'transaction_item'
+")
+
+basket_rules <- apriori(txn, parameter = list(sup = 0.005, conf = 0.01, target="rules"))
+
+RChart
+====================================
+rChart: create interactive javascript visualization using R
+
+so learning complex tool such as D3 is not required
+
+Source: http://ramnathv.github.io/rCharts/
+
+
+#installation method that works:
+#====================================
+#install.packages("devtools", dependencies=TRUE)
+#install.packages('Rcpp', dependencies = TRUE)
+#install.packages("ggplot2", dependencies=TRUE) 
+library(devtools)
+library(Rcpp)
+
+library(downloader)
+download("https://github.com/ramnathv/rCharts/archive/master.tar.gz", "rCharts.tar.gz")
+install.packages("rCharts.tar.gz", repos = NULL, type = "source")
+
+
+
+
+# Example codes for R-chart
+#========================================================
+setwd("C:\\Users\\sg0224373\\Desktop\\STasks\\HProject\\RCode\\rChartSample")
+require(rCharts)
+haireye=as.data.frame(HairEyeColor)
+n1 <- nPlot(Freq ~ Hair, group= 'Eye', type= 'multiBarChart', data=subset(haireye, 
+                                                                          Sex=='Male')
+)
+#miesam: to see the chart
+show(n1)
+#meisam: create directory of fig that does not exist
+dir.create("fig", showWarnings = FLASE, recursive = FALSE, mode = "0777")
+n1$save('fig/n1.html',cdn=TRUE)
+cat('<iframe src="fig/n1.html" width=100%, height=600></iframe>')
+
+#object n1 contains the plot
+
+calling plot or not assignment creates the plot (or show function)
+
+#print out the html for the plot
+n1$html()
+
+#can save and use the code in slidify
+n1$save(filename)
+
+#Deconstructing another example
+#====================
+##Exampe 1 Facetted Scatterplot
+names(iris)=gsub("\\.","",names(iris))
+r1=rPlot(SepalLength~SepalWidth | Species, data = iris, color = 'Species', type= 'point')
+r1$save('fig/r1.html',cdn=TRUE)
+cat('<iframe src="fig/r1.html" width=100%, height=600></iframe>')
+
+
+#Example 2 Facetted Barplot
+#========================
+hair_eye = as.data.frame(HairEyeColor)
+r2 <- rPlot(Freq ~ Hair | Eye, color = 'Eye', data= hair_eye, type = 'bar')
+r2$save ('fig/r2.html', cdn = TRUE)
+cat('<iframe src="fig/r2.html" width=100%, height = 600></iframe>')
+
+#How to get the js/html or publish an rChart
+#======================================
+r1<- rPlot(mpg ~wt | am + vs, data = mtcars, type = "point", color="gear")
+r1$print("chart1") # print out the js
+r1$save('myplot.html') #save as html file
+
+
+r1$publish('myPlot', host='gist') #save to gist, rjson required
+r$publish('myPlot', host=rpubs') #save to rpubs
+
+#===================================================================
+
+rChart has links to several libraries
+#===================================================================
+
+#morris
+data(economics, package="ggplot2")
+econ<-transform(economics, data=as.character(date))
+m1 <- mPlot(x="date", y=c("psavert", "uempmed"), type="Line", data=econ)
+m1$set(pointSize=0, lineWidth=1)
+m1$save('fig/m1.html', cdn=TRUE)
+cat('<iframe src="fig/m1.html" width=100%, height=600></iframe>')
+
+XCharts
+#============================================================
+require(reshape2)
+uspexp <- melt(USPersonalExpenditure)
+names(uspexp)[1:2]=c("category", "year")
+x1<- xPlot(value ~ year, group = "category", data= uspexp, type="line-dotted")
+x1$save('fig/x1.html', cdn=TRUE)
+cat('<iframe src="fig/x1.html" width=100%, height=600></iframe>')
+
+#Leaflet
+#============================
+mp3 <- Leaflet$new()
+mp3$setView(c(51,505,-0.09), zoom=13)
+mp3$marker(c(51.5, -0.09), bindPopup= "<p> Hi. I am popup </p>")
+mp3$marker(c(51.495, -0.083), bindPopup= "<p> Hi. I am another popup </p>")
+show(mp3)
+mp3$save('fig/mp3.html')
+
+mp3$save('fig/mp3.html', cdn=TRUE)
+cat('<iframe src="fig/mp3.html", width=100%, height=600></iframe>')
+
+#Rickshaw
+#============================
+usp = reshape2::melt(USPersonalExpenditure)
+#get the decades into a date Rickshaw links
+usp$Var2 <- as.numeric(as.POSIXct(paste0(usp$Var2, "-01-01")))
+p4 <- Rickshaw$new()
+p4$layer(value ~ Var2, group = "Var1", data = usp, type = "area", width=560)
+#add a helpful slider this easily; other features TRUE as a default
+p4$set(slider = TRUE)
+p4$save('fig/p4.html')
+
+p4$save('fig/p4.html', cdn=TRUE)
+cat('<iframe src="fig/p4.html" width=100%, height=600></iframe>')
+
+#highchart
+#===============================
+h1<- hPlot(x="Wr.Hnd", y="NW.Hnd", data=MASS::survey, type=c("line", "bubble", "scatter"), 
+           group="Clap", size="Age")
+
+h1$save('fig/h1.html')
+show(h1)
+
+h1$save('fig/h1.html', cdn=TRUE)
+cat('<iframe src="fig/h1.html" width=100%, height=600></iframe>')
+
+
+rChart summary
+#=================================
+(1) makes creating interactive javascript visualization in R easy
+(2) non-trivial customization require knowledgte of javascript
+(3) It is under development
+
+#Rchart cheat sheet
+#=============================
+# continuous time plot: mPlot
+# frequency plot by: rPlot, type='bar'
+# scatter plot: type="point"
+# line curve: xPlot, type='line-dotted'
+# for map and landmark: Leaflet
+#stack diagram by: Rickshaw
+#for maps GoogleVis library is good
+
+#clean the work sapce first
+#-------------------------
+rm(list = ls())
+
+#==================================
+#load the required libraries
+library(shiny)
+library(data.table)
+library(stringr)
+library(ggplot2)
+library(gdata)
+library(MASS)
+#========================================
+
+#set the path to the path that includes the server.R and ui.R and the data file
+#run shiny app
+#shiny
+load("dtHDataDerived.Rdata")
+HData = HDatatmp
+runApp(getwd())
+
+
+SimulateBinomialPosterior <- function(y, n, ndraws){
+	#Args:
+	#	y: Vector of success counts, per arm.
+	#	n: Vector of trial counts, per arm.
+	#ndraws: The desired number of posterior draws.
+	number.of.arms <- length(y)
+	ans <- matrix (nrow = ndraws,
+			ncol = number.of.arms)
+	for (arm in 1:number.of.arms) {
+		ans[,arm] <- rbeta(ndraws,
+				y[arm] + 1, n[arm] - y[arm] +1)
+	}
+	return (ans)
+}
+ComputeWinProbability <- function (value.posterior){
+	# Args:
+	#	value.posterior: A matrix representing the value
+	# 	of each arm. Rows are Monte Carlo draws from the
+	#	posterior distribution of values. Columns
+	#	represent different arms.
+	# Returns:
+	#	The vector of optimal arm probabilities.
+	
+	number.of.arms <- ncol(value.posterior)
+	optimal.arm.probabilities <- table (
+		factor(max.col(value.posterior),
+		levels = 1:number.of.arms))
+	return(optimal.arm.probabilities / nrow(value.posterior))
+}
+#the output is a vector of probability for each arm
+# the factor function puts zero for those arms that have not won anywhere (no count for the success)
+BinomialBandit <- function(y, n, ndraws){
+	# Args:
+	#	y: Vector of success counts, per arm.
+	#	n: Vector of traial counts, per arm.
+	# ndraws: The desired number of posterior draws
+	success.probabilities <- SimulateBinomialPosterior (y, n, ndraws)
+	winprob <- ComputeWinProbability(success.probabilities)
+	ans <- list (success.probabilities = success.probabilities,
+		optimal.arm.probabilities = winprob)
+	class(ans) <- "BinomialBandit"
+	return(ans)
+}
+
+
+ gsub(x = as.character(A), pattern = '  ', replacement = '') 
+ 
+ POSIXct
+ 
+ POSIXlt
+ 
+ dtResSubset[, .N, by = list(A, FN)]
+ 
+ merge(
+    dtODSubset,
+    dtAD[, list(TOT = A, C, C1)],
+    by = 'TOT'
+  )
+ 
+ 
+ rm(dtOMC)
+ 
+ setDT(data.frame(lapply(DT,as.character),stringsAsFactors = F))
+ 
+ library(shiny)
+library(ggplot2)
+library(data.table)
+require(rCharts)
+
+#================================================
+#visualization
+#==========================================
+#important note [Meisam]: This is the function that helps to apply the result of D3 on Shiny app
+#link: https://github.com/ramnathv/rCharts/issues/522
+renderChart3 <- function( expr, env = parent.frame(), quoted = FALSE ){
+  func <- shiny::exprToFunction(expr, env, quoted)
+  function() {
+    rChart_ <- func()
+    cht_style <- sprintf("<style>.rChart {width: %spx; height: %spx} </style>", 
+                         rChart_$params$width, rChart_$params$height)
+    cht <- paste(
+      capture.output(cat(
+        rChart_$print()
+        ,render_template(
+          rChart_$templates$afterScript %||% 
+            "<script></script>"
+          , list(chartId = rChart_$params$dom, container = rChart_$container)
+        )
+        ,sep = ""
+      ))
+      , collapse = "\n")
+    HTML(paste(c(cht_style, cht), collapse = "\n"))
+  }
+}
+
+#Visualization functions
+#============================================
+
+#======================================================
+#function to generate bar chart by normalizing the frequencies (percentages)
+#======================================================
+GenerateOVerallSummaryPlotsPercentage<-function(dtData,feature1,ID,FileName=NULL){
+  dtDataSubset<-subset(dtData,select=c(feature1,ID))
+  dtDataSubset[,dummy1:=get(feature1)]
+  dtDataSubset<-dtDataSubset[,.N,by=c("dummy1",feature1)]
+  dtDataSubset[,PCT:=N*100/sum(N)]
+  
+  
+  if (!is.null(FileName)){
+    plot<-
+#       ggplot(data=dtDataSubset,aes(x=dummy1,y=PCT,fill=dummy1))+ geom_bar(stat="identity")+
+#       ggtitle(feature1) +xlab("") + ylab("PCT")+ theme_bw()+guides(fill=FALSE)+
+#       scale_y_continuous(breaks=seq(0,max(dtDataSubset$PCT),10),limits=c(0,max(dtDataSubset$PCT)))+
+#       theme(text = element_text(size=20),
+#             axis.text.x = element_text(angle=90, vjust=1)) 
+#     ggsave(plot,filename=paste0(FileName, '.png'))  
+      #dataSubset=subset(dtDataSubset,select=c(feature1,'freq'))
+      #dataSubset$color=c('lightblue', 'lightgreen','lightpink')                 
+      plot <-  nPlot(x = feature1, y = "PCT", data = subset(dtDataSubset,select=c(feature1,'PCT'))[order(-PCT)],
+                                           type = "discreteBarChart")
+      plot$xAxis(
+        tickFormat =   "#!
+        function(d) {return d;}
+        !#",
+        rotateLabels = -30
+      ) 
+       # hPlot(x = feature1, y = "freq", data =dataSubset, type = "bar")
+      #plot$plotOptions(column = list(cursor = 'pointer', point = list(events = list(click = "#! function() { location.href = this.options.url; } !#"))))
+      #plot$plotOptions(series = list(color = 'lightgreen'))
+      #show(plot)
+#       nPlot(x = feature1, y = "freq", data = subset(dtDataSubset,select=c(feature1,'freq'))[order(-freq)],
+#                      type = "discreteBarChart")
+#       plot$chart(margin = list(bottom = 100))
+#       plot$yAxis( axisLabel = "Randomness", width = 40 )
+#       plot$xAxis(staggerLabels = TRUE)
+      # 
+      # rPlot(x = list(var = feature1, sort = "freq"), y = "freq",     data = dtDataSubset, type = 'bar')
+      
+      
+#       rPlot(x = list(var = feature1, sort = "freq"), y = "freq", 
+#                     data = subset(dtDataSubset,select=c(feature1,'freq')), type = 'bar',color='black')
+   
+    return (plot)
+  }else{
+#     plot=ggplot(data=dtDataSubset,aes(x=dummy1,y=PCT,fill=dummy1))+ geom_bar(stat="identity")+
+#       ggtitle(feature1) +xlab("") + ylab("PCT")+ theme_bw()+guides(fill=FALSE)+
+#       scale_y_continuous(breaks=seq(0,max(dtDataSubset$PCT),10),limits=c(0,max(dtDataSubset$PCT)))+
+#       theme(text = element_text(size=20),
+#             axis.text.x = element_text(angle=90, vjust=1)) 
+    plot  <-  nPlot(x = feature1, y = "PCT", data = subset(dtDataSubset,select=c(feature1,'PCT'))[order(-PCT)],
+                          type = "discreteBarChart")
+    plot$chart(margin = list(bottom = 200))
+    #http://stackoverflow.com/questions/24344794/rcharts-nplot-formating-x-axis-with-dates
+    plot$xAxis(
+      tickFormat =   "#!
+      function(d) {return d;}
+      !#",
+      rotateLabels = -30
+    )
+    plot$yAxis(tickFormat = "#! function(d) {return '%' + d.toFixed(2)} !#")
+    #http://stackoverflow.com/questions/13136964/how-can-i-position-rotated-x-axis-labels-on-column-chart-using-nvd3
+#     plot$templates$script  = 
+#                      "<script type='text/javascript'>
+#                   chart.margin({bottom: 60});
+#     d3.select('.nv-x.nv-axis > g').selectAll('g').selectAll('text').attr('transform', function(d,i,j) { return 'translate (-10, 25) rotate(-90 0,0)' }) ;
+#                    </script>"
+    #http://zevross.com/blog/2014/04/03/interactive-visualization-from-r-to-d3-using-rcharts/
+#     plot$templates$script = system.file("C:\\\temp\\script_multiselect.html",
+#                                         package = "rCharts")
+    return (plot)
+  }
+}
+#======================================================
+# function to generate bar chart based on the frequencies
+#======================================================
+GenerateOVerallSummaryPlotsFreq<-function(dtData,feature1,ID,FileName=NULL){
+  dtDataSubset<-subset(dtData,select=c(feature1,ID))
+  dtDataSubset[,dummy1:=get(feature1)]
+  dtDataSubset<-dtDataSubset[,.N,by=c("dummy1")]
+  #dtDataSubset[,PCT:=N]
+  dtDataSubset[,PCT:=N*100/sum(N)]
+  
+  if (!is.null(FileName)){
+    plot<-
+#       ggplot(data=dtDataSubset,aes(x=dummy1,y=PCT,fill=dummy1))+ geom_bar(stat="identity")+
+#       ggtitle(feature1) +xlab("") + ylab("PCT")+ theme_bw()+guides(fill=FALSE)+
+#       scale_y_continuous(breaks=seq(0,max(dtDataSubset$PCT),round(max(dtDataSubset$PCT)/10),0),limits=c(0,max(dtDataSubset$PCT)))+
+#       theme(text = element_text(size=20),
+#             axis.text.x = element_text(angle=90, vjust=1)) +
+#       ggsave(filename=paste0(FileName, '.png'))
+      plot  <-  nPlot(x = feature1, y = "PCT", data = subset(dtDataSubset,select=c(feature1,'PCT'))[order(PCT)],
+                      type = "discreteBarChart")
+      plot$xAxis(
+        tickFormat =   "#!
+        function(d) {return d;}
+        !#",
+        rotateLabels = -30
+      )
+    return (plot)
+  }else{
+#     plot = ggplot(data=dtDataSubset,aes(x=dummy1,y=PCT,fill=dummy1))+ geom_bar(stat="identity")+
+#       ggtitle(feature1) +xlab("") + ylab("PCT")+ theme_bw()+guides(fill=FALSE)+
+#       scale_y_continuous(breaks=seq(0,max(dtDataSubset$PCT),round(max(dtDataSubset$PCT)/10,0)),limits=c(0,max(dtDataSubset$PCT)))+
+#       theme(text = element_text(size=20),
+#             axis.text.x = element_text(angle=90, vjust=1)) 
+    plot  <-  nPlot(x = feature1, y = "PCT", data = subset(dtDataSubset,select=c(feature1,'PCT'))[order(-PCT)],
+                    type = "discreteBarChart")
+    plot$xAxis(
+      tickFormat =   "#!
+      function(d) {return '%' + d;}
+      !#",
+      rotateLabels = -30
+    )
+    plot$yAxis(tickFormat = "#! function(d) {return '%' + d.toFixed(2)} !#")
+    return (plot)
+  }
+}
+
+#======================================================
+# stacked bar chart
+#======================================================
+GenerateStackkedBarChart<-function(dtData,feature1,segment,ID,FileName=NULL){
+  require(gridExtra)
+  require(rjson)
+  require(stringr)
+  require(plyr)
+  require(rCharts)
+  require(reshape2)
+  #toPlotData = copy(HData);  setnames(toPlotData,"Property_Nm","Property.Name");  setnames(toPlotData,"Profile_Type_Nm","Profile.Class")
+  #dtData=toPlotData;feature1="Property.Name";segment="Profile.Class";ID="Confirm_Nbr"
+  #rm(toPlotData);   gc()
+  
+  dtDataSubset<-subset(dtData,select=c(feature1,segment,ID))
+  dtDataSubset[,dummy1:=get(feature1)]
+  dtDataSubset[,Segments:=get(segment)]
+  
+  #if it is 0 and 1 levels then replace them with feature name and not feature name
+  if (length(unique(dtDataSubset$dummy1))==2){
+    checkBinary= all(unique(dtDataSubset$dummy1)%in% c(0,1)) | all(unique(dtDataSubset$dummy1)%in% c(T,F))
+    if (checkBinary){
+      dtDataSubset[get(feature1)==0,dummy2:=paste0("Not ",feature1)]
+      dtDataSubset[get(feature1)==1,dummy2:=feature1]
+      dtDataSubset[,dummy1:=NULL]
+      setnames(dtDataSubset,"dummy2","dummy1")
+    }
+  }
+  
+  
+  if (!is.null(FileName)){
+    plot = ggplot(dtDataSubset, aes(dummy1, fill=Segments)) + geom_bar()+ ylab("Freq.")+xlab("")+
+      ggtitle(feature1) +theme(text = element_text(size=20),axis.text.x = element_text(angle=90, vjust=1)) 
+    ggsave(filename=paste0(FileName, '.png'))  
+    return (plot)
+  }else{
+    #option 1: old ggplot 
+#     plot = ggplot(dtDataSubset, aes(dummy1, fill=Segments)) + geom_bar()+ ylab("Freq.")+xlab("")+
+#       ggtitle(feature1) +theme(text = element_text(size=20),axis.text.x = element_text(angle=90, vjust=1)) 
+#     
+    #rchart
+    
+    dtRChartSubset = subset(dtDataSubset,select=c(ID,"dummy1","Segments"))
+    df.melt <-melt(table(dtRChartSubset$dummy1,dtRChartSubset$Segments))
+    names(df.melt)=c(feature1,segment,"PCT")
+    setDT(df.melt)
+    df.melt[,PCT:=PCT*100/sum(PCT)]
+    
+    #option 2: using dplot in rchart
+#     d1 <- dPlot(
+#       x = "Freq", 
+#       y = feature1, 
+#       groups = segment, 
+#       data = df.melt, 
+#       type = 'bar')
+#     
+#     #Here, set the chart options to tell rCharts how to format the visualization  
+#     d1$xAxis(type = "addPctAxis")
+#     d1$yAxis(type = "addCategoryAxis", orderRule = segment)
+#     
+#     d1$legend( x = 80, y = 10, width = 1000, height = 30, horizontalAlign = "left", orderRule = segment)
+    
+    
+    
+    #d1$set(width = 1200)
+    # set the size
+    #d1$params$width <- 1000
+    #d1$params$height <- 700
+    
+#     d1$setTemplate(
+#       afterScript = "
+#         <script>
+#         d3.selectAll('#{{ chartId }} svg text')
+#           .style('font-size', '18')
+#         d3.selectAll(' svg text').style('font-size', '15')
+#         </script>
+#       ")
+    #grid.arrange(plot, d1, ncol=2)
+    df.meltTemp <-df.melt
+    names(df.meltTemp)=c(make.names(feature1),segment,"PCT")
+    
+    
+    # option 3: dPlot in rChart
+    #check horizontal one:
+#     p2 <- dPlot(as.formula(paste("Freq ~ ",make.names(feature1))), groups = segment,
+#                 data = df.meltTemp,
+#                 type = 'bar'
+#     )
+#     p2$chart(margin = list(left = 500,right=500,bottom=500,top=500)) # margin makes room for label
+#     p2$yAxis( axisLabel = "Randomness" )
+#     p2$legend( x = 600, y = 30, width = 100, height = 30, horizontalAlign = "right", orderRule = segment)
+    
+    #p2$xAxis(axisLabel = 'Year')
+    #p2$yAxis(categories = c(unique(as.character(dtDataSubset[,dummy1]))),
+    #        title=list(text = ""))
+    
+    #p2$defaultColors(c('brown', 'blue', '#594c26', 'green'))
+    # solution from dimple original java script library:
+    #https://github.com/PMSI-AlignAlytics/dimple/wiki/dimple.chart
+    #https://github.com/ramnathv/rCharts/issues/77
+    # by taking the str of the object it is possible to find out what is the chart in d3
+#     p2$setTemplate(
+#       afterScript = "
+#       <script>
+#         //d3.selectAll('#{{ chartId }} svg text')
+#         //myChart.style('font-size', '14')
+#         myChart.setMargins(50, 50, 50, 200);  //dimple code to set margin by meisam
+#         //myChart.setBounds(20, 20, 1000, 1000); // dimple code to set chart size by meisam
+#       </script>
+#       ")
+    
+    #======================================================
+    # rotation is required only if the length is too much
+    #======================================================
+#     
+#     if (feature1=='Rate Category'){
+#       p2$setTemplate(afterScript = 
+#                        "<script>
+#         myChart.setMargins(50, 100, 50, 200)  //dimple code to set margin by meisam
+#         d3.selectAll('#{{ chartId }} svg text').style('font-size', '14')
+#         myChart.axes[0].shapes.selectAll('text').attr('transform', 'rotate(10)').style('text-anchor','middle').style('font-size','150%')
+#         myChart.svg.append('text').attr('x', 40).attr('y', 20).style('text-anchor','beginning').style('font-size', '100%')
+#         myChart.addMeasureAxis('y', 'attendance');// axes[0] if for x asix and axes[1] is for y axis     
+#       </script>"
+#       )
+#     }else{
+#       p2$setTemplate(afterScript = 
+#                        "<script>
+#         myChart.setMargins(50, 100, 50, 200)  //dimple code to set margin by meisam
+#         d3.selectAll('#{{ chartId }} svg text').style('font-size', '14');
+#          </script>"
+#       )
+#     }
+    
+    #
+    p3 =nPlot(as.formula(paste("PCT ~ ",make.names(feature1))), group = segment, data =  df.meltTemp, type = 'multiBarChart')
+    p3$chart(margin = list(left = 80))
+    p3$yAxis(axisLabel = "PCT", width = 70)
+    p3$chart(margin = list(right = 80))
+    p3$chart(margin = list(bottom = 150))
+    p3$chart(margin = list(top = 80))
+    p3$xAxis(
+#       tickFormat =   "#!
+#       function(d) {return d;}
+#       !#",
+      rotateLabels = -30
+    )
+    p3$yAxis(tickFormat = "#! function(d) {return '%' + d.toFixed(2)} !#")   
+    p3$chart(reduceXTicks = FALSE)
+    return (p3)
+  }
+}
+
+#======================================================
+# stacked bar chart for Date, although the name of the fun is Line Chart
+#======================================================
+GenerateDateLineChart<-function(dtData,feature1,segment,ID,dateType="Week"){
+  #Type could be either "Week" or "Month" 
+  
+  #dtData = copy(HDatatmp);feature1="Checkin_DOW";segment="SegmentName";ID="Confirm_Nbr";dateType="Week"
+  #dtData = copy(HDatatmp);feature1="checkin_Month";segment="SegmentName";ID="Confirm_Nbr";dateType="Month"
+  #rm(dtData); gc()
+  
+  require(gridExtra)
+  require(rjson)
+  require(stringr)
+  require(plyr)
+  require(rCharts)
+  require(reshape2)
+ 
+  dtDataSubset<-subset(dtData,select=c(feature1,segment,ID))
+  dtDataSubset[,dummy1:=get(feature1)]
+  dtDataSubset[,Segments:=get(segment)]
+  
+  # plotting by rChart
+  #------------------------
+  dtRChartSubset = subset(dtDataSubset,select=c(ID,"dummy1","Segments"))
+  df.melt <-melt(table(dtRChartSubset$dummy1,dtRChartSubset$Segments))
+  names(df.melt)=c(feature1,segment,"PCT")
+  setDT(df.melt)
+  df.melt[,PCT:=PCT*100/sum(PCT)]
+  
+
+  df.meltTemp <-df.melt
+  names(df.meltTemp)=c(make.names(feature1),segment,"PCT")
+  
+  if (dateType=="Week"){
+    df.meltTemp = rbind(df.meltTemp[get(make.names(feature1))=="Mon",],
+                        df.meltTemp[get(make.names(feature1))=="Tue",],
+                        df.meltTemp[get(make.names(feature1))=="Wed",],
+                        df.meltTemp[get(make.names(feature1))=="Thu",],
+                        df.meltTemp[get(make.names(feature1))=="Fri",],
+                        df.meltTemp[get(make.names(feature1))=="Sat",],
+                        df.meltTemp[get(make.names(feature1))=="Sun",])
+  }else if (dateType =="Month"){
+    df.meltTemp = rbind(df.meltTemp[get(make.names(feature1))=="January",],
+                        df.meltTemp[get(make.names(feature1))=="February",],
+                        df.meltTemp[get(make.names(feature1))=="March",],
+                        df.meltTemp[get(make.names(feature1))=="April",],
+                        df.meltTemp[get(make.names(feature1))=="May",],
+                        df.meltTemp[get(make.names(feature1))=="June",],
+                        df.meltTemp[get(make.names(feature1))=="July",],
+                        df.meltTemp[get(make.names(feature1))=="August",],
+                        df.meltTemp[get(make.names(feature1))=="September",],
+                        df.meltTemp[get(make.names(feature1))=="October",],
+                        df.meltTemp[get(make.names(feature1))=="November",],
+                        df.meltTemp[get(make.names(feature1))=="December",])
+  }
+  
+  
+  
+  p3 <- nPlot(as.formula(paste("PCT ~ ",make.names(feature1))), group = segment, data =  df.meltTemp, type = 'multiBarChart')
+  
+  #print(p3)
+
+  p3$chart(margin = list(left = 80))
+  p3$yAxis(axisLabel = "PCT", width = 70)
+  p3$chart(margin = list(right = 80))
+  p3$chart(margin = list(bottom = 150))
+  p3$chart(margin = list(top = 80))
+  p3$xAxis(
+    #       tickFormat =   "#!
+    #       function(d) {return d;}
+    #       !#",
+    rotateLabels = -30
+  )
+  p3$yAxis(tickFormat = "#! function(d) {return '%' + d.toFixed(2)} !#")   
+  p3$chart(reduceXTicks = FALSE)
+  return (p3)
+}
+
+
+#=======================================================
+# Bar chart of revenue: feature 1: revenue
+#=======================================================
+GeneratBarPlot<-function(dtData,feature1,segment){
+  dtDataSubset<-subset(dtData,select=c(feature1,segment))
+  names(dtDataSubset)=c("value","ID")
+  dtDataSubset=dtDataSubset[, lapply(.SD, sum), by = ID]
+  totalValue = sum(dtDataSubset$value)
+  dtDataSubset[,value:=value/totalValue]
+  setnames(dtDataSubset,"value","PCT")
+  setnames(dtDataSubset,"ID",segment)
+
+  plot  <-  nPlot(x = segment, y = "PCT", data = subset(dtDataSubset,select=c(segment,'PCT'))[order(-PCT)],
+                    type = "discreteBarChart")
+  plot$chart(margin = list(bottom = 200))
+  plot$chart(margin = list(left = 200))
+  #http://stackoverflow.com/questions/24344794/rcharts-nplot-formating-x-axis-with-dates
+  plot$xAxis(
+    tickFormat =   "#!
+    function(d) {return d;}
+    !#",
+    rotateLabels = -30
+  )
+  plot$yAxis(tickFormat = "#! function(d) {return '%' + d.toFixed(2)} !#")
+  return (plot)
+  
+}
+
+#=================================================================================
+#create the Histogram for the numerical features
+#========================================================================
+
+#function to draw a histogram of feature1 distribution, it recieves the min and max and step to visualize
+histogramDraw<-function(dtData,feature1,ID, MinValueDraw, MaxValueDraw, stepSizeDraw, FileName=NULL){
+  dtDataSubset<-subset(dtData,select=c(feature1,ID))
+  dtDataSubset[,dummy1:=get(feature1)]
+  
+  if (!is.null(FileName)){
+    plot = ggplot(data=dtDataSubset, aes(as.numeric(dtDataSubset$dummy1))) + 
+      geom_histogram( 
+        breaks=seq(MinValueDraw, MaxValueDraw, by = stepSizeDraw), 
+        col="blue", 
+        aes(fill=..count..), 
+        alpha = .2) + 
+      labs(title=paste0("Histogram for ",feature1)) +
+      labs(x=paste0(feature1), y="Freq.")
+    
+    ggsave(filename=paste0(FileName, '.png'))  
+    return (plot)
+  }else{
+    plot = ggplot(data=dtDataSubset, aes(as.numeric(dtDataSubset$dummy1))) + 
+      geom_histogram( 
+        breaks=seq(MinValueDraw, MaxValueDraw, by = stepSizeDraw), 
+        col="blue", 
+        aes(fill=..count..), 
+        alpha = .2) + 
+      labs(title=paste0("Histogram for ",feature1)) +
+      labs(x=paste0(feature1), y="Freq.")
+    return (plot)
+  }
+}
+
+#===============================================================================
+#function to draw a histogram of feature1 distribution only for segment SegInstance, it recieves the min and max and step to visualize
+
+histogramSegmentDraw<-function(dtData,feature1,segmentVarName, SegInstance, MinValueDraw, MaxValueDraw, stepSizeDraw, ID,FileName=NULL){
+  dtDataSubset<-subset(dtData,select=c(feature1,segmentVarName,ID))
+  dtDataSubset[,dummy1:=get(feature1)]
+  dtDataSubset[,Segments:=get(segmentVarName)]
+  dtDataSubset = dtDataSubset[Segments==SegInstance,]
+  
+  if (!is.null(FileName)){
+    plot=ggplot(data=dtDataSubset, aes(as.numeric(dtDataSubset$dummy1))) + 
+      geom_histogram( 
+        breaks=seq(MinValueDraw, MaxValueDraw, by = stepSizeDraw), 
+        col="blue", 
+        aes(fill=..count..), 
+        alpha = .2) + 
+      labs(title=paste0("Histogram of ",feature1, "for ", SegInstance, "Segment")) +
+      labs(x=paste0(feature1), y="Freq.")
+    
+    ggsave(filename=paste0(FileName, '.png'))  
+    return (plot)
+  }else{
+    plot = ggplot(data=dtDataSubset, aes(as.numeric(dtDataSubset$dummy1))) + 
+      geom_histogram( 
+        breaks=seq(MinValueDraw, MaxValueDraw, by = stepSizeDraw), 
+        col="blue", 
+        aes(fill=..count..), 
+        alpha = .2) + 
+      labs(title=paste0("Histogram of ",feature1, "for ", SegInstance, "Segment")) +
+      labs(x=paste0(feature1), y="Freq.")
+    return (plot)
+  }
+}
+
+#=============================================================================
+# Shiny portion of the application
+#=============================================================================
+
+shinyServer(function(input, output) {
+  #============================================
+  #selecting an appropriate chart
+  #============================================
+  
+  
+  
+    #renderPlot
+    #renderChart3
+    output$plot <-renderChart2({if((input$x =="A Segment") &   (input$y =="Checkout Day of Week")){
+	}
+	})
+	
+R shiney app tutorial
+==========================
+
+Open source web application framework for R, developed by Rstudio
+
+Easy to turn analytical analysis into stylish, interactive web apps, presentable to a winder audiance
+
+
+Link to few examples of interactive web apps made using Shiny:
+
+http://shiny.rstuido.com/gallery/
+http://www.showmeshiny.com
+
+
+
+#============================
+.Rmd: R mark down
+
+Shiney: platform for creating interactive R programs embeded into a web page
+
+Web input from calls R and predict algorithm and display results
+
+Using shiny, the time to create simple, yet powerful, web-based interactive data product in R is minimized
+
+- However, it lacks the flexibility of full featured (and more complex) solutions.
+
+required knowledge: html (page structure, sectioning), css (style), js (interactivity)
+
+Shiney: uses bootstrap style (render well on mobile platforms)
+
+
+Solution possible using client/server programming
+
+OpenCPU: provides an API for calling R from web documents
+
+Context
+===================
+Novel prediction algorithm to predict risk for developing diabetes.
+
+Patients and caregivers will be able to enter their data and, if needed take preventive measures
+
+
+Create a website so that users can input the relevant predictors and obtain their prediction
+
+
+(1) Download and install Rtools
+
+(2) follow:
+
+install.packages("shiny")
+
+library(shiny)
+
+diabetesRisk <- function(glucose) glucose/200
+
+(3) interactive plotting can be conducted by manipulate function in rstudio
+
+(4) rChart is also relevant
+
+Good source: http://rstudio.github.io/shiny/tutorial/
+
+#==========================================================================
+
+
+Shiny Project
+==================
+Directory containing two parts:
+(1) one named ui.R (user interface) controls how it looks
+(2) server.R controls what it does.
+
+ui.R
+#============
+library(shiny)
+shinyUI(pageWithSidebar(
+headerPanel("Data science FTW!"),
+sidebarPanel(
+h3('Sidebar text')
+),
+mainPanel(
+h3('Main Panel text')
+)
+))
+
+server.r
+================
+library(shiny)
+shinyServer(
+function(input, output) {
+}
+)
+
+To run
+=================
+
+In R, change to the directories with these files and type runApp()
+
+The app directory can be sent as an argument
+
+R functions for HTML markup
+===========================
+ui.R
+
+shinyUI(pageWithSidebar(
+headerPanel("Illustrating markup"),
+sidebarPanel(
+h1('Sidebar panel'),
+h1('H1 text'),
+h2('H2 Text'),
+h3('H3 Text'),
+h4('H4 Text')
+),
+mainPanel(
+h3('Main Panel text'),
+code('some code'),
+p('some ordinary text')
+)
+))
+
+illustrating inputs ui.R
+===========================
+shinyUI(pageWithSidebar(
+headerPanel("Illustrating inputs"),
+sidebarPanel(
+numericInput('id1', 'Numeric input, labeled id1', 0, min = 0, max = 10, step = 1),
+checkboxGroupInput("id2", "Checkbox",
+c("Value 1" = "1",
+"Value 2" = "2",
+"Value 3" = "3")),
+dateInput("date", "Date:")
+),
+mainPanel(
+)
+))
+
+Part of ui.R
+==================================
+mainPanel(
+h3('Illustrating outputs'),
+h4('You entered'),
+verbatimTextOutput("oid1"),
+h4('You entered'),
+verbatimTextOutput("oid2"),
+h4('You entered'),
+verbatimTextOutput("odate")
+)
+
+#====================================================
+# simple input and output pass example
+#====================================================
+ui.R
+-------
+#illustrating inputs ui.R (input)
+shinyUI(pageWithSidebar(
+  headerPanel("Illustrating inputs"),
+  sidebarPanel(
+    numericInput('id1', 'Numeric input, labeled id1', 0, min = 0, max = 10, step = 1),
+    checkboxGroupInput("id2", "Checkbox",
+                       c("Value 1" = "1",
+                         "Value 2" = "2",
+                         "Value 3" = "3")),
+    dateInput("date", "Date:")
+  ),
+  #part of ui.R (output)
+  mainPanel(
+    h3('Illustrating outputs'),
+    h4('You entered'),
+    verbatimTextOutput("oid1"),
+    h4('You entered'),
+    verbatimTextOutput("oid2"),
+    h4('You entered'),
+    verbatimTextOutput("odate")
+  )
+))
+
+
+server.R
+---------
+library(shiny)
+
+
+#recieving the input
+shinyServer(
+  function(input, output) {
+    output$oid1 <- renderPrint({input$id1})
+    output$oid2 <- renderPrint({input$id2})
+    output$odate <- renderPrint({input$date})
+  }
+)
+
+#================================================================
+# Define a client and server app that predicts the probability of diabetes given glocose
+#=================================================================
+server.R
+--------------
+diabetesRisk <- function(glucose) glucose / 200
+shinyServer(
+  function(input, output) {
+    output$inputValue <- renderPrint({input$glucose})
+    output$prediction <- renderPrint({diabetesRisk(input$glucose)})
+  }
+)
+
+ui.R
+---------------
+#Building a prediction function
+
+shinyUI(
+  pageWithSidebar(
+    # Application title
+    headerPanel("Diabetes prediction"),
+    sidebarPanel(
+      numericInput('glucose', 'Glucose mg/dl', 90, min = 50, max = 200, step = 5),
+      submitButton('Submit')
+    ),
+    mainPanel(
+      h3('Results of prediction'),
+      h4('You entered'),
+      verbatimTextOutput("inputValue"),
+      h4('Which resulted in a prediction of '),
+      verbatimTextOutput("prediction")
+    )
+  )
+)
+
+#===============================================
+#Image example
+#===============================================
+# built an example with an image
+# histogram of data
+# put slider on so that the user has to guess the mean
+
+
+server.R
+------------
+# visualization and guessing mean
+library(UsingR)
+data(galton)
+shinyServer(
+  function(input, output) {
+    output$newHist <- renderPlot({
+      hist(galton$child, xlab='child height', col='lightblue',main='Histogram')
+      mu <- input$mu
+      lines(c(mu, mu), c(0, 200),col="red",lwd=5)
+      mse <- mean((galton$child - mu)^2)
+      text(63, 150, paste("mu = ", mu))
+      text(63, 140, paste("MSE = ", round(mse, 2)))
+    })
+  }
+
+ui.R
+------------
+#image visualization so that user has to guess the mean
+shinyUI(pageWithSidebar(
+  headerPanel("Example plot"),
+  sidebarPanel(
+    sliderInput('mu', 'Guess at the mean',value = 70, min = 62, max = 74, step = 0.05,)
+  ),
+  mainPanel(
+    plotOutput('newHist')
+  )
+))
+
+#======================
+# Experiment with the shiny ui and server for reactive and non reactive
+#============================
+
+server.R
+#-----------------
+# Experiment code of running
+library(shiny)
+x <<- x + 1
+y <<- 0
+shinyServer(
+  function(input, output) {
+    y <<- y + 1
+    output$text1 <- renderText({input$text1})
+    output$text2 <- renderText({input$text2})
+    output$text3 <- renderText({as.numeric(input$text1)+1})
+    #reactive
+    output$text4 <- renderText(y)
+    #not reactive
+    output$text5 <- renderText(x)
+  }
+)
+
+
+ui.R
+---------------
+#code of testing refershing run
+shinyUI(pageWithSidebar(
+  headerPanel("Hello Shiny!"),
+  sidebarPanel(
+    textInput(inputId="text1", label = "Input Text1"),
+    textInput(inputId="text2", label = "Input Text2")
+  ),
+  mainPanel(
+    p('Output text1'),
+    textOutput('text1'),
+    p('Output text2'),
+    textOutput('text2'),
+    p('Output text3'),
+    textOutput('text3'),
+    p('Outside text'),
+    textOutput('text4'),
+    p('Inside text, but non-reactive'),
+    textOutput('text5')
+  )
+))
+
+
+# Non-reactive reactivity
+#--------------------
+(1) Sometimes you don't want shiny to immediately perform reactive calculations from widget inputs
+(2) In other words, you want something like a submit button
+
+
+#only when a button is pushed:
+#==============================
+Notice it doesn't display output text3 until the go button is pressed
+input$goButton (or whatever you named it) gets increased by one for every time pushed
+So, when in reactive code (such as render or reactive) you can use conditional statements
+like below to only execute code on the first button press or to not execute code until the first or
+subsequent button press
+if (input$goButton == 1){ Conditional statements }
+
+
+#not display third text until the go button is pushed
+# shinyServer(
+#   function(input, output) {
+#     output$text1 <- renderText({input$text1})
+#     output$text2 <- renderText({input$text2})
+#     output$text3 <- renderText({
+#       input$goButton
+#       isolate(paste(input$text1, input$text2))
+#     })
+#   }
+# )
+
+#not display until the button is pushed (any time a button is pressed the counter increases)
+shinyServer(
+  function(input, output) {
+    output$text1 <- renderText({input$text1})
+    output$text2 <- renderText({input$text2})
+    output$text3 <- renderText({
+      if (input$goButton == 0) "You have not pressed the button"
+      else if (input$goButton == 1) "you pressed it once"
+      else "OK quit pressing it"
+    })
+  }
+)
+
+#=====================
+# More style
+#======================
+The sidebar layout with a main panel is the easiest.
+Using shinyUI(fluidpage( is much more flexible and allows tighter access to the bootstrap
+styles
+Examples here (http://shiny.rstudio.com/articles/layout-guide.html)
+fluidRow statements create rows and then the column function from within it can create
+columns
+Tabsets, navlists and navbars can be created for more complex apps
+
+More complex layout, direct use of html:
+http://shiny.rstudio.com/articles/htmlui.html
+Have an index.html page in that directory
+Your named input variables will be passed to server.R <input type="number" name="n"
+value="500" min="1" max="1000" />
+Your server.R output will have class definitions of the form shiny- <pre id="summary"
+class="shiny-text-output"></pre>
+
+
+#==========================
+# Debugging techniques for Shiny
+#==========================
+
+We saw that runApp(displayMode = 'showcase') highlights execution while a shiny app
+runs
+Using cat in your code displays output to stdout (so R console)
+The browser() function can interupt execution and can be called conditionally
+(http://shiny.rstudio.com/articles/debugging.html)
+
+
+#==========================
+# Tighter control over style
+#==========================
+(1) all the style elements are handled through ui.R
+
+Instead, it is possible to create www directory and then an index.html file in that directory
+
+have specific js libraries and appropriately name ids and classes
+
+Other things Shiny can do
+---------------------------
+(1) Allow users to upload or download files
+(2) Have tabbed main panels
+(3) Have editable data tables
+(4) Have a dynamic UI
+(5) User defined inputs and outputs
+(6) Put a submit button so that Shiny only executes complex code after user hits it
+
+
+#================================
+# Distributing a Shiny app
+#================================
+
+Option 1:
+--------------
+put on github or gist or dropbox 
+
+send the app directory to the person and they can run runApp("path")
+
+Can create Rpackage and a wrapper that calls runApp (only if user knows R)
+
+Option 2:
+---------------
+run a shiny server
+
+sett up a shiny server (www.rstudio.com/shiny/server/)
+
+Use one of the virtual machines where they already have Shiny server running well (e.g. AWS)
+
+Set up Shiny server (linux server administration)
+
+Shiny hostings
+
+Don't put system calls in the code (introduces security concerns)
+
+
+#Best way to use Shiny: reuse the following codes
+#=========================
+http://shiny.rstuido.com/gallery/
+http://www.showmeshiny.com
+
+
+#==========================
+# input types
+#===========================
+# slide bar
+# check box
+# text box (textInput)
+# submit button
+# Numeric input (up and down arrow)
+
+#separation by: comma
+------------
+main structure of ui by shinyUI(...)
+
+#Also in presentation 
+# markup for code: code('something...')
+# h1...h4()
+# p('something to write ..')
+headerPanel("something here")
+
+#panels
+--------
+#sidebarPanel
+#mainPanel
+
+#output
+------
+# text(...)
+#verbatimTextOutput("nameofVar")
+
+#plot related
+-------------
+#renderPlot ({...})
+
+Refreshable code
+#-----------------------
+shinyServer(function(input, output){..})
+run repeatedly as needed, when new values entered "rendered"
+
+Recieving reactive error
+#========================
+include the item that is recieved from input into reactive(.) function
+
+names(tmp) = c('Date','Revenue','Country')
+tmp$Date = as.numeric(tmp$Date)
+tmp$Revenue = as.numeric(tmp$Revenue)
+
+ggplot(tmp, aes(Date,Revenue,group=Country,col=Country)) + 
+  geom_rect(data=tmp, aes(xmin=183, xmax=203, ymin=min(tmp$Revenue), ymax=max(tmp$Revenue)), 
+            fill='gray80', alpha=0.1) +
+  geom_rect(data=tmp, aes(xmin=213, xmax=224, ymin=min(tmp$Revenue), ymax=max(tmp$Revenue)), 
+            fill='gray80', alpha=0.1) +
+  geom_rect(data=tmp, aes(xmin=251, xmax=273, ymin=min(tmp$Revenue), ymax=max(tmp$Revenue)), 
+            fill='gray80', alpha=0.1) +
+  geom_rect(data=tmp, aes(xmin=293, xmax=307, ymin=min(tmp$Revenue), ymax=max(tmp$Revenue)), 
+            fill='gray80', alpha=0.1) +
+  geom_point() + geom_smooth(span = 0.6)+
+  theme_set(theme_gray(base_size = 18))+
+  labs(title = paste0(plotName))+ ylab(plotName)+xlab("days from 2015/11/30") 
+
+rm(list = ls())
+
+fitPPl = lm(usNPl~caNPl, data =uscaAdDT[50:183,])
+summary(fitPPl)
+
+
+
+
+ 

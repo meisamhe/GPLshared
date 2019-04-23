@@ -9251,4 +9251,19 @@ if __name__ == '__main__':
 	
 	
 
+for line in f:
+	# remove non-ascii characters
+	text = line.strip()
+	correctedString=''.join([i if ((ord(i) < 128) & (ord(i)!=26)) else ' ' for i in text])
+	# only keep elements that do not have large number of missing items
+	features=correctedString.split('\t')
+	# write the first element
+	outputFile.write("%s"%features[indxList[0]-1].strip())
+	for indx in range(1,len(indxList)):
+		outputFile.write("\t%s"%features[indxList[indx]-1].strip())
+	outputFile.write("\n")
+
+#num_lines = sum(1 for line in f)
+f.close()
+outputFile.close()
 
